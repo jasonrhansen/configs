@@ -1,0 +1,75 @@
+let mapleader=" "
+
+set ignorecase
+set smartcase
+set scrolloff=3         " 3 lines above/below cursor when scrolling
+
+" Integrate with system clipboard
+set clipboard=unnamedplus,unnamed
+
+" Escape is too much of a reach
+inoremap jk <esc>
+
+" These create newlines like o and O but stay in normal mode
+nnoremap zj o<esc>k
+nnoremap zk O<esc>j
+
+" Make "Y" work from the cursor to end of line instead of like "yy"
+nnoremap Y y$
+
+" Make it easier to switch between windows
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-m> :action MoveEditorToOppositeTabGroup<cr>
+
+nnoremap <cr> :
+
+" Quickly reload .ideavimrc
+nnoremap <leader>sv :source ~/.ideavimrc<cr>
+
+nmap tp :action GotoFile<cr>
+nmap tt :action FileStructurePopup<cr>
+
+nmap <c-b> gT
+nmap <c-n> gt
+
+" Use my normal TagbarToggle key binding to activate the structure tool window
+nmap <leader>tt :action ActivateStructureToolWindow<cr>
+" Use my normal NERDTreeToggle key binding to activate the project tool window
+nmap <leader>nn :action ActivateProjectToolWindow<cr>
+nmap <leader>ot :action ActivateTerminalToolWindow<cr>
+nmap <leader>od :action ActivateDebugToolWindow<cr>
+nmap <leader>tc :action HideAllWindows<cr>
+nmap <leader>td :action ToggleDistractionFreeMode<cr>
+nmap <leader>d :action ShowErrorDescription<cr>
+
+" Add a 'stamp' command to replace word or selection with yanked text.
+nnoremap S diw"0P
+vnoremap S "_d"0P
+
+" Keep search matches in the middle of the window.
+nnoremap * *zz
+nnoremap # #zz
+nnoremap n nzz
+nnoremap N Nzz
+
+" Center the screen when jumping through the changelist
+nnoremap g; g;zz
+nnoremap g, g,z
+
+" Fast saving
+nnoremap <leader>w :w!<cr>
+
+" Swap implementations of ` and ' jump to markers
+" By default, ' jumps to the marked line, ` jumps to the marked line and
+" column, so swap them
+nnoremap ' `
+nnoremap ` '
+
+nnoremap <leader>
+
+" ICE specific stuff
+nnoremap <leader>i :action Tool_External Tools_ICE<cr>
+nnoremap <leader>m :action Tool_External Tools_New migration file<cr>
