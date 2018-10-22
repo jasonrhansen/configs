@@ -16,7 +16,7 @@ prompt redhat
 
 export PATH=~/bin:$PATH:~/go/bin:~/.cargo/bin
 
-# OS X configuration
+# OS X specific configuration
 if [[ $platform == 'Darwin' ]]; then
     # Add coreutils to path.
     export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
@@ -28,18 +28,21 @@ if [[ $platform == 'Darwin' ]]; then
     alias retroarch='/Applications/RetroArch.app/Contents/MacOS/RetroArch'
 fi
 
+# Linux specific configuration
+if [[ $platform == 'Linux' ]]; then
+    alias pac='packer-color'
+    alias way='env GDK_BACKEND=wayland'
+fi
+
 local rusthost=$(rustup show | grep "(default)" | awk '{ print $1 }')
 export RUST_SRC_PATH=~"/.multirust/toolchains/$rusthost/lib/rustlib/src/rust/src"
 
 export GOPATH=~/go
 
+export VISUAL=nvim
+export EDITOR=nvim
 
-alias pac='packer-color'
-
-export VISUAL=vim
-export EDITOR=vim
-
-eval `dircolors ~/dotfiles/dir_colors/dircolors.base16.dark`
+eval `dircolors ~/.dir_colors/dircolors.base16.dark`
 
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-atelier-dune.sh"
@@ -48,7 +51,6 @@ if [ -z $TERM ]; then
     export TERM="xterm-256color"
 fi
 
-alias way='env GDK_BACKEND=wayland'
 
 if type thefuck > /dev/null; then
     eval "$(thefuck --alias)"
