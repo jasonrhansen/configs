@@ -40,7 +40,7 @@ Plug 'junegunn/vim-pseudocl'
 Plug 'junegunn/vim-oblique'
 Plug 'justinmk/vim-gtfo'
 Plug 'lukerandall/haskellmode-vim'
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 Plug 'kennykaye/vim-relativity'
 Plug 'rhysd/vim-clang-format'
@@ -561,15 +561,15 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Save all tag files in one directory so they don't pollute the project dirs
-let g:gutentags_cache_dir = $HOME.'/.gutentags_cache'
-if !isdirectory(g:gutentags_cache_dir)
-    call mkdir(g:gutentags_cache_dir,"p")
-endif
+"let g:gutentags_cache_dir = $HOME.'/.gutentags_cache'
+"if !isdirectory(g:gutentags_cache_dir)
+    "call mkdir(g:gutentags_cache_dir,"p")
+"endif
 
-" Allow debugging/troubleshooting commands
-let g:gutentags_define_advanced_commands=1
+"" Allow debugging/troubleshooting commands
+"let g:gutentags_define_advanced_commands=1
 
-set statusline+=%{gutentags#statusline()}
+"set statusline+=%{gutentags#statusline()}
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
