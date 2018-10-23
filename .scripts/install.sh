@@ -6,7 +6,7 @@ platform=`uname`
 if [[ $platform == 'Darwin' ]]; then
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-    cd ~/homebrew
+    cd ~/.homebrew
     brew bundle
     cd -
 
@@ -17,9 +17,8 @@ if [[ $platform == 'Darwin' ]]; then
 fi
 
 # Symlinks for neovim to use vim config
-mkdir -p ~/.config/nvim
-symlink ~/.vim ~/.config/nvim
-symlink ~/.vimrc ~/.config/nvim/init.vim
+ln -s ~/.vim ~/.config/nvim
+ln -s ~/.vimrc ~/.config/nvim/init.vim
 
 # Install rust with rustup
 curl https://sh.rustup.rs -sSf | sh
