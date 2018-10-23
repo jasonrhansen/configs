@@ -58,7 +58,6 @@ function! BuildVimProc(info)
 endfunction
 Plug 'Shougo/vimproc.vim', { 'do': function('BuildVimProc') }
 Plug 'Shougo/unite.vim'
-Plug 'Shougo/vimfiler.vim'
 "" Hex editor
 Plug 'Shougo/vinarise.vim'
 Plug 'airblade/vim-gitgutter'
@@ -684,128 +683,6 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 nmap <leader>t  :StripWhitespace<CR>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                   vimfiler
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-nmap <leader>f :VimFiler<CR>
-nmap <leader>F :VimFiler -find<CR>
-let g:vimfiler_tree_leaf_icon = ' '
-let g:vimfiler_tree_opened_icon = '▾'
-let g:vimfiler_tree_closed_icon = '▸'
-let g:vimfiler_file_icon = '-'
-let g:vimfiler_marked_file_icon = '*'
-let g:vimfiler_ignore_pattern = '\.git\|\.DS_Store\|\.pyc'
-
-" Some of the default keymappings conflict with other mappings
-let g:vimfiler_no_default_key_mappings = 1
-
-augroup vimfiler_group
-    autocmd!
-
-    " Toggle safe mode
-    autocmd FileType vimfiler nmap <buffer><nowait>gs <Plug>(vimfiler_toggle_safe_mode)
-
-    autocmd FileType vimfiler nmap <buffer><nowait>j <Plug>(vimfiler_loop_cursor_down)
-    autocmd FileType vimfiler nmap <buffer><nowait>k <Plug>(vimfiler_loop_cursor_up)
-    autocmd FileType vimfiler nmap <buffer><nowait><F5> <Plug>(vimfiler_redraw_screen)
-
-    " Toggle mark
-    autocmd FileType vimfiler nmap <buffer><nowait><Space> <Plug>(vimfiler_toggle_mark_current_line)
-    autocmd FileType vimfiler nmap <buffer><nowait><S-LeftMouse> <Plug>(vimfiler_toggle_mark_current_line)
-    autocmd FileType vimfiler vmap <buffer><Space> <Plug>(vimfiler_toggle_mark_selected_lines)
-
-    " Toggle marks all lines
-    autocmd FileType vimfiler nmap <buffer><nowait>* <Plug>(vimfiler_toggle_mark_all_lines)
-    autocmd FileType vimfiler nmap <buffer><nowait># <Plug>(vimfiler_mark_similar_lines)
-    autocmd FileType vimfiler nmap <buffer><nowait>U <Plug>(vimfiler_clear_mark_all_lines)
-
-    "Copy files
-    autocmd FileType vimfiler nmap <buffer><nowait>c <Plug>(vimfiler_copy_file)
-    autocmd FileType vimfiler nmap <buffer><nowait>Cc <Plug>(vimfiler_clipboard_copy_file)
-
-    " Move files
-    autocmd FileType vimfiler nmap <buffer><nowait>m <Plug>(vimfiler_move_file)
-    autocmd FileType vimfiler nmap <buffer><nowait>Cm <Plug>(vimfiler_clipboard_move_file)
-
-    " Delete files
-    autocmd FileType vimfiler nmap <buffer><nowait>d <Plug>(vimfiler_delete_file)
-
-    " Rename
-    autocmd FileType vimfiler nmap <buffer><nowait>r <Plug>(vimfiler_rename_file)
-
-    " Make directory
-    autocmd FileType vimfiler nmap <buffer><nowait>K <Plug>(vimfiler_make_directory)
-
-    " New file
-    autocmd FileType vimfiler nmap <buffer><nowait>N <Plug>(vimfiler_new_file)
-
-    " Paste
-    autocmd FileType vimfiler nmap <buffer><nowait>Cp <Plug>(vimfiler_clipboard_paste)
-
-    " Edit file or change directory
-    autocmd FileType vimfiler nmap <buffer><nowait><Return> <Plug>(vimfiler_cd_or_edit)
-    autocmd FileType vimfiler nmap <buffer><nowait>o <Plug>(vimfiler_expand_or_edit)
-    autocmd FileType vimfiler nmap <buffer><nowait>l <Plug>(vimfiler_smart_l)
-
-    " Execute file
-    autocmd FileType vimfiler nmap <buffer><nowait>x <Plug>(vimfiler_execute_system_associated)
-
-    " Navigate directories
-    autocmd FileType vimfiler nmap <buffer><nowait>h <Plug>(vimfiler_smart_h)
-    autocmd FileType vimfiler nmap <buffer><nowait>L <Plug>(vimfiler_switch_to_drive)
-    autocmd FileType vimfiler nmap <buffer><nowait>~ <Plug>(vimfiler_switch_to_home_directory)
-    autocmd FileType vimfiler nmap <buffer><nowait><leader>/ <Plug>(vimfiler_switch_to_root_directory)
-    autocmd FileType vimfiler nmap <buffer><nowait>& <Plug>(vimfiler_switch_to_project_directory)
-    autocmd FileType vimfiler nmap <buffer><nowait><BS> <Plug>(vimfiler_switch_to_parent_directory)
-
-    autocmd FileType vimfiler nmap <buffer><nowait>. <Plug>(vimfiler_toggle_visible_dot_files)
-
-    " Edit file
-    autocmd FileType vimfiler nmap <buffer><nowait>e <Plug>(vimfiler_edit_file)
-    autocmd FileType vimfiler nmap <buffer><nowait>E <Plug>(vimfiler_split_edit_file)
-    autocmd FileType vimfiler nmap <buffer><nowait>B <Plug>(vimfiler_edit_binary_file)
-
-    " Choose action
-    autocmd FileType vimfiler nmap <buffer><nowait>a <Plug>(vimfiler_choose_action)
-
-    " Hide vimfiler
-    autocmd FileType vimfiler nmap <buffer><nowait>q <Plug>(vimfiler_hide)
-
-    " Exit vimfiler
-    autocmd FileType vimfiler nmap <buffer><nowait>Q <Plug>(vimfiler_exit)
-
-    " Close vimfiler
-    autocmd FileType vimfiler nmap <buffer><nowait>- <Plug>(vimfiler_close)
-
-    autocmd FileType vimfiler nmap <buffer><nowait>! <Plug>(vimfiler_execute_shell_command)
-    autocmd FileType vimfiler nmap <buffer><nowait>v <Plug>(vimfiler_preview_file)
-    autocmd FileType vimfiler nmap <buffer><nowait><C-g> <Plug>(vimfiler_print_filename)
-    autocmd FileType vimfiler nmap <buffer><nowait>yy <Plug>(vimfiler_yank_full_path)
-    autocmd FileType vimfiler nmap <buffer><nowait>M <Plug>(vimfiler_set_current_mask)
-    autocmd FileType vimfiler nmap <buffer><nowait>gr <Plug>(vimfiler_grep)
-    autocmd FileType vimfiler nmap <buffer><nowait>gf <Plug>(vimfiler_find)
-    autocmd FileType vimfiler nmap <buffer><nowait>S <Plug>(vimfiler_select_sort_type)
-    autocmd FileType vimfiler nmap <buffer><nowait><C-v> <Plug>(vimfiler_switch_vim_buffer_mode)
-    autocmd FileType vimfiler nmap <buffer><nowait>gc <Plug>(vimfiler_cd_vim_current_dir)
-    autocmd FileType vimfiler nmap <buffer><nowait>gS <Plug>(vimfiler_toggle_simple_mode)
-    autocmd FileType vimfiler nmap <buffer><nowait>gg <Plug>(vimfiler_cursor_top)
-    autocmd FileType vimfiler nmap <buffer><nowait>G <Plug>(vimfiler_cursor_bottom)
-    autocmd FileType vimfiler nmap <buffer><nowait>t <Plug>(vimfiler_expand_tree)
-    autocmd FileType vimfiler nmap <buffer><nowait>T <Plug>(vimfiler_expand_tree_recursive)
-    autocmd FileType vimfiler nmap <buffer><nowait>I <Plug>(vimfiler_cd_input_directory)
-    autocmd FileType vimfiler nmap <buffer><nowait><2-LeftMouse> <Plug>(vimfiler_double_click)
-
-    " pushd/popd
-    autocmd FileType vimfiler nmap <buffer><nowait>Y <Plug>(vimfiler_pushd)
-    autocmd FileType vimfiler nmap <buffer><nowait>P <Plug>(vimfiler_popd)
-
-    autocmd FileType vimfiler nmap <buffer><nowait>gj <Plug>(vimfiler_jump_last_child)
-    autocmd FileType vimfiler nmap <buffer><nowait>gk <Plug>(vimfiler_jump_first_child)
-
-augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
