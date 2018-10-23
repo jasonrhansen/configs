@@ -15,7 +15,6 @@ Plug 'ncm2/ncm2'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-tmux'
 Plug 'ncm2/ncm2-path'
-
 " Semantic language support
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -24,40 +23,23 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'mattn/webapi-vim'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'roxma/nvim-yarp'
-Plug 'Shougo/echodoc.vim'
-
-Plug 'Lokaltog/vim-easymotion'
 Plug 'PeterRincker/vim-argumentative'
-Plug 'SirVer/ultisnips'               " Snippets engine
-Plug 'honza/vim-snippets'             " Snippets used by snippets engine
-Plug 'davidhalter/jedi-vim'           " Python autocompletion
+" Snippets engine
+Plug 'SirVer/ultisnips'
+" Snippets used by snippets engine
+Plug 'honza/vim-snippets'
 Plug 'chrisbra/Recover.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'edkolev/tmuxline.vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'junegunn/vim-pseudocl'
-Plug 'junegunn/vim-oblique'
-Plug 'justinmk/vim-gtfo'
-Plug 'lukerandall/haskellmode-vim'
-" Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 Plug 'kennykaye/vim-relativity'
 Plug 'rhysd/vim-clang-format'
-Plug 'rstacruz/sparkup'
 Plug 'scrooloose/nerdcommenter'
 Plug 'vhdirk/vim-cmake'
 " Automatically adjust shiftwidth and expandtab based on the current file
 Plug 'tpope/vim-sleuth'
-function! BuildVimProc(info)
-    if has('win32') || has('win64')
-        !tools\\update-dll-mingw 32
-    else
-        !make
-    endif
-endfunction
-Plug 'Shougo/vimproc.vim', { 'do': function('BuildVimProc') }
-Plug 'Shougo/unite.vim'
 "" Hex editor
 Plug 'Shougo/vinarise.vim'
 Plug 'airblade/vim-gitgutter'
@@ -72,7 +54,6 @@ Plug 'wellle/targets.vim'
 " won't create imaps by default.
 Plug 'fanchangyong/a.vim'
 Plug 'chriskempson/base16-vim'
-Plug 'ryanoasis/vim-devicons'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -94,6 +75,7 @@ Plug 'tpope/vim-git'
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'rhysd/vim-go-impl', { 'for': 'go' }
 " Haskell
+Plug 'lukerandall/haskellmode-vim'
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 " HTML/CSS/SCSS
 Plug 'JulesWang/css.vim', { 'for': ['css', 'html', 'html5', 'less'] }
@@ -113,6 +95,8 @@ Plug 'leshill/vim-json'
 Plug 'groenewege/vim-less', { 'for': 'Less' }
 " Markdown
 Plug 'plasticboy/vim-markdown'
+" Python
+Plug 'davidhalter/jedi-vim'           " Python autocompletion
 " Ruby
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
@@ -288,20 +272,6 @@ if !has('nvim')
     set encoding=utf-8
 endif
 
-if has("gui_running")
-    set lines=50
-    set columns=150
-    set guifont=DejaVu_Sans_Mono_for_Powerline_Nerd_Font_Complete_Mono:h12
-    set linespace=2
-    set guioptions-=r
-    set guioptions-=e
-    set guioptions-=L
-endif
-
-if has('win32')
-    set guifont=DejaVu_Sans_Mono_for_Powerline:h9:cANSI
-endif
-
 " Don't use clipboard over ssh since it makes vim load too slowly.
 if !has("gui_running") && !has("nvim")
     let g:display_num =
@@ -450,6 +420,7 @@ augroup ruby_group
     autocmd filetype ruby,eruby let g:rubycomplete_rails = 1
 augroup END
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 "                Plugin Configuration
@@ -488,6 +459,7 @@ augroup END
 
 nnoremap <Leader>q :Bdelete<CR>
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                     ale
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -500,6 +472,7 @@ let g:ale_rust_cargo_use_check = 1
 let g:ale_rust_cargo_check_all_targets = 1
 
 nmap <silent> L <Plug>(ale_lint)
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                  EasyMotion
@@ -553,22 +526,6 @@ augroup vimrc
     " Close fzf buffer with ESC
     autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
 augroup END
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                   Gutentags
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Save all tag files in one directory so they don't pollute the project dirs
-"let g:gutentags_cache_dir = $HOME.'/.gutentags_cache'
-"if !isdirectory(g:gutentags_cache_dir)
-    "call mkdir(g:gutentags_cache_dir,"p")
-"endif
-
-"" Allow debugging/troubleshooting commands
-"let g:gutentags_define_advanced_commands=1
-
-"set statusline+=%{gutentags#statusline()}
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
