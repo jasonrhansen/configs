@@ -109,6 +109,9 @@ Plug 'wlangstroth/vim-racket'
 Plug 'toyamarinyon/vim-swift', { 'for': 'swift' }
 " Tmux syntax
 Plug 'tmux-plugins/vim-tmux', { 'for': 'tmux' }
+" Typescript
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
 " Vimscript
 Plug '~/dev/projects/api-soup', {'rtp': 'vim-syntax/'}
 " TOML
@@ -533,7 +536,9 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'], 
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'python': ['/usr/local/bin/pyls'],
     \ }
 let g:LanguageClient_autoStart = 1
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
