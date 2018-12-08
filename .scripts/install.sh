@@ -30,6 +30,9 @@ rustup component add rust-analysis
 rustup install stable
 rustup install nightly
 
+// Install wasm-pack
+curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
 pub=$HOME/.ssh/id_rsa.pub
 echo 'Checking for SSH key, generating one if it does not exist...'
 [[ -f $pub ]] || ssh-keygen -t rsa
