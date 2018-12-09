@@ -308,8 +308,8 @@ nnoremap <leader>G :silent execute "grep! -R " . shellescape(expand("<cWORD>")) 
 " <leader><leader> toggles between buffers
 nnoremap <leader><leader> <c-^>
 
-" Make it easier to enter commands by just pressing enter.
-nnoremap <cr> :
+" Turn of search highlights by pressing return
+nnoremap <cr> :noh<cr>
 
 " Use backspace to toggle between current file and previous file
 nnoremap <bs> <c-^>
@@ -473,19 +473,12 @@ let g:ale_lint_on_save = 0
 let g:ale_lint_on_enter = 0
 let g:ale_rust_cargo_use_check = 1
 let g:ale_rust_cargo_check_all_targets = 1
+let g:ale_open_list = 1
 
 nmap <silent> L <Plug>(ale_lint)
+nmap <silent> <leader>k <Plug>(ale_previous_wrap)
+nmap <silent> <leader>j <Plug>(ale_next_wrap)
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                  EasyMotion
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
-map <leader>em <Plug>(easymotion-prefix)
-nmap s <Plug>(easymotion-s)
-nmap <leader>j <Plug>(easymotion-j)
-nmap <leader>k <Plug>(easymotion-k)
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
