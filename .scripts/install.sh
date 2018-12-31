@@ -1,19 +1,20 @@
 #!/usr/bin/env bash
 
-platform=`uname`
+platform=$(uname)
 
 # For Mac only
 if [[ $platform == 'Darwin' ]]; then
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-    cd ~/.homebrew
+    cd ~/.homebrew || exit
     brew bundle
-    cd -
+    cd - || exit
 
     brew linkapps
 
-    sudo pip2 install neovim
-    sudo pip3 install neovim
+    sudo pip2 install pynvim
+    sudo pip3 install pynvim
+    sudo gem install neovim
 fi
 
 # Symlinks for neovim to use vim config
@@ -30,7 +31,7 @@ rustup component add rust-analysis
 rustup install stable
 rustup install nightly
 
-// Install wasm-pack
+# Install wasm-pack
 curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
 pub=$HOME/.ssh/id_rsa.pub
@@ -38,7 +39,7 @@ echo 'Checking for SSH key, generating one if it does not exist...'
 [[ -f $pub ]] || ssh-keygen -t rsa
 
 echo 'Copying public key to clipboard. Paste it into your Github account...'
-[[ -f $pub ]] && cat $pub | pbcopy
+[[ -f $pub ]] && pbcopy < "$pub"
 open 'https://github.com/account/ssh'
 
 echo "Installing base16-shell"
@@ -81,6 +82,6 @@ fi
 
 if [[ "$SHELL" != *zsh ]]; then
     echo "Making zsh the default shell"
-    chsh -s $(which zsh)
+    chsh -s "$(command -v zsh)"
 fi
 
