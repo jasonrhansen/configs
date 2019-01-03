@@ -476,6 +476,8 @@ let g:ale_lint_on_enter = 0
 let g:ale_rust_cargo_use_check = 1
 let g:ale_rust_cargo_check_all_targets = 1
 let g:ale_open_list = 1
+let g:ale_sign_error = '⤫'
+let g:ale_sign_warning = '⚠'
 
 nmap <silent> L <Plug>(ale_lint)
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)
