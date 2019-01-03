@@ -737,6 +737,7 @@ let g:go_fmt_command = 'goimports'
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
+let g:go_addtags_transform = "snakecase"
 
 " Tagbar for Go. Requires gotags.
 " go get -u github.com/jstemmer/gotags
