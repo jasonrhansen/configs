@@ -511,7 +511,6 @@ nnoremap [fzf]G :Commits<cr>
 nnoremap [fzf]h :History<cr>
 nnoremap [fzf]/ :History/<cr>
 nnoremap [fzf]: :History:<cr>
-nnoremap [fzf]w :Windows<cr>
 nnoremap [fzf]H :Helptags<cr>
 nnoremap [fzf]M :Maps<cr>
 
