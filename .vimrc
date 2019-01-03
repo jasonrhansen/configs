@@ -28,6 +28,7 @@ Plug 'PeterRincker/vim-argumentative'
 Plug 'SirVer/ultisnips'
 " Snippets used by snippets engine
 Plug 'honza/vim-snippets'
+Plug 'ncm2/ncm2-ultisnips'
 Plug 'chrisbra/Recover.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
