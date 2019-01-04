@@ -309,8 +309,8 @@ nnoremap <leader>G :silent execute "grep! -R " . shellescape(expand("<cWORD>")) 
 " <leader><leader> toggles between buffers
 nnoremap <leader><leader> <c-^>
 
-" Turn of search highlights by pressing return
-nnoremap <cr> :noh<cr>
+" Turn of search highlights by pressing return unless in quickfix window
+nnoremap <expr> <cr> &buftype ==# 'quickfix' ? "\<CR>" : ':noh<cr>'
 
 " Use backspace to toggle between current file and previous file
 nnoremap <bs> <c-^>
@@ -468,22 +468,22 @@ nnoremap <Leader>q :Bdelete<CR>
 "                     ale
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let g:ale_sign_error = '⤫'
+let g:ale_sign_warning = '⚠'
 let g:ale_set_highlights = 0
-let g:ale_sign_column_always = 1
+let g:ale_sign_column_always = 0
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_save = 0
 let g:ale_lint_on_enter = 0
 let g:ale_lint_delay = 0
+let g:ale_open_list = 1
+let g:ale_list_window_size = 5
 let g:ale_rust_cargo_use_check = 1
 let g:ale_rust_cargo_check_all_targets = 1
-let g:ale_open_list = 1
-let g:ale_sign_error = '⤫'
-let g:ale_sign_warning = '⚠'
 
 nmap <silent> L <Plug>(ale_lint)
 nmap <silent> <leader>k <Plug>(ale_previous_wrap)
 nmap <silent> <leader>j <Plug>(ale_next_wrap)
-
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
