@@ -473,6 +473,7 @@ let g:ale_sign_column_always = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_save = 0
 let g:ale_lint_on_enter = 0
+let g:ale_lint_delay = 0
 let g:ale_rust_cargo_use_check = 1
 let g:ale_rust_cargo_check_all_targets = 1
 let g:ale_open_list = 1
@@ -611,17 +612,16 @@ nnoremap <silent> <Leader>C :LspCodeAction<CR>
 "                   Lightline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:lightline = {
-      \ 'component_function': {
-      \   'filename': 'LightlineFilename',
-      \ },
-\ }
-
 function! LightlineFilename()
     return expand('%:t') !=# '' ? @% : '[No Name]'
 endfunction
 
 let g:lightline = {}
+
+let g:lightline.component_function = {
+      \ 'filename': 'LightlineFilename',
+      \ 'gitbranch': 'fugitive#head',
+      \ }
 
 let g:lightline.component_expand = {
       \  'linter_checking': 'lightline#ale#checking',
@@ -637,7 +637,16 @@ let g:lightline.component_type = {
       \     'linter_ok': 'left',
       \ }
 
-let g:lightline.active = { 'right': [[ 'filename', 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
+let g:lightline.active = {
+      \ 'left': [['mode', 'paste'], ['readonly', 'filename', 'modified'], ['gitbranch']],
+      \ 'right': [['lineinfo'], ['percent'], ['fileformat', 'fileencoding', 'filetype'], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok']]
+      \ }
+
+let g:lightline.inactive = {
+      \ 'left': [['filename']],
+      \ 'right': [['lineinfo'], ['percent']]
+      \ }
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                     ncm2
