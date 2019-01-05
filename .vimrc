@@ -75,6 +75,8 @@ Plug 'tpope/vim-git'
 " Go
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'rhysd/vim-go-impl', { 'for': 'go' }
+" GraphQL
+Plug 'jparise/vim-graphql'
 " Haskell
 Plug 'lukerandall/haskellmode-vim'
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
