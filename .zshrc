@@ -68,18 +68,15 @@ tm() {
     local session
     newsession=${1:-new}
     session=$(tmux list-sessions -F "#{session_name}" | \
-        fzf --query="$1" --select-1 --exit-0) &&
+        sk --query="$1" --select-1 --exit-0) &&
         tmux attach-session -t "$session" || tmux new-session -s $newsession
 }
 
-# Load fzf fuzzy file searcher
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # autojump
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export SKIM_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 
 # Load zgen plugin manager
 source "${HOME}/.zgen/zgen/zgen.zsh"

@@ -56,8 +56,9 @@ Plug 'wellle/targets.vim'
 Plug 'fanchangyong/a.vim'
 Plug 'chriskempson/base16-vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+" Skim is a fuzzy finder written in Rust that's similar to fzf.
+Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
+Plug 'lotabout/skim.vim'
 Plug 'moll/vim-bbye'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'AndrewRadev/splitjoin.vim'
@@ -489,8 +490,11 @@ nmap <silent> <leader>j <Plug>(ale_next_wrap)
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                      fzf
+"                    skim/fzf
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" skim.vim is a fork of fzf.vim and is configured the same way
+" except that it uses sk instead of fzf.
 
 nnoremap [fzf] <nop>
 " fzf prefix key
@@ -527,6 +531,8 @@ inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 augroup vimrc
     " Close fzf buffer with ESC
     autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
+    " Close skim buffer with ESC
+    autocmd! FileType skim tnoremap <buffer> <esc> <c-c>
 augroup END
 
 
