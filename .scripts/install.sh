@@ -23,13 +23,13 @@ ln -s ~/.vimrc ~/.config/nvim/init.vim
 
 # Install rust with rustup
 curl https://sh.rustup.rs -sSf | sh
-rustup component add rust-src
-rustup component add clippy-preview
-rustup component add rls-preview
-rustup component add rustfmt-preview
-rustup component add rust-analysis
 rustup install stable
 rustup install nightly
+rustup component add rust-src
+rustup component add clippy
+rustup component add rls
+rustup component add rustfmt
+rustup component add rust-analysis
 
 # Install wasm-pack
 curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
