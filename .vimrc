@@ -620,6 +620,7 @@ let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal 
 
 nnoremap <silent> K :LspHover<CR>
 nnoremap <silent> gd :LspDefinition<CR>
+nnoremap <silent> <F7> :LspReferences<CR>
 nnoremap <silent> <F2> :LspRename<CR>
 nnoremap <silent> <Leader>C :LspCodeAction<CR>
 
