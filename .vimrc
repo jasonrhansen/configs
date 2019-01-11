@@ -619,7 +619,7 @@ let g:lsp_signs_enabled = 1         " enable signs
 let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode<Paste>
 
 nnoremap <silent> K :LspHover<CR>
-nnoremap <silent> gd :LspTypeDefinition<CR>
+nnoremap <silent> gd :LspDefinition<CR>
 nnoremap <silent> <F2> :LspRename<CR>
 nnoremap <silent> <Leader>C :LspCodeAction<CR>
 
