@@ -85,3 +85,7 @@ if [[ "$SHELL" != *zsh ]]; then
     chsh -s "$(command -v zsh)"
 fi
 
+gutentags_cache_dir=~/.gutentags
+if [ ! -e "$gutentags_cache_dir" ]; then
+    mkdir -p "$gutentags_cache_dir"
+fi
