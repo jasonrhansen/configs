@@ -20,6 +20,8 @@ Plug 'prabirshrestha/async.vim' "Used by vim-lsp
 Plug 'prabirshrestha/vim-lsp' "Language Server Protocol
 Plug 'ncm2/ncm2-vim-lsp'
 
+Plug 'ludovicchabant/vim-gutentags'
+
 Plug 'mattn/webapi-vim'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'roxma/nvim-yarp'
