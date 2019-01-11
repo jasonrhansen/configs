@@ -105,3 +105,12 @@ alias ll='exa -l'
 alias la='exa -a'
 alias lla='exa -la'
 alias lst='exa --tree'
+
+
+# Highlight
+HIGHLIGHT_OPTIONS="--out-format xterm256 --line-numbers --quiet --force --base16 --style atelier-dune"
+alias hl="$(which highlight) $HIGHLIGHT_OPTIONS"
+export LESSOPEN="| $(which highlight) %s $HIGHLIGHT_OPTIONS"
+export LESS=" -R"
+alias less='less -m -N -g -i -J --line-numbers --underline-special'
+alias more='less'
