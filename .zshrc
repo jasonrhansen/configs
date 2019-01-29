@@ -106,6 +106,7 @@ alias la='exa -a'
 alias lla='exa -la'
 alias lst='exa --tree'
 
+alias clear='clear; tmux clear-history > /dev/null'
 
 # Highlight
 HIGHLIGHT_OPTIONS="--out-format xterm256 --line-numbers --quiet --force --base16 --style atelier-dune"
