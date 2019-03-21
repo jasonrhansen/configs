@@ -42,7 +42,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar'
 Plug 'kennykaye/vim-relativity'
 Plug 'rhysd/vim-clang-format'
-Plug 'scrooloose/nerdcommenter'
+Plug 'tomtom/tcomment_vim'
 Plug 'vhdirk/vim-cmake'
 " Automatically adjust shiftwidth and expandtab based on the current file
 Plug 'tpope/vim-sleuth'
