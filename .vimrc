@@ -617,7 +617,8 @@ nnoremap [fzf]c :Commands<cr>
 nnoremap [fzf]l :BLines<cr>
 nnoremap [fzf]L :Lines<cr>
 nnoremap [fzf]m :Marks<cr>
-nnoremap [fzf]p :Files<cr>
+nnoremap [fzf]p :GFiles<cr>
+nnoremap [fzf]P :GFiles?<cr>
 nnoremap [fzf]s :Snippets<cr>
 nnoremap [fzf]t :BTags<cr>
 nnoremap [fzf]T :Tags<cr>
