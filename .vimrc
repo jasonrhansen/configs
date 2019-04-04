@@ -320,7 +320,7 @@ inoremap jk <esc>
 cnoremap jk <c-e><c-u><esc>
 
 " Make editing and sourcing .vimrc really easy.
-nnoremap <leader>ev :split $MYVIMRC<cr>
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " Add a 'stamp' command to replace word or selection with yanked text.
