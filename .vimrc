@@ -11,14 +11,8 @@ Plug 'itchyny/lightline.vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'machakann/vim-highlightedyank'
 Plug 'airblade/vim-rooter'
-Plug 'ncm2/ncm2'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-tmux'
-Plug 'ncm2/ncm2-path'
 
-Plug 'prabirshrestha/async.vim' "Used by vim-lsp
-Plug 'prabirshrestha/vim-lsp' "Language Server Protocol
-Plug 'ncm2/ncm2-vim-lsp'
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 " Gutentags is currently having issues with neovim
 if !has('nvim')
@@ -33,7 +27,6 @@ Plug 'PeterRincker/vim-argumentative'
 Plug 'SirVer/ultisnips'
 " Snippets used by snippets engine
 Plug 'honza/vim-snippets'
-Plug 'ncm2/ncm2-ultisnips'
 Plug 'chrisbra/Recover.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -494,6 +487,117 @@ nmap <silent> <leader>j <Plug>(ale_next_wrap)
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                    coc.nvim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:coc_force_debug = 1
+
+" Better display for messages
+set cmdheight=2
+
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` for navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+vmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Use `:Format` for format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+autocmd FileType json syntax match Comment +\/\/.\+$+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                    skim/fzf
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -546,86 +650,6 @@ augroup END
 
 let g:gutentags_cache_dir = "~/.gutentags"
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"             Language Server Protocal
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" go get -u github.com/sourcegraph/go-langserver
-if executable('go-langserver')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'go-langserver',
-        \ 'cmd': {server_info->['go-langserver', '-gocodecompletion']},
-        \ 'whitelist': ['go'],
-        \ })
-endif
-
-" npm install -g typescript typescript-language-server
-if executable('typescript-language-server')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'typescript-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-        \ 'whitelist': ['typescript'],
-        \ })
-endif
-
-" pip install python-language-server
-if executable('pyls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
-endif
-
-if executable('rls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'rls',
-        \ 'cmd': {server_info->['rustup', 'run', 'stable', 'rls']},
-        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'Cargo.toml'))},
-        \ 'whitelist': ['rust'],
-        \ })
-endif
-
-" gem install solargraph
-if executable('solargraph')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'solargraph',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
-        \ 'initialization_options': {"diagnostics": "true"},
-        \ 'whitelist': ['ruby'],
-        \ })
-endif
-
-"npm install -g vscode-css-languageserver-bin
-if executable('css-languageserver')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'css-languageserver',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'css-languageserver --stdio']},
-        \ 'whitelist': ['css', 'less', 'sass'],
-        \ })
-endif
-
-"npm install -g flow-bin
-if executable('flow')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'flow',
-        \ 'cmd': {server_info->['flow', 'lsp']},
-        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), '.flowconfig'))},
-        \ 'whitelist': ['javascript', 'javascript.jsx'],
-        \ })
-endif
-
-let g:lsp_diagnostics_enabled = 0 " disable diagnostics support since we're using ale
-let g:lsp_signs_enabled = 1         " enable signs
-let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode<Paste>
-
-nnoremap <silent> K :LspHover<CR>
-nnoremap <silent> gd :LspDefinition<CR>
-nnoremap <silent> <F7> :LspReferences<CR>
-nnoremap <silent> <F2> :LspRename<CR>
-nnoremap <silent> <Leader>C :LspCodeAction<CR>
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                   Lightline
@@ -640,6 +664,7 @@ let g:lightline = {}
 let g:lightline.component_function = {
       \ 'filename': 'LightlineFilename',
       \ 'gitbranch': 'fugitive#head',
+      \ 'cocstatus': 'coc#status',
       \ }
 
 let g:lightline.component_expand = {
@@ -657,7 +682,7 @@ let g:lightline.component_type = {
       \ }
 
 let g:lightline.active = {
-      \ 'left': [['mode', 'paste'], ['readonly', 'filename', 'modified'], ['gitbranch']],
+      \ 'left': [['mode', 'paste'], ['readonly', 'filename', 'modified'], ['gitbranch'], ['cocstatus']],
       \ 'right': [['lineinfo'], ['percent'], ['fileformat', 'fileencoding', 'filetype'], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok']]
       \ }
 
@@ -666,27 +691,6 @@ let g:lightline.inactive = {
       \ 'right': [['lineinfo'], ['percent']]
       \ }
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                     ncm2
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" suppress the annoying 'match x of y', 'The only match' and 'Pattern not
-" found' messages
-set shortmess+=c
-
-" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
-inoremap <c-c> <ESC>
-autocmd BufEnter * call ncm2#enable_for_buffer()
-set completeopt=noinsert,menuone,noselect
-" When the <Enter> key is pressed while the popup menu is visible, it only
-" hides the menu. Use this mapping to close the menu and also start a new
-" line.
-inoremap <expr> <CR> pumvisible() ? "\<c-y>\<cr>" : "\<CR>"
-
-" Use <TAB> to select the popup menu:
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                     rust.vim
@@ -733,69 +737,6 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 nmap <leader>t  :StripWhitespace<CR>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                     vim-go
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-augroup go_group
-    autocmd!
-    autocmd FileType go nmap <Leader>i <Plug>(go-import)
-
-    autocmd FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-    autocmd FileType go nmap <Leader>gb <Plug>(go-doc-browser)
-    autocmd FileType go nmap <leader>gr <Plug>(go-run)
-    autocmd FileType go nmap <leader>gb <Plug>(go-build)
-    autocmd FileType go nmap <leader>gt <Plug>(go-test)
-    autocmd FileType go nmap <leader>gc <Plug>(go-coverage)
-
-    autocmd FileType go nmap <leader>r <Plug>(go-rename)
-    autocmd FileType go nmap <leader>n <Plug>(go-callees)
-
-    autocmd FileType go nmap gd <Plug>(go-def)
-    autocmd FileType go nmap <K> <Plug>(go-doc)
-
-    autocmd FileType go nmap <Leader>ds <Plug>(go-def-split)
-    autocmd FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-    autocmd FileType go nmap <Leader>dt <Plug>(go-def-tab)
-augroup END
-
-let g:go_fmt_command = 'goimports'
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_addtags_transform = "snakecase"
-
-" Tagbar for Go. Requires gotags.
-" go get -u github.com/jstemmer/gotags
-let g:tagbar_type_go = {
-            \ 'ctagstype' : 'go',
-            \ 'kinds'     : [
-            \ 'p:package',
-            \ 'i:imports:1',
-            \ 'c:constants',
-            \ 'v:variables',
-            \ 't:types',
-            \ 'n:interfaces',
-            \ 'w:fields',
-            \ 'e:embedded',
-            \ 'm:methods',
-            \ 'r:constructor',
-            \ 'f:functions'
-            \ ],
-            \ 'sro' : '.',
-            \ 'kind2scope' : {
-            \ 't' : 'ctype',
-            \ 'n' : 'ntype'
-            \ },
-            \ 'scope2kind' : {
-            \ 'ctype' : 't',
-            \ 'ntype' : 'n'
-            \ },
-            \ 'ctagsbin'  : 'gotags',
-            \ 'ctagsargs' : '-sort -silent'
-            \ }
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
