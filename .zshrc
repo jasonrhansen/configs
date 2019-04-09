@@ -26,6 +26,10 @@ if [[ $platform == 'Darwin' ]]; then
     export NDK_HOME=$ANDROID_HOME/ndk-bundle
 
     alias retroarch='/Applications/RetroArch.app/Contents/MacOS/RetroArch'
+    function ala() {
+        /Applications/Alacritty.app/Contents/MacOS/alacritty > /dev/null 2> /dev/null &
+        disown
+    }
 fi
 
 # Linux specific configuration
