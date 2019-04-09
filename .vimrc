@@ -14,11 +14,6 @@ Plug 'airblade/vim-rooter'
 
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
-" Gutentags is currently having issues with neovim
-if !has('nvim')
-  Plug 'ludovicchabant/vim-gutentags'
-endif
-
 Plug 'mattn/webapi-vim'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'roxma/nvim-yarp'
@@ -643,13 +638,6 @@ augroup vimrc
     " Close skim buffer with ESC
     autocmd! FileType skim tnoremap <buffer> <esc> <c-c>
 augroup END
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                    gutentags
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:gutentags_cache_dir = "~/.gutentags"
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
