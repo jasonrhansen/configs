@@ -205,12 +205,11 @@ set splitbelow
 set splitright
 
 set undofile
-set backup
-set swapfile
+set nobackup
+set nowritebackup
+set noswapfile
 
 set undodir=~/.vim/tmp/undo//           " undo files
-set backupdir=~/.vim/tmp/backup//       " backups
-set directory=~/.vim/tmp/swap//         " swap files
 
 set mouse=a                             " Enable mouse in all modes
 set mousemodel=popup_setpos             " Right-click on selection should bring up a menu
@@ -223,9 +222,6 @@ set pastetoggle=<F2>
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
   call mkdir(expand(&undodir), "p")
-endif
-if !isdirectory(expand(&backupdir))
-  call mkdir(expand(&backupdir), "p")
 endif
 if !isdirectory(expand(&directory))
   call mkdir(expand(&directory), "p")
@@ -498,7 +494,6 @@ set shortmess+=c
 
 " always show signcolumns
 set signcolumn=yes
-
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
