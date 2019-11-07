@@ -6,16 +6,17 @@ platform=$(uname)
 if [[ $platform == 'Darwin' ]]; then
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-    cd ~/.homebrew || exit
     brew bundle
-    cd - || exit
-
     brew linkapps
 
     sudo pip2 install pynvim
     sudo pip3 install pynvim
     sudo gem install neovim
 fi
+
+stow shell
+stow editor
+stow gui
 
 # Symlinks for neovim to use vim config
 ln -s ~/.vim ~/.config/nvim
