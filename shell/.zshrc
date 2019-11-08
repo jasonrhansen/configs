@@ -7,13 +7,6 @@ bindkey -e
 
 zstyle :compinstall filename '/home/jrhansen/.zshrc'
 
-autoload -Uz compinit
-compinit
-
-autoload -U promptinit
-promptinit
-prompt redhat
-
 export PATH=~/bin:$PATH:~/go/bin:~/.cargo/bin
 
 # OS X specific configuration
@@ -26,6 +19,7 @@ if [[ $platform == 'Darwin' ]]; then
     export NDK_HOME=$ANDROID_HOME/ndk-bundle
 
     alias retroarch='/Applications/RetroArch.app/Contents/MacOS/RetroArch'
+
     function ala() {
         /Applications/Alacritty.app/Contents/MacOS/alacritty > /dev/null 2> /dev/null &
         disown
@@ -55,7 +49,6 @@ if [ -z $TERM ]; then
     export TERM="xterm-256color"
 fi
 
-
 if type thefuck > /dev/null; then
     eval "$(thefuck --alias)"
 fi
@@ -75,7 +68,6 @@ tm() {
         sk --query="$1" --select-1 --exit-0) &&
         tmux attach-session -t "$session" || tmux new-session -s $newsession
 }
-
 
 # autojump
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
