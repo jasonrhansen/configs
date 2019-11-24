@@ -581,6 +581,7 @@ let g:coc_global_extensions = [
             \ 'coc-svg',
             \ 'coc-tsserver',
             \ 'coc-ultisnips',
+            \ 'coc-vimlsp',
             \ 'coc-xml',
             \ 'coc-yaml',
             \ ]
