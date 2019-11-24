@@ -306,6 +306,9 @@ nnoremap <bs> <c-^>
 " Escape is too much of a reach. Use jk to exit insert mode and command mode.
 inoremap jk <esc>
 cnoremap jk <c-e><c-u><esc>
+" Also c-k also works well for this
+inoremap <c-k> <esc>
+cnoremap <c-k> <c-e><c-u><esc>
 
 " Make editing and sourcing .vimrc really easy.
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>

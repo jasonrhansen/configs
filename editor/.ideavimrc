@@ -9,6 +9,7 @@ set clipboard=unnamedplus,unnamed
 
 " Escape is too much of a reach
 inoremap jk <esc>
+inoremap <c-k> <esc>
 
 " These create newlines like o and O but stay in normal mode
 nnoremap zj o<esc>k
