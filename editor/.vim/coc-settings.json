@@ -1,4 +1,15 @@
 {
+  "rust-analyzer.enableCargoWatchOnStartup": "enabled",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "Markdown",
+    "css",
+    "go",
+    "javascript",
+    "json",
+    "ruby",
+    "rust",
+    "typescript",
+  ],
   "languageserver": {
     "bash": {
       "command": "bash-language-server",

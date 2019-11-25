@@ -3,28 +3,21 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/bundle')
 
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 Plug 'ciaranm/securemodelines'
 Plug 'itchyny/lightline.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'airblade/vim-rooter'
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-Plug 'mattn/webapi-vim'
-Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'roxma/nvim-yarp'
 Plug 'PeterRincker/vim-argumentative'
-" Snippets engine
-Plug 'SirVer/ultisnips'
 " Snippets used by snippets engine
 Plug 'honza/vim-snippets'
-Plug 'chrisbra/Recover.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'edkolev/tmuxline.vim'
 Plug 'majutsushi/tagbar'
 Plug 'kennykaye/vim-relativity'
-Plug 'rhysd/vim-clang-format'
 Plug 'tomtom/tcomment_vim'
 Plug 'vhdirk/vim-cmake'
 " Automatically adjust shiftwidth and expandtab based on the current file
@@ -123,11 +116,6 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 General Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" We store some config files and snippets here and the
-" whole dotfiles dir is a git repo. Should be the last entry in rtp (for
-" UltiSnips).
-set rtp+=$HOME/dotfiles/vim
-
 set nocompatible              " be iMproved
 syntax on
 filetype plugin on
@@ -421,11 +409,6 @@ augroup vimrc
     autocmd BufRead,BufNewFile *.md set filetype=markdown
 augroup END
 
-" Fix problem in auto-pairs where adding an if or for around an existing
-" block of code and trying to close the brace would jump to the function
-" closing brace.
-let g:AutoPairsMultilineClose = 0
-
 " For haskell documentation
 let g:haddock_browser="/usr/bin/google-chrome-beta"
 
@@ -474,9 +457,6 @@ endfunction
 inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Or use `complete_info` if your vim support it, like:
 inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
@@ -504,7 +484,8 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
-nmap <F2> <Plug>(coc-rename)
+nmap <silent> <leader>rn <Plug>(coc-rename)
+nmap <silent> <F2> <Plug>(coc-rename)
 
 " Remap for format selected region
 xmap <leader>f  <Plug>(coc-format-selected)
@@ -578,15 +559,38 @@ let g:coc_global_extensions = [
             \ 'coc-prettier',
             \ 'coc-python',
             \ 'coc-rust-analyzer',
+            \ 'coc-snippets',
             \ 'coc-solargraph',
             \ 'coc-svg',
             \ 'coc-tsserver',
-            \ 'coc-ultisnips',
             \ 'coc-vimlsp',
             \ 'coc-xml',
             \ 'coc-yaml',
             \ ]
 
+" coc extension settings
+
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+autocmd FileType rust let b:coc_pairs_disabled = ['''']
+autocmd FileType markdown let b:coc_pairs_disabled = ['`']
+autocmd FileType vim let b:coc_pairs_disabled = ['"']
+
+" Make coc-pairs work well with <cr>
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                    skim/fzf
@@ -665,13 +669,6 @@ let g:lightline.inactive = {
       \ 'left': [['filename']],
       \ 'right': [['lineinfo'], ['percent']]
       \ }
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                     rust.vim
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Format rust code every time a buffer is saved
-let g:rustfmt_autosave = 1
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
