@@ -95,6 +95,7 @@ Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'tpope/vim-bundler'
 " Rust
 Plug 'rust-lang/rust.vim'
+Plug 'mhinz/vim-crates'
 " Scheme - Racket dialect
 Plug 'wlangstroth/vim-racket'
 " Swift
@@ -707,6 +708,15 @@ augroup END
 "             vim-better-whitespace
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <leader>t  :StripWhitespace<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                 vim-crates
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if has('nvim')
+  autocmd BufRead Cargo.toml call crates#toggle()
+endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
