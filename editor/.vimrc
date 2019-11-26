@@ -3,14 +3,14 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/bundle')
 
+" Intellisense engine and full language server protocol
+" Most language features are coc.nvim extensions, see g:coc_global_extensions below.
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'ciaranm/securemodelines'
 Plug 'itchyny/lightline.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'airblade/vim-rooter'
-
-Plug 'PeterRincker/vim-argumentative'
 " Snippets used by snippets engine
 Plug 'honza/vim-snippets'
 Plug 'christoomey/vim-tmux-navigator'
@@ -24,9 +24,6 @@ Plug 'vhdirk/vim-cmake'
 Plug 'tpope/vim-sleuth'
 "" Hex editor
 Plug 'Shougo/vinarise.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
@@ -43,64 +40,17 @@ Plug 'lotabout/skim.vim'
 Plug 'moll/vim-bbye'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'AndrewRadev/splitjoin.vim'
-
 " Add emacs key bindings to vim in insert and command-line modes.
 Plug 'maxbrunsfeld/vim-emacs-bindings'
-
-" C/C++/ObjC
-Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp', 'objc'] }
-Plug 'vim-jp/cpp-vim', { 'for': ['c', 'cpp', 'objc'] }
-" CSV
-Plug 'chrisbra/csv.vim', { 'for': 'csv' }
-" Git
-Plug 'tpope/vim-git'
-" Go
-Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'rhysd/vim-go-impl', { 'for': 'go' }
-" GraphQL
-Plug 'jparise/vim-graphql'
-" Haskell
-Plug 'lukerandall/haskellmode-vim'
-Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
-" HTML/CSS/SCSS
-Plug 'JulesWang/css.vim', { 'for': ['css', 'html', 'html5', 'less'] }
-Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'html', 'html5', 'less', 'scss'] }
-Plug 'ap/vim-css-color', { 'for': ['css', 'html', 'html5', 'less'] }
-Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
-Plug 'othree/html5.vim', { 'for': ['css', 'html', 'html5'] }
-" Javascript/CoffeeScript
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'matthewsimo/angular-vim-snippets'
-Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
-Plug 'kchmck/vim-coffee-script'
-" JSON
-Plug 'leshill/vim-json'
-" Less
-Plug 'groenewege/vim-less', { 'for': 'Less' }
-" Markdown
-Plug 'plasticboy/vim-markdown'
-" Python
-Plug 'davidhalter/jedi-vim'           " Python autocompletion
-" Ruby
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-Plug 'tpope/vim-rails', { 'for': 'ruby' }
-Plug 'tpope/vim-bundler'
-" Rust
-Plug 'rust-lang/rust.vim'
+" Show outdated crates in Cargo.toml
 Plug 'mhinz/vim-crates'
-" Scheme - Racket dialect
+Plug 'chrisbra/csv.vim', { 'for': 'csv' }
+Plug 'tpope/vim-git'
+Plug 'jparise/vim-graphql'
+Plug 'groenewege/vim-less', { 'for': 'Less' }
 Plug 'wlangstroth/vim-racket'
-" Swift
 Plug 'toyamarinyon/vim-swift', { 'for': 'swift' }
-" Tmux syntax
 Plug 'tmux-plugins/vim-tmux', { 'for': 'tmux' }
-" Typescript
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
-" Vimscript
-Plug '~/dev/projects/api-soup', {'rtp': 'vim-syntax/'}
-" TOML
 Plug 'cespare/vim-toml'
 
 call plug#end()
@@ -211,7 +161,14 @@ augroup vimrc
     autocmd VimResized * :wincmd =
 augroup END
 
-" Color scheme preferences
+" Color preferences
+if !has('gui_running')
+  set t_Co=256
+endif
+if (match($TERM, "-256color") != -1) && (match($TERM, "screen-256color") == -1)
+  " screen does not (yet) support truecolor
+  set termguicolors
+endif
 if (exists('$TMUX') && system('tmux show-env TERMINAL_THEME') == "TERMINAL_THEME=light\n") || $TERMINAL_THEME == "light"
     set background=light
 else
@@ -592,6 +549,7 @@ autocmd FileType vim let b:coc_pairs_disabled = ['"']
 " Make coc-pairs work well with <cr>
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                    skim/fzf
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -682,23 +640,6 @@ nnoremap <Leader>a/ :Tabularize /\/\//l2c1l0<CR>
 vnoremap <Leader>a/ :Tabularize /\/\//l2c1l0<CR>
 nnoremap <Leader>a, :Tabularize /,/l0r1<CR>
 vnoremap <Leader>a, :Tabularize /,/l0r1<CR>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                    UltiSnips
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:UltiSnipsSnippetsDir   = $HOME . '/dotfiles/vim/UltiSnips'
-let g:UltiSnipsExpandTrigger = '<c-j>'
-let g:snips_author           = 'Jason Rodney Hansen'
-augroup UltiSnips_group
-    autocmd!
-    " UltiSnips is missing a setf trigger for snippets on BufEnter
-    autocmd vimrc BufEnter *.snippets setf snippets
-    " In UltiSnips snippet files, we want actual tabs instead of spaces for
-    " indents. US will use those tabs and convert them to spaces if expandtab
-    " is set when the user wants to insert the snippet.
-    autocmd vimrc FileType snippets set noexpandtab
-augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
