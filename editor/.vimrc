@@ -52,6 +52,7 @@ Plug 'wlangstroth/vim-racket'
 Plug 'toyamarinyon/vim-swift', { 'for': 'swift' }
 Plug 'tmux-plugins/vim-tmux', { 'for': 'tmux' }
 Plug 'cespare/vim-toml'
+Plug 'fatih/vim-go'
 
 call plug#end()
 
@@ -671,12 +672,6 @@ augroup go_group
     autocmd FileType go nmap <leader>gt <Plug>(go-test)
     autocmd FileType go nmap <leader>gc <Plug>(go-coverage)
 
-    autocmd FileType go nmap <leader>r <Plug>(go-rename)
-    autocmd FileType go nmap <leader>n <Plug>(go-callees)
-
-    autocmd FileType go nmap gd <Plug>(go-def)
-    autocmd FileType go nmap <K> <Plug>(go-doc)
-
     autocmd FileType go nmap <Leader>ds <Plug>(go-def-split)
     autocmd FileType go nmap <Leader>dv <Plug>(go-def-vertical)
     autocmd FileType go nmap <Leader>dt <Plug>(go-def-tab)
@@ -687,6 +682,10 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_addtags_transform = "snakecase"
+
+" disable vim-go :GoDef short cut (gd)
+" this is handled by LanguageClient [LC]
+let g:go_def_mapping_enabled = 0
 
 " Tagbar for Go. Requires gotags.
 " go get -u github.com/jstemmer/gotags

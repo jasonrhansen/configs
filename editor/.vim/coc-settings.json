@@ -8,7 +8,7 @@
     "json",
     "ruby",
     "rust",
-    "typescript",
+    "typescript"
   ],
   "languageserver": {
     "bash": {
@@ -56,11 +56,14 @@
     "golang": {
       "command": "gopls",
       "rootPatterns": [
-        "go.mod"
+        "go.mod",
+        ".vim/",
+        ".git/",
+        ".hg/"
       ],
       "filetypes": [
         "go"
       ]
-    },
+    }
   }
 }
