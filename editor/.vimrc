@@ -125,6 +125,7 @@ set noerrorbells
 set visualbell
 set secure
 set nomodeline                      " Use securemodelines instead
+set noshowmode                      " Lightline shows the mode
 
 " Session and view options to save
 set sessionoptions=buffers,folds,tabpages,curdir,globals
@@ -181,9 +182,9 @@ colorscheme base16-atelier-dune
 " Cursor configuration
 " Use a blinking upright bar cursor in Insert mode, a solid block in normal
 " and a blinking underline in replace mode
-let &t_SI                         = "\<Esc>[5 q"
-let &t_SR                         = "\<Esc>[3 q"
-let &t_EI                         = "\<Esc>[2 q"
+let &t_SI = "\<Esc>[5 q"
+let &t_SR = "\<Esc>[3 q"
+let &t_EI = "\<Esc>[2 q"
 
 if has('unnamedplus')
     " By default, Vim will not use the system clipboard when yanking/pasting to
@@ -237,13 +238,10 @@ nnoremap <leader><leader> <c-^>
 " Turn of search highlights by pressing return unless in quickfix window
 nnoremap <expr> <cr> &buftype ==# 'quickfix' ? "\<CR>" : ':noh<cr>'
 
-" Use backspace to toggle between current file and previous file
-nnoremap <bs> <c-^>
-
 " Escape is too much of a reach. Use jk to exit insert mode and command mode.
 inoremap jk <esc>
 cnoremap jk <c-e><c-u><esc>
-" Also c-k also works well for this
+" Also c-k works well for this
 inoremap <c-k> <esc>
 cnoremap <c-k> <c-e><c-u><esc>
 
@@ -272,14 +270,6 @@ cnoremap w!! w !sudo tee % >/dev/null
 " These create newlines like o and O but stay in normal mode
 nnoremap <silent> zj o<Esc>k
 nnoremap <silent> zk O<Esc>j
-
-" Keep search matches in the middle of the window.
-" zz centers the screen on the cursor, zv unfolds any fold if the cursor
-" suddenly appears inside a fold.
-nnoremap * *zzzv
-nnoremap # #zzzv
-nnoremap n nzzzv
-nnoremap N Nzzzv<silent> zk O<Esc>j
 
 " Also center the screen when jumping through the changelist
 nnoremap g; g;zz
@@ -336,9 +326,6 @@ if has('nvim')
     set inccommand=nosplit
 endif
 
-" Toggle between light and dark version of theme
-noremap <F6> :let &background = ( &background == "dark"? "light" : "dark" )<CR>
-
 augroup vimrc
     " Reload vimrc after saving
     autocmd BufWritePost $MYVIMRC,.vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc,init.vim source %
@@ -347,7 +334,7 @@ augroup END
 augroup ruby_group
     autocmd!
     autocmd FileType ruby,eruby nmap gd g<C-]>
-	autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1 
+	autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
     autocmd filetype ruby,eruby let g:rubycomplete_classes_in_global = 1
     autocmd filetype ruby,eruby let g:rubycomplete_rails = 1
 augroup END
@@ -356,23 +343,9 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                Plugin Configuration
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-runtime macros/matchit.vim
-let g:used_javascript_libs='jquery,angularjs'
-
-" Automatically format C++ code on save
-let g:clang_format#auto_format = 1
-
 augroup vimrc
     " Allow .md extension to be recognized as markdown
     autocmd BufRead,BufNewFile *.md set filetype=markdown
-augroup END
-
-" For haskell documentation
-let g:haddock_browser="/usr/bin/google-chrome-beta"
-
-" Haskell compiler plugin
-augroup vimrc
-    autocmd BufEnter *.hs compiler ghc
 augroup END
 
 augroup vimrc

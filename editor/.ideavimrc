@@ -25,8 +25,6 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-m> :action MoveEditorToOppositeTabGroup<cr>
 
-nnoremap <cr> :
-
 " Quickly reload .ideavimrc
 nnoremap <leader>sv :source ~/.ideavimrc<cr>
 
@@ -50,12 +48,6 @@ nmap <leader>d :action ShowErrorDescription<cr>
 nnoremap S diw"0P
 vnoremap S "_d"0P
 
-" Keep search matches in the middle of the window.
-nnoremap * *zz
-nnoremap # #zz
-nnoremap n nzz
-nnoremap N Nzz
-
 " Center the screen when jumping through the changelist
 nnoremap g; g;zz
 nnoremap g, g,z
@@ -70,7 +62,3 @@ nnoremap ' `
 nnoremap ` '
 
 nnoremap <leader>
-
-" ICE specific stuff
-nnoremap <leader>i :action Tool_External Tools_ICE<cr>
-nnoremap <leader>m :action Tool_External Tools_New migration file<cr>
