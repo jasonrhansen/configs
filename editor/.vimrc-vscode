@@ -3,6 +3,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/bundle')
 
+
 Plug 'vim-scripts/camelcasemotion'
 Plug 'wellle/targets.vim'
 Plug 'ntpeters/vim-better-whitespace'
@@ -146,18 +147,7 @@ xnoremap <silent> <C-l> :<C-u>call VSCodeNotify('workbench.action.focusRightGrou
 nnoremap <silent> <leader><leader> :<C-u>call VSCodeNotify('workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup')<CR>
 xnoremap <silent> <leader><leader> :<C-u>call VSCodeNotify('workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup')<CR>
 
-function! s:vscodeCommentary(...) abort
-    if !a:0
-        let &operatorfunc = matchstr(expand('<sfile>'), '[^. ]*$')
-        return 'g@'
-    elseif a:0 > 1
-        let [line1, line2] = [a:1, a:2]
-    else
-        let [line1, line2] = [line("'["), line("']")]
-    endif
-
-    call VSCodeCallRange("editor.action.commentLine", line1, line2, 0)
-endfunction
-" Comment/uncomment lines
-xnoremap <expr> gc <SID>vscodeCommentary()
-nnoremap <expr> gc <SID>vscodeCommentary() . '_'
+xmap gc  <Plug>VSCodeCommentary
+nmap gc  <Plug>VSCodeCommentary
+omap gc  <Plug>VSCodeCommentary
+nmap gcc <Plug>VSCodeCommentaryLine
