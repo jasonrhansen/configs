@@ -1,0 +1,163 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                  Plugins
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call plug#begin('~/.vim/bundle')
+
+Plug 'vim-scripts/camelcasemotion'
+Plug 'wellle/targets.vim'
+Plug 'ntpeters/vim-better-whitespace'
+" Add emacs key bindings to vim in insert and command-line modes.
+Plug 'maxbrunsfeld/vim-emacs-bindings'
+" Show outdated crates in Cargo.toml
+
+call plug#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                 Reset vimrc augroup
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Reset the vimrc augroup. Autocommands are added to this group throughout.
+augroup vimrc
+    autocmd!
+augroup END
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                 General Settings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible              " be iMproved
+syntax off
+let mapleader="\<SPACE>"
+let maplocalleader="-"
+
+set undofile
+set nobackup
+set nowritebackup
+set noswapfile
+
+set undodir=~/.vim/tmp/undo//           " undo files
+
+" Make those folders automatically if they don't already exist.
+if !isdirectory(expand(&undodir))
+  call mkdir(expand(&undodir), "p")
+endif
+
+if has('unnamedplus')
+    " By default, Vim will not use the system clipboard when yanking/pasting to
+    " the default register. This option makes Vim use the system default
+    " clipboard.
+    " Note that on X11, there are _two_ system clipboards: the 'standard' one, and
+    " the selection/mouse-middle-click one. Vim sees the standard one as register
+    " '+' (and this option makes Vim use it by default) and the selection one as
+    " '*'.
+    " See :h 'clipboard' for details.
+    set clipboard=unnamedplus,unnamed
+else
+    " Vim now also uses the selection system clipboard for default yank/paste.
+    set clipboard+=unnamed
+endif
+
+if !has('nvim')
+    set encoding=utf-8
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                 Custom Mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Turn of search highlights by pressing return unless in quickfix window
+nnoremap <expr> <cr> &buftype ==# 'quickfix' ? "\<CR>" : ':noh<cr>'
+
+" Escape is too much of a reach. Use jk to exit insert mode and command mode.
+inoremap jk <esc>
+cnoremap jk <c-e><c-u><esc>
+" Also c-k works well for this
+inoremap <c-k> <esc>
+cnoremap <c-k> <c-e><c-u><esc>
+
+" Add a 'stamp' command to replace word or selection with yanked text.
+nnoremap S diw"0P
+vnoremap S "_d"0P
+
+" Make "Y" work from the cursor to end of line instead of like "yy"
+nnoremap Y y$
+
+" Reselect visual selection after indent
+xnoremap < <gv
+xnoremap > >gv
+
+" This command will allow us to save a file we don't have permission to save
+" *after* we have already opened it. Super useful.
+cnoremap w!! w !sudo tee % >/dev/null
+
+" These create newlines like o and O but stay in normal mode
+nnoremap <silent> zj o<Esc>k
+nnoremap <silent> zk O<Esc>j
+
+" Also center the screen when jumping through the changelist
+nnoremap g; g;zz
+nnoremap g, g,z
+
+" Use Q for formatting the current paragraph (or visual selection)
+vnoremap Q gq
+nnoremap Q gqap
+
+" With this map, we can select some text in visual mode and by invoking the map,
+" have the selection automatically filled in as the search text and the cursor
+" placed in the position for typing the replacement text. Also, this will ask
+" for confirmation before it replaces any instance of the search text in the
+" file.
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
+
+" This makes j and k work on "screen lines" instead of on "file lines"; now, when
+" we have a long line that wraps to multiple screen lines, j and k behave as we
+" expect them to.
+nnoremap j gj
+nnoremap k gk
+
+" Swap implementations of ` and ' jump to markers
+" By default, ' jumps to the marked line, ` jumps to the marked line and
+" column, so swap them
+nnoremap ' `
+nnoremap ` '
+
+function! s:switchEditor(...) abort
+    let count = a:1
+    let direction = a:2
+    for i in range(1, count ? count : 1)
+        call VSCodeCall(direction == 'next' ? 'workbench.action.nextEditorInGroup' : 'workbench.action.previousEditorInGroup')
+    endfor
+endfunction
+" Move between buffers faster
+nnoremap <silent> <C-n> :<C-U>call <SID>switchEditor(v:count, 'next')<CR>
+xnoremap <silent> <C-n> :<C-U>call <SID>switchEditor(v:count, 'next')<CR>
+nnoremap <silent> <C-b> :<C-U>call <SID>switchEditor(v:count, 'prev')<CR>
+xnoremap <silent> <C-b> :<C-U>call <SID>switchEditor(v:count, 'prev')<CR>
+
+" Move between splits faster
+nnoremap <silent> <C-j> :<C-u>call VSCodeNotify('workbench.action.focusBelowGroup')<CR>
+xnoremap <silent> <C-j> :<C-u>call VSCodeNotify('workbench.action.focusBelowGroup')<CR>
+nnoremap <silent> <C-k> :<C-u>call VSCodeNotify('workbench.action.focusAboveGroup')<CR>
+xnoremap <silent> <C-k> :<C-u>call VSCodeNotify('workbench.action.focusAboveGroup')<CR>
+nnoremap <silent> <C-h> :<C-u>call VSCodeNotify('workbench.action.focusLeftGroup')<CR>
+xnoremap <silent> <C-h> :<C-u>call VSCodeNotify('workbench.action.focusLeftGroup')<CR>
+nnoremap <silent> <C-l> :<C-u>call VSCodeNotify('workbench.action.focusRightGroup')<CR>
+xnoremap <silent> <C-l> :<C-u>call VSCodeNotify('workbench.action.focusRightGroup')<CR>
+
+" Switch to most recent editor
+nnoremap <silent> <leader><leader> :<C-u>call VSCodeNotify('workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup')<CR>
+xnoremap <silent> <leader><leader> :<C-u>call VSCodeNotify('workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup')<CR>
+
+function! s:vscodeCommentary(...) abort
+    if !a:0
+        let &operatorfunc = matchstr(expand('<sfile>'), '[^. ]*$')
+        return 'g@'
+    elseif a:0 > 1
+        let [line1, line2] = [a:1, a:2]
+    else
+        let [line1, line2] = [line("'["), line("']")]
+    endif
+
+    call VSCodeCallRange("editor.action.commentLine", line1, line2, 0)
+endfunction
+" Comment/uncomment lines
+xnoremap <expr> gc <SID>vscodeCommentary()
+nnoremap <expr> gc <SID>vscodeCommentary() . '_'
