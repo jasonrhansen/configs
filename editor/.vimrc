@@ -3,6 +3,8 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/bundle')
 
+Plug 'kana/vim-altercmd'
+
 " Intellisense engine and full language server protocol
 " Most language features are coc.nvim extensions, see g:coc_global_extensions below.
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -34,9 +36,8 @@ Plug 'wellle/targets.vim'
 Plug 'fanchangyong/a.vim'
 Plug 'chriskempson/base16-vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-" Skim is a fuzzy finder written in Rust that's similar to fzf.
-Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
-Plug 'lotabout/skim.vim'
+Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 Plug 'moll/vim-bbye'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'AndrewRadev/splitjoin.vim'
@@ -53,6 +54,10 @@ Plug 'toyamarinyon/vim-swift', { 'for': 'swift' }
 Plug 'tmux-plugins/vim-tmux', { 'for': 'tmux' }
 Plug 'cespare/vim-toml'
 Plug 'fatih/vim-go'
+" File manager
+Plug 'mcchrish/nnn.vim'
+" Git
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
@@ -308,7 +313,6 @@ nmap <leader>h :A<cr>
 if has('nvim')
     " Make working with nvim terminal emulator nicer
     tnoremap <esc> <c-\><c-n>
-    tnoremap jk    <c-\><c-n>
     tnoremap <c-h> <c-\><c-n><c-w>h
     tnoremap <c-j> <c-\><c-n><c-w>j
     tnoremap <c-k> <c-\><c-n><c-w>k
@@ -570,6 +574,46 @@ augroup vimrc
     autocmd! FileType skim tnoremap <buffer> <esc> <c-c>
 augroup END
 
+" Floating window (neovim)
+" function! s:layout()
+"   let buf = nvim_create_buf(v:false, v:true)
+"
+"   let height = &lines - (float2nr(&lines / 3))
+"   let width = float2nr(&columns - (&columns * 2 / 3))
+"
+"   let opts = {
+"         \ 'relative': 'editor',
+"         \ 'row': 2,
+"         \ 'col': 8,
+"         \ 'width': width,
+"         \ 'height': height
+"         \ }
+"
+"   call nvim_open_win(buf, v:true, opts)
+" endfunction
+
+function! FloatingFZF()
+  let buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, '&signcolumn', 'no')
+
+  let height = &lines - 3
+  let width = float2nr(&columns - (&columns * 2 / 10))
+  let col = float2nr((&columns - width) / 2)
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': 1,
+        \ 'col': col,
+        \ 'width': width,
+        \ 'height': height
+        \ }
+
+  call nvim_open_win(buf, v:true, opts)
+endfunction
+
+let $FZF_DEFAULT_OPTS='--layout=reverse'
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                   Lightline
@@ -601,6 +645,44 @@ let g:lightline.inactive = {
       \ 'left': [['filename']],
       \ 'right': [['lineinfo'], ['percent']]
       \ }
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                     nnn
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Disable default mappings
+let g:nnn#set_default_mappings = 0
+
+" Open nnn
+nnoremap <silent> <leader>N :NnnPicker<CR>
+
+" Open nnn in the current file's directory
+nnoremap <leader>n :NnnPicker '%:p:h'<CR>
+
+augroup vimrc
+    " Close nnn buffer with ESC
+    autocmd! FileType nnn tnoremap <buffer> <esc> <c-g>
+augroup END
+
+" Floating window (neovim)
+function! s:layout()
+  let buf = nvim_create_buf(v:false, v:true)
+
+  let height = &lines - (float2nr(&lines / 4))
+  let width = float2nr(&columns - (&columns * 2 / 3))
+  let col = float2nr((&columns - width) / 2)
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': 2,
+        \ 'col': col,
+        \ 'width': width,
+        \ 'height': height
+        \ }
+
+  call nvim_open_win(buf, v:true, opts)
+endfunction
+let g:nnn#layout = 'call ' . string(function('<SID>layout')) . '()'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -696,4 +778,3 @@ let g:tagbar_type_go = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Detect binary file or large file automatically
 let g:vinarise_enable_auto_detect = 1
-
