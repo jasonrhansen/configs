@@ -58,6 +58,8 @@ Plug 'fatih/vim-go'
 Plug 'mcchrish/nnn.vim'
 " Git
 Plug 'tpope/vim-fugitive'
+Plug 'kchmck/vim-coffee-script'
+Plug 'mustache/vim-mustache-handlebars'
 
 call plug#end()
 
@@ -118,7 +120,7 @@ set guioptions-=T
 let &showbreak = '↳ '
 set breakindent
 set breakindentopt=sbr
-set listchars=tab:\ \ ,trail:▫      " Characters to use for whitespace when set list
+set listchars=tab:».,trail:▫      " Characters to use for whitespace when set list
 set linebreak                       " Break properly, don't split words
 set scrolloff=4                     " Show context above/below cursorline
 set formatoptions+=j
@@ -538,8 +540,8 @@ nnoremap [fzf] <nop>
 " fzf prefix key
 nmap t [fzf]
 
-if executable('ag')
-    nnoremap [fzf]a :Ag<cr>
+if executable('rg')
+    nnoremap [fzf]r :Rg<cr>
 endif
 
 nnoremap [fzf]b :Buffers<cr>
@@ -559,6 +561,11 @@ nnoremap [fzf]/ :History/<cr>
 nnoremap [fzf]: :History:<cr>
 nnoremap [fzf]H :Helptags<cr>
 nnoremap [fzf]M :Maps<cr>
+"
+" Mapping selecting mappings
+nmap [fzf]<tab> <plug>(fzf-maps-n)
+xmap [fzf]<tab> <plug>(fzf-maps-x)
+omap [fzf]<tab> <plug>(fzf-maps-o)
 
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
