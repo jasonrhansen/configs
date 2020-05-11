@@ -47,18 +47,6 @@
       "args": [
         "--stdio"
       ]
-    },
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": [
-        "go.mod",
-        ".vim/",
-        ".git/",
-        ".hg/"
-      ],
-      "filetypes": [
-        "go"
-      ]
     }
   }
 }
