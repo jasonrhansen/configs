@@ -60,6 +60,8 @@ Plug 'mcchrish/nnn.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'kchmck/vim-coffee-script'
 Plug 'mustache/vim-mustache-handlebars'
+Plug 'arithran/vim-delete-hidden-buffers'
+Plug 'tpope/vim-rails'
 
 call plug#end()
 
@@ -337,14 +339,6 @@ augroup vimrc
     autocmd BufWritePost $MYVIMRC,.vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc,init.vim source %
 augroup END
 
-augroup ruby_group
-    autocmd!
-    autocmd FileType ruby,eruby nmap gd g<C-]>
-	autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-    autocmd filetype ruby,eruby let g:rubycomplete_classes_in_global = 1
-    autocmd filetype ruby,eruby let g:rubycomplete_rails = 1
-augroup END
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                Plugin Configuration
@@ -486,6 +480,7 @@ let g:coc_global_extensions = [
             \ 'coc-css',
             \ 'coc-eslint',
             \ 'coc-git',
+            \ 'coc-go',
             \ 'coc-highlight',
             \ 'coc-html',
             \ 'coc-java',
