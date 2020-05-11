@@ -48,5 +48,16 @@
         "--stdio"
       ]
     }
-  }
+  },
+  "solargraph.commandPath": "/Users/jrhansen/.rbenv/shims/solargraph",
+  "solargraph.useBundler": false,
+  "solargraph.formatting": true,
+  "solargraph.autoformat": true,
+  "solargraph.completion": true,
+  "solargraph.hover": true,
+  "solargraph.symbols": true,
+  "solargraph.definitions": true,
+  "solargraph.rename": true,
+  "solargraph.references": true,
+  "solargraph.diagnostics": true
 }
