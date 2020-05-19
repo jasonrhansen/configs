@@ -5,8 +5,8 @@ call plug#begin('~/.vim/bundle')
 
 Plug 'kana/vim-altercmd'
 
-" Intellisense engine and full language server protocol
-" Most language features are coc.nvim extensions, see g:coc_global_extensions below.
+" Intellisense engine and full language server protocol Most language features
+" are coc.nvim extensions, see g:coc_global_extensions below.
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'ciaranm/securemodelines'
@@ -96,11 +96,6 @@ set scrolloff=3
 set ruler
 set backspace=indent,eol,start
 set incsearch
-set tabstop=4
-set shiftwidth=4
-set expandtab
-set autoindent
-set smartindent
 set wildchar=<Tab>
 set foldmethod=marker
 set textwidth=0
@@ -122,7 +117,12 @@ set guioptions-=T
 let &showbreak = '↳ '
 set breakindent
 set breakindentopt=sbr
-set listchars=tab:».,trail:▫      " Characters to use for whitespace when set list
+set list
+set listchars=tab:▸\              " Char representing a tab
+set listchars+=extends:❯          " Char representing an extending line
+set listchars+=nbsp:␣             " Non breaking space
+set listchars+=precedes:❮         " Char representing an extending line in the other direction
+set listchars+=trail:·            " Show trailing spaces as dots
 set linebreak                       " Break properly, don't split words
 set scrolloff=4                     " Show context above/below cursorline
 set formatoptions+=j
@@ -135,6 +135,13 @@ set visualbell
 set secure
 set nomodeline                      " Use securemodelines instead
 set noshowmode                      " Lightline shows the mode
+
+" indentation
+set expandtab                     " Indent with spaces
+set shiftwidth=2                  " Number of spaces to use when indenting
+set smartindent                   " Auto indent new lines
+set softtabstop=2                 " Number of spaces a <tab> counts for when inserting
+set tabstop=2                     " Number of spaces a <tab> counts for
 
 " Session and view options to save
 set sessionoptions=buffers,folds,tabpages,curdir,globals
@@ -314,6 +321,20 @@ nnoremap <silent> <C-n> :silent :bn<CR>
 " Switch between source and header files with a.vim
 nmap <leader>h :A<cr>
 
+" Resize windows with the arrow keys
+nnoremap <up> 10<C-W>+
+nnoremap <down> 10<C-W>-
+nnoremap <left> 3<C-W>>
+nnoremap <right> 3<C-W><
+
+" Exit insert mode and save just by hitting CTRL-s
+imap <c-s> <esc>:w<cr>
+nmap <c-s> <esc>:w<cr>
+
+" Don't jump around when using * to search for word under cursor
+" Often I just want to see where else a word appears
+nnoremap * mz*`z
+
 if has('nvim')
     " Make working with nvim terminal emulator nicer
     tnoremap <esc> <c-\><c-n>
@@ -439,11 +460,16 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
 
-" Create mappings for function text object, requires document symbols feature of languageserver.
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
 xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
 omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
