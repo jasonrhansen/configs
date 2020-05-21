@@ -432,8 +432,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <silent> <leader>rn <Plug>(coc-rename)
@@ -443,9 +441,14 @@ nmap <silent> <F2> <Plug>(coc-rename)
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
-augroup mygroup
+" Format whole file
+nmap <leader>F :call CocAction('format')<cr>
+
+augroup vimrc
   autocmd!
-  " Setup formatexpr specified filetype(s).
+  " Highlight symbol under cursor on CursorHold
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+  " Setup formatexpr for specified filetype(s).
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
@@ -459,6 +462,9 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Implement methods for trait
+nnoremap <silent> <space>i  :call CocActionAsync('codeAction', '', 'Implement missing members')<cr>
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -521,6 +527,7 @@ let g:coc_global_extensions = [
             \ 'coc-solargraph',
             \ 'coc-svg',
             \ 'coc-tsserver',
+            \ 'coc-tslint-plugin',
             \ 'coc-vimlsp',
             \ 'coc-xml',
             \ 'coc-yaml',
@@ -543,9 +550,11 @@ let g:coc_snippet_prev = '<c-k>'
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 
-autocmd FileType rust let b:coc_pairs_disabled = ['''']
-autocmd FileType markdown let b:coc_pairs_disabled = ['`']
-autocmd FileType vim let b:coc_pairs_disabled = ['"']
+augroup vimrc
+  autocmd FileType rust let b:coc_pairs_disabled = ['''']
+  autocmd FileType markdown let b:coc_pairs_disabled = ['`']
+  autocmd FileType vim let b:coc_pairs_disabled = ['"']
+augroup end
 
 " Make coc-pairs work well with <cr>
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
@@ -661,12 +670,13 @@ let g:lightline.component_function = {
       \ 'filename': 'LightlineFilename',
       \ 'gitbranch': 'fugitive#head',
       \ 'cocstatus': 'coc#status',
-      \ 'currentfunction': 'CocCurrentFunction'
+      \ 'currentfunction': 'CocCurrentFunction',
+      \ 'sleuth': 'SleuthIndicator'
       \ }
 
 let g:lightline.active = {
       \ 'left': [['mode', 'paste'], ['readonly', 'filename', 'modified'], ['gitbranch']],
-      \ 'right': [['lineinfo'], ['percent'], ['fileformat', 'fileencoding', 'filetype'], ['cocstatus', 'currentfunction']]
+      \ 'right': [['lineinfo'], ['percent'], ['fileformat', 'fileencoding', 'filetype'], ['sleuth'], ['cocstatus', 'currentfunction']]
       \ }
 
 let g:lightline.inactive = {
@@ -674,6 +684,12 @@ let g:lightline.inactive = {
       \ 'right': [['lineinfo'], ['percent']]
       \ }
 
+augroup vimrc
+  " Use autocmd to force lightline update.
+  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+  autocmd OptionSet tabstop,shiftwidth,expandtab call lightline#update()
+  autocmd Filetype * call lightline#update()
+augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                     nnn

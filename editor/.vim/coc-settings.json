@@ -1,31 +1,15 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": [
-    "Markdown",
-    "go",
-    "json",
-    "rust"
-  ],
+  "coc.preferences.formatOnSaveFiletypes": ["Markdown", "go", "json", "rust"],
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
-      "args": [
-        "start"
-      ],
-      "filetypes": [
-        "sh"
-      ],
-      "ignoredRootPaths": [
-        "~"
-      ]
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
     },
     "ccls": {
       "command": "ccls",
-      "filetypes": [
-        "c",
-        "cpp",
-        "objc",
-        "objcpp"
-      ],
+      "filetypes": ["c", "cpp", "objc", "objcpp"],
       "rootPatterns": [
         ".ccls",
         "compile_commands.json",
@@ -41,12 +25,8 @@
     },
     "dockerfile": {
       "command": "docker-langserver",
-      "filetypes": [
-        "dockerfile"
-      ],
-      "args": [
-        "--stdio"
-      ]
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
     }
   },
   "solargraph.commandPath": "/Users/jrhansen/.rbenv/shims/solargraph",
@@ -59,5 +39,6 @@
   "solargraph.definitions": true,
   "solargraph.rename": true,
   "solargraph.references": true,
-  "solargraph.diagnostics": true
+  "solargraph.diagnostics": true,
+  "eslint.filetypes": ["javascript", "javascriptreact"]
 }
