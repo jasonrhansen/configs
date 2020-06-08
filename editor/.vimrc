@@ -560,10 +560,24 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                    skim/fzf
+"                    fzf
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" skim.vim is a fork of fzf.vim and is configured the same way
-" except that it uses sk instead of fzf.
+
+" Customize Rg command to not search filenames. I only want it to search file contents.
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1,
+  \ fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
+
+" Add another ripgrep command "RG", that doesn't use fzf for fuzzy matching. Each time the query string changes, ripgrep is called.
+" fzf only acts as a simple selector interface.
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
 nnoremap [fzf] <nop>
 " fzf prefix key
@@ -606,27 +620,7 @@ inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 augroup vimrc
     " Close fzf buffer with ESC
     autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
-    " Close skim buffer with ESC
-    autocmd! FileType skim tnoremap <buffer> <esc> <c-c>
 augroup END
-
-" Floating window (neovim)
-" function! s:layout()
-"   let buf = nvim_create_buf(v:false, v:true)
-"
-"   let height = &lines - (float2nr(&lines / 3))
-"   let width = float2nr(&columns - (&columns * 2 / 3))
-"
-"   let opts = {
-"         \ 'relative': 'editor',
-"         \ 'row': 2,
-"         \ 'col': 8,
-"         \ 'width': width,
-"         \ 'height': height
-"         \ }
-"
-"   call nvim_open_win(buf, v:true, opts)
-" endfunction
 
 function! FloatingFZF()
   let buf = nvim_create_buf(v:false, v:true)
