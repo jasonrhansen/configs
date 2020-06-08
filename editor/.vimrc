@@ -62,6 +62,9 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'arithran/vim-delete-hidden-buffers'
 Plug 'tpope/vim-rails'
+" Vim sugar for the UNIX shell commands that need it the most (:Delete,
+" :Rename, :Mkdir, etc.)
+Plug 'tpope/vim-eunuch'
 
 call plug#end()
 
