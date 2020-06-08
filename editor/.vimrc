@@ -324,19 +324,15 @@ nnoremap <silent> <C-n> :silent :bn<CR>
 " Switch between source and header files with a.vim
 nmap <leader>h :A<cr>
 
-" Resize windows with the arrow keys
-nnoremap <up> 10<C-W>+
-nnoremap <down> 10<C-W>-
-nnoremap <left> 3<C-W>>
-nnoremap <right> 3<C-W><
+" Resize windows with the arrow keys and shift key
+nnoremap <s-up> 10<C-W>+
+nnoremap <s-down> 10<C-W>-
+nnoremap <s-left> 3<C-W><
+nnoremap <s-right> 3<C-W>>
 
 " Exit insert mode and save just by hitting CTRL-s
 imap <c-s> <esc>:w<cr>
 nmap <c-s> <esc>:w<cr>
-
-" Don't jump around when using * to search for word under cursor
-" Often I just want to see where else a word appears
-nnoremap * mz*`z
 
 if has('nvim')
     " Make working with nvim terminal emulator nicer
