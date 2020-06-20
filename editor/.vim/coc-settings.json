@@ -40,5 +40,7 @@
   "solargraph.rename": true,
   "solargraph.references": true,
   "solargraph.diagnostics": true,
-  "eslint.filetypes": ["javascript", "javascriptreact"]
+  "eslint.filetypes": ["javascript", "javascriptreact"],
+  "html.filetypes": ["html", "handlebars", "htmldjango", "php"],
+  "html.autoClosingTags": true
 }
