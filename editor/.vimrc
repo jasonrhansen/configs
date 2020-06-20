@@ -119,12 +119,11 @@ set guioptions-=T
 let &showbreak = '↳ '
 set breakindent
 set breakindentopt=sbr
-set list
+set nolist
 set listchars=tab:▸\              " Char representing a tab
 set listchars+=extends:❯          " Char representing an extending line
 set listchars+=nbsp:␣             " Non breaking space
 set listchars+=precedes:❮         " Char representing an extending line in the other direction
-set listchars+=trail:·            " Show trailing spaces as dots
 set linebreak                       " Break properly, don't split words
 set scrolloff=4                     " Show context above/below cursorline
 set formatoptions+=j
@@ -332,6 +331,11 @@ nnoremap <s-right> 3<C-W>>
 " Exit insert mode and save just by hitting CTRL-s
 imap <c-s> <esc>:w<cr>
 nmap <c-s> <esc>:w<cr>
+
+" Toggle list chars with F3
+noremap <F3> :set list!<CR>
+inoremap <F3> <C-o>:set list!<CR>
+cnoremap <F3> <C-c>:set list!<CR>
 
 if has('nvim')
     " Make working with nvim terminal emulator nicer
