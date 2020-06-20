@@ -331,8 +331,10 @@ key_bindings:
   - { key: C,           mods: Command, action: Copy                         }
   - { key: Insert,      mods: Shift,   action: PasteSelection               }
   - { key: Key0,        mods: Control, action: ResetFontSize                }
-  - { key: Equals,      mods: Control, action: IncreaseFontSize             }
-  - { key: Subtract,    mods: Control, action: DecreaseFontSize             }
+  - { key: Equals,   mods: Control,                 action: IncreaseFontSize }
+  - { key: Add,      mods: Control,                 action: IncreaseFontSize }
+  - { key: Subtract, mods: Control,                 action: DecreaseFontSize }
+  - { key: Minus,    mods: Control,                 action: DecreaseFontSize }
   - { key: Home,                              chars: "\x1bOH",   mode: AppCursor   }
   - { key: Home,                              chars: "\x1b[H",   mode: ~AppCursor  }
   - { key: End,                               chars: "\x1bOF",   mode: AppCursor   }
