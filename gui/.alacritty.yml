@@ -67,24 +67,24 @@ scrolling:
 font:
   # Normal (roman) font face
   normal:
-    family: "Noto Sans Mono"
+    family: "Menlo"
     # The `style` can be specified to pick a specific face.
     # style: Regular
 
   # Bold font face
   bold:
-    family: "Noto Sans Mono"
+    family: "Menlo"
     # The `style` can be specified to pick a specific face.
     # style: Bold
 
   # Italic font face
   italic:
-    family: "Noto Sans Mono"
+    family: "Menlo"
     # The `style` can be specified to pick a specific face.
     # style: Italic
 
   # Point size of the font
-  size: 12.0
+  size: 13.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -99,56 +99,57 @@ font:
     x: 0
     y: 0
 
+  # Thin stroke font rendering (macOS only)
+  #
+  # Thin strokes are suitable for retina displays, but for non-retina screens
+  # it is recommended to set `use_thin_strokes` to `false`.
+  use_thin_strokes: false
+
 # Display the time it takes to redraw each frame.
 debug.render_timer: false
 
-# If `true`, bold text is drawn using the bright color variants.
-draw_bold_text_with_bright_colors: true
-
-# Colors (Base16 Atelier Dune)
+# Base16 Tomorrow Night 256 - alacritty color config
+# Chris Kempson (http://chriskempson.com)
 colors:
   # Default colors
   primary:
-    background: '0x20201d'
-    foreground: '0xa6a28c'
+    background: '0x1d1f21'
+    foreground: '0xc5c8c6'
 
-    # Bright and dim foreground colors
-    #
-    # The dimmed foreground color is calculated automatically if it is not present.
-    # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
-    # is `false`, the normal foreground color will be used.
-    #
-    #dim_foreground: '0x9a9a9a'
-    #bright_foreground: '0xffffff'
-
-  # Cursor colors
-  #
-  # These will only be used when the `custom_cursor_colors` field is set to `true`.
+  # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x000000'
-    cursor: '0xaaaaaa'
+    text: '0x1d1f21'
+    cursor: '0xc5c8c6'
 
   # Normal colors
   normal:
-    black:   '0x20201d'
-    red:     '0xd73737'
-    green:   '0x60ac39'
-    yellow:  '0xae9513'
-    blue:    '0x6684e1'
-    magenta: '0xb854d4'
-    cyan:    '0x1fad83'
-    white:   '0xa6a28c'
+    black:   '0x1d1f21'
+    red:     '0xcc6666'
+    green:   '0xb5bd68'
+    yellow:  '0xf0c674'
+    blue:    '0x81a2be'
+    magenta: '0xb294bb'
+    cyan:    '0x8abeb7'
+    white:   '0xc5c8c6'
 
   # Bright colors
   bright:
-    black:   '0x7d7a68'
-    red:     '0xb65611'
-    green:   '0x292824'
-    yellow:  '0x6e6b5e'
-    blue:    '0x999580'
-    magenta: '0xe8e4cf'
-    cyan:    '0xd43552'
-    white:   '0xa6a28c'
+    black:   '0x969896'
+    red:     '0xcc6666'
+    green:   '0xb5bd68'
+    yellow:  '0xf0c674'
+    blue:    '0x81a2be'
+    magenta: '0xb294bb'
+    cyan:    '0x8abeb7'
+    white:   '0xffffff'
+
+  indexed_colors:
+    - { index: 16, color: '0xde935f' }
+    - { index: 17, color: '0xa3685a' }
+    - { index: 18, color: '0x282a2e' }
+    - { index: 19, color: '0x373b41' }
+    - { index: 20, color: '0xb4b7b4' }
+    - { index: 21, color: '0xe0e0e0' }
 
   # Dim colors
   #

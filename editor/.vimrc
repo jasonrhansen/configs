@@ -196,7 +196,7 @@ else
     set background=dark
 endif
 let base16colorspace=256
-colorscheme base16-atelier-dune
+colorscheme base16-tomorrow-night
 
 " Cursor configuration
 " Use a blinking upright bar cursor in Insert mode, a solid block in normal
@@ -657,7 +657,9 @@ function! LightlineFilename()
     return expand('%:t') !=# '' ? @% : '[No Name]'
 endfunction
 
-let g:lightline = {}
+let g:lightline = {
+      \ 'colorscheme': 'Tomorrow_Night',
+      \ }
 
 let g:lightline.component_function = {
       \ 'filename': 'LightlineFilename',

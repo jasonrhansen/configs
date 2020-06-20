@@ -43,7 +43,7 @@ export EDITOR=nvim
 eval `dircolors ~/.dir_colors/dircolors.base16.dark`
 
 # Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-atelier-dune.sh"
+BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-tomorrow-night.sh"
 [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 if [ -z $TERM ]; then
     export TERM="xterm-256color"
@@ -88,6 +88,7 @@ if ! zgen saved; then
     zgen load mafredri/zsh-async
     zgen load sindresorhus/pure
     zgen load zsh-users/zsh-completions
+    zgen load chrissicool/zsh-256color
     # This plugin should be loaded last
     zgen load zsh-users/zsh-syntax-highlighting
 
@@ -105,7 +106,7 @@ alias lst='exa --tree'
 alias clear='clear; tmux clear-history > /dev/null'
 
 # Highlight
-HIGHLIGHT_OPTIONS="--out-format xterm256 --line-numbers --quiet --force --base16 --style atelier-dune"
+HIGHLIGHT_OPTIONS="--out-format xterm256 --line-numbers --quiet --force --base16 --style tomorrow-night"
 alias hl="$(which highlight) $HIGHLIGHT_OPTIONS"
 export LESSOPEN="| $(which highlight) %s $HIGHLIGHT_OPTIONS"
 export LESS=" -R"
