@@ -111,7 +111,6 @@ set synmaxcol=1000
 " Update syntax highlighting for more lines increased scrolling performance
 syntax sync minlines=256
 set autoread
-set cpoptions+=$
 set background=dark
 " Remove menu bar
 set guioptions-=m
