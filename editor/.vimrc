@@ -166,6 +166,9 @@ endif
 
 set pastetoggle=<F2>
 
+" Still show syntax highlighting for really large files.
+set redrawtime=10000
+
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
   call mkdir(expand(&undodir), "p")
