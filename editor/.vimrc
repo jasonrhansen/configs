@@ -54,8 +54,6 @@ Plug 'toyamarinyon/vim-swift', { 'for': 'swift' }
 Plug 'tmux-plugins/vim-tmux', { 'for': 'tmux' }
 Plug 'cespare/vim-toml'
 Plug 'fatih/vim-go'
-" File manager
-Plug 'mcchrish/nnn.vim'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'kchmck/vim-coffee-script'
@@ -263,7 +261,7 @@ inoremap <c-k> <esc>
 cnoremap <c-k> <c-e><c-u><esc>
 
 " Make editing and sourcing .vimrc really easy.
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>v :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " Add a 'stamp' command to replace word or selection with yanked text.
@@ -495,8 +493,6 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " Show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
 nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document
 nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
@@ -533,6 +529,7 @@ let g:coc_global_extensions = [
             \ 'coc-vimlsp',
             \ 'coc-xml',
             \ 'coc-yaml',
+            \ 'coc-explorer',
             \ ]
 
 " coc extension settings
@@ -561,6 +558,36 @@ augroup end
 " Make coc-pairs work well with <cr>
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
+nmap <leader>E :CocCommand explorer<CR>
+nmap <leader>e :CocCommand explorer --preset floating<CR>
+
+let g:coc_explorer_global_presets = {
+\   'floating': {
+\     'position': 'floating',
+\     'floating-width': 100,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingTop': {
+\     'position': 'floating',
+\     'floating-position': 'center-top',
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingLeftside': {
+\     'position': 'floating',
+\     'floating-position': 'left-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingRightside': {
+\     'position': 'floating',
+\     'floating-position': 'right-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'simplify': {
+\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\   }
+\ }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                    fzf
@@ -688,43 +715,6 @@ augroup vimrc
   autocmd OptionSet tabstop,shiftwidth,expandtab call lightline#update()
   autocmd Filetype * call lightline#update()
 augroup END
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                     nnn
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Disable default mappings
-let g:nnn#set_default_mappings = 0
-
-" Open nnn
-nnoremap <silent> <leader>N :NnnPicker<CR>
-
-" Open nnn in the current file's directory
-nnoremap <leader>n :NnnPicker '%:p:h'<CR>
-
-augroup vimrc
-    " Close nnn buffer with ESC
-    autocmd! FileType nnn tnoremap <buffer> <esc> <c-g>
-augroup END
-
-" Floating window (neovim)
-function! s:layout()
-  let buf = nvim_create_buf(v:false, v:true)
-
-  let height = &lines - (float2nr(&lines / 4))
-  let width = float2nr(&columns - (&columns * 2 / 3))
-  let col = float2nr((&columns - width) / 2)
-
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'row': 2,
-        \ 'col': col,
-        \ 'width': width,
-        \ 'height': height
-        \ }
-
-  call nvim_open_win(buf, v:true, opts)
-endfunction
-let g:nnn#layout = 'call ' . string(function('<SID>layout')) . '()'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
