@@ -1,0 +1,28 @@
+# Configuration for starship prompt
+
+prompt_order = [
+    "username",
+    "hostname",
+    "directory",
+    "git_branch",
+    "git_commit",
+    "git_state",
+    "git_status",
+    "hg_branch",
+    "env_var",
+    "cmd_duration",
+    "custom",
+    "line_break",
+    "jobs",
+    "battery",
+    "time",
+    "character",
+]
+
+
+[character]
+style_success="bold green"
+
+[directory]
+truncation_length=8
+style="bold bright-blue"

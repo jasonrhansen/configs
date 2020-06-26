@@ -86,7 +86,6 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/sudo
     zgen oh-my-zsh plugins/command-not-found
     zgen load mafredri/zsh-async
-    zgen load sindresorhus/pure
     zgen load zsh-users/zsh-completions
     zgen load chrissicool/zsh-256color
     # This plugin should be loaded last
@@ -114,5 +113,8 @@ alias less='less -m -N -g -i -J --line-numbers --underline-special'
 alias more='less'
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# prompt (install with "cargo install starship")
+eval "$(starship init zsh)"
 
 eval "$(rbenv init -)"

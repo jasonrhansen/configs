@@ -64,6 +64,7 @@ Plug 'tpope/vim-rails'
 " Vim sugar for the UNIX shell commands that need it the most (:Delete,
 " :Rename, :Mkdir, etc.)
 Plug 'tpope/vim-eunuch'
+Plug 'norcalli/nvim-colorizer.lua'
 
 call plug#end()
 
@@ -87,7 +88,7 @@ let maplocalleader="-"
 
 set hidden
 set wildmenu
-set wildmode=list:full
+set wildmode=longest,list,full
 set wildignorecase
 set showfulltag
 set history=1000
