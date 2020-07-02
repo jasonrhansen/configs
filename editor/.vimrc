@@ -535,6 +535,7 @@ let g:coc_global_extensions = [
             \ 'coc-xml',
             \ 'coc-yaml',
             \ 'coc-explorer',
+            \ 'coc-lua',
             \ ]
 
 " coc extension settings
