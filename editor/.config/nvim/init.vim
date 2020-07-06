@@ -8,7 +8,14 @@ call plug#begin()
 
 if s:use_nvim_lsp
   Plug 'neovim/nvim-lsp'
-  Plug 'neovim-lua/completion-nvim'
+  Plug 'nvim-lua/completion-nvim'
+  Plug 'nvim-lua/lsp-status.nvim'
+
+  " Alternative to vim-gitgutter
+  Plug 'mhinz/vim-signify'
+
+  " File explorer
+  Plug 'lambdalisue/fern.vim'
 else
   " Intellisense engine and full language server protocol Most language features
   " are coc.nvim extensions, see g:coc_global_extensions below.
@@ -390,23 +397,28 @@ augroup END
 
 nnoremap <Leader>q :Bdelete<CR>
 
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                   coc.nvim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if !s:use_nvim_lsp
-  " Better display for messages
-  set cmdheight=2
-
-  " You will have bad experience for diagnostic messages when it's default 4000.
-  set updatetime=300
-
-  " don't give |ins-completion-menu| messages.
-  set shortmess+=c
-
-  " always show signcolumns
-  set signcolumn=yes
-
   " Use tab for trigger completion with characters ahead and navigate.
   " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
   inoremap <silent><expr> <TAB>
@@ -414,11 +426,6 @@ if !s:use_nvim_lsp
         \ <SID>check_back_space() ? "\<TAB>" :
         \ coc#refresh()
   inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-  endfunction
 
   " Use <c-space> to trigger completion.
   inoremap <silent><expr> <c-space> coc#refresh()
@@ -697,12 +704,32 @@ let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 "                   Lightline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-function! CocCurrentFunction()
-    return get(b:, 'coc_current_function', '')
-endfunction
-
 function! LightlineFilename()
     return expand('%:t') !=# '' ? @% : '[No Name]'
+endfunction
+
+function! CurrentFunction()
+  if s:use_nvim_lsp
+    return ''
+  else
+    return get(b:, 'coc_current_function', '')
+  endif
+endfunction
+
+function! Status() abort
+  if s:use_nvim_lsp
+    return LspStatus()
+  else
+    return coc#status()
+  endif
+endfunction
+
+function! LspStatus() abort
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return luaeval("require('lsp-status').status()")
+  endif
+
+  return ''
 endfunction
 
 let g:lightline = {
@@ -712,8 +739,8 @@ let g:lightline = {
 let g:lightline.component_function = {
       \ 'filename': 'LightlineFilename',
       \ 'gitbranch': 'fugitive#head',
-      \ 'cocstatus': 'coc#status',
-      \ 'currentfunction': 'CocCurrentFunction',
+      \ 'status': 'Status',
+      \ 'currentfunction': 'CurrentFunction',
       \ 'sleuth': 'SleuthIndicator'
       \ }
 
@@ -826,13 +853,31 @@ let g:tagbar_type_go = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                   vinarise
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Detect binary file or large file automatically
 let g:vinarise_enable_auto_detect = 1
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                   nvim-lsp
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if s:use_nvim_lsp
   " Use completion-nvim in every buffer
   autocmd BufEnter * lua require'completion'.on_attach()
 
+  inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ completion#trigger_completion()
+
+  " Use <Tab> and <S-Tab> to navigate through popup menu
+  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+  " Set completeopt to have a better completion experience
+  set completeopt=menuone,noinsert,noselect
+
   " nvim-lsp config is in lsp_config.lua
   lua require 'lsp_config'
-end
+endif
