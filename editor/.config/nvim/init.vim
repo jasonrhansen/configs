@@ -81,6 +81,9 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-eunuch'
 Plug 'norcalli/nvim-colorizer.lua'
 
+" Expand abbreviations for HTML like 'div>p#foo$*3>a' with '<c-y>,'
+Plug 'mattn/emmet-vim'
+
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
