@@ -94,22 +94,22 @@ window:
 font:
   # Normal (roman) font face
   normal:
-    family: "Menlo for Powerline"
+    family: "MesloLGM Nerd Font"
     style: Regular
 
   # Bold font face
   bold:
-    family: "Menlo for Powerline"
+    family: "MesloLGM Nerd Font"
     style: Bold
 
   # Italic font face
   italic:
-    family: "Menlo for Powerline"
+    family: "MesloLGM Nerd Font"
     style: Italic
 
   # Bold italic font face
-  italic:
-    family: "Menlo for Powerline"
+  bold_italic:
+    family: "MesloLGM Nerd Font"
     style: Bold Italic
 
   # Point size
@@ -132,7 +132,7 @@ font:
   #
   # Thin strokes are suitable for retina displays, but for non-retina screens
   # it is recommended to set `use_thin_strokes` to `false`.
-  use_thin_strokes: false
+  # use_thin_strokes: false
 
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
@@ -242,6 +242,36 @@ font:
   #
   #indexed_colors: []
 
+# Colors (Jellybeans)
+colors:
+  bright:
+    black: '#bdbdbd'
+    blue: '#b1d8f6'
+    cyan: '#1ab2a8'
+    green: '#bddeab'
+    magenta: '#fbdaff'
+    red: '#ffa1a1'
+    white: '#ffffff'
+    yellow: '#ffdca0'
+  cursor:
+    cursor: '#ffa560'
+    text: '#ffffff'
+  normal:
+    black: '#929292'
+    blue: '#97bedc'
+    cyan: '#00988e'
+    green: '#94b979'
+    magenta: '#e1c0fa'
+    red: '#e27373'
+    white: '#dedede'
+    yellow: '#ffba7b'
+  primary:
+    background: '#121212'
+    foreground: '#dedede'
+  selection:
+    background: '#474e91'
+    text: '#f4f4f4'
+
 # Bell
 #
 # The bell is rung every time the BEL control character is received.
@@ -334,9 +364,9 @@ selection:
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
 shell:
-   program: /usr/local/bin/zsh
-#  args:
-#    - --login
+  program: /usr/local/bin/zsh
+  args:
+    - --login
 
 # Startup directory
 #

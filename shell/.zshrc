@@ -40,14 +40,7 @@ export GOPATH=~/go
 export VISUAL=nvim
 export EDITOR=nvim
 
-eval `dircolors ~/.dir_colors/dircolors.base16.dark`
-
-# Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/scripts/base16-tomorrow-night.sh"
-[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-if [ -z $TERM ]; then
-    export TERM="xterm-256color"
-fi
+eval `dircolors ~/.dir_colors/dircolors.jellybeans`
 
 if type thefuck > /dev/null; then
     eval "$(thefuck --alias)"
@@ -73,6 +66,12 @@ tm() {
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 export SKIM_DEFAULT_COMMAND='rg --files --hidden --follow -g "!{node_modules}/*" 2> /dev/null'
+
+# jellybeans theme
+export FZF_DEFAULT_OPTS='
+  --color fg:188,bg:233,hl:103,fg+:222,bg+:234,hl+:104
+  --color info:183,prompt:110,spinner:107,pointer:167,marker:215
+'
 
 # Load zgen plugin manager
 source "${HOME}/.zgen/zgen/zgen.zsh"
@@ -104,13 +103,12 @@ alias lst='exa --tree'
 
 alias clear='clear; tmux clear-history > /dev/null'
 
+# Boron is based on jellybeans
+export BAT_THEME="Boron"
+
 # Highlight
-HIGHLIGHT_OPTIONS="--out-format xterm256 --line-numbers --quiet --force --base16 --style tomorrow-night"
-alias hl="$(which highlight) $HIGHLIGHT_OPTIONS"
-export LESSOPEN="| $(which highlight) %s $HIGHLIGHT_OPTIONS"
-export LESS=" -R"
-alias less='less -m -N -g -i -J --line-numbers --underline-special'
-alias more='less'
+alias less='bat'
+alias more='bat'
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 

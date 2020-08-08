@@ -13,9 +13,6 @@ if s:use_nvim_lsp
 
   " Alternative to vim-gitgutter
   Plug 'mhinz/vim-signify'
-
-  " File explorer
-  Plug 'lambdalisue/fern.vim'
 else
   " Intellisense engine and full language server protocol Most language features
   " are coc.nvim extensions, see g:coc_global_extensions below.
@@ -49,7 +46,6 @@ Plug 'wellle/targets.vim'
 " Use this version instead of vim-scripts/a.vim because it
 " won't create imaps by default.
 Plug 'fanchangyong/a.vim'
-Plug 'chriskempson/base16-vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
@@ -83,6 +79,14 @@ Plug 'norcalli/nvim-colorizer.lua'
 
 " Expand abbreviations for HTML like 'div>p#foo$*3>a' with '<c-y>,'
 Plug 'mattn/emmet-vim'
+
+" Color themes
+Plug 'chriskempson/base16-vim'
+Plug 'nanotech/jellybeans.vim'
+Plug 'tomasiser/vim-code-dark'
+
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-tree.lua'
 
 call plug#end()
 
@@ -205,17 +209,14 @@ augroup END
 if !has('gui_running')
   set t_Co=256
 endif
-if (match($TERM, "-256color") != -1) && (match($TERM, "screen-256color") == -1)
-  " screen does not (yet) support truecolor
-  set termguicolors
-endif
 if (exists('$TMUX') && system('tmux show-env TERMINAL_THEME') == "TERMINAL_THEME=light\n") || $TERMINAL_THEME == "light"
     set background=light
 else
     set background=dark
 endif
 let base16colorspace=256
-colorscheme base16-tomorrow-night
+colorscheme jellybeans
+let g:jellybeans_use_term_italics = 1
 
 " Cursor configuration
 " Use a blinking upright bar cursor in Insert mode, a solid block in normal
@@ -273,7 +274,7 @@ nnoremap <leader>G :silent execute "grep! -R " . shellescape(expand("<cWORD>")) 
 " <leader><leader> toggles between buffers
 nnoremap <leader><leader> <c-^>
 
-" Turn of search highlights by pressing return unless in quickfix window
+" Turn off search highlights by pressing return unless in quickfix window
 nnoremap <expr> <cr> &buftype ==# 'quickfix' ? "\<CR>" : ':noh<cr>'
 
 " Escape is too much of a reach. Use jk to exit insert mode and command mode.
@@ -554,7 +555,6 @@ if !s:use_nvim_lsp
               \ 'coc-vimlsp',
               \ 'coc-xml',
               \ 'coc-yaml',
-              \ 'coc-explorer',
               \ 'coc-lua',
               \ ]
 
@@ -650,8 +650,8 @@ nnoremap [fzf]c :Commands<cr>
 nnoremap [fzf]l :BLines<cr>
 nnoremap [fzf]L :Lines<cr>
 nnoremap [fzf]m :Marks<cr>
-nnoremap [fzf]p :Files<cr>
-nnoremap [fzf]P :GFiles<cr>
+nnoremap [fzf]P :Files<cr>
+nnoremap [fzf]p :GFiles<cr>
 nnoremap [fzf]s :Snippets<cr>
 nnoremap [fzf]t :BTags<cr>
 nnoremap [fzf]T :Tags<cr>
@@ -702,6 +702,10 @@ endfunction
 let $FZF_DEFAULT_OPTS='--layout=reverse'
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
+let g:fzf_colors =
+\ { 'fg': ['fg', 'Normal'],
+\ 'bg': ['bg', 'Normal']}
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                   Lightline
@@ -736,7 +740,7 @@ function! LspStatus() abort
 endfunction
 
 let g:lightline = {
-      \ 'colorscheme': 'Tomorrow_Night',
+      \ 'colorscheme': 'jellybeans',
       \ }
 
 let g:lightline.component_function = {
@@ -763,6 +767,79 @@ augroup vimrc
   autocmd OptionSet tabstop,shiftwidth,expandtab call lightline#update()
   autocmd Filetype * call lightline#update()
 augroup END
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                   nvim-tree.lua
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:lua_tree_side = 'left' "left by default
+let g:lua_tree_size = 40 "30 by default
+let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
+let g:lua_tree_auto_open = 0 "0 by default, opens the tree when typing `vim $DIR` or `vim`
+let g:lua_tree_auto_close = 1 "0 by default, closes the tree when it's the last window
+let g:lua_tree_follow = 1 "0 by default, this option allows the cursor to be updated when entering a buffer
+let g:lua_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
+let g:lua_tree_hide_dotfiles = 1 "0 by default, this option hides files and folders starting with a dot `.`
+let g:lua_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
+let g:lua_tree_root_folder_modifier = ':~' "This is the default. See :help filename-modifiers for more options
+let g:lua_tree_show_icons = {
+    \ 'git': 1,
+    \ 'folders': 1,
+    \ 'files': 1,
+    \}
+"If 0, do not show the icons for one of 'git' 'folder' and 'files'
+"1 by default, notice that if 'files' is 1, it will only display
+"if nvim-web-devicons is installed and on your runtimepath
+
+" You can edit keybindings be defining this variable
+" You don't have to define all keys.
+" NOTE: the 'edit' key will wrap/unwrap a folder and open a file
+let g:lua_tree_bindings = {
+    \ 'edit':            ['<CR>', 'o'],
+    \ 'edit_vsplit':     '<C-v>',
+    \ 'edit_split':      '<C-x>',
+    \ 'edit_tab':        '<C-t>',
+    \ 'toggle_ignored':  'I',
+    \ 'toggle_dotfiles': '.',
+    \ 'preview':         '<C-p>',
+    \ 'cd':              '<C-]>',
+    \ 'create':          'a',
+    \ 'remove':          'd',
+    \ 'rename':          'r',
+    \ 'cut':             'x',
+    \ 'copy':            'c',
+    \ 'paste':           'p',
+    \ 'prev_git_item':   '[c',
+    \ 'next_git_item':   ']c',
+    \}
+
+" Disable default mappings by plugin
+" Bindings are enable by default, disabled on any non-zero value
+" let lua_tree_disable_keybindings=1
+
+" default will show icon by default if no icon is provided
+" default shows no icon by default
+let g:lua_tree_icons = {
+    \ 'default': '',
+    \ 'git': {
+    \   'unstaged': "✗",
+    \   'staged': "✓",
+    \   'unmerged': "",
+    \   'renamed': "➜",
+    \   'untracked': "★"
+    \   },
+    \ 'folder': {
+    \   'default': "",
+    \   'open': ""
+    \   }
+    \ }
+
+nnoremap <leader>e :LuaTreeToggle<CR>
+nnoremap <leader>r :LuaTreeRefresh<CR>
+nnoremap <leader>n :LuaTreeFindFile<CR>
+
+set termguicolors " this variable must be enabled for colors to be applied properly
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
