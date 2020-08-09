@@ -6,6 +6,7 @@ let s:use_nvim_lsp = 0
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin()
 
+
 if s:use_nvim_lsp
   Plug 'neovim/nvim-lsp'
   Plug 'nvim-lua/completion-nvim'
@@ -761,7 +762,7 @@ let g:lightline.component_function = {
 
 let g:lightline.active = {
       \ 'left': [['mode', 'paste'], ['readonly', 'filename', 'modified'], ['gitbranch']],
-      \ 'right': [['lineinfo'], ['percent'], ['fileformat', 'fileencoding', 'filetype'], ['sleuth'], ['cocstatus', 'currentfunction']]
+      \ 'right': [['lineinfo'], ['percent'], ['fileformat', 'fileencoding', 'filetype'], ['sleuth'], ['status', 'currentfunction']]
       \ }
 
 let g:lightline.inactive = {
