@@ -712,9 +712,7 @@ endfunction
 let $FZF_DEFAULT_OPTS='--layout=reverse'
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
-let g:fzf_colors =
-\ { 'fg': ['fg', 'Normal'],
-\ 'bg': ['bg', 'Normal']}
+let g:fzf_colors = {'bg': ['bg', 'Normal']}
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -850,6 +848,11 @@ nnoremap <leader>r :LuaTreeRefresh<CR>
 nnoremap <leader>n :LuaTreeFindFile<CR>
 
 set termguicolors " this variable must be enabled for colors to be applied properly
+
+augroup vimrc
+    autocmd FileType LuaTree set nowrap
+    autocmd FileType LuaTree nnoremap w :set nowrap!<CR>
+augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
