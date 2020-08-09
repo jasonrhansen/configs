@@ -1,8 +1,14 @@
 local lsp = require 'nvim_lsp'
 local lsp_status = require 'lsp-status'
+local diagnostic = require 'diagnostic'
+local nvim_command = vim.api.nvim_command
 
 local attach = function(client)
   lsp_status.on_attach(client)
+  diagnostic.on_attach(client)
+
+  -- Show line diagnostics for the cursor position.
+  nvim_command('autocmd CursorHold <buffer> lua vim.lsp.util.show_line_diagnostics()')
 
   local mapper = function(mode, key, result)
     vim.fn.nvim_buf_set_keymap(0, mode, key, result, {noremap=true, silent=true})
@@ -22,8 +28,8 @@ local attach = function(client)
 
   mapper('n', '<expr><c-space>', '<cmd>lua vim.lsp.buf.completion()<CR>')
 
-  mapper('n', '[g]', ':PrevDiagnostic<CR>')
-  mapper('n', ']g', ':NextDiagnostic<CR>')
+  mapper('n', '[g', ':PrevDiagnosticCycle<CR>')
+  mapper('n', ']g', ':NextDiagnosticCycle<CR>')
 
   mapper('n', '<leader>sl', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
 end
@@ -51,7 +57,13 @@ local configs = {
   jsonls = {},
   pyls = {},
   rust_analyzer = {},
-  solargraph = {},
+  solargraph = {
+    settings = {
+      solargraph = {
+        useBundler = false,
+      },
+    },
+  },
   sumneko_lua = {
     settings = {
       Lua = {
@@ -79,5 +91,6 @@ for name, config in pairs(configs) do
 
   lsp[name].setup(config)
 end
+
 
 lsp_status.register_progress()

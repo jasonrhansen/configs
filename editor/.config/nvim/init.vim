@@ -11,6 +11,7 @@ if s:use_nvim_lsp
   Plug 'neovim/nvim-lsp'
   Plug 'nvim-lua/completion-nvim'
   Plug 'nvim-lua/lsp-status.nvim'
+  Plug 'nvim-lua/diagnostic-nvim'
 
   " Alternative to vim-gitgutter
   Plug 'mhinz/vim-signify'
@@ -416,7 +417,7 @@ nnoremap <Leader>q :Bdelete<CR>
 set cmdheight=2
 
 " You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
+set updatetime=100
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
@@ -972,6 +973,13 @@ if s:use_nvim_lsp
   " Set completeopt to have a better completion experience
   set completeopt=menuone,noinsert,noselect
 
+  let g:signify_sign_change = '~'
+
   " nvim-lsp config is in lsp_config.lua
   lua require 'lsp_config'
+
+  call sign_define("LspDiagnosticsErrorSign", {"text" : ">>", "texthl" : "LspDiagnosticsError"})
+  call sign_define("LspDiagnosticsWarningSign", {"text" : "⚠", "texthl" : "LspDiagnosticsWarning"})
+  call sign_define("LspDiagnosticsInformationSign", {"text" : "ⓘ", "texthl" : "LspDiagnosticsInformation"})
+  call sign_define("LspDiagnosticsHintSign", {"text" : "H", "texthl" : "LspDiagnosticsHint"})
 endif
