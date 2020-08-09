@@ -205,7 +205,7 @@ augroup vimrc
     autocmd VimResized * :wincmd =
 augroup END
 
-" Color preferences
+"  Color preferences
 if !has('gui_running')
   set t_Co=256
 endif
@@ -215,8 +215,18 @@ else
     set background=dark
 endif
 let base16colorspace=256
-colorscheme jellybeans
 let g:jellybeans_use_term_italics = 1
+let g:jellybeans_overrides = {
+\    'DiffAdd': { 'ctermfg': '71', 'guifg': '65C254', 'ctermbg': '233', 'guibg': '151515' },
+\    'DiffChange': { 'ctermfg': '24', 'guifg': '2B8BF7', 'ctermbg': '233', 'guibg': '151515' },
+\    'DiffDelete': { 'ctermfg': '224', 'guifg': 'FF0000', 'ctermbg': '233', 'guibg': '151515' },
+\    'SignColumn': { 'ctermbg': '233', 'guibg': '151515' },
+\    'Pmenu': { 'ctermbg': '236', 'guibg': '333333' },
+\    'Search': { 'attr': 'none', 'guifg': 'FFFFFF',  'guibg': '384048' },
+\}
+colorscheme jellybeans
+
+set fillchars=vert:\ 
 
 " Cursor configuration
 " Use a blinking upright bar cursor in Insert mode, a solid block in normal
