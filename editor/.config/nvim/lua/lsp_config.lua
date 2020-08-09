@@ -7,9 +7,6 @@ local attach = function(client)
   lsp_status.on_attach(client)
   diagnostic.on_attach(client)
 
-  -- Show line diagnostics for the cursor position.
-  nvim_command('autocmd CursorHold <buffer> lua vim.lsp.util.show_line_diagnostics()')
-
   local mapper = function(mode, key, result)
     vim.fn.nvim_buf_set_keymap(0, mode, key, result, {noremap=true, silent=true})
   end
@@ -28,10 +25,11 @@ local attach = function(client)
 
   mapper('n', '<expr><c-space>', '<cmd>lua vim.lsp.buf.completion()<CR>')
 
-  mapper('n', '[g', ':PrevDiagnosticCycle<CR>')
-  mapper('n', ']g', ':NextDiagnosticCycle<CR>')
+  mapper('n', '[g', '<cmd>PrevDiagnosticCycle<CR>')
+  mapper('n', ']g', '<cmd>NextDiagnosticCycle<CR>')
 
-  mapper('n', '<leader>sl', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
+  mapper('n', '<leader>d', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
+  mapper('n', '<leader>od', '<cmd>OpenDiagnostic<CR>')
 end
 
 lsp.util.default_config = vim.tbl_extend(

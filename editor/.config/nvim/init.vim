@@ -460,7 +460,7 @@ if !s:use_nvim_lsp
   nmap <silent> gr <Plug>(coc-references)
 
   " Use K to show documentation in preview window
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
+  nnoremap <silent> K <cmd>call <SID>show_documentation()<CR>
 
   function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
@@ -480,7 +480,7 @@ if !s:use_nvim_lsp
   nmap <leader>f  <Plug>(coc-format-selected)
 
   " Format whole file
-  nmap <leader>F :call CocAction('format')<cr>
+  nmap <leader>F <cmd>call CocAction('format')<cr>
 
   augroup vimrc
     autocmd!
@@ -502,7 +502,7 @@ if !s:use_nvim_lsp
   nmap <leader>qf  <Plug>(coc-fix-current)
 
   " Implement methods for trait
-  nnoremap <silent> <space>i  :call CocActionAsync('codeAction', '', 'Implement missing members')<cr>
+  nnoremap <silent> <space>i  <cmd>call CocActionAsync('codeAction', '', 'Implement missing members')<cr>
 
   " Map function and class text objects
   " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -516,13 +516,13 @@ if !s:use_nvim_lsp
   omap ac <Plug>(coc-classobj-a)
 
   " Use `:Format` to format current buffer
-  command! -nargs=0 Format :call CocAction('format')
+  command! -nargs=0 Format <cmd>call CocAction('format')
 
   " Use `:Fold` to fold current buffer
-  command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+  command! -nargs=? Fold <cmd>call     CocAction('fold', <f-args>)
 
   " use `:OR` for organize import of current buffer
-  command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+  command! -nargs=0 OR   <cmd>call     CocAction('runCommand', 'editor.action.organizeImport')
 
   " Add status line support, for integration with other plugin, checkout `:h coc-status`
   set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
@@ -774,8 +774,6 @@ let g:lightline.inactive = {
 augroup vimrc
   " Use autocmd to force lightline update.
   autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-  autocmd OptionSet tabstop,shiftwidth,expandtab call lightline#update()
-  autocmd Filetype * call lightline#update()
 augroup END
 
 
@@ -849,11 +847,12 @@ nnoremap <leader>e :LuaTreeToggle<CR>
 nnoremap <leader>r :LuaTreeRefresh<CR>
 nnoremap <leader>n :LuaTreeFindFile<CR>
 
+
 set termguicolors " this variable must be enabled for colors to be applied properly
 
 augroup vimrc
     autocmd FileType LuaTree set nowrap
-    autocmd FileType LuaTree nnoremap w :set nowrap!<CR>
+    autocmd FileType LuaTree nnoremap <buffer><leader>w :set nowrap!<CR>
 augroup END
 
 
