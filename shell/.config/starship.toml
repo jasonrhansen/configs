@@ -19,10 +19,6 @@ prompt_order = [
     "character",
 ]
 
-
-[character]
-style_success="bold green"
-
 [directory]
 truncation_length=8
-style="bold bright-blue"
+style="blue"
