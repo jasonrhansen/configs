@@ -391,11 +391,6 @@ if has('nvim')
     set inccommand=nosplit
 endif
 
-augroup vimrc
-    " Reload vimrc after saving
-    autocmd BufWritePost $MYVIMRC,.vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc,init.vim source %
-augroup END
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                Plugin Configuration
