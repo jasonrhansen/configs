@@ -11,10 +11,15 @@ local attach = function(client)
     vim.fn.nvim_buf_set_keymap(0, mode, key, result, {noremap=true, silent=true})
   end
 
-  mapper('n', 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>')
+  mapper('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+  mapper('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
   mapper('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
   mapper('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
   mapper('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
+  mapper('n', 'g0', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+  mapper('n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+
+  mapper('n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 
   mapper('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
   mapper('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>')
@@ -59,6 +64,7 @@ local configs = {
     settings = {
       solargraph = {
         useBundler = false,
+        diagnostics = true,
       },
     },
   },
