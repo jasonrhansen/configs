@@ -254,17 +254,17 @@ colors:
     white: '#ffffff'
     yellow: '#ffdca0'
   cursor:
-    cursor: '#ffa560'
+    cursor: '#bdbdbd'
     text: '#ffffff'
   normal:
     black: '#929292'
-    blue: '#97bedc'
+    blue: '#8fbfdc'
     cyan: '#00988e'
     green: '#94b979'
-    magenta: '#e1c0fa'
+    magenta: '#c6b6ee'
     red: '#e27373'
     white: '#dedede'
-    yellow: '#ffba7b'
+    yellow: '#ffb964'
   primary:
     background: '#121212'
     foreground: '#dedede'
