@@ -225,10 +225,11 @@ let g:jellybeans_overrides = {
 \    'SignColumn': { 'ctermbg': '233', 'guibg': '151515' },
 \    'Pmenu': { 'ctermbg': '236', 'guibg': '333333' },
 \    'Search': { 'attr': 'none', 'guifg': 'FFFFFF',  'guibg': '384048' },
+\    'Normal': { 'guibg': '121212' },
 \}
 colorscheme jellybeans
 
-set fillchars=vert:\ 
+set fillchars=vert:\ ,
 
 " Cursor configuration
 " Use a blinking upright bar cursor in Insert mode, a solid block in normal
