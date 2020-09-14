@@ -4,7 +4,7 @@
 [push]
 	default = simple
 [pull]
-	rebase = true
+	rebase = false
 [core]
 	pager = less -F -X
 	autocrlf = input
