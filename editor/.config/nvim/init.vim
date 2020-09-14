@@ -8,13 +8,17 @@ call plug#begin()
 
 
 if s:use_nvim_lsp
-  Plug 'neovim/nvim-lsp'
+  Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/completion-nvim'
   Plug 'nvim-lua/lsp-status.nvim'
   Plug 'nvim-lua/diagnostic-nvim'
+  Plug 'nvim-treesitter/nvim-treesitter'
 
   " Alternative to vim-gitgutter
   Plug 'mhinz/vim-signify'
+
+  " Instead of coc-prettier
+  Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 else
   " Intellisense engine and full language server protocol Most language features
   " are coc.nvim extensions, see g:coc_global_extensions below.
@@ -82,13 +86,21 @@ Plug 'norcalli/nvim-colorizer.lua'
 " Expand abbreviations for HTML like 'div>p#foo$*3>a' with '<c-y>,'
 Plug 'mattn/emmet-vim'
 
-" Color themes
-Plug 'chriskempson/base16-vim'
+" Color theme
 Plug 'nanotech/jellybeans.vim'
-Plug 'tomasiser/vim-code-dark'
 
+" File manager
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
+
+" Quickly switch between Angular files
+Plug 'softoika/ngswitcher.vim'
+
+" telescope.nvim could be a possible replacement for fzf.vim when it's more
+" mature
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/telescope.nvim'
 
 call plug#end()
 
@@ -775,6 +787,16 @@ augroup vimrc
   " Use autocmd to force lightline update.
   autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 augroup END
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                    ngswitcher
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+nnoremap <leader>nt <cmd>NgSwitchTS<CR>
+nnoremap <leader>nc <cmd>NgSwitchCSS<CR>
+nnoremap <leader>nh <cmd>NgSwitchHTML<CR>
+nnoremap <leader>ns <cmd>NgSwitchSpec<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""

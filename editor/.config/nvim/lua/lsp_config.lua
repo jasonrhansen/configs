@@ -1,7 +1,6 @@
 local lsp = require 'nvim_lsp'
 local lsp_status = require 'lsp-status'
 local diagnostic = require 'diagnostic'
-local nvim_command = vim.api.nvim_command
 
 local attach = function(client)
   lsp_status.on_attach(client)
@@ -18,6 +17,8 @@ local attach = function(client)
   mapper('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
   mapper('n', 'g0', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
   mapper('n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+
+  mapper('n', '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
   mapper('n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 
@@ -95,6 +96,5 @@ for name, config in pairs(configs) do
 
   lsp[name].setup(config)
 end
-
 
 lsp_status.register_progress()
