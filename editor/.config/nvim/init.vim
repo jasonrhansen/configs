@@ -92,7 +92,8 @@ Plug 'nanotech/jellybeans.vim'
 
 " File manager
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
-Plug 'kyazdani42/nvim-tree.lua'
+" Fork of 'kyazdani42/nvim-tree.lua' that doesn't disable netrw.
+Plug 'jasonrhansen/nvim-tree.lua'
 
 " Quickly switch between Angular files
 Plug 'softoika/ngswitcher.vim'
