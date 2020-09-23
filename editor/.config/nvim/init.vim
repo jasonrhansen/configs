@@ -609,38 +609,6 @@ if !s:use_nvim_lsp
 
   " Make coc-pairs work well with <cr>
   inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-  nmap <leader>E :CocCommand explorer<CR>
-  nmap <leader>e :CocCommand explorer --preset floating<CR>
-
-  let g:coc_explorer_global_presets = {
-  \   'floating': {
-  \     'position': 'floating',
-  \     'floating-width': 100,
-  \     'open-action-strategy': 'sourceWindow',
-  \   },
-  \   'floatingTop': {
-  \     'position': 'floating',
-  \     'floating-position': 'center-top',
-  \     'open-action-strategy': 'sourceWindow',
-  \   },
-  \   'floatingLeftside': {
-  \     'position': 'floating',
-  \     'floating-position': 'left-center',
-  \     'floating-width': 50,
-  \     'open-action-strategy': 'sourceWindow',
-  \   },
-  \   'floatingRightside': {
-  \     'position': 'floating',
-  \     'floating-position': 'right-center',
-  \     'floating-width': 50,
-  \     'open-action-strategy': 'sourceWindow',
-  \   },
-  \   'simplify': {
-  \     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
-  \   }
-  \ }
-
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -870,7 +838,6 @@ let g:lua_tree_icons = {
 nnoremap <leader>e :LuaTreeToggle<CR>
 nnoremap <leader>r :LuaTreeRefresh<CR>
 nnoremap <leader>n :LuaTreeFindFile<CR>
-
 
 set termguicolors " this variable must be enabled for colors to be applied properly
 
