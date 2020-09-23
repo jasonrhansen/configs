@@ -73,6 +73,7 @@ Plug 'cespare/vim-toml'
 Plug 'fatih/vim-go'
 " Git
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'rhysd/committia.vim'
 Plug 'kchmck/vim-coffee-script'
 Plug 'mustache/vim-mustache-handlebars'
