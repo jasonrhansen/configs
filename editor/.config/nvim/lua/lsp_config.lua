@@ -49,18 +49,24 @@ lsp.util.default_config = vim.tbl_extend(
 -- Language server configs
 local configs = {
   bashls = {},
-  ccls = {},
-  clangd = {},
   cmake = {},
   cssls = {},
   dockerls = {},
-  ghcide = {},
   gopls = {},
   html = {},
+  -- PHP
   intelephense = {},
+  -- Java
+  jdtls = {},
   jsonls = {},
+  -- C#, VB
+  omnisharp = {},
+  -- Python
   pyls = {},
+  -- Linting of JavaScript, TypeScript, JSON
+  rome = {},
   rust_analyzer = {},
+  -- Ruby
   solargraph = {
     settings = {
       solargraph = {
@@ -69,6 +75,8 @@ local configs = {
       },
     },
   },
+  -- Swift, C/C++/Objective-C
+  sourcekit = {},
   sumneko_lua = {
     settings = {
       Lua = {
@@ -84,8 +92,10 @@ local configs = {
       },
     }
   },
+  sqlls = {},
   tsserver = {},
   vimls = {},
+  vuels = {},
   yamlls = {},
 }
 
@@ -98,3 +108,16 @@ for name, config in pairs(configs) do
 end
 
 lsp_status.register_progress()
+
+local actions = require('telescope.actions')
+
+require('telescope').setup {
+  defaults = {
+    mappings = {
+      i = {
+        -- Close with esc in insert mode.
+        ["<esc>"] = actions.close,
+      },
+    },
+  }
+}

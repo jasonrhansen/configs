@@ -1,5 +1,5 @@
-" Whether to use unstable nvim-lsp. If set to 0, coc.nvim will be used.
-let s:use_nvim_lsp = 0
+ " Whether to use unstable nvim-lsp. If set to 0, coc.nvim will be used.
+let s:use_nvim_lsp = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                  Plugins
@@ -23,6 +23,8 @@ else
   " Intellisense engine and full language server protocol Most language features
   " are coc.nvim extensions, see g:coc_global_extensions below.
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'junegunn/fzf', { 'do': './install --bin' }
+  Plug 'junegunn/fzf.vim'
 endif
 
 Plug 'kana/vim-altercmd'
@@ -53,8 +55,6 @@ Plug 'wellle/targets.vim'
 " won't create imaps by default.
 Plug 'fanchangyong/a.vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-Plug 'junegunn/fzf', { 'do': './install --bin' }
-Plug 'junegunn/fzf.vim'
 Plug 'moll/vim-bbye'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'AndrewRadev/splitjoin.vim'
@@ -615,88 +615,91 @@ endif
 "                    fzf
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Customize Rg command to not search filenames. I only want it to search file contents.
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1,
-  \ fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
+if !s:use_nvim_lsp
 
-" Add another ripgrep command "RG", that doesn't use fzf for fuzzy matching. Each time the query string changes, ripgrep is called.
-" fzf only acts as a simple selector interface.
-function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+  " Customize Rg command to not search filenames. I only want it to search file contents.
+  command! -bang -nargs=* Rg
+    \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1,
+    \ fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
 
-nnoremap [fzf] <nop>
-" fzf prefix key
-nmap t [fzf]
+  " Add another ripgrep command "RG", that doesn't use fzf for fuzzy matching. Each time the query string changes, ripgrep is called.
+  " fzf only acts as a simple selector interface.
+  function! RipgrepFzf(query, fullscreen)
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+  endfunction
+  command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
-if executable('rg')
-    nnoremap [fzf]r :Rg<cr>
+  nnoremap [fzf] <nop>
+  " fzf prefix key
+  nmap t [fzf]
+
+  if executable('rg')
+      nnoremap [fzf]r :Rg<cr>
+  endif
+
+  nnoremap [fzf]b :Buffers<cr>
+  nnoremap [fzf]c :Commands<cr>
+  nnoremap [fzf]l :BLines<cr>
+  nnoremap [fzf]L :Lines<cr>
+  nnoremap [fzf]m :Marks<cr>
+  nnoremap [fzf]P :Files<cr>
+  nnoremap [fzf]p :GFiles<cr>
+  nnoremap [fzf]s :Snippets<cr>
+  nnoremap [fzf]t :BTags<cr>
+  nnoremap [fzf]T :Tags<cr>
+  nnoremap [fzf]g :BCommits<cr>
+  nnoremap [fzf]G :Commits<cr>
+  nnoremap [fzf]h :History<cr>
+  nnoremap [fzf]/ :History/<cr>
+  nnoremap [fzf]: :History:<cr>
+  nnoremap [fzf]H :Helptags<cr>
+  nnoremap [fzf]M :Maps<cr>
+  "
+  " Mapping selecting mappings
+  nmap [fzf]<tab> <plug>(fzf-maps-n)
+  xmap [fzf]<tab> <plug>(fzf-maps-x)
+  omap [fzf]<tab> <plug>(fzf-maps-o)
+
+  imap <c-x><c-f> <plug>(fzf-complete-path)
+  imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+  imap <c-x><c-l> <plug>(fzf-complete-line)
+
+  " Replace the default dictionary completion with fzf-based fuzzy completion
+  inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
+
+  augroup vimrc
+      " Close fzf buffer with ESC
+      autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
+  augroup END
+
+  function! FloatingFZF()
+    let buf = nvim_create_buf(v:false, v:true)
+    call setbufvar(buf, '&signcolumn', 'no')
+
+    let height = &lines - 3
+    let width = float2nr(&columns - (&columns * 2 / 10))
+    let col = float2nr((&columns - width) / 2)
+
+    let opts = {
+          \ 'relative': 'editor',
+          \ 'row': 1,
+          \ 'col': col,
+          \ 'width': width,
+          \ 'height': height
+          \ }
+
+    call nvim_open_win(buf, v:true, opts)
+  endfunction
+
+  let $FZF_DEFAULT_OPTS='--layout=reverse'
+  let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+  let g:fzf_colors = {'bg': ['bg', 'Normal']}
 endif
-
-nnoremap [fzf]b :Buffers<cr>
-nnoremap [fzf]c :Commands<cr>
-nnoremap [fzf]l :BLines<cr>
-nnoremap [fzf]L :Lines<cr>
-nnoremap [fzf]m :Marks<cr>
-nnoremap [fzf]P :Files<cr>
-nnoremap [fzf]p :GFiles<cr>
-nnoremap [fzf]s :Snippets<cr>
-nnoremap [fzf]t :BTags<cr>
-nnoremap [fzf]T :Tags<cr>
-nnoremap [fzf]g :BCommits<cr>
-nnoremap [fzf]G :Commits<cr>
-nnoremap [fzf]h :History<cr>
-nnoremap [fzf]/ :History/<cr>
-nnoremap [fzf]: :History:<cr>
-nnoremap [fzf]H :Helptags<cr>
-nnoremap [fzf]M :Maps<cr>
-"
-" Mapping selecting mappings
-nmap [fzf]<tab> <plug>(fzf-maps-n)
-xmap [fzf]<tab> <plug>(fzf-maps-x)
-omap [fzf]<tab> <plug>(fzf-maps-o)
-
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-
-" Replace the default dictionary completion with fzf-based fuzzy completion
-inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
-
-augroup vimrc
-    " Close fzf buffer with ESC
-    autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
-augroup END
-
-function! FloatingFZF()
-  let buf = nvim_create_buf(v:false, v:true)
-  call setbufvar(buf, '&signcolumn', 'no')
-
-  let height = &lines - 3
-  let width = float2nr(&columns - (&columns * 2 / 10))
-  let col = float2nr((&columns - width) / 2)
-
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'row': 1,
-        \ 'col': col,
-        \ 'width': width,
-        \ 'height': height
-        \ }
-
-  call nvim_open_win(buf, v:true, opts)
-endfunction
-
-let $FZF_DEFAULT_OPTS='--layout=reverse'
-let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-
-let g:fzf_colors = {'bg': ['bg', 'Normal']}
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -972,4 +975,32 @@ if s:use_nvim_lsp
   call sign_define("LspDiagnosticsWarningSign", {"text" : "⚠", "texthl" : "LspDiagnosticsWarning"})
   call sign_define("LspDiagnosticsInformationSign", {"text" : "ⓘ", "texthl" : "LspDiagnosticsInformation"})
   call sign_define("LspDiagnosticsHintSign", {"text" : "H", "texthl" : "LspDiagnosticsHint"})
+
+  function! VirtualTextToggle()
+    if g:diagnostic_enable_virtual_text
+      let g:diagnostic_enable_virtual_text = 0
+    else
+      let g:diagnostic_enable_virtual_text = 1
+    endif
+  endfunction
+
+  nnoremap <silent> <F10> <cmd>call VirtualTextToggle()<cr>
+  let g:diagnostic_insert_delay = 1
+
+  nnoremap [telescope] <nop>
+  nmap t [telescope]
+  nnoremap <silent> [telescope]b <cmd>lua require'telescope.builtin'.buffers{}<cr>
+  nnoremap <silent> [telescope]P <cmd>lua require'telescope.builtin'.find_files{
+  \   find_command = { "rg", "-i", "--hidden", "--files", "-g", "!.git" }
+  \ }<cr>
+  nnoremap <silent> [telescope]p <cmd>lua require'telescope.builtin'.git_files{}<cr>
+  nnoremap <silent> [telescope]r <cmd>lua require'telescope.builtin'.live_grep{}<cr>
+  nnoremap <silent> [telescope]q <cmd>lua require'telescope.builtin'.quickfix{}<cr>
+  nnoremap <silent> [telescope]t <cmd>lua require'telescope.builtin'.lsp_document_symbols{}<cr>
+  nnoremap <silent> [telescope]T <cmd>lua require'telescope.builtin'.lsp_workspace_symbols{}<cr>
+  nnoremap <silent> [telescope]R <cmd>lua require'telescope.builtin'.lsp_references{}<cr>
+  nnoremap <silent> [telescope]a <cmd>lua require'telescope.builtin'.lsp_code_actions{}<cr>
+  nnoremap <silent> [telescope]s <cmd>lua require'telescope.builtin'.treesitter{}<cr>
+  nnoremap <silent> [telescope]h <cmd>lua require'telescope.builtin'.command_history{}<cr>
+  nnoremap <silent> [telescope]H <cmd>lua require'telescope.builtin'.help_tags{}<cr>
 endif
