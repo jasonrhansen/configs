@@ -36,7 +36,7 @@ fi
 # Keep custom completions in .zfunc
 fpath+=~/.zfunc
 
-export RUST_SRC_PATH="$(rustc +nightly --print sysroot)/lib/rustlib/src/rust/src"
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/library"
 
 export GOPATH=~/go
 
