@@ -19,6 +19,8 @@ if s:use_nvim_lsp
 
   " Instead of coc-prettier
   Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
+  Plug 'SirVer/ultisnips'
 else
   " Intellisense engine and full language server protocol Most language features
   " are coc.nvim extensions, see g:coc_global_extensions below.
@@ -956,14 +958,18 @@ if s:use_nvim_lsp
   " Use completion-nvim in every buffer
   autocmd BufEnter * lua require'completion'.on_attach()
 
+  let g:completion_enable_snippet = 'UltiSnips'
+
+  imap <silent> <c-space> <Plug>(completion_trigger)
+
+  let g:UltiSnipsJumpForwardTrigger="<c-j>"
+  let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+  let g:UltiSnipsExpandTrigger="<c-j>"
+
   inoremap <silent><expr> <TAB>
   \ pumvisible() ? "\<C-n>" :
   \ <SID>check_back_space() ? "\<TAB>" :
   \ completion#trigger_completion()
-
-  " Use <Tab> and <S-Tab> to navigate through popup menu
-  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
   " Set completeopt to have a better completion experience
   set completeopt=menuone,noinsert,noselect
