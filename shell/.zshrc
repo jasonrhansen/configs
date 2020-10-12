@@ -32,8 +32,11 @@ if [[ $platform == 'Linux' ]]; then
     alias way='env GDK_BACKEND=wayland'
 fi
 
-local rusthost=$(rustup show | grep "(default)" | awk '{ print $1 }')
-export RUST_SRC_PATH=~"/.multirust/toolchains/$rusthost/lib/rustlib/src/rust/src"
+
+# Keep custom completions in .zfunc
+fpath+=~/.zfunc
+
+export RUST_SRC_PATH="$(rustc +nightly --print sysroot)/lib/rustlib/src/rust/src"
 
 export GOPATH=~/go
 
