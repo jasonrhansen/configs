@@ -1,6 +1,7 @@
 local lsp = require 'nvim_lsp'
 local lsp_status = require 'lsp-status'
 local diagnostic = require 'diagnostic'
+local treesitter = require 'nvim-treesitter.configs'
 
 lsp_status.register_progress()
 lsp_status.config({
@@ -12,6 +13,12 @@ lsp_status.config({
   indicator_ok = '✓',
   spinner_frames = {'⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷'},
 })
+
+treesitter.setup {
+  highlight = {
+    enable = true,
+  }
+}
 
 local attach = function(client)
   lsp_status.on_attach(client)

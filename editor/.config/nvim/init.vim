@@ -248,6 +248,7 @@ let g:jellybeans_overrides = {
 \    'Normal': { 'guibg': '121212' },
 \    'LineNr': { 'guibg': '121212' },
 \    'NonText': { 'guibg': '121212' },
+\    'Constant': { 'guifg': '7697D6' },
 \}
 colorscheme jellybeans
 
