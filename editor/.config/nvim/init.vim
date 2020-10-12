@@ -92,6 +92,8 @@ Plug 'mattn/emmet-vim'
 " Color theme
 Plug 'nanotech/jellybeans.vim'
 
+Plug 'ryanoasis/vim-devicons'
+
 " File manager
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 " Fork of 'kyazdani42/nvim-tree.lua' that doesn't disable netrw.
@@ -273,9 +275,7 @@ else
     set clipboard+=unnamed
 endif
 
-if !has('nvim')
-    set encoding=utf-8
-endif
+set encoding=utf-8
 
 " Don't use clipboard over ssh since it makes vim load too slowly.
 if !has("gui_running") && !has("nvim")
@@ -714,14 +714,6 @@ function! LightlineFilename()
     return expand('%:t') !=# '' ? @% : '[No Name]'
 endfunction
 
-function! CurrentFunction()
-  if s:use_nvim_lsp
-    return ''
-  else
-    return get(b:, 'coc_current_function', '')
-  endif
-endfunction
-
 function! Status() abort
   if s:use_nvim_lsp
     return LspStatus()
@@ -738,21 +730,36 @@ function! LspStatus() abort
   return ''
 endfunction
 
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
+
+function GitBranch()
+  return ' ' . fugitive#head()
+endfunction
+
 let g:lightline = {
       \ 'colorscheme': 'jellybeans',
       \ }
 
 let g:lightline.component_function = {
       \ 'filename': 'LightlineFilename',
-      \ 'gitbranch': 'fugitive#head',
+      \ 'gitbranch': 'GitBranch',
       \ 'status': 'Status',
       \ 'currentfunction': 'CurrentFunction',
-      \ 'sleuth': 'SleuthIndicator'
+      \ 'sleuth': 'SleuthIndicator',
+      \ 'filetype': 'MyFiletype',
+      \ 'fileformat': 'MyFileformat',
       \ }
 
+
 let g:lightline.active = {
-      \ 'left': [['mode', 'paste'], ['readonly', 'filename', 'modified'], ['gitbranch']],
-      \ 'right': [['lineinfo'], ['percent'], ['fileformat', 'fileencoding', 'filetype'], ['sleuth'], ['status', 'currentfunction']]
+      \ 'left': [['mode', 'paste'], ['readonly', 'filename', 'modified'], ['gitbranch'], ['status']],
+      \ 'right': [['lineinfo'], ['percent'], ['filetype', 'fileformat', 'fileencoding', 'sleuth']]
       \ }
 
 let g:lightline.inactive = {

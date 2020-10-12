@@ -2,6 +2,17 @@ local lsp = require 'nvim_lsp'
 local lsp_status = require 'lsp-status'
 local diagnostic = require 'diagnostic'
 
+lsp_status.register_progress()
+lsp_status.config({
+  status_symbol = "",
+  indicator_errors = '✗',
+  indicator_warnings = '⚠',
+  indicator_info = 'i',
+  indicator_hint = '>',
+  indicator_ok = '✓',
+  spinner_frames = {'⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷'},
+})
+
 local attach = function(client)
   lsp_status.on_attach(client)
   diagnostic.on_attach(client)
@@ -25,6 +36,7 @@ local attach = function(client)
   mapper('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
   mapper('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>')
 
+  mapper('n', '<leader>f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>')
   mapper('n', '<leader>F', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 
   mapper('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
@@ -64,7 +76,7 @@ local configs = {
   -- Python
   pyls = {},
   -- Linting of JavaScript, TypeScript, JSON
-  rome = {},
+  -- rome = {},
   rust_analyzer = {},
   -- Ruby
   solargraph = {
@@ -106,8 +118,6 @@ for name, config in pairs(configs) do
 
   lsp[name].setup(config)
 end
-
-lsp_status.register_progress()
 
 local actions = require('telescope.actions')
 
