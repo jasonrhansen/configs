@@ -986,7 +986,7 @@ if s:use_nvim_lsp
   " nvim-lsp config is in lsp_config.lua
   lua require 'lsp_config'
 
-  call sign_define("LspDiagnosticsErrorSign", {"text" : ">>", "texthl" : "LspDiagnosticsError"})
+  call sign_define("LspDiagnosticsErrorSign", {"text" : "✗", "texthl" : "LspDiagnosticsError"})
   call sign_define("LspDiagnosticsWarningSign", {"text" : "⚠", "texthl" : "LspDiagnosticsWarning"})
   call sign_define("LspDiagnosticsInformationSign", {"text" : "ⓘ", "texthl" : "LspDiagnosticsInformation"})
   call sign_define("LspDiagnosticsHintSign", {"text" : "H", "texthl" : "LspDiagnosticsHint"})

@@ -7,8 +7,8 @@ lsp_status.config({
   status_symbol = "",
   indicator_errors = '✗',
   indicator_warnings = '⚠',
-  indicator_info = 'i',
-  indicator_hint = '>',
+  indicator_info = 'ⓘ ',
+  indicator_hint = 'H🛈',
   indicator_ok = '✓',
   spinner_frames = {'⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷'},
 })
