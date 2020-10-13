@@ -21,6 +21,11 @@ if s:use_nvim_lsp
   Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
   Plug 'SirVer/ultisnips'
+
+  " telescope.nvim (like fzf.vim, but relies on builtin LSP for some features)
+  Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-lua/telescope.nvim'
 else
   " Intellisense engine and full language server protocol Most language features
   " are coc.nvim extensions, see g:coc_global_extensions below.
@@ -30,7 +35,6 @@ else
 endif
 
 Plug 'kana/vim-altercmd'
-
 Plug 'ciaranm/securemodelines'
 Plug 'itchyny/lightline.vim'
 Plug 'machakann/vim-highlightedyank'
@@ -40,7 +44,6 @@ Plug 'honza/vim-snippets'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'edkolev/tmuxline.vim'
-Plug 'majutsushi/tagbar'
 Plug 'kennykaye/vim-relativity'
 Plug 'tomtom/tcomment_vim'
 Plug 'vhdirk/vim-cmake'
@@ -72,7 +75,6 @@ Plug 'wlangstroth/vim-racket'
 Plug 'toyamarinyon/vim-swift', { 'for': 'swift' }
 Plug 'tmux-plugins/vim-tmux', { 'for': 'tmux' }
 Plug 'cespare/vim-toml'
-Plug 'fatih/vim-go'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -85,14 +87,13 @@ Plug 'tpope/vim-rails'
 " :Rename, :Mkdir, etc.)
 Plug 'tpope/vim-eunuch'
 Plug 'norcalli/nvim-colorizer.lua'
+Plug 'ryanoasis/vim-devicons'
 
 " Expand abbreviations for HTML like 'div>p#foo$*3>a' with '<c-y>,'
 Plug 'mattn/emmet-vim'
 
 " Color theme
 Plug 'nanotech/jellybeans.vim'
-
-Plug 'ryanoasis/vim-devicons'
 
 " File manager
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
@@ -101,12 +102,6 @@ Plug 'jasonrhansen/nvim-tree.lua'
 
 " Quickly switch between Angular files
 Plug 'softoika/ngswitcher.vim'
-
-" telescope.nvim could be a possible replacement for fzf.vim when it's more
-" mature
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-lua/telescope.nvim'
 
 call plug#end()
 
@@ -888,66 +883,6 @@ nmap <leader>t  :StripWhitespace<CR>
 if has('nvim')
   autocmd BufRead Cargo.toml call crates#toggle()
 endif
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                     vim-go
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup go_group
-    autocmd!
-    autocmd FileType go nmap <Leader>i <Plug>(go-import)
-
-    autocmd FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-    autocmd FileType go nmap <Leader>gb <Plug>(go-doc-browser)
-    autocmd FileType go nmap <leader>gr <Plug>(go-run)
-    autocmd FileType go nmap <leader>gb <Plug>(go-build)
-    autocmd FileType go nmap <leader>gt <Plug>(go-test)
-    autocmd FileType go nmap <leader>gc <Plug>(go-coverage)
-
-    autocmd FileType go nmap <Leader>ds <Plug>(go-def-split)
-    autocmd FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-    autocmd FileType go nmap <Leader>dt <Plug>(go-def-tab)
-augroup END
-
-let g:go_fmt_command = 'goimports'
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_addtags_transform = "snakecase"
-
-" disable vim-go :GoDef short cut (gd)
-" this is handled by LanguageClient [LC]
-let g:go_def_mapping_enabled = 0
-
-" Tagbar for Go. Requires gotags.
-" go get -u github.com/jstemmer/gotags
-let g:tagbar_type_go = {
-            \ 'ctagstype' : 'go',
-            \ 'kinds'     : [
-            \ 'p:package',
-            \ 'i:imports:1',
-            \ 'c:constants',
-            \ 'v:variables',
-            \ 't:types',
-            \ 'n:interfaces',
-            \ 'w:fields',
-            \ 'e:embedded',
-            \ 'm:methods',
-            \ 'r:constructor',
-            \ 'f:functions'
-            \ ],
-            \ 'sro' : '.',
-            \ 'kind2scope' : {
-            \ 't' : 'ctype',
-            \ 'n' : 'ntype'
-            \ },
-            \ 'scope2kind' : {
-            \ 'ctype' : 't',
-            \ 'ntype' : 'n'
-            \ },
-            \ 'ctagsbin'  : 'gotags',
-            \ 'ctagsargs' : '-sort -silent'
-            \ }
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
