@@ -13,6 +13,8 @@ if s:use_nvim_lsp
   Plug 'nvim-lua/lsp-status.nvim'
   Plug 'nvim-lua/diagnostic-nvim'
   Plug 'nvim-treesitter/nvim-treesitter'
+  Plug 'nvim-treesitter/playground'
+  " Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
   " Alternative to vim-gitgutter
   Plug 'mhinz/vim-signify'
@@ -902,9 +904,7 @@ if s:use_nvim_lsp
   autocmd BufEnter * lua require'completion'.on_attach()
 
   let g:completion_enable_snippet = 'UltiSnips'
-
   imap <silent> <c-space> <Plug>(completion_trigger)
-
   let g:UltiSnipsJumpForwardTrigger="<c-j>"
   let g:UltiSnipsJumpBackwardTrigger="<c-k>"
   let g:UltiSnipsExpandTrigger="<c-j>"
@@ -916,6 +916,9 @@ if s:use_nvim_lsp
 
   " Set completeopt to have a better completion experience
   set completeopt=menuone,noinsert,noselect
+
+  noremap <silent> <F8> <cmd>TSBufDisable highlight<cr>
+  noremap <silent> <F9> <cmd>TSBufEnable highlight<cr>
 
   let g:signify_sign_change = '~'
 
