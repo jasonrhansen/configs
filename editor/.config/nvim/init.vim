@@ -1,5 +1,5 @@
  " Whether to use unstable nvim-lsp. If set to 0, coc.nvim will be used.
-let s:use_nvim_lsp = 1
+let s:use_nvim_lsp = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                  Plugins
