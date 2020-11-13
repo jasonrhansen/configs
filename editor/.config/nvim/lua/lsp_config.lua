@@ -1,6 +1,6 @@
 local lsp = require 'nvim_lsp'
 local lsp_status = require 'lsp-status'
-local diagnostic = require 'diagnostic'
+local telescope = require 'telescope'
 local treesitter = require 'nvim-treesitter.configs'
 
 lsp_status.register_progress()
@@ -160,7 +160,7 @@ end
 
 local actions = require('telescope.actions')
 
-require('telescope').setup {
+telescope.setup {
   defaults = {
     mappings = {
       i = {

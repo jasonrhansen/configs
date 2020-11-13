@@ -943,18 +943,16 @@ if s:use_nvim_lsp
 
   nnoremap [telescope] <nop>
   nmap t [telescope]
-  nnoremap <silent> [telescope]b <cmd>lua require'telescope.builtin'.buffers{}<cr>
-  nnoremap <silent> [telescope]P <cmd>lua require'telescope.builtin'.find_files{
-  \   find_command = { "rg", "-i", "--hidden", "--files", "-g", "!.git" }
-  \ }<cr>
-  nnoremap <silent> [telescope]p <cmd>lua require'telescope.builtin'.git_files{}<cr>
-  nnoremap <silent> [telescope]r <cmd>lua require'telescope.builtin'.live_grep{}<cr>
-  nnoremap <silent> [telescope]q <cmd>lua require'telescope.builtin'.quickfix{}<cr>
-  nnoremap <silent> [telescope]t <cmd>lua require'telescope.builtin'.lsp_document_symbols{}<cr>
-  nnoremap <silent> [telescope]T <cmd>lua require'telescope.builtin'.lsp_workspace_symbols{}<cr>
-  nnoremap <silent> [telescope]R <cmd>lua require'telescope.builtin'.lsp_references{}<cr>
-  nnoremap <silent> [telescope]a <cmd>lua require'telescope.builtin'.lsp_code_actions{}<cr>
-  nnoremap <silent> [telescope]s <cmd>lua require'telescope.builtin'.treesitter{}<cr>
-  nnoremap <silent> [telescope]h <cmd>lua require'telescope.builtin'.command_history{}<cr>
-  nnoremap <silent> [telescope]H <cmd>lua require'telescope.builtin'.help_tags{}<cr>
+  nnoremap <silent> [telescope]b <cmd>Telescope buffers<cr>
+  nnoremap <silent> [telescope]P <cmd>Telescope find_files find_command=rg,-i,--hidden,--files,-g,!.git<cr>
+  nnoremap <silent> [telescope]p <cmd>Telescope git_files<cr>
+  nnoremap <silent> [telescope]r <cmd>Telescope live_grep<cr>
+  nnoremap <silent> [telescope]q <cmd>Telescope quickfix<cr>
+  nnoremap <silent> [telescope]t <cmd>Telescope lsp_document_symbols<cr>
+  nnoremap <silent> [telescope]T <cmd>Telescope lsp_workspace_symbols<cr>
+  nnoremap <silent> [telescope]R <cmd>Telescope lsp_references<cr>
+  nnoremap <silent> [telescope]a <cmd>Telescope lsp_code_actions<cr>
+  nnoremap <silent> [telescope]s <cmd>Telescope treesitter<cr>
+  nnoremap <silent> [telescope]h <cmd>Telescope command_history<cr>
+  nnoremap <silent> [telescope]H <cmd>Telescope help_tags<cr>
 endif
