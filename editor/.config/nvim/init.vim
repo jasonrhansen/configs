@@ -11,7 +11,6 @@ if s:use_nvim_lsp
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/completion-nvim'
   Plug 'nvim-lua/lsp-status.nvim'
-  Plug 'nvim-lua/diagnostic-nvim'
   Plug 'nvim-treesitter/nvim-treesitter'
   Plug 'nvim-treesitter/playground'
   " Plug 'nvim-treesitter/nvim-treesitter-textobjects'
@@ -925,16 +924,16 @@ if s:use_nvim_lsp
   " nvim-lsp config is in lsp_config.lua
   lua require 'lsp_config'
 
-  call sign_define("LspDiagnosticsErrorSign", {"text" : "✗", "texthl" : "LspDiagnosticsError"})
-  call sign_define("LspDiagnosticsWarningSign", {"text" : "⚠", "texthl" : "LspDiagnosticsWarning"})
-  call sign_define("LspDiagnosticsInformationSign", {"text" : "ⓘ", "texthl" : "LspDiagnosticsInformation"})
-  call sign_define("LspDiagnosticsHintSign", {"text" : "H", "texthl" : "LspDiagnosticsHint"})
+  call sign_define("LspDiagnosticsSignError", {"text" : "✗", "texthl" : "LspDiagnosticsSignError"})
+  call sign_define("LspDiagnosticsSignWarning", {"text" : "⚠", "texthl" : "LspDiagnosticsSignWarning"})
+  call sign_define("LspDiagnosticsSignInformation", {"text" : "ⓘ", "texthl" : "LspDiagnosticsSignInformation"})
+  call sign_define("LspDiagnosticsSignHint", {"text" : "H", "texthl" : "LspDiagnosticsSignHint"})
 
   function! VirtualTextToggle()
-    if g:diagnostic_enable_virtual_text
-      let g:diagnostic_enable_virtual_text = 0
+    if exists("b:diagnostic_show_virtual_text") && b:diagnostic_show_virtual_text
+      let b:diagnostic_show_virtual_text = 0
     else
-      let g:diagnostic_enable_virtual_text = 1
+      let b:diagnostic_show_virtual_text = 1
     endif
   endfunction
 

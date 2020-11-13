@@ -54,7 +54,6 @@ treesitter.setup {
 
 local attach = function(client)
   lsp_status.on_attach(client)
-  diagnostic.on_attach(client)
 
   local mapper = function(mode, key, result)
     vim.fn.nvim_buf_set_keymap(0, mode, key, result, {noremap=true, silent=true})
@@ -82,11 +81,11 @@ local attach = function(client)
 
   mapper('n', '<expr><c-space>', '<cmd>lua vim.lsp.buf.completion()<CR>')
 
-  mapper('n', '[g', '<cmd>PrevDiagnosticCycle<CR>')
-  mapper('n', ']g', '<cmd>NextDiagnosticCycle<CR>')
+  mapper('n', '[g', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
+  mapper('n', ']g', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 
-  mapper('n', '<leader>d', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
-  mapper('n', '<leader>od', '<cmd>OpenDiagnostic<CR>')
+  mapper('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
+  mapper('n', '<leader>od', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
 end
 
 lsp.util.default_config = vim.tbl_extend(
@@ -170,3 +169,26 @@ telescope.setup {
     },
   }
 }
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    signs = {
+      -- Signify priority is 10, so make diagnostic signs higher than that.
+      priority = 11,
+    },
+    underline = true,
+    update_in_insert = false,
+    virtual_text = function(bufnr, client_id)
+      local ok, show = pcall(vim.api.nvim_buf_get_var, bufnr, 'diagnostic_show_virtual_text')
+
+      if ok and show then
+        return {
+          spacing = 4,
+          prefix = '~',
+        }
+      end
+
+      return false
+    end,
+  }
+)
