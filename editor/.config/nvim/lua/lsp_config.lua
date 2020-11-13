@@ -1,103 +1,9 @@
 local lsp = require 'nvim_lsp'
 local lsp_status = require 'lsp-status'
-local telescope = require 'telescope'
-local treesitter = require 'nvim-treesitter.configs'
-
-lsp_status.register_progress()
-lsp_status.config({
-  status_symbol = "",
-  indicator_errors = '✗',
-  indicator_warnings = '⚠',
-  indicator_info = 'ⓘ ',
-  indicator_hint = 'H🛈',
-  indicator_ok = '✓',
-  spinner_frames = {'⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷'},
-})
-
-treesitter.setup {
-  highlight = {
-    enable = true,
-  },
-  playground = {
-    enable = true,
-    updatetime = 25,
-    persist_queries = false,
-  },
-  -- incremental_selection = {
-  --   enable = true,
-  --   keymaps = {
-  --     init_selection = "gnn",
-  --     node_incremental = "grn",
-  --     scope_incremental = "grc",
-  --     node_decremental = "grm",
-  --   },
-  -- },
-  -- textobjects = {
-  --   select = {
-  --     enable = true,
-  --     keymaps = {
-  --       ["af"] = "@function.outer",
-  --       ["if"] = "@function.inner",
-  --       ["ac"] = "@class.outer",
-  --       ["ic"] = "@class.inner",
-  --     },
-  --   },
-  --   lsp_interop = {
-  --     enable = true,
-  --     peek_definition_code = {
-  --       ["df"] = "@function.outer",
-  --       ["dF"] = "@class.outer",
-  --     },
-  --   },
-  -- },
-}
-
-local attach = function(client)
-  lsp_status.on_attach(client)
-
-  local mapper = function(mode, key, result)
-    vim.fn.nvim_buf_set_keymap(0, mode, key, result, {noremap=true, silent=true})
-  end
-
-  mapper('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
-  mapper('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-  mapper('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-  mapper('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-  mapper('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-  mapper('n', 'g0', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-  mapper('n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
-
-  mapper('n', '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-
-  mapper('n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-
-  mapper('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-  mapper('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>')
-
-  mapper('n', '<leader>f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>')
-  mapper('n', '<leader>F', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-
-  mapper('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
-
-  mapper('n', '<expr><c-space>', '<cmd>lua vim.lsp.buf.completion()<CR>')
-
-  mapper('n', '[g', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
-  mapper('n', ']g', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
-
-  mapper('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
-  mapper('n', '<leader>od', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
-end
-
-lsp.util.default_config = vim.tbl_extend(
-  "force",
-  lsp.util.default_config,
-  {
-    on_attach = attach
-  }
-)
 
 -- Language server configs
 local configs = {
+  -- angularls = {},
   bashls = {},
   cmake = {},
   cssls = {},
@@ -107,7 +13,7 @@ local configs = {
   -- PHP
   intelephense = {},
   -- Java
-  jdtls = {},
+  -- jdtls = {},
   jsonls = {},
   -- C#, VB
   omnisharp = {},
@@ -143,11 +49,48 @@ local configs = {
     }
   },
   sqlls = {},
-  tsserver = {},
+  -- tsserver = {},
   vimls = {},
   vuels = {},
   yamlls = {},
 }
+
+-- Shared attach function for all lsp servers.
+local attach = function(client)
+  lsp_status.on_attach(client)
+
+  local mapper = function(mode, key, result)
+    vim.fn.nvim_buf_set_keymap(0, mode, key, result, {noremap=true, silent=true})
+  end
+
+  mapper('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+  mapper('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
+  mapper('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+  mapper('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+  mapper('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
+  mapper('n', 'g0', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+  mapper('n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+  mapper('n', '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+  mapper('n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+  mapper('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+  mapper('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>')
+  mapper('n', '<leader>f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>')
+  mapper('n', '<leader>F', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+  mapper('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
+  mapper('n', '<expr><c-space>', '<cmd>lua vim.lsp.buf.completion()<CR>')
+  mapper('n', '[g', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
+  mapper('n', ']g', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+  mapper('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
+  mapper('n', '<leader>od', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
+end
+
+lsp.util.default_config = vim.tbl_extend(
+  "force",
+  lsp.util.default_config,
+  {
+    on_attach = attach
+  }
+)
 
 -- Inititialize all language servers
 for name, config in pairs(configs) do
@@ -159,19 +102,7 @@ end
 
 local actions = require('telescope.actions')
 
-telescope.setup {
-  defaults = {
-    mappings = {
-      i = {
-        -- Close with esc in insert mode.
-        ["<esc>"] = actions.close,
-      },
-    },
-    -- Color devicons slow it down too much for large projects.
-    color_devicons = false,
-  }
-}
-
+-- Diagnostics config
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     signs = {
@@ -194,3 +125,16 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     end,
   }
 )
+
+-- Status config
+lsp_status.register_progress()
+lsp_status.config({
+  status_symbol = "",
+  indicator_errors = '✗',
+  indicator_warnings = '⚠',
+  indicator_info = 'ⓘ ',
+  indicator_hint = 'H🛈',
+  indicator_ok = '✓',
+  spinner_frames = {'⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷'},
+})
+

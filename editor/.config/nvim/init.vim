@@ -899,6 +899,8 @@ let g:vinarise_enable_auto_detect = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if s:use_nvim_lsp
+  lua require 'init'
+
   " Use completion-nvim in every buffer
   autocmd BufEnter * lua require'completion'.on_attach()
 
@@ -920,9 +922,6 @@ if s:use_nvim_lsp
   noremap <silent> <F9> <cmd>TSBufEnable highlight<cr>
 
   let g:signify_sign_change = '~'
-
-  " nvim-lsp config is in lsp_config.lua
-  lua require 'lsp_config'
 
   call sign_define("LspDiagnosticsSignError", {"text" : "✗", "texthl" : "LspDiagnosticsSignError"})
   call sign_define("LspDiagnosticsSignWarning", {"text" : "⚠", "texthl" : "LspDiagnosticsSignWarning"})
