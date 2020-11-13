@@ -167,6 +167,8 @@ telescope.setup {
         ["<esc>"] = actions.close,
       },
     },
+    -- Color devicons slow it down too much for large projects.
+    color_devicons = false,
   }
 }
 
