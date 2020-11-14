@@ -1,6 +1,8 @@
 local nvim_lsp = require 'nvim_lsp'
 local lsp_status = require 'lsp-status'
 
+M = {}
+
 -- Language server configs
 local configs = {
   -- angularls = {},
@@ -81,7 +83,7 @@ local keymaps = {
   [']g'] = 'vim.lsp.diagnostic.goto_next()',
   ['<leader>d'] = 'vim.lsp.diagnostic.show_line_diagnostics()',
   ['<leader>od'] = 'vim.lsp.diagnostic.set_locallist()',
-  ['<F10>'] = 'Toggle_diagnostic_virtual_text()',
+  ['<F10>'] = 'require"lsp_config".toggle_diagnostic_virtual_text()',
 }
 
 -- Shared attach function for all LSP clients.
@@ -112,6 +114,23 @@ end
 
 
 -- Diagnostics config
+local virtual_text_config = {
+  spacing = 2,
+  prefix = '~',
+}
+
+local show_virtual_text = true;
+
+-- Allow virtual text to be toggled for a buffer.
+M.toggle_diagnostic_virtual_text = function()
+  if vim.b.diagnostic_show_virtual_text == nil then
+    -- Hasn't been set yet, so set to default.
+    vim.b.diagnostic_show_virtual_text = show_virtual_text
+  end
+  vim.b.diagnostic_show_virtual_text = not vim.b.diagnostic_show_virtual_text
+  print('Turned diagnostic virtual text', vim.b.diagnostic_show_virtual_text and 'ON' or 'OFF')
+end
+
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     signs = {
@@ -120,14 +139,16 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     },
     underline = true,
     update_in_insert = false,
-    virtual_text = function(bufnr, client_id)
+    virtual_text = function(bufnr, _)
       local ok, show = pcall(vim.api.nvim_buf_get_var, bufnr, 'diagnostic_show_virtual_text')
 
-      if ok and show then
-        return {
-          spacing = 4,
-          prefix = '~',
-        }
+      -- Buffer variable not set, so use default.
+      if not ok then
+        show = show_virtual_text;
+      end
+
+      if show then
+        return virtual_text_config
       end
 
       return false
@@ -155,11 +176,6 @@ vim.fn.sign_define('LspDiagnosticsSignHint', {
   texthl = 'LspDiagnosticsSignHint'
 })
 
-Toggle_diagnostic_virtual_text = function()
-  vim.b.diagnostic_show_virtual_text = not vim.b.diagnostic_show_virtual_text
-  print('Turned diagnostic virtual text', vim.b.diagnostic_show_virtual_text and 'ON' or 'OFF')
-end
-
 
 -- Status config
 lsp_status.register_progress()
@@ -172,3 +188,5 @@ lsp_status.config({
   indicator_ok = '✓',
   spinner_frames = {'⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷'},
 })
+
+return M
