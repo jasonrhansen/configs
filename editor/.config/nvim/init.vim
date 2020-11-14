@@ -922,35 +922,4 @@ if s:use_nvim_lsp
   noremap <silent> <F9> <cmd>TSBufEnable highlight<cr>
 
   let g:signify_sign_change = '~'
-
-  call sign_define("LspDiagnosticsSignError", {"text" : "✗", "texthl" : "LspDiagnosticsSignError"})
-  call sign_define("LspDiagnosticsSignWarning", {"text" : "⚠", "texthl" : "LspDiagnosticsSignWarning"})
-  call sign_define("LspDiagnosticsSignInformation", {"text" : "ⓘ", "texthl" : "LspDiagnosticsSignInformation"})
-  call sign_define("LspDiagnosticsSignHint", {"text" : "H", "texthl" : "LspDiagnosticsSignHint"})
-
-  function! VirtualTextToggle()
-    if exists("b:diagnostic_show_virtual_text") && b:diagnostic_show_virtual_text
-      let b:diagnostic_show_virtual_text = 0
-    else
-      let b:diagnostic_show_virtual_text = 1
-    endif
-  endfunction
-
-  nnoremap <silent> <F10> <cmd>call VirtualTextToggle()<cr>
-  let g:diagnostic_insert_delay = 1
-
-  nnoremap [telescope] <nop>
-  nmap t [telescope]
-  nnoremap <silent> [telescope]b <cmd>Telescope buffers<cr>
-  nnoremap <silent> [telescope]P <cmd>Telescope find_files find_command=rg,-i,--hidden,--files,-g,!.git<cr>
-  nnoremap <silent> [telescope]p <cmd>Telescope git_files<cr>
-  nnoremap <silent> [telescope]r <cmd>Telescope live_grep<cr>
-  nnoremap <silent> [telescope]q <cmd>Telescope quickfix<cr>
-  nnoremap <silent> [telescope]t <cmd>Telescope lsp_document_symbols<cr>
-  nnoremap <silent> [telescope]T <cmd>Telescope lsp_workspace_symbols<cr>
-  nnoremap <silent> [telescope]R <cmd>Telescope lsp_references<cr>
-  nnoremap <silent> [telescope]a <cmd>Telescope lsp_code_actions<cr>
-  nnoremap <silent> [telescope]s <cmd>Telescope treesitter<cr>
-  nnoremap <silent> [telescope]h <cmd>Telescope command_history<cr>
-  nnoremap <silent> [telescope]H <cmd>Telescope help_tags<cr>
 endif
