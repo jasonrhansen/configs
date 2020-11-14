@@ -1,4 +1,4 @@
-local lsp = require 'nvim_lsp'
+local nvim_lsp = require 'nvim_lsp'
 local lsp_status = require 'lsp-status'
 
 -- Language server configs
@@ -55,38 +55,48 @@ local configs = {
   yamlls = {},
 }
 
--- Shared attach function for all lsp servers.
+-- Normal mode keymaps that get added to a buffer when attaching an LSP client.
+local keymaps = {
+  -- Go to things
+  gd = 'vim.lsp.buf.definition()',
+  gD = 'vim.lsp.buf.declaration()',
+  gy = 'vim.lsp.buf.type_definition()',
+  gi = 'vim.lsp.buf.implementation()',
+  gr = 'vim.lsp.buf.references()',
+  g0 = 'vim.lsp.buf.document_symbol()',
+  gW = 'vim.lsp.buf.workspace_symbol()',
+
+  -- Misc. actions
+  K = 'vim.lsp.buf.hover()',
+  ['<F2>'] = 'vim.lsp.buf.rename()',
+  ['<c-k>'] = 'vim.lsp.buf.signature_help()',
+  ['<expr><c-space'] = 'vim.lsp.buf.completion()',
+  ['<leader>a'] = 'vim.lsp.buf.code_action()',
+  ['<leader>rn'] = 'vim.lsp.buf.rename()',
+  ['<leader>f'] = 'vim.lsp.buf.range_formatting()',
+  ['<leader>F'] = 'vim.lsp.buf.formatting()',
+
+  -- Diagnostics
+  ['[g'] = 'vim.lsp.diagnostic.goto_prev()',
+  [']g'] = 'vim.lsp.diagnostic.goto_next()',
+  ['<leader>d'] = 'vim.lsp.diagnostic.show_line_diagnostics()',
+  ['<leader>od'] = 'vim.lsp.diagnostic.set_locallist()',
+  ['<F10>'] = 'Toggle_diagnostic_virtual_text()',
+}
+
+-- Shared attach function for all LSP clients.
 local attach = function(client)
   lsp_status.on_attach(client)
 
-  local mapper = function(mode, key, result)
-    vim.fn.nvim_buf_set_keymap(0, mode, key, result, {noremap=true, silent=true})
+  -- Add LSP keybindings
+  for key, expression in pairs(keymaps) do
+    vim.fn.nvim_buf_set_keymap(0, 'n', key, '<cmd>lua ' .. expression .. '<CR>', {noremap=true, silent=true})
   end
-
-  mapper('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
-  mapper('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-  mapper('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-  mapper('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-  mapper('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-  mapper('n', 'g0', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-  mapper('n', 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
-  mapper('n', '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-  mapper('n', '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-  mapper('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-  mapper('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<CR>')
-  mapper('n', '<leader>f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>')
-  mapper('n', '<leader>F', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-  mapper('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
-  mapper('n', '<expr><c-space>', '<cmd>lua vim.lsp.buf.completion()<CR>')
-  mapper('n', '[g', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
-  mapper('n', ']g', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
-  mapper('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
-  mapper('n', '<leader>od', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
 end
 
-lsp.util.default_config = vim.tbl_extend(
+nvim_lsp.util.default_config = vim.tbl_extend(
   "force",
-  lsp.util.default_config,
+  nvim_lsp.util.default_config,
   {
     on_attach = attach
   }
@@ -97,10 +107,9 @@ for name, config in pairs(configs) do
   -- Add lsp_status capabilities
   config.capabilities = vim.tbl_extend('keep', config.capabilities or {}, lsp_status.capabilities)
 
-  lsp[name].setup(config)
+  nvim_lsp[name].setup(config)
 end
 
-local actions = require('telescope.actions')
 
 -- Diagnostics config
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -126,6 +135,32 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
+vim.fn.sign_define('LspDiagnosticsSignError', {
+  text = '✗',
+  texthl = 'LspDiagnosticsSignError'
+})
+
+vim.fn.sign_define('LspDiagnosticsSignWarning', {
+  text = '⚠',
+  texthl = 'LspDiagnosticsSignWarning'
+})
+
+vim.fn.sign_define('LspDiagnosticsSignInformation', {
+  text = 'ⓘ',
+  texthl = 'LspDiagnosticsSignInformation'
+})
+
+vim.fn.sign_define('LspDiagnosticsSignHint', {
+  text = 'H',
+  texthl = 'LspDiagnosticsSignHint'
+})
+
+Toggle_diagnostic_virtual_text = function()
+  vim.b.diagnostic_show_virtual_text = not vim.b.diagnostic_show_virtual_text
+  print('Turned diagnostic virtual text', vim.b.diagnostic_show_virtual_text and 'ON' or 'OFF')
+end
+
+
 -- Status config
 lsp_status.register_progress()
 lsp_status.config({
@@ -137,4 +172,3 @@ lsp_status.config({
   indicator_ok = '✓',
   spinner_frames = {'⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷'},
 })
-
