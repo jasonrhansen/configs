@@ -156,35 +156,44 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
+local sign_error = '✗';
+local sign_warning = '⚠';
+local sign_information = 'ⓘ ';
+local sign_hint = 'H';
+
 vim.fn.sign_define('LspDiagnosticsSignError', {
-  text = '✗',
+  text = sign_error,
   texthl = 'LspDiagnosticsSignError'
 })
 
 vim.fn.sign_define('LspDiagnosticsSignWarning', {
-  text = '⚠',
+  text = sign_warning,
   texthl = 'LspDiagnosticsSignWarning'
 })
 
 vim.fn.sign_define('LspDiagnosticsSignInformation', {
-  text = 'ⓘ',
+  text = sign_information,
   texthl = 'LspDiagnosticsSignInformation'
 })
 
 vim.fn.sign_define('LspDiagnosticsSignHint', {
-  text = 'H',
+  text = sign_hint,
   texthl = 'LspDiagnosticsSignHint'
 })
 
+-- Use the same color for all virtual text.
+vim.cmd('highlight link LspDiagnosticsVirtualTextError LspDiagnosticsVirtualTextHint')
+vim.cmd('highlight link LspDiagnosticsVirtualTextWarning LspDiagnosticsVirtualTextHint')
+vim.cmd('highlight link LspDiagnosticsVirtualTextInformation LspDiagnosticsVirtualTextHint')
 
 -- Status config
 lsp_status.register_progress()
 lsp_status.config({
   status_symbol = "",
-  indicator_errors = '✗',
-  indicator_warnings = '⚠',
-  indicator_info = 'ⓘ ',
-  indicator_hint = 'H🛈',
+  indicator_errors = sign_error,
+  indicator_warnings = sign_warning,
+  indicator_info = sign_information,
+  indicator_hint = sign_hint,
   indicator_ok = '✓',
   spinner_frames = {'⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷'},
 })
