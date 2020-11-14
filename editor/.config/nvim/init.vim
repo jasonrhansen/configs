@@ -918,8 +918,5 @@ if s:use_nvim_lsp
   " Set completeopt to have a better completion experience
   set completeopt=menuone,noinsert,noselect
 
-  noremap <silent> <F8> <cmd>TSBufDisable highlight<cr>
-  noremap <silent> <F9> <cmd>TSBufEnable highlight<cr>
-
   let g:signify_sign_change = '~'
 endif
