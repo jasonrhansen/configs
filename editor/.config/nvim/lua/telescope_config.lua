@@ -17,7 +17,7 @@ telescope.setup {
 -- Normal mode keymaps to call functions in 'telescope.builtin'
 local keymaps = {
   tb = 'buffers()',
-  tP = 'find_files{ find_command = { "rg", "-i", "--hidden", "--files", "-g", "!.git" }',
+  tP = 'find_files{ find_command = { "rg", "-i", "--hidden", "--files", "-g", "!.git" } }',
   tp = 'git_files()',
   tr = 'live_grep()',
   tq = 'quickfix()',
@@ -28,6 +28,9 @@ local keymaps = {
   ts = 'treesitter()',
   th = 'command_history()',
   tH = 'help_tags()',
+
+  -- Find my config files
+  tc = 'find_files{ cwd = "~/configs", find_command = { "rg", "-i", "--hidden", "--files", "-g", "!.git" } }',
 }
 
 -- Add keybindings
