@@ -27,6 +27,7 @@ if s:use_nvim_lsp
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-lua/telescope.nvim'
+  PLug 'nvim-telescope/telescope-fzy-native.nvim'
 else
   " Intellisense engine and full language server protocol Most language features
   " are coc.nvim extensions, see g:coc_global_extensions below.

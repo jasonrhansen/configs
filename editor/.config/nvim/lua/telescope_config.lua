@@ -11,8 +11,15 @@ telescope.setup {
     },
     -- Color devicons slow it down too much for large projects.
     color_devicons = false,
+    file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
+    grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
+    qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
   }
 }
+
+-- Use native fzy for better performance.
+-- This will override the default file and generic sorters.
+require('telescope').load_extension('fzy_native')
 
 -- Normal mode keymaps to call functions in 'telescope.builtin'
 local keymaps = {
