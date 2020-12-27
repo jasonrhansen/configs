@@ -1,11 +1,11 @@
-local nvim_lsp = require 'nvim_lsp'
+local lspconfig = require 'lspconfig'
 local lsp_status = require 'lsp-status'
 
 M = {}
 
 -- Language server configs
 local configs = {
-  -- angularls = {},
+  angularls = {},
   bashls = {},
   cmake = {},
   cssls = {},
@@ -44,14 +44,14 @@ local configs = {
         diagnostics = {
           enable = true,
           globals = {
-            "vim", "Color", "c", "Group", "g", "s", "describe", "it", "before_each", "after_each"
+            "vim", "Color", "c", "Group", "g", "s", "describe", "it", "before_each", "after_each", "use",
           },
         },
       },
     }
   },
   sqlls = {},
-  -- tsserver = {},
+  tsserver = {},
   vimls = {},
   vuels = {},
   yamlls = {},
@@ -96,9 +96,9 @@ local attach = function(client)
   end
 end
 
-nvim_lsp.util.default_config = vim.tbl_extend(
+lspconfig.util.default_config = vim.tbl_extend(
   "force",
-  nvim_lsp.util.default_config,
+  lspconfig.util.default_config,
   {
     on_attach = attach
   }
@@ -109,7 +109,7 @@ for name, config in pairs(configs) do
   -- Add lsp_status capabilities
   config.capabilities = vim.tbl_extend('keep', config.capabilities or {}, lsp_status.capabilities)
 
-  nvim_lsp[name].setup(config)
+  lspconfig[name].setup(config)
 end
 
 
