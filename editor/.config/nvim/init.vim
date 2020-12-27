@@ -1,110 +1,7 @@
- " Whether to use unstable nvim-lsp. If set to 0, coc.nvim will be used.
-let s:use_nvim_lsp = 0
+ "  Whether to use unstable nvim-lsp. If set to 0, coc.nvim will be used.
+let g:use_nvim_lsp = 1
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                  Plugins
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-call plug#begin()
-
-
-if s:use_nvim_lsp
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'nvim-lua/completion-nvim'
-  Plug 'nvim-lua/lsp-status.nvim'
-  Plug 'nvim-treesitter/nvim-treesitter'
-  Plug 'nvim-treesitter/playground'
-  " Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-
-  " Alternative to vim-gitgutter
-  Plug 'mhinz/vim-signify'
-
-  " Instead of coc-prettier
-  Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-
-  Plug 'SirVer/ultisnips'
-
-  " telescope.nvim (like fzf.vim, but relies on builtin LSP for some features)
-  Plug 'nvim-lua/popup.nvim'
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-lua/telescope.nvim'
-else
-  " Intellisense engine and full language server protocol Most language features
-  " are coc.nvim extensions, see g:coc_global_extensions below.
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'junegunn/fzf', { 'do': './install --bin' }
-  Plug 'junegunn/fzf.vim'
-endif
-
-Plug 'kana/vim-altercmd'
-Plug 'ciaranm/securemodelines'
-Plug 'itchyny/lightline.vim'
-Plug 'machakann/vim-highlightedyank'
-Plug 'airblade/vim-rooter'
-" Snippets used by snippets engine
-Plug 'honza/vim-snippets'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'edkolev/tmuxline.vim'
-Plug 'kennykaye/vim-relativity'
-Plug 'tomtom/tcomment_vim'
-Plug 'vhdirk/vim-cmake'
-" Automatically adjust shiftwidth and expandtab based on the current file
-Plug 'tpope/vim-sleuth'
-"" Hex editor
-Plug 'Shougo/vinarise.vim'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-vinegar'
-Plug 'vim-scripts/camelcasemotion'
-Plug 'wellle/targets.vim'
-" Use this version instead of vim-scripts/a.vim because it
-" won't create imaps by default.
-Plug 'fanchangyong/a.vim'
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-Plug 'moll/vim-bbye'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'AndrewRadev/splitjoin.vim'
-" Add emacs key bindings to vim in insert and command-line modes.
-Plug 'maxbrunsfeld/vim-emacs-bindings'
-" Show outdated crates in Cargo.toml
-Plug 'mhinz/vim-crates'
-Plug 'chrisbra/csv.vim', { 'for': 'csv' }
-Plug 'tpope/vim-git'
-Plug 'jparise/vim-graphql'
-Plug 'groenewege/vim-less', { 'for': 'Less' }
-Plug 'wlangstroth/vim-racket'
-Plug 'toyamarinyon/vim-swift', { 'for': 'swift' }
-Plug 'tmux-plugins/vim-tmux', { 'for': 'tmux' }
-Plug 'cespare/vim-toml'
-" Git
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'rhysd/committia.vim'
-Plug 'kchmck/vim-coffee-script'
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'arithran/vim-delete-hidden-buffers'
-Plug 'tpope/vim-rails'
-" Vim sugar for the UNIX shell commands that need it the most (:Delete,
-" :Rename, :Mkdir, etc.)
-Plug 'tpope/vim-eunuch'
-Plug 'norcalli/nvim-colorizer.lua'
-Plug 'ryanoasis/vim-devicons'
-
-" Expand abbreviations for HTML like 'div>p#foo$*3>a' with '<c-y>,'
-Plug 'mattn/emmet-vim'
-
-" Color theme
-Plug 'nanotech/jellybeans.vim'
-
-" File manager
-Plug 'kyazdani42/nvim-web-devicons' " for file icons
-" Fork of 'kyazdani42/nvim-tree.lua' that doesn't disable netrw.
-Plug 'jasonrhansen/nvim-tree.lua'
-
-" Quickly switch between Angular files
-Plug 'softoika/ngswitcher.vim'
-
-call plug#end()
+lua require 'init'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 Reset vimrc augroup
@@ -449,7 +346,7 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                   coc.nvim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if !s:use_nvim_lsp
+if !g:use_nvim_lsp
   " Use tab for trigger completion with characters ahead and navigate.
   " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
   inoremap <silent><expr> <TAB>
@@ -616,7 +513,7 @@ endif
 "                    fzf
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-if !s:use_nvim_lsp
+if !g:use_nvim_lsp
 
   " Customize Rg command to not search filenames. I only want it to search file contents.
   command! -bang -nargs=* Rg
@@ -712,7 +609,7 @@ function! LightlineFilename()
 endfunction
 
 function! Status() abort
-  if s:use_nvim_lsp
+  if g:use_nvim_lsp
     return LspStatus()
   else
     return coc#status()
@@ -898,9 +795,7 @@ let g:vinarise_enable_auto_detect = 1
 "                   nvim-lsp
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-if s:use_nvim_lsp
-  lua require 'init'
-
+if g:use_nvim_lsp
   " Use completion-nvim in every buffer
   autocmd BufEnter * lua require'completion'.on_attach()
 
