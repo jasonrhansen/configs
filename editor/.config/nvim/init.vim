@@ -240,7 +240,7 @@ let g:jellybeans_overrides = {
 \    'DiffDelete': { 'guifg': '902020', 'guibg': '121212' },
 \    'SignColumn': { 'guibg': '121212' },
 \    'Pmenu': { 'ctermbg': '236', 'guibg': '333333' },
-\    'Search': { 'attr': 'none', 'guifg': 'FFFFFF',  'guibg': '384048' },
+\    'Search': { 'attr': 'none', 'guifg': 'FFFFFF', 'guibg': '384048' },
 \    'Normal': { 'guibg': '121212' },
 \    'LineNr': { 'guibg': '121212' },
 \    'NonText': { 'guibg': '121212' },
