@@ -653,6 +653,7 @@ key_bindings:
   - { key: X,           mods: Alt,     chars: "\x1bx"                       }
   - { key: Y,           mods: Alt,     chars: "\x1by"                       }
   - { key: Z,           mods: Alt,     chars: "\x1bz"                       }
+  - { key: N,           mods: Command, action: SpawnNewInstance             }
   #- { key: Paste,                                action: Paste          }
   #- { key: Copy,                                 action: Copy           }
   #- { key: L,         mods: Control,             action: ClearLogNotice }
