@@ -9,9 +9,11 @@ call plug#begin()
 
 if s:use_nvim_lsp
   Plug 'neovim/nvim-lspconfig'
-  Plug 'nvim-lua/completion-nvim'
+  " Plug 'nvim-lua/completion-nvim'
+  Plug 'hrsh7th/nvim-compe'
+  Plug 'glepnir/lspsaga.nvim'
   Plug 'nvim-lua/lsp-status.nvim'
-  Plug 'nvim-treesitter/nvim-treesitter'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/playground'
   " Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
@@ -27,7 +29,7 @@ if s:use_nvim_lsp
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-lua/telescope.nvim'
-  PLug 'nvim-telescope/telescope-fzy-native.nvim'
+  Plug 'nvim-telescope/telescope-fzy-native.nvim'
 else
   " Intellisense engine and full language server protocol Most language features
   " are coc.nvim extensions, see g:coc_global_extensions below.
@@ -52,7 +54,7 @@ Plug 'vhdirk/vim-cmake'
 " Automatically adjust shiftwidth and expandtab based on the current file
 Plug 'tpope/vim-sleuth'
 "" Hex editor
-Plug 'Shougo/vinarise.vim'
+" Plug 'Shougo/vinarise.vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
@@ -461,8 +463,12 @@ if !s:use_nvim_lsp
   " Use <c-space> to trigger completion.
   inoremap <silent><expr> <c-space> coc#refresh()
 
-  " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+  " " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+  " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+  " Make <CR> auto-select the first completion item and notify coc.nvim to
+  " format on enter, <cr> could be remapped by other vim plugin
+  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
   " Use `[g` and `]g` to navigate diagnostics
   nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -609,7 +615,7 @@ if !s:use_nvim_lsp
   augroup end
 
   " Make coc-pairs work well with <cr>
-  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+  " inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -771,13 +777,74 @@ augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                  lspaga
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if s:use_nvim_lsp
+  lua require('lspsaga').init_lsp_saga()
+
+  nnoremap <silent>gh :LspSagaFinder<CR>
+  nnoremap <silent><leader>ca :LspSagaCodeAction<CR>
+  vnoremap <silent><leader>ca :'<,'>LspSagaRangeCodeAction<CR>
+  nnoremap <silent>K <cmd>lua vim.lsp.buf.hover()<CR>
+  nnoremap <silent>gs <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
+  nnoremap <silent><F2> :LspSagaRename<CR>
+  nnoremap <silent><leader>rn :LspSagaRename<CR>
+  nnoremap <silent>gp :LspSagaDefPreview<CR>
+  nnoremap <silent>[e :LspSagaDiagJumpPrev<CR>
+  nnoremap <silent>]e :LspSagaDiagJumpNext<CR>
+endif
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                    ngswitcher
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 nnoremap <leader>nt <cmd>NgSwitchTS<CR>
 nnoremap <leader>nc <cmd>NgSwitchCSS<CR>
 nnoremap <leader>nh <cmd>NgSwitchHTML<CR>
+
 nnoremap <leader>ns <cmd>NgSwitchSpec<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                  nvim-compe
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if s:use_nvim_lsp
+  lua require 'compe_config'
+endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                   nvim-lsp
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if s:use_nvim_lsp
+  lua require 'lsp_config'
+
+  " " Use completion-nvim in every buffer
+  " autocmd BufEnter * lua require'completion'.on_attach()
+  "
+  " let g:completion_enable_snippet = 'UltiSnips'
+  " imap <silent> <c-space> <Plug>(completion_trigger)
+  " let g:UltiSnipsJumpForwardTrigger="<c-j>"
+  " let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+  " let g:UltiSnipsExpandTrigger="<c-j>"
+  "
+  " inoremap <silent><expr> <TAB>
+  " \ pumvisible() ? "\<C-n>" :
+  " \ <SID>check_back_space() ? "\<TAB>" :
+  " \ completion#trigger_completion()
+  "
+  " " Set completeopt to have a better completion experience
+  " set completeopt=menuone,noinsert,noselect
+
+  set completeopt=menu,menuone,noselect
+
+  let g:signify_sign_change = '~'
+endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -859,6 +926,15 @@ augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"             nvim-treesitter
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" if s:use_nvim_lsp
+"   lua require 'treesitter_config'
+" endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                     Tabular
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Looks at the current line and the lines above and below it and aligns all the
@@ -872,8 +948,18 @@ vnoremap <Leader>a, :Tabularize /,/l0r1<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"             telescope.nvim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if s:use_nvim_lsp
+  lua require 'telescope_config'
+endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "             vim-better-whitespace
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 nmap <leader>t  :StripWhitespace<CR>
 
 
@@ -892,31 +978,3 @@ endif
 
 " Detect binary file or large file automatically
 let g:vinarise_enable_auto_detect = 1
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                   nvim-lsp
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-if s:use_nvim_lsp
-  lua require 'init'
-
-  " Use completion-nvim in every buffer
-  autocmd BufEnter * lua require'completion'.on_attach()
-
-  let g:completion_enable_snippet = 'UltiSnips'
-  imap <silent> <c-space> <Plug>(completion_trigger)
-  let g:UltiSnipsJumpForwardTrigger="<c-j>"
-  let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-  let g:UltiSnipsExpandTrigger="<c-j>"
-
-  inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ completion#trigger_completion()
-
-  " Set completeopt to have a better completion experience
-  set completeopt=menuone,noinsert,noselect
-
-  let g:signify_sign_change = '~'
-endif

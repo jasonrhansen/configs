@@ -3,9 +3,22 @@ local lsp_status = require 'lsp-status'
 
 M = {}
 
+local library_path = "/usr/local/lib"
+local angularls_path = vim.fn.expand("$HOME/.nvm/versions/node/v13.0.0/lib/node_modules/@angular/language-server/index.js")
+local angularls_cmd = { "node", angularls_path, "--stdio", "--tsProbeLocations", library_path, "--ngProbeLocations", library_path }
+
+local sumneko_root_path = vim.fn.expand("$HOME/dev/others/lua-language-server")
+local sumneko_binary = sumneko_root_path.."/bin/macOS/lua-language-server"
+
 -- Language server configs
 local configs = {
-  angularls = {},
+  angularls = {
+    cmd = angularls_cmd,
+    on_new_config = function(new_config)
+      new_config.cmd = angularls_cmd
+    end,
+    filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx" },
+  },
   bashls = {},
   cmake = {},
   cssls = {},
@@ -36,15 +49,24 @@ local configs = {
   -- Swift, C/C++/Objective-C
   sourcekit = {},
   sumneko_lua = {
+    cmd = {sumneko_binary, "-E", sumneko_root_path.."/main.lua"},
     settings = {
       Lua = {
         runtime = {
           version = "LuaJIT",
+          path = vim.split(package.path, ';'),
         },
         diagnostics = {
           enable = true,
           globals = {
             "vim", "Color", "c", "Group", "g", "s", "describe", "it", "before_each", "after_each", "use",
+          },
+        },
+        workspace = {
+          -- Make the server aware of Neovim runtime files
+          library = {
+            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+            [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
           },
         },
       },
@@ -70,11 +92,11 @@ local keymaps = {
 
   -- Misc. actions
   K = 'vim.lsp.buf.hover()',
-  ['<F2>'] = 'vim.lsp.buf.rename()',
+  -- ['<F2>'] = 'vim.lsp.buf.rename()',
   ['<c-k>'] = 'vim.lsp.buf.signature_help()',
   ['<expr><c-space'] = 'vim.lsp.buf.completion()',
   ['<leader>a'] = 'vim.lsp.buf.code_action()',
-  ['<leader>rn'] = 'vim.lsp.buf.rename()',
+  -- ['<leader>rn'] = 'vim.lsp.buf.rename()',
   ['<leader>f'] = 'vim.lsp.buf.range_formatting()',
   ['<leader>F'] = 'vim.lsp.buf.formatting()',
 
@@ -156,10 +178,10 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
-local sign_error = '✗';
-local sign_warning = '⚠';
-local sign_information = 'ⓘ ';
-local sign_hint = 'H';
+local sign_error = '✗'
+local sign_warning = '⚠'
+local sign_information = 'ⓘ '
+local sign_hint = 'H'
 
 vim.fn.sign_define('LspDiagnosticsSignError', {
   text = sign_error,
