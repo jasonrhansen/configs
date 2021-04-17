@@ -70,19 +70,15 @@ local keymaps = {
 
   -- Misc. actions
   K = 'vim.lsp.buf.hover()',
-  ['<F2>'] = 'vim.lsp.buf.rename()',
+  -- ['<F2>'] = 'vim.lsp.buf.rename()',
   ['<c-k>'] = 'vim.lsp.buf.signature_help()',
-  ['<expr><c-space'] = 'vim.lsp.buf.completion()',
+  -- ['<expr><c-space'] = 'vim.lsp.buf.completion()',
   ['<leader>a'] = 'vim.lsp.buf.code_action()',
-  ['<leader>rn'] = 'vim.lsp.buf.rename()',
+  -- ['<leader>rn'] = 'vim.lsp.buf.rename()',
   ['<leader>f'] = 'vim.lsp.buf.range_formatting()',
   ['<leader>F'] = 'vim.lsp.buf.formatting()',
 
   -- Diagnostics
-  ['[g'] = 'vim.lsp.diagnostic.goto_prev()',
-  [']g'] = 'vim.lsp.diagnostic.goto_next()',
-  ['<leader>d'] = 'vim.lsp.diagnostic.show_line_diagnostics()',
-  ['<leader>od'] = 'vim.lsp.diagnostic.set_locallist()',
   ['<F10>'] = 'require"lsp_config".toggle_diagnostic_virtual_text()',
 }
 
@@ -92,7 +88,7 @@ local attach = function(client)
 
   -- Add LSP keybindings
   for key, expression in pairs(keymaps) do
-    vim.fn.nvim_buf_set_keymap(0, 'n', key, '<cmd>lua ' .. expression .. '<CR>', {noremap=true, silent=true})
+    vim.api.nvim_buf_set_keymap(0, 'n', key, '<cmd>lua ' .. expression .. '<CR>', {noremap=true, silent=true})
   end
 end
 

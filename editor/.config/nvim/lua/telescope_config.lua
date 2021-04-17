@@ -42,5 +42,5 @@ local keymaps = {
 
 -- Add keybindings
 for key, func in pairs(keymaps) do
-  vim.fn.nvim_set_keymap('n', key, "<cmd>lua require'telescope.builtin'." .. func .. '<CR>', {noremap=true, silent=true})
+  vim.api.nvim_set_keymap('n', key, "<cmd>lua require'telescope.builtin'." .. func .. '<CR>', {noremap=true, silent=true})
 end

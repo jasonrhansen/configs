@@ -1,5 +1,5 @@
  " Whether to use unstable nvim-lsp. If set to 0, coc.nvim will be used.
-let s:use_nvim_lsp = 0
+let s:use_nvim_lsp = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                  Plugins
@@ -9,11 +9,13 @@ call plug#begin()
 
 if s:use_nvim_lsp
   Plug 'neovim/nvim-lspconfig'
-  Plug 'nvim-lua/completion-nvim'
+  Plug 'hrsh7th/nvim-compe'
   Plug 'nvim-lua/lsp-status.nvim'
   Plug 'nvim-treesitter/nvim-treesitter'
   Plug 'nvim-treesitter/playground'
   " Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+  Plug 'nvim-lua/lsp_extensions.nvim'
+  Plug 'glepnir/lspsaga.nvim'
 
   " Alternative to vim-gitgutter
   Plug 'mhinz/vim-signify'
@@ -27,7 +29,7 @@ if s:use_nvim_lsp
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-lua/telescope.nvim'
-  PLug 'nvim-telescope/telescope-fzy-native.nvim'
+  Plug 'nvim-telescope/telescope-fzy-native.nvim'
 else
   " Intellisense engine and full language server protocol Most language features
   " are coc.nvim extensions, see g:coc_global_extensions below.
@@ -874,7 +876,8 @@ vnoremap <Leader>a, :Tabularize /,/l0r1<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "             vim-better-whitespace
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <leader>t  :StripWhitespace<CR>
+nmap <leader>t :StripWhitespace<CR>
+let g:current_line_whitespace_disabled_soft=1
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -901,22 +904,15 @@ let g:vinarise_enable_auto_detect = 1
 if s:use_nvim_lsp
   lua require 'init'
 
-  " Use completion-nvim in every buffer
-  autocmd BufEnter * lua require'completion'.on_attach()
-
-  let g:completion_enable_snippet = 'UltiSnips'
-  imap <silent> <c-space> <Plug>(completion_trigger)
   let g:UltiSnipsJumpForwardTrigger="<c-j>"
   let g:UltiSnipsJumpBackwardTrigger="<c-k>"
   let g:UltiSnipsExpandTrigger="<c-j>"
 
-  inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ completion#trigger_completion()
-
-  " Set completeopt to have a better completion experience
-  set completeopt=menuone,noinsert,noselect
+  augroup vimrc
+    " Type hints for Rust
+    autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
+          \ :lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "NonText", enabled = {"ChainingHint"} }
+  augroup END
 
   let g:signify_sign_change = '~'
 endif
