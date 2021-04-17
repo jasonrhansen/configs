@@ -23,7 +23,9 @@ if s:use_nvim_lsp
   " Instead of coc-prettier
   Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
-  Plug 'SirVer/ultisnips'
+  Plug 'rafamadriz/friendly-snippets'
+  Plug 'hrsh7th/vim-vsnip'
+  Plug 'hrsh7th/vim-vsnip-integ'
 
   " telescope.nvim (like fzf.vim, but relies on builtin LSP for some features)
   Plug 'nvim-lua/popup.nvim'
@@ -301,9 +303,6 @@ let g:python3_host_prog = "/usr/local/bin/python3.9"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 Custom Mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Easily grep for word or WORD under cursor
-nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cword>")) . " ."<cr>:cw<cr>
-nnoremap <leader>G :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:cw<cr>
 
 " <leader><leader> toggles between buffers
 nnoremap <leader><leader> <c-^>
@@ -904,9 +903,20 @@ let g:vinarise_enable_auto_detect = 1
 if s:use_nvim_lsp
   lua require 'init'
 
-  let g:UltiSnipsJumpForwardTrigger="<c-j>"
-  let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-  let g:UltiSnipsExpandTrigger="<c-j>"
+  " Expand or jump
+  imap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+  smap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+  " Jump forward or backward
+  imap <expr> <c-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)' : '<c-k>'
+  smap <expr> <c-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)' : '<c-k>'
+
+  " Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+  " See https://github.com/hrsh7th/vim-vsnip/pull/50
+  nmap        s   <Plug>(vsnip-select-text)
+  xmap        s   <Plug>(vsnip-select-text)
+  nmap        S   <Plug>(vsnip-cut-text)
+  xmap        S   <Plug>(vsnip-cut-text)
 
   augroup vimrc
     " Type hints for Rust

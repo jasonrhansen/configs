@@ -105,6 +105,15 @@ for name, config in pairs(configs) do
   -- Add lsp_status capabilities
   config.capabilities = vim.tbl_extend('keep', config.capabilities or {}, lsp_status.capabilities)
 
+  config.capabilities.textDocument.completion.completionItem.snippetSupport = true
+  config.capabilities.textDocument.completion.completionItem.resolveSupport = {
+    properties = {
+      'documentation',
+      'detail',
+      'additionalTextEdits',
+    }
+  }
+
   lspconfig[name].setup(config)
 end
 

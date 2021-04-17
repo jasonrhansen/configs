@@ -5,6 +5,7 @@ saga.init_lsp_saga {
   warn_sign = '⚠',
   hint_sign = '',
   infor_sign = 'ⓘ ',
+  max_preview_lines = 20,
   finder_action_keys = {
     open = { 'o', '<CR>' }, vsplit = 'v', split = 's', quit = { 'q', '<Esc>' }, scroll_down = '<C-f>', scroll_up = '<C-b>'
   },
@@ -15,6 +16,9 @@ saga.init_lsp_saga {
     quit = { '<C-c>', '<Esc>' }, exec = '<CR>'
   },
 }
+
+-- Automatically show signature help when completion selected in compe.
+vim.cmd [[autocmd User CompeConfirmDone :Lspsaga signature_help]]
 
 vim.api.nvim_set_keymap('n', 'gh', '<cmd>Lspsaga lsp_finder<CR>', {noremap=true, silent=true})
 vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>Lspsaga code_action<CR>', {noremap=true, silent=true})
