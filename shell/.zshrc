@@ -1,3 +1,6 @@
+# Allow configuration that's specific to a machine to be put in ~/.zsh_local.sh
+[ -f ~/.zsh_local.sh ] && source ~/.zsh_local.sh
+
 platform=`uname`
 HISTFILE=~/.histfile
 HISTSIZE=1000
