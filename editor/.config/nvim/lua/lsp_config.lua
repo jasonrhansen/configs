@@ -7,8 +7,19 @@ local library_path = "/usr/local/lib"
 local angularls_path = vim.fn.expand("$HOME/.nvm/versions/node/v13.0.0/lib/node_modules/@angular/language-server/index.js")
 local angularls_cmd = { "node", angularls_path, "--stdio", "--tsProbeLocations", library_path, "--ngProbeLocations", library_path }
 
+local system_name
+if vim.fn.has("mac") == 1 then
+  system_name = "macOS"
+elseif vim.fn.has("unix") == 1 then
+  system_name = "Linux"
+elseif vim.fn.has('win32') == 1 then
+  system_name = "Windows"
+else
+  print("Unsupported system for sumneko")
+end
+
 local sumneko_root_path = vim.fn.expand("$HOME/dev/others/lua-language-server")
-local sumneko_binary = sumneko_root_path.."/bin/macOS/lua-language-server"
+local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
 
 -- Language server configs
 local configs = {
@@ -68,6 +79,11 @@ local configs = {
             [vim.fn.expand('$VIMRUNTIME/lua')] = true,
             [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
           },
+          preloadFileSize = 200,
+        },
+        -- Do not send telemetry data containing a randomized but unique identifier
+        telemetry = {
+          enable = false,
         },
       },
     }
