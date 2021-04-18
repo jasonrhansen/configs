@@ -3,6 +3,8 @@ local actions = require 'telescope.actions'
 
 telescope.setup {
   defaults = {
+    prompt_position = 'top',
+    sorting_strategy = 'ascending',
     mappings = {
       i = {
         -- Close with esc in insert mode.
@@ -26,7 +28,8 @@ local keymaps = {
   tb = 'buffers()',
   tP = 'find_files{ find_command = { "rg", "-i", "--hidden", "--files", "-g", "!.git" } }',
   tp = 'git_files()',
-  tr = 'live_grep()',
+  tg = 'live_grep()',
+  tr = 'grep_string{ shorten_path = true, word_match = "-w", only_sort_text = true, search = "" }',
   tq = 'quickfix()',
   tt = 'lsp_document_symbols()',
   tT = 'lsp_workspace_symbols()',
