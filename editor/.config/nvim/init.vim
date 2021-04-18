@@ -297,8 +297,8 @@ if exists('$TMUX') && !exists('$NORENAME')
   augroup END
 endif
 
-let g:python_host_prog = "/usr/local/bin/python2.7"
-let g:python3_host_prog = "/usr/local/bin/python3.9"
+let g:python_host_prog = system('which python2.7')
+let g:python3_host_prog = system('which python3.9')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 Custom Mappings
