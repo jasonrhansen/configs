@@ -1,6 +1,6 @@
 # Configuration for starship prompt
 
-prompt_order = """
+format = """
 $username\
 $hostname\
 $directory\
