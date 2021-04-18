@@ -29,7 +29,7 @@
       "args": ["--stdio"]
     }
   },
-  "solargraph.commandPath": "/Users/jrhansen/.rbenv/shims/solargraph",
+  "solargraph.commandPath": "~/.rbenv/shims/solargraph",
   "solargraph.useBundler": false,
   "solargraph.formatting": true,
   "solargraph.autoformat": true,
@@ -40,7 +40,6 @@
   "solargraph.rename": true,
   "solargraph.references": true,
   "solargraph.diagnostics": true,
-  "eslint.filetypes": ["javascript", "javascriptreact"],
   "html.filetypes": ["html", "handlebars", "htmldjango", "php"],
   "html.autoClosingTags": true
 }
