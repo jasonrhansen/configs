@@ -216,7 +216,7 @@ vim.cmd('highlight link LspDiagnosticsVirtualTextInformation LspDiagnosticsVirtu
 -- Status config
 lsp_status.register_progress()
 lsp_status.config({
-  status_symbol = "",
+  status_symbol = "| ",
   indicator_errors = sign_error,
   indicator_warnings = sign_warning,
   indicator_info = sign_information,
