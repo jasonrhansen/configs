@@ -748,7 +748,6 @@ let g:lightline.component_function = {
       \ 'filename': 'LightlineFilename',
       \ 'gitbranch': 'GitBranch',
       \ 'status': 'Status',
-      \ 'currentfunction': 'CurrentFunction',
       \ 'sleuth': 'SleuthIndicator',
       \ 'filetype': 'MyFiletype',
       \ 'fileformat': 'MyFileformat',
@@ -904,8 +903,8 @@ if s:use_nvim_lsp
   lua require 'init'
 
   " Expand or jump
-  imap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-  smap <expr> <C-j>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+  imap <expr> <C-j> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'
+  smap <expr> <C-j> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'
 
   " Jump forward or backward
   imap <expr> <c-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)' : '<c-k>'
