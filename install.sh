@@ -35,6 +35,28 @@ rustup component add rust-analysis
 # Install wasm-pack
 curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
+# Install Node Version Manager
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+
+# Install latest LTS version of node
+nvm install --lts --default
+
+# Install language servers to be used with neovim LSP
+npm install -g @angular/language-server
+npm install -g bash-language-server
+npm install -g npm
+npm install -g vscode-css-languageserver-bin
+npm install -g dockerfile-language-server-nodejs
+npm install -g graphql-language-service-cli
+npm install -g vscode-html-languageserver-bin
+npm install -g intelephense
+npm install -g vscode-json-languageserver
+npm install -g sql-language-server
+npm install -g typescript typescript-language-server
+npm install -g vim-language-server
+npm install -g vls
+npm install -g yaml-language-server
+
 pub=$HOME/.ssh/id_rsa.pub
 echo 'Checking for SSH key, generating one if it does not exist...'
 [[ -f $pub ]] || ssh-keygen -t rsa

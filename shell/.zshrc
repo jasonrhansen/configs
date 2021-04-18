@@ -125,3 +125,5 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 eval "$(starship init zsh)"
 
 eval "$(rbenv init -)"
+
+alias luamake=~/dev/others/lua-language-server/3rd/luamake/luamake

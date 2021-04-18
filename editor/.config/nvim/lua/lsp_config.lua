@@ -3,9 +3,9 @@ local lsp_status = require 'lsp-status'
 
 M = {}
 
-local library_path = "/usr/local/lib"
-local angularls_path = vim.fn.expand("$HOME/.nvm/versions/node/v13.0.0/lib/node_modules/@angular/language-server/index.js")
-local angularls_cmd = { "node", angularls_path, "--stdio", "--tsProbeLocations", library_path, "--ngProbeLocations", library_path }
+local node_lib_path = vim.fn.expand("$HOME/.nvm/versions/node/v14.16.1/lib")
+local angularls_path = node_lib_path .. "/node_modules/@angular/language-server"
+local angularls_cmd = {"ngserver", "--stdio", "--tsProbeLocations", node_lib_path , "--ngProbeLocations", angularls_path}
 
 local system_name
 if vim.fn.has("mac") == 1 then
@@ -28,13 +28,13 @@ local configs = {
     on_new_config = function(new_config)
       new_config.cmd = angularls_cmd
     end,
-    filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx" },
   },
   bashls = {},
   cmake = {},
   cssls = {},
   dockerls = {},
   gopls = {},
+  graphql = {},
   html = {},
   -- PHP
   intelephense = {},
@@ -88,7 +88,9 @@ local configs = {
       },
     }
   },
-  sqlls = {},
+  sqlls = {
+    cmd = {"sql-language-server", "up", "--method", "stdio"},
+  },
   tsserver = {},
   vimls = {},
   vuels = {},
