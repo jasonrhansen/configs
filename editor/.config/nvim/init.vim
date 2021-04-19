@@ -148,7 +148,7 @@ set undolevels=1000
 set showcmd
 set showmatch
 set number
-set nocursorline " Cursorline slows down too much for some large files.
+set cursorline
 " Update syntax highlighting for more lines increased scrolling performance
 syntax sync minlines=256
 set autoread
