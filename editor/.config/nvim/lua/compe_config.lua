@@ -22,6 +22,7 @@ require'compe'.setup {
     tags = true;
     vsnip = true;
     treesitter = false;
+    omni = false;
   };
 }
 

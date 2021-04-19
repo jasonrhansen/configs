@@ -67,7 +67,6 @@ Plug 'wellle/targets.vim'
 Plug 'fanchangyong/a.vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'moll/vim-bbye'
-Plug 'ntpeters/vim-better-whitespace'
 Plug 'AndrewRadev/splitjoin.vim'
 " Add emacs key bindings to vim in insert and command-line modes.
 Plug 'maxbrunsfeld/vim-emacs-bindings'
@@ -869,13 +868,6 @@ nnoremap <Leader>a/ :Tabularize /\/\//l2c1l0<CR>
 vnoremap <Leader>a/ :Tabularize /\/\//l2c1l0<CR>
 nnoremap <Leader>a, :Tabularize /,/l0r1<CR>
 vnoremap <Leader>a, :Tabularize /,/l0r1<CR>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"             vim-better-whitespace
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <leader>t :StripWhitespace<CR>
-let g:current_line_whitespace_disabled_soft=1
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
