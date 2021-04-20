@@ -20,21 +20,27 @@ saga.init_lsp_saga {
 -- Automatically show signature help when completion selected in compe.
 vim.cmd [[autocmd User CompeConfirmDone :Lspsaga signature_help]]
 
-vim.api.nvim_set_keymap('n', 'gh', '<cmd>Lspsaga lsp_finder<CR>', {noremap=true, silent=true})
-vim.api.nvim_set_keymap('n', '<leader>ca', '<cmd>Lspsaga code_action<CR>', {noremap=true, silent=true})
+-- Normal mode keymaps
+local normal_keymaps = {
+  gh = 'Lspsaga lsp_finder',
+  gs = 'Lspsaga signature_help',
+  K = 'Lspsaga hover_doc',
+  ['<C-f>'] = 'lua require("lspsaga.action").smart_scroll_with_saga(1)',
+  ['<C-b>'] = 'lua require("lspsaga.action").smart_scroll_with_saga(-1)',
+  ['<leader>ca'] = 'Lspsaga code_action',
+  ['<leader>rn'] = 'Lspsaga rename',
+  ['<F2>'] = 'Lspsaga rename',
+  ['<leader>pd'] = 'Lspsaga preview_definition',
+  ['<leader>d'] = 'Lspsaga show_line_diagnostics',
+  ['<leader>cd'] = 'Lspsaga show_cursor_diagnostics',
+  ['[g'] = 'Lspsaga diagnostic_jump_prev',
+  [']g'] = 'Lspsaga diagnostic_jump_next',
+}
+for key, expression in pairs(normal_keymaps) do
+  vim.api.nvim_set_keymap('n', key, '<cmd>' .. expression .. '<CR>', {noremap=true, silent=true})
+end
+
 vim.api.nvim_set_keymap('v', '<leader>ca', '<cmd><C-U>Lspsaga range_code_action<CR>', {noremap=true, silent=true})
-vim.api.nvim_set_keymap('n', 'K', '<cmd>Lspsaga hover_doc<CR>', {noremap=true, silent=true})
-vim.api.nvim_set_keymap('n', 'K', '<cmd>Lspsaga hover_doc<CR>', {noremap=true, silent=true})
-vim.api.nvim_set_keymap('n', '<C-f>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(1)<CR>', {noremap=true, silent=true})
-vim.api.nvim_set_keymap('n', '<C-b>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(-1)<CR>', {noremap=true, silent=true})
-vim.api.nvim_set_keymap('n', 'gs', '<cmd>Lspsaga signature_help<CR>', {noremap=true, silent=true})
-vim.api.nvim_set_keymap('n', '<leader>rn', '<cmd>Lspsaga rename<CR>', {noremap=true, silent=true})
-vim.api.nvim_set_keymap('n', '<F2>', '<cmd>Lspsaga rename<CR>', {noremap=true, silent=true})
-vim.api.nvim_set_keymap('n', '<leader>pd', '<cmd>Lspsaga preview_definition<CR>', {noremap=true, silent=true})
-vim.api.nvim_set_keymap('n', '<leader>d', '<cmd>Lspsaga show_line_diagnostics<CR>', {noremap=true, silent=true})
-vim.api.nvim_set_keymap('n', '<leader>cd', '<cmd>Lspsaga show_cursor_diagnostics<CR>', {noremap=true, silent=true})
-vim.api.nvim_set_keymap('n', '[g', 'cmd>Lspsaga diagnostic_jump_prev<CR>', {noremap=true, silent=true})
-vim.api.nvim_set_keymap('n', ']g', '<cmd>Lspsaga diagnostic_jump_next<CR>', {noremap=true, silent=true})
 
 vim.api.nvim_exec(
 [[
