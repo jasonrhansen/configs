@@ -19,7 +19,9 @@ saga.init_lsp_saga {
 }
 
 -- Automatically show signature help when completion selected in compe.
+vim.cmd [[augroup vimrc]]
 vim.cmd [[autocmd User CompeConfirmDone :Lspsaga signature_help]]
+vim.cmd [[augroup END]]
 
 -- Normal mode keymaps
 local normal_keymaps = {
