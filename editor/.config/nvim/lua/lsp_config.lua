@@ -155,7 +155,6 @@ for name, config in pairs(configs) do
   lspconfig[name].setup(config)
 end
 
-
 -- Diagnostics config
 local virtual_text_config = {
   spacing = 2,

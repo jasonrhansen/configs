@@ -1,44 +1,34 @@
- " Whether to use unstable nvim-lsp. If set to 0, coc.nvim will be used.
-let s:use_nvim_lsp = 1
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                  Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin()
 
+" LSP
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-compe'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/playground'
+" Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'nvim-lua/lsp_extensions.nvim'
+Plug 'glepnir/lspsaga.nvim'
 
-if s:use_nvim_lsp
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'hrsh7th/nvim-compe'
-  Plug 'nvim-lua/lsp-status.nvim'
-  Plug 'nvim-treesitter/nvim-treesitter'
-  Plug 'nvim-treesitter/playground'
-  " Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-  Plug 'nvim-lua/lsp_extensions.nvim'
-  Plug 'glepnir/lspsaga.nvim'
+" Fuzzy finder
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
-  " Alternative to vim-gitgutter
-  Plug 'mhinz/vim-signify'
+" Alternative to vim-gitgutter
+Plug 'mhinz/vim-signify'
 
-  " Instead of coc-prettier
-  Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+" Instead of coc-prettier
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
-  Plug 'rafamadriz/friendly-snippets'
-  Plug 'hrsh7th/vim-vsnip'
-  Plug 'hrsh7th/vim-vsnip-integ'
-
-  " telescope.nvim (like fzf.vim, but relies on builtin LSP for some features)
-  Plug 'nvim-lua/popup.nvim'
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-lua/telescope.nvim'
-  Plug 'nvim-telescope/telescope-fzy-native.nvim'
-else
-  " Intellisense engine and full language server protocol Most language features
-  " are coc.nvim extensions, see g:coc_global_extensions below.
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'junegunn/fzf', { 'do': './install --bin' }
-  Plug 'junegunn/fzf.vim'
-endif
+" Snippets
+Plug 'rafamadriz/friendly-snippets'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
 
 Plug 'kana/vim-altercmd'
 Plug 'ciaranm/securemodelines'
@@ -447,276 +437,15 @@ endfunction
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                   coc.nvim
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if !s:use_nvim_lsp
-  " Use tab for trigger completion with characters ahead and navigate.
-  " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-  inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ coc#refresh()
-  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-  " Use <c-space> to trigger completion.
-  inoremap <silent><expr> <c-space> coc#refresh()
-
-  " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-
-  " Use `[g` and `]g` to navigate diagnostics
-  nmap <silent> [g <Plug>(coc-diagnostic-prev)
-  nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-  " Remap keys for gotos
-  nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> gy <Plug>(coc-type-definition)
-  nmap <silent> gi <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
-
-  " Use K to show documentation in preview window
-  nnoremap <silent> K <cmd>call <SID>show_documentation()<CR>
-
-  function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-      execute 'h '.expand('<cword>')
-    else
-      call CocAction('doHover')
-    endif
-  endfunction
-
-
-  " Remap for rename current word
-  nmap <silent> <leader>rn <Plug>(coc-rename)
-  nmap <silent> <F2> <Plug>(coc-rename)
-
-  " Remap for format selected region
-  xmap <leader>f  <Plug>(coc-format-selected)
-  nmap <leader>f  <Plug>(coc-format-selected)
-
-  " Format whole file
-  nmap <leader>F <cmd>call CocAction('format')<cr>
-
-  augroup vimrc
-    autocmd!
-    " Highlight symbol under cursor on CursorHold
-    autocmd CursorHold * silent call CocActionAsync('highlight')
-    " Setup formatexpr for specified filetype(s).
-    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-    " Update signature help on jump placeholder
-    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-  augroup end
-
-  " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-  xmap <leader>a  <Plug>(coc-codeaction-selected)
-  nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-  " Remap for do codeAction of current line
-  nmap <leader>ac  <Plug>(coc-codeaction)
-  " Fix autofix problem of current line
-  nmap <leader>qf  <Plug>(coc-fix-current)
-
-  " Implement methods for trait
-  nnoremap <silent> <space>i  <cmd>call CocActionAsync('codeAction', '', 'Implement missing members')<cr>
-
-  " Map function and class text objects
-  " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-  xmap if <Plug>(coc-funcobj-i)
-  omap if <Plug>(coc-funcobj-i)
-  xmap af <Plug>(coc-funcobj-a)
-  omap af <Plug>(coc-funcobj-a)
-  xmap ic <Plug>(coc-classobj-i)
-  omap ic <Plug>(coc-classobj-i)
-  xmap ac <Plug>(coc-classobj-a)
-  omap ac <Plug>(coc-classobj-a)
-
-  " Use `:Format` to format current buffer
-  command! -nargs=0 Format <cmd>call CocAction('format')
-
-  " Use `:Fold` to fold current buffer
-  command! -nargs=? Fold <cmd>call     CocAction('fold', <f-args>)
-
-  " use `:OR` for organize import of current buffer
-  command! -nargs=0 OR   <cmd>call     CocAction('runCommand', 'editor.action.organizeImport')
-
-  " Add status line support, for integration with other plugin, checkout `:h coc-status`
-  set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-  " Using CocList
-  " Show all diagnostics
-  nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-  " Manage extensions
-  nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-  " Find symbol of current document
-  nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-  " Search workspace symbols
-  nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-  " Do default action for next item.
-  nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-  " Do default action for previous item.
-  nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-  " Resume latest coc list
-  nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-  let g:coc_global_extensions = [
-              \ 'coc-angular',
-              \ 'coc-css',
-              \ 'coc-eslint',
-              \ 'coc-git',
-              \ 'coc-go',
-              \ 'coc-highlight',
-              \ 'coc-html',
-              \ 'coc-java',
-              \ 'coc-json',
-              \ 'coc-markdownlint',
-              \ 'coc-pairs',
-              \ 'coc-phpls',
-              \ 'coc-prettier',
-              \ 'coc-python',
-              \ 'coc-rust-analyzer',
-              \ 'coc-snippets',
-              \ 'coc-solargraph',
-              \ 'coc-svg',
-              \ 'coc-tsserver',
-              \ 'coc-tslint-plugin',
-              \ 'coc-vimlsp',
-              \ 'coc-xml',
-              \ 'coc-yaml',
-              \ 'coc-lua',
-              \ ]
-
-  " coc extension settings
-
-  " Use <C-l> for trigger snippet expand.
-  imap <C-l> <Plug>(coc-snippets-expand)
-
-  " Use <C-j> for select text for visual placeholder of snippet.
-  vmap <C-j> <Plug>(coc-snippets-select)
-
-  " Use <C-j> for jump to next placeholder, it's default of coc.nvim
-  let g:coc_snippet_next = '<c-j>'
-
-  " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-  let g:coc_snippet_prev = '<c-k>'
-
-  " Use <C-j> for both expand and jump (make expand higher priority.)
-  imap <C-j> <Plug>(coc-snippets-expand-jump)
-
-  augroup vimrc
-    autocmd FileType rust let b:coc_pairs_disabled = ['''']
-    autocmd FileType markdown let b:coc_pairs_disabled = ['`']
-    autocmd FileType vim let b:coc_pairs_disabled = ['"']
-  augroup end
-
-  " Make coc-pairs work well with <cr>
-  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                    fzf
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-if !s:use_nvim_lsp
-
-  " Customize Rg command to not search filenames. I only want it to search file contents.
-  command! -bang -nargs=* Rg
-    \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1,
-    \ fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
-
-  " Add another ripgrep command "RG", that doesn't use fzf for fuzzy matching. Each time the query string changes, ripgrep is called.
-  " fzf only acts as a simple selector interface.
-  function! RipgrepFzf(query, fullscreen)
-    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-    let initial_command = printf(command_fmt, shellescape(a:query))
-    let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-  endfunction
-  command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-
-  nnoremap [fzf] <nop>
-  " fzf prefix key
-  nmap t [fzf]
-
-  if executable('rg')
-      nnoremap [fzf]r :Rg<cr>
-  endif
-
-  nnoremap [fzf]b :Buffers<cr>
-  nnoremap [fzf]c :Commands<cr>
-  nnoremap [fzf]l :BLines<cr>
-  nnoremap [fzf]L :Lines<cr>
-  nnoremap [fzf]m :Marks<cr>
-  nnoremap [fzf]P :Files<cr>
-  nnoremap [fzf]p :GFiles<cr>
-  nnoremap [fzf]s :Snippets<cr>
-  nnoremap [fzf]t :BTags<cr>
-  nnoremap [fzf]T :Tags<cr>
-  nnoremap [fzf]g :BCommits<cr>
-  nnoremap [fzf]G :Commits<cr>
-  nnoremap [fzf]h :History<cr>
-  nnoremap [fzf]/ :History/<cr>
-  nnoremap [fzf]: :History:<cr>
-  nnoremap [fzf]H :Helptags<cr>
-  nnoremap [fzf]M :Maps<cr>
-  "
-  " Mapping selecting mappings
-  nmap [fzf]<tab> <plug>(fzf-maps-n)
-  xmap [fzf]<tab> <plug>(fzf-maps-x)
-  omap [fzf]<tab> <plug>(fzf-maps-o)
-
-  imap <c-x><c-f> <plug>(fzf-complete-path)
-  imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-  imap <c-x><c-l> <plug>(fzf-complete-line)
-
-  " Replace the default dictionary completion with fzf-based fuzzy completion
-  inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
-
-  augroup vimrc
-      " Close fzf buffer with ESC
-      autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
-  augroup END
-
-  function! FloatingFZF()
-    let buf = nvim_create_buf(v:false, v:true)
-    call setbufvar(buf, '&signcolumn', 'no')
-
-    let height = &lines - 3
-    let width = float2nr(&columns - (&columns * 2 / 10))
-    let col = float2nr((&columns - width) / 2)
-
-    let opts = {
-          \ 'relative': 'editor',
-          \ 'row': 1,
-          \ 'col': col,
-          \ 'width': width,
-          \ 'height': height
-          \ }
-
-    call nvim_open_win(buf, v:true, opts)
-  endfunction
-
-  let $FZF_DEFAULT_OPTS='--layout=reverse'
-  let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-
-  let g:fzf_colors = {'bg': ['bg', 'Normal']}
-endif
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                   Lightline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! LightlineFilename()
-    return expand('%:t') !=# '' ? @% : '[No Name]'
+  return expand('%:t') !=# '' ? @% : '[No Name]'
 endfunction
 
 function! Status() abort
-  if s:use_nvim_lsp
-    return LspStatus()
-  else
-    return coc#status()
-  endif
+  return LspStatus()
 endfunction
 
 function! LspStatus() abort
@@ -766,6 +495,17 @@ let g:lightline.inactive = {
 augroup vimrc
   " Use autocmd to force lightline update.
   autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+augroup END
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                  lsp_extensions
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+augroup vimrc
+  " Type hints for Rust
+  autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
+        \ :lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "NonText", enabled = {"ChainingHint"} }
 augroup END
 
 
@@ -888,32 +628,38 @@ let g:vinarise_enable_auto_detect = 1
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                   nvim-lsp
+"                   vim-signify
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-if s:use_nvim_lsp
-  lua require 'init'
+let g:signify_sign_change = '~'
 
-  " Expand or jump
-  imap <expr> <C-j> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'
-  smap <expr> <C-j> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'
 
-  " Jump forward or backward
-  imap <expr> <c-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)' : '<c-k>'
-  smap <expr> <c-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)' : '<c-k>'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                   vim-vsnip
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-  " Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
-  " See https://github.com/hrsh7th/vim-vsnip/pull/50
-  nmap        s   <Plug>(vsnip-select-text)
-  xmap        s   <Plug>(vsnip-select-text)
-  nmap        S   <Plug>(vsnip-cut-text)
-  xmap        S   <Plug>(vsnip-cut-text)
+" Expand or jump
+imap <expr> <C-j> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'
+smap <expr> <C-j> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'
 
-  augroup vimrc
-    " Type hints for Rust
-    autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
-          \ :lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "NonText", enabled = {"ChainingHint"} }
-  augroup END
+" Jump forward or backward
+imap <expr> <c-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)' : '<c-k>'
+smap <expr> <c-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)' : '<c-k>'
 
-  let g:signify_sign_change = '~'
-endif
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+nmap        s   <Plug>(vsnip-select-text)
+xmap        s   <Plug>(vsnip-select-text)
+nmap        S   <Plug>(vsnip-cut-text)
+xmap        S   <Plug>(vsnip-cut-text)
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"             LUA Configuration
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+lua require 'lsp_config'
+lua require 'telescope_config'
+lua require 'compe_config'
+lua require 'lspsaga_config'
+" lua require 'treesitter_config'

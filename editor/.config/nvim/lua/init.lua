@@ -1,5 +1,0 @@
-require 'lsp_config'
-require 'telescope_config'
-require 'compe_config'
-require 'lspsaga_config'
--- require 'treesitter_config'
