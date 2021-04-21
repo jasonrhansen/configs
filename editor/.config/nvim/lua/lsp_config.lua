@@ -106,13 +106,6 @@ local keymaps = {
   g0 = 'vim.lsp.buf.document_symbol()',
   gW = 'vim.lsp.buf.workspace_symbol()',
 
-  -- Misc. actions
-  K = 'vim.lsp.buf.hover()',
-  -- ['<F2>'] = 'vim.lsp.buf.rename()',
-  ['<c-k>'] = 'vim.lsp.buf.signature_help()',
-  -- ['<expr><c-space'] = 'vim.lsp.buf.completion()',
-  ['<leader>a'] = 'vim.lsp.buf.code_action()',
-  -- ['<leader>rn'] = 'vim.lsp.buf.rename()',
   ['<leader>f'] = 'vim.lsp.buf.range_formatting()',
   ['<leader>F'] = 'vim.lsp.buf.formatting()',
 

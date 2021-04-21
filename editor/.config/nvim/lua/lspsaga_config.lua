@@ -24,11 +24,11 @@ vim.cmd [[autocmd User CompeConfirmDone :Lspsaga signature_help]]
 -- Normal mode keymaps
 local normal_keymaps = {
   gh = 'Lspsaga lsp_finder',
-  gs = 'Lspsaga signature_help',
   K = 'Lspsaga hover_doc',
+  ['<C-k>'] = 'Lspsaga signature_help',
   ['<C-f>'] = 'lua require("lspsaga.action").smart_scroll_with_saga(1)',
   ['<C-b>'] = 'lua require("lspsaga.action").smart_scroll_with_saga(-1)',
-  ['<leader>ca'] = 'Lspsaga code_action',
+  ['<leader>a'] = 'Lspsaga code_action',
   ['<leader>rn'] = 'Lspsaga rename',
   ['<F2>'] = 'Lspsaga rename',
   ['<leader>pd'] = 'Lspsaga preview_definition',
