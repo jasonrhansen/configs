@@ -1,8 +1,6 @@
 local lspconfig = require 'lspconfig'
 local lsp_status = require 'lsp-status'
 
-M = {}
-
 local node_lib_path = vim.fn.expand("$HOME/.nvm/versions/node/v14.16.1/lib")
 local angularls_path = node_lib_path .. "/node_modules/@angular/language-server"
 local angularls_cmd = {"ngserver", "--stdio", "--tsProbeLocations", node_lib_path , "--ngProbeLocations", angularls_path}
@@ -167,7 +165,7 @@ local virtual_text_config = {
 local show_virtual_text = true;
 
 -- Allow virtual text to be toggled for a buffer.
-M.toggle_diagnostic_virtual_text = function()
+local toggle_diagnostic_virtual_text = function()
   if vim.b.diagnostic_show_virtual_text == nil then
     -- Hasn't been set yet, so set to default.
     vim.b.diagnostic_show_virtual_text = show_virtual_text
@@ -204,7 +202,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 local sign_error = '✗';
 local sign_warning = '⚠';
 local sign_information = 'ⓘ ';
-local sign_hint = 'H';
+local sign_hint = 'ℎ';
 
 vim.fn.sign_define('LspDiagnosticsSignError', {
   text = sign_error,
@@ -243,4 +241,10 @@ lsp_status.config({
   spinner_frames = {'⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷'},
 })
 
-return M
+return {
+  toggle_diagnostic_virtual_text = toggle_diagnostic_virtual_text,
+  sign_error = sign_error,
+  sign_warning = sign_warning,
+  sign_information = sign_information,
+  sign_hint = sign_hint,
+}

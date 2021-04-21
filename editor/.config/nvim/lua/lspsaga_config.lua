@@ -1,10 +1,11 @@
+local lsp_config = require 'lsp_config'
 local saga = require 'lspsaga'
 
 saga.init_lsp_saga {
-  error_sign = '✗',
-  warn_sign = '⚠',
-  hint_sign = '',
-  infor_sign = 'ⓘ ',
+  error_sign = lsp_config.sign_error,
+  warn_sign = lsp_config.sign_warning,
+  hint_sign = lsp_config.sign_hint,
+  infor_sign = lsp_config.sign_information,
   max_preview_lines = 20,
   finder_action_keys = {
     open = { 'o', '<CR>' }, vsplit = 'v', split = 's', quit = { 'q', '<Esc>' }, scroll_down = '<C-f>', scroll_up = '<C-b>'
