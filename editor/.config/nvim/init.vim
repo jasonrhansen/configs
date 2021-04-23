@@ -19,73 +19,25 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
-" Alternative to vim-gitgutter
-Plug 'mhinz/vim-signify'
-
-" Instead of coc-prettier
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-
 " Snippets
 Plug 'rafamadriz/friendly-snippets'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 
-Plug 'kana/vim-altercmd'
-Plug 'ciaranm/securemodelines'
-Plug 'itchyny/lightline.vim'
-Plug 'machakann/vim-highlightedyank'
-Plug 'airblade/vim-rooter'
-" Snippets used by snippets engine
-Plug 'honza/vim-snippets'
+" Tmux
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'edkolev/tmuxline.vim'
-Plug 'kennykaye/vim-relativity'
-Plug 'tomtom/tcomment_vim'
-Plug 'vhdirk/vim-cmake'
-" Automatically adjust shiftwidth and expandtab based on the current file
-Plug 'tpope/vim-sleuth'
-"" Hex editor
-Plug 'Shougo/vinarise.vim'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-vinegar'
-Plug 'vim-scripts/camelcasemotion'
-Plug 'wellle/targets.vim'
-" Use this version instead of vim-scripts/a.vim because it
-" won't create imaps by default.
-Plug 'fanchangyong/a.vim'
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-Plug 'moll/vim-bbye'
-Plug 'AndrewRadev/splitjoin.vim'
-" Add emacs key bindings to vim in insert and command-line modes.
-Plug 'maxbrunsfeld/vim-emacs-bindings'
-" Show outdated crates in Cargo.toml
-Plug 'mhinz/vim-crates'
-Plug 'chrisbra/csv.vim', { 'for': 'csv' }
-Plug 'tpope/vim-git'
-Plug 'jparise/vim-graphql'
-Plug 'groenewege/vim-less', { 'for': 'Less' }
-Plug 'wlangstroth/vim-racket'
-Plug 'toyamarinyon/vim-swift', { 'for': 'swift' }
 Plug 'tmux-plugins/vim-tmux', { 'for': 'tmux' }
-Plug 'cespare/vim-toml'
-" Git
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'rhysd/committia.vim'
-Plug 'kchmck/vim-coffee-script'
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'arithran/vim-delete-hidden-buffers'
-Plug 'tpope/vim-rails'
-" Vim sugar for the UNIX shell commands that need it the most (:Delete,
-" :Rename, :Mkdir, etc.)
-Plug 'tpope/vim-eunuch'
-Plug 'norcalli/nvim-colorizer.lua'
-Plug 'ryanoasis/vim-devicons'
 
-" Expand abbreviations for HTML like 'div>p#foo$*3>a' with '<c-y>,'
-Plug 'mattn/emmet-vim'
+" Status line
+Plug 'itchyny/lightline.vim'
+
+" Git
+Plug 'tpope/vim-git'
+Plug 'tpope/vim-fugitive'
+Plug 'mhinz/vim-signify'
+Plug 'rhysd/committia.vim'
 
 " Color theme
 Plug 'nanotech/jellybeans.vim'
@@ -94,10 +46,89 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'kyazdani42/nvim-tree.lua'
 
+" Expand abbreviations for HTML like 'div>p#foo$*3>a' with '<c-y>,'
+Plug 'mattn/emmet-vim'
+
+" Changes the working directory to the project root when you open a file.
+Plug 'airblade/vim-rooter'
+
+" Automatically toggle relative line numbers based on mode.
+Plug 'kennykaye/vim-relativity'
+
+" Comment code with gc{motion}, gcc, etc.
+Plug 'tomtom/tcomment_vim'
+
+"" Hex editor
+Plug 'Shougo/vinarise.vim'
+
+" Automatically adjust shiftwidth and expandtab based on the current file
+Plug 'tpope/vim-sleuth'
+
+" Easily add/delete/change 'surroundings': parentheses, brackets, quotes, XML
+" tags, etc. [cs, ds, ys, yss]
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat' " Make repeat with `.` command work for vim-surround
+
+" Add emacs key bindings to vim in insert and command-line modes.
+Plug 'maxbrunsfeld/vim-emacs-bindings'
+
+" Show outdated crates in Cargo.toml
+Plug 'mhinz/vim-crates'
+
+" Vim sugar for the UNIX shell commands that need it the most (:Delete,
+" :Rename, :Mkdir, etc.)
+Plug 'tpope/vim-eunuch'
+
 " Quickly switch between Angular files
 Plug 'softoika/ngswitcher.vim'
 
+" Highlight hex and RGB colors in code
+Plug 'norcalli/nvim-colorizer.lua'
+
+" Icons to use in the status bar
+Plug 'ryanoasis/vim-devicons'
+
+" Defines motions ',w', ',b' and ',e' (similar to 'w', 'b', 'e'),
+" which do not move word-wise (forward/backward), but Camel-wise
+Plug 'vim-scripts/camelcasemotion'
+
+" Adds more text objects to operate on like (), {}, [], <>, and t for tags.
+Plug 'wellle/targets.vim'
+
+" Briefly highlight yanked text
+Plug 'machakann/vim-highlightedyank'
+
+" Close buffers without closing windows and messing up the layout.
+Plug 'moll/vim-bbye'
+
+" Adds the following:
+" gS to split a one-liner into multiple lines
+" gJ (with the cursor on the first line of a block) to join a block into a single-line statement
+Plug 'AndrewRadev/splitjoin.vim'
+
+" Add :DeleteHiddenBuffers to remove background buffers
+Plug 'arithran/vim-delete-hidden-buffers'
+
+" Run prettier with :Prettier, :PrettierAsync, :PrettierPartial, :PrettierFragment, etc.
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
+" Internal modeline support allows all sorts of annoying and potentially insecure options to be set.
+" This plugin implements a more heavily restricted version.
+Plug 'ciaranm/securemodelines'
+
+" Language plugins
+Plug 'chrisbra/csv.vim', { 'for': 'csv' }
+Plug 'jparise/vim-graphql'
+Plug 'groenewege/vim-less', { 'for': 'Less' }
+Plug 'wlangstroth/vim-racket'
+Plug 'toyamarinyon/vim-swift', { 'for': 'swift' }
+Plug 'cespare/vim-toml'
+Plug 'kchmck/vim-coffee-script'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'tpope/vim-rails'
+
 call plug#end()
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 Reset vimrc augroup
@@ -107,16 +138,19 @@ augroup vimrc
     autocmd!
 augroup END
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 General Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible              " be iMproved
+set nocompatible                  " be iMproved
 syntax on
 filetype plugin on
 filetype indent on
 let mapleader="\<SPACE>"
 let maplocalleader="-"
+let &showbreak = '↳ '
 
+set encoding=utf-8
 set hidden
 set wildmenu
 set wildmode=longest,list,full
@@ -138,15 +172,10 @@ set showcmd
 set showmatch
 set number
 set cursorline
-" Update syntax highlighting for more lines increased scrolling performance
-syntax sync minlines=256
 set autoread
 set background=dark
-" Remove menu bar
-set guioptions-=m
-" Remove toolbar
-set guioptions-=T
-let &showbreak = '↳ '
+set guioptions-=m                 " Remove menu bar
+set guioptions-=T                 " Remove toolbar
 set breakindent
 set breakindentopt=sbr
 set nolist
@@ -154,8 +183,9 @@ set listchars=tab:▸\              " Char representing a tab
 set listchars+=extends:❯          " Char representing an extending line
 set listchars+=nbsp:␣             " Non breaking space
 set listchars+=precedes:❮         " Char representing an extending line in the other direction
-set linebreak                       " Break properly, don't split words
-set scrolloff=4                     " Show context above/below cursorline
+set fillchars=vert:\ ,
+set linebreak                     " Break properly, don't split words
+set scrolloff=4                   " Show context above/below cursorline
 set formatoptions+=j
 set sidescrolloff=5
 set shiftround
@@ -164,8 +194,16 @@ set laststatus=2
 set noerrorbells
 set visualbell
 set secure
-set nomodeline                      " Use securemodelines instead
-set noshowmode                      " Lightline shows the mode
+set nomodeline                    " Use securemodelines instead
+set noshowmode                    " Lightline shows the mode
+set cmdheight=2                   " Better display for messages
+set updatetime=100                " You will have bad experience for diagnostic messages when it's default 4000.
+set shortmess+=c                  " Don't give ins-completion-menu messages
+set signcolumn=yes                " Always show signcolumns
+set undofile
+set nobackup
+set nowritebackup
+set noswapfile
 
 " indentation
 set expandtab                     " Indent with spaces
@@ -182,18 +220,28 @@ set viewoptions=cursor,folds
 set splitbelow
 set splitright
 
-set undofile
-set nobackup
-set nowritebackup
-set noswapfile
+set undodir=~/.vim/tmp/undo//     " undo files
 
-set undodir=~/.vim/tmp/undo//           " undo files
-
-set mouse=a                             " Enable mouse in all modes
-set mousemodel=popup_setpos             " Right-click on selection should bring up a menu
+set mouse=a                       " Enable mouse in all modes
+set mousemodel=popup_setpos       " Right-click on selection should bring up a menu
 if !has('nvim')
-  set ttymouse=xterm2                   " Needed to be able to resize panes with mouse
+  set ttymouse=xterm2             " Needed to be able to resize panes with mouse
 endif
+
+syntax sync minlines=256          " Increase scrolling performance
+
+augroup vimrc
+    " Allow .md extension to be recognized as markdown
+    autocmd BufRead,BufNewFile *.md set filetype=markdown
+augroup END
+
+augroup vimrc
+    " Start git commits in insert mode
+    autocmd FileType gitcommit startinsert
+    autocmd FileType gitcommit set colorcolumn=80
+augroup END
+
+nnoremap <Leader>q :Bdelete<CR>
 
 set pastetoggle=<F2>
 
@@ -217,13 +265,8 @@ augroup END
 if !has('gui_running')
   set t_Co=256
 endif
-if (exists('$TMUX') && system('tmux show-env TERMINAL_THEME') == "TERMINAL_THEME=light\n") || $TERMINAL_THEME == "light"
-    set background=light
-else
-    set background=dark
-endif
 
-
+" Color theme
 let base16colorspace=256
 let g:jellybeans_use_term_italics = 1
 let g:jellybeans_overrides = {
@@ -239,8 +282,6 @@ let g:jellybeans_overrides = {
 \    'Constant': { 'guifg': '7697D6' },
 \}
 colorscheme jellybeans
-
-set fillchars=vert:\ ,
 
 " Cursor configuration
 " Use a blinking upright bar cursor in Insert mode, a solid block in normal
@@ -264,8 +305,6 @@ else
     set clipboard+=unnamed
 endif
 
-set encoding=utf-8
-
 " Don't use clipboard over ssh since it makes vim load too slowly.
 if !has("gui_running") && !has("nvim")
     let g:display_num =
@@ -287,6 +326,7 @@ endif
 
 let g:python_host_prog = system('which python2.7')
 let g:python3_host_prog = system('which python3.9')
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 Custom Mappings
@@ -402,40 +442,6 @@ endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                Plugin Configuration
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup vimrc
-    " Allow .md extension to be recognized as markdown
-    autocmd BufRead,BufNewFile *.md set filetype=markdown
-augroup END
-
-augroup vimrc
-    " Start git commits in insert mode
-    autocmd FileType gitcommit startinsert
-    autocmd FileType gitcommit set colorcolumn=80
-augroup END
-
-nnoremap <Leader>q :Bdelete<CR>
-
-" Better display for messages
-set cmdheight=2
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=100
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" always show signcolumns
-set signcolumn=yes
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                   Lightline
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -516,19 +522,6 @@ nnoremap <leader>nt <cmd>NgSwitchTS<CR>
 nnoremap <leader>nc <cmd>NgSwitchCSS<CR>
 nnoremap <leader>nh <cmd>NgSwitchHTML<CR>
 nnoremap <leader>ns <cmd>NgSwitchSpec<CR>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                     Tabular
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Looks at the current line and the lines above and below it and aligns all the
-" equals signs. Useful for when we have several lines of declarations.
-nnoremap <Leader>a= :Tabularize /=<CR>
-vnoremap <Leader>a= :Tabularize /=<CR>
-nnoremap <Leader>a/ :Tabularize /\/\//l2c1l0<CR>
-vnoremap <Leader>a/ :Tabularize /\/\//l2c1l0<CR>
-nnoremap <Leader>a, :Tabularize /,/l0r1<CR>
-vnoremap <Leader>a, :Tabularize /,/l0r1<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
