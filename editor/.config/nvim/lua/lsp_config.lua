@@ -40,7 +40,7 @@ local configs = {
   -- jdtls = {},
   jsonls = {},
   -- C#, VB
-  omnisharp = {},
+  -- omnisharp = {},
   -- Python
   pyls = {},
   -- Linting of JavaScript, TypeScript, JSON
