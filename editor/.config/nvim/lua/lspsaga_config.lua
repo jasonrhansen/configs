@@ -2,6 +2,7 @@ local lsp_config = require 'lsp_config'
 local saga = require 'lspsaga'
 
 saga.init_lsp_saga {
+  code_action_icon = '💡',
   error_sign = lsp_config.sign_error,
   warn_sign = lsp_config.sign_warning,
   hint_sign = lsp_config.sign_hint,
