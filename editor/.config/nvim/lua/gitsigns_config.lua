@@ -1,10 +1,10 @@
 require('gitsigns').setup {
   signs = {
-    add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
-    change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-    delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    add = {hl = 'DiffAdd', text = '▋'},
+    change = {hl = 'DiffChange',text= '▋'},
+    delete = {hl= 'DiffDelete', text = '▁'},
+    topdelete = {hl ='DiffDelete',text = '▔'},
+    changedelete = {hl = 'DiffChange', text = '~'},
   },
   numhl = false,
   linehl = false,
@@ -30,20 +30,10 @@ require('gitsigns').setup {
   watch_index = {
     interval = 1000
   },
-  current_line_blame = false,
+  current_line_blame = true,
   sign_priority = 6,
   update_debounce = 100,
   status_formatter = nil, -- Use default
   use_decoration_api = true,
   use_internal_diff = true,  -- If luajit is present
 }
-
-vim.api.nvim_exec(
-[[
-  hi clear GitSignsAdd
-  hi clear GitSignsChange
-  hi clear GitSignsDelete
-  hi GitSignsAdd    guifg=#65C254 guibg=#121212
-  hi GitSignsChange guifg=#2B8BF7 guibg=#121212
-  hi GitSignsDelete guifg=Red guibg=#121212
-]], false)
