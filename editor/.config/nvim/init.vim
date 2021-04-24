@@ -7,11 +7,11 @@ call plug#begin()
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
 Plug 'nvim-lua/lsp-status.nvim'
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'nvim-treesitter/playground'
-" Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'glepnir/lspsaga.nvim'
+" Plug 'nvim-treesitter/nvim-treesitter'
+" Plug 'nvim-treesitter/playground'
+" Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 " Fuzzy finder
 Plug 'nvim-lua/popup.nvim'
@@ -117,11 +117,7 @@ Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'ciaranm/securemodelines'
 
 " Language plugins
-Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'jparise/vim-graphql'
-Plug 'groenewege/vim-less', { 'for': 'Less' }
-Plug 'wlangstroth/vim-racket'
-Plug 'toyamarinyon/vim-swift', { 'for': 'swift' }
 Plug 'cespare/vim-toml'
 Plug 'kchmck/vim-coffee-script'
 Plug 'mustache/vim-mustache-handlebars'

@@ -43,8 +43,6 @@ local configs = {
   -- omnisharp = {},
   -- Python
   pyls = {},
-  -- Linting of JavaScript, TypeScript, JSON
-  -- rome = {},
   rust_analyzer = {},
   -- Ruby
   solargraph = {
@@ -89,6 +87,7 @@ local configs = {
   sqlls = {
     cmd = {"sql-language-server", "up", "--method", "stdio"},
   },
+  svelte = {},
   tsserver = {},
   vimls = {},
   vuels = {},
