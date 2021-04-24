@@ -39,8 +39,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
 Plug 'rhysd/committia.vim'
 
-" Color theme
+" Color themes
 Plug 'nanotech/jellybeans.vim'
+Plug 'glepnir/zephyr-nvim'
 
 " File manager
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
