@@ -48,4 +48,7 @@ vim.api.nvim_set_keymap('v', '<leader>ca', '<cmd><C-U>Lspsaga range_code_action<
 vim.api.nvim_exec(
 [[
   hi link TargetWord Normal
+  hi LspSagaDiagnosticBorder guifg=#6699cc
+  hi LspSagaDiagnosticTruncateLine guifg=#6699cc
+  hi LspSagaDiagnosticHeader gui=bold guifg=#e8e8d3
 ]], false)
