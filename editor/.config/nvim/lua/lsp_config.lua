@@ -192,7 +192,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 
 local sign_error = '✗';
 local sign_warning = '⚠';
-local sign_information = 'ⓘ ';
+local sign_information = 'i';
 local sign_hint = 'ℎ';
 
 vim.fn.sign_define('LspDiagnosticsSignError', {
@@ -223,7 +223,7 @@ vim.cmd('highlight link LspDiagnosticsVirtualTextInformation LspDiagnosticsVirtu
 -- Status config
 lsp_status.register_progress()
 lsp_status.config({
-  status_symbol = "| ",
+  status_symbol = "  LSP:",
   indicator_errors = sign_error,
   indicator_warnings = sign_warning,
   indicator_info = sign_information,
