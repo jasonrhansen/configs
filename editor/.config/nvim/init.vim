@@ -36,8 +36,8 @@ Plug 'itchyny/lightline.vim'
 " Git
 Plug 'tpope/vim-git'
 Plug 'tpope/vim-fugitive'
-Plug 'mhinz/vim-signify'
 Plug 'rhysd/committia.vim'
+Plug 'lewis6991/gitsigns.nvim'
 
 " Color themes
 Plug 'nanotech/jellybeans.vim'
@@ -466,8 +466,8 @@ function! MyFileformat()
   return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
-function GitBranch()
-  return ' ' . fugitive#head()
+function Git()
+  return ' ' . get(b:,'gitsigns_head','') . ' ' . get(b:,'gitsigns_status','')
 endfunction
 
 let g:lightline = {
@@ -476,7 +476,7 @@ let g:lightline = {
 
 let g:lightline.component_function = {
       \ 'filename': 'LightlineFilename',
-      \ 'gitbranch': 'GitBranch',
+      \ 'git': 'Git',
       \ 'status': 'Status',
       \ 'sleuth': 'SleuthIndicator',
       \ 'filetype': 'MyFiletype',
@@ -485,7 +485,7 @@ let g:lightline.component_function = {
 
 
 let g:lightline.active = {
-      \ 'left': [['mode', 'paste'], ['readonly', 'filename', 'modified'], ['gitbranch'], ['status']],
+      \ 'left': [['mode', 'paste'], ['readonly', 'filename', 'modified'], ['git'], ['status']],
       \ 'right': [['lineinfo'], ['percent'], ['filetype', 'fileformat', 'fileencoding', 'sleuth']]
       \ }
 
@@ -493,11 +493,6 @@ let g:lightline.inactive = {
       \ 'left': [['filename']],
       \ 'right': [['lineinfo'], ['percent']]
       \ }
-
-augroup vimrc
-  " Use autocmd to force lightline update.
-  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -574,4 +569,5 @@ lua require 'telescope_config'
 lua require 'compe_config'
 lua require 'lspsaga_config'
 lua require 'nvim_tree_config'
+lua require 'gitsigns_config'
 " lua require 'treesitter_config'
