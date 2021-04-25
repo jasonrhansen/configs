@@ -19,8 +19,6 @@ end
 local sumneko_root_path = vim.fn.expand("$HOME/dev/others/lua-language-server")
 local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
 
-local pyls_ms_dll_path = vim.fn.expand("$HOME/dev/others/python-language-server/output/bin/Debug/Microsoft.Python.LanguageServer.dll")
-
 -- Language server configs
 local configs = {
   angularls = {
@@ -44,9 +42,7 @@ local configs = {
   -- C#, VB
   -- omnisharp = {},
   -- Python
-  pyls_ms = {
-    cmd = {"dotnet", "exec", pyls_ms_dll_path};
-  },
+  pyright = {},
   rust_analyzer = {},
   -- Ruby
   solargraph = {
