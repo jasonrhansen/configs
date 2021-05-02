@@ -1,6 +1,7 @@
 local treesitter = require 'nvim-treesitter.configs'
 
 treesitter.setup {
+  ensure_installed = "maintained",
   highlight = {
     enable = true,
     use_languagetree = true, -- For language injection (currently very unstable)
