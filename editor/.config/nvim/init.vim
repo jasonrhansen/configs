@@ -42,6 +42,7 @@ Plug 'tpope/vim-git'
 Plug 'tpope/vim-fugitive'
 Plug 'rhysd/committia.vim'
 Plug 'lewis6991/gitsigns.nvim'
+Plug 'sindrets/diffview.nvim' " Open with :DiffviewOpen
 
 " Color themes
 Plug 'nanotech/jellybeans.vim'
@@ -568,6 +569,7 @@ lua require 'vim_closer_config' -- Must come after compe_config because it overr
 lua require 'lspsaga_config'
 lua require 'nvim_tree_config'
 lua require 'gitsigns_config'
+lua require 'diffview_config'
 if exists('g:loaded_nvim_treesitter')
   lua require 'treesitter_config'
 endif

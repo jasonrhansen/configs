@@ -29,6 +29,7 @@ local keymaps = {
   tP = 'find_files{ find_command = { "rg", "-i", "--hidden", "--files", "-g", "!.git" } }',
   tp = 'git_files()',
   tg = 'live_grep()',
+  tG = 'git_commits()',
   tr = 'grep_string{ shorten_path = true, word_match = "-w", only_sort_text = true, search = "" }',
   tq = 'quickfix()',
   tt = 'lsp_document_symbols()',
