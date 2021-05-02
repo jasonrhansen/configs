@@ -24,6 +24,9 @@ Plug 'rafamadriz/friendly-snippets'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 
+" Autopairs
+Plug 'windwp/nvim-autopairs'
+
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -560,6 +563,7 @@ xmap        S   <Plug>(vsnip-cut-text)
 lua require 'lsp_config'
 lua require 'telescope_config'
 lua require 'compe_config'
+lua require 'nvim_autopairs_config' -- Must come after compe_config because it overrides keymap
 lua require 'lspsaga_config'
 lua require 'nvim_tree_config'
 lua require 'gitsigns_config'
