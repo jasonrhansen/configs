@@ -569,7 +569,7 @@ lua require 'vim_closer_config' -- Must come after compe_config because it overr
 lua require 'lspsaga_config'
 lua require 'nvim_tree_config'
 lua require 'gitsigns_config'
-lua require 'diffview_config'
+lua require 'diffview_config' -- Must come after telescope_config because it overrides keymap
 if exists('g:loaded_nvim_treesitter')
   lua require 'treesitter_config'
 endif

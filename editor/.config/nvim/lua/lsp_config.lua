@@ -1,6 +1,8 @@
 local lspconfig = require 'lspconfig'
 local lsp_status = require 'lsp-status'
 
+local M = {}
+
 local node_lib_path = vim.fn.expand("$HOME/.nvm/versions/node/v14.16.1/lib")
 local angularls_path = node_lib_path .. "/node_modules/@angular/language-server"
 local angularls_cmd = {"ngserver", "--stdio", "--tsProbeLocations", node_lib_path , "--ngProbeLocations", angularls_path}
@@ -164,7 +166,7 @@ local virtual_text_config = {
 local show_virtual_text = true;
 
 -- Allow virtual text to be toggled for a buffer.
-local toggle_diagnostic_virtual_text = function()
+function M.toggle_diagnostic_virtual_text()
   if vim.b.diagnostic_show_virtual_text == nil then
     -- Hasn't been set yet, so set to default.
     vim.b.diagnostic_show_virtual_text = show_virtual_text
@@ -198,28 +200,28 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
-local sign_error = '✗';
-local sign_warning = '⚠';
-local sign_information = 'i';
-local sign_hint = 'ℎ';
+M.sign_error = '✗';
+M.sign_warning = '⚠';
+M.sign_information = 'i';
+M.sign_hint = 'ℎ';
 
 vim.fn.sign_define('LspDiagnosticsSignError', {
-  text = sign_error,
+  text = M.sign_error,
   texthl = 'LspDiagnosticsSignError'
 })
 
 vim.fn.sign_define('LspDiagnosticsSignWarning', {
-  text = sign_warning,
+  text = M.sign_warning,
   texthl = 'LspDiagnosticsSignWarning'
 })
 
 vim.fn.sign_define('LspDiagnosticsSignInformation', {
-  text = sign_information,
+  text = M.sign_information,
   texthl = 'LspDiagnosticsSignInformation'
 })
 
 vim.fn.sign_define('LspDiagnosticsSignHint', {
-  text = sign_hint,
+  text = M.sign_hint,
   texthl = 'LspDiagnosticsSignHint'
 })
 
@@ -232,10 +234,10 @@ vim.cmd('highlight link LspDiagnosticsVirtualTextInformation LspDiagnosticsVirtu
 lsp_status.register_progress()
 lsp_status.config({
   status_symbol = "  LSP:",
-  indicator_errors = sign_error,
-  indicator_warnings = sign_warning,
-  indicator_info = sign_information,
-  indicator_hint = sign_hint,
+  indicator_errors = M.sign_error,
+  indicator_warnings = M.sign_warning,
+  indicator_info = M.sign_information,
+  indicator_hint = M.sign_hint,
   indicator_ok = '✓',
   spinner_frames = {'⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷'},
 })
@@ -254,10 +256,4 @@ function _G.open_lsp_log()
 end
 vim.cmd('command! -nargs=0 LspRestart call v:lua.reload_lsp()')
 
-return {
-  toggle_diagnostic_virtual_text = toggle_diagnostic_virtual_text,
-  sign_error = sign_error,
-  sign_warning = sign_warning,
-  sign_information = sign_information,
-  sign_hint = sign_hint,
-}
+return M

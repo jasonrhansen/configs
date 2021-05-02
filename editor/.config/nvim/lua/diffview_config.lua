@@ -1,3 +1,5 @@
+local M = {}
+
 local cb = require('diffview.config').diffview_callback
 
 require('diffview').setup {
@@ -46,7 +48,7 @@ local open_diff = function()
   vim.cmd(cmd)
 end
 
-local git_commits = function()
+function M.git_commits()
   require('telescope.builtin').git_commits({
     attach_mappings = function(_, map)
       map('i', '<c-o>', open_diff)
@@ -57,6 +59,4 @@ end
 
 vim.api.nvim_set_keymap('n', 'tG', "<cmd>lua require'diffview_config'.git_commits()<CR>", {noremap=true, silent=true})
 
-return {
-  git_commits = git_commits,
-}
+return M
