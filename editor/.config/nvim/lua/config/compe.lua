@@ -68,10 +68,10 @@ function M.s_tab_complete()
   end
 end
 
-vim.api.nvim_set_keymap("i", "<Tab>", "luaeval('require\"compe_config\".tab_complete()')", {expr = true})
-vim.api.nvim_set_keymap("s", "<Tab>", "luaeval('require\"compe_config\".tab_complete()')", {expr = true})
-vim.api.nvim_set_keymap("i", "<S-Tab>", "luaeval('require\"compe_config\".s_tab_complete()')", {expr = true})
-vim.api.nvim_set_keymap("s", "<S-Tab>", "luaeval('require\"compe_config\".s_tab_complete()')", {expr = true})
+vim.api.nvim_set_keymap("i", "<Tab>", "luaeval('require\"config.compe\".tab_complete()')", {expr = true})
+vim.api.nvim_set_keymap("s", "<Tab>", "luaeval('require\"config.compe\".tab_complete()')", {expr = true})
+vim.api.nvim_set_keymap("i", "<S-Tab>", "luaeval('require\"config.compe\".s_tab_complete()')", {expr = true})
+vim.api.nvim_set_keymap("s", "<S-Tab>", "luaeval('require\"config.compe\".s_tab_complete()')", {expr = true})
 
 vim.api.nvim_set_keymap('i', "<C-Space>", "compe#complete()", {noremap=true, silent=true, expr=true})
 vim.api.nvim_set_keymap('i', "<CR>", "compe#confirm('<CR>')", {noremap=true, silent=true, expr=true})

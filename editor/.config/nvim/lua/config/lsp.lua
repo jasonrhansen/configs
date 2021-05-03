@@ -119,7 +119,7 @@ local keymaps = {
   ['<leader>F'] = 'vim.lsp.buf.formatting()',
 
   -- Diagnostics
-  ['<F10>'] = 'require"lsp_config".toggle_diagnostic_virtual_text()',
+  ['<F10>'] = 'require"config.lsp".toggle_diagnostic_virtual_text()',
 }
 
 -- Shared attach function for all LSP clients.

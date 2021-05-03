@@ -17,6 +17,6 @@ function M.closer_cr()
   end
 end
 
-vim.api.nvim_set_keymap('i' , '<CR>', "luaeval('require\"vim_closer_config\".closer_cr()')", {expr=true , silent=true})
+vim.api.nvim_set_keymap('i' , '<CR>', "luaeval('require\"config.vim_closer\".closer_cr()')", {expr=true , silent=true})
 
 return M

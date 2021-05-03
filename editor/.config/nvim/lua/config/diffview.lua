@@ -57,6 +57,6 @@ function M.git_commits()
   })
 end
 
-vim.api.nvim_set_keymap('n', 'tG', "<cmd>lua require'diffview_config'.git_commits()<CR>", {noremap=true, silent=true})
+vim.api.nvim_set_keymap('n', 'tG', "<cmd>lua require'config.diffview'.git_commits()<CR>", {noremap=true, silent=true})
 
 return M

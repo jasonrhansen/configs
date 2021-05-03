@@ -565,19 +565,16 @@ xmap        S   <Plug>(vsnip-cut-text)
 lua << EOF
 
 local lua_modules = {
-  'lsp_config',
-  'telescope_config',
-  'compe_config',
-  'vim_closer_config', -- Must come after compe_config because it overrides keymap
-  'lspsaga_config',
-  'nvim_tree_config',
-  'gitsigns_config',
-  'diffview_config', -- Must come after telescope_config because it overrides keymap
+  'config.lsp',
+  'config.telescope',
+  'config.compe',
+  'config.vim_closer', -- Must come after config.compe because it overrides keymap
+  'config.lspsaga',
+  'config.nvim_tree',
+  'config.gitsigns',
+  'config.diffview', -- Must come after config.telescope because it overrides keymap
+  -- 'config.treesitter',
 }
-
-if vim.g.loaded_nvim_treesitter then
-  table.insert(lua_modules, 'treesitter_config')
-end
 
 for _, module_name in ipairs(lua_modules) do
   -- Remove cached module so config can be reloaded without restarting neovim

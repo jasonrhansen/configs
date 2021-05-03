@@ -1,4 +1,4 @@
-local lsp_config = require 'lsp_config'
+local lsp_config = require 'config.lsp'
 local saga = require 'lspsaga'
 
 saga.init_lsp_saga {
