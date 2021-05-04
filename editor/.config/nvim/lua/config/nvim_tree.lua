@@ -1,8 +1,8 @@
 vim.g.nvim_tree_disable_netrw = 0
 vim.g.nvim_tree_hijack_netrw = 0
-vim.g.nvim_tree_side = 'left'
+vim.g.nvim_tree_side = "left"
 vim.g.nvim_tree_width = 40
-vim.g.nvim_tree_ignore = {'.git', 'node_modules', '.cache'}
+vim.g.nvim_tree_ignore = {".git", "node_modules", ".cache"}
 vim.g.nvim_tree_auto_close = 1
 vim.g.nvim_tree_follow = 1
 vim.g.nvim_tree_indent_markers = 1
@@ -16,34 +16,34 @@ vim.g.nvim_tree_show_icons = {
 }
 
 vim.g.nvim_tree_icons = {
-  default = '',
-  symlink = '',
+  default = "",
+  symlink = "",
   git = {
-    unstaged = '✗',
-    staged = '✓',
-    unmerged = '',
-    renamed = '➜',
-    untracked = '★',
-    deleted = '',
-    ignored = '◌'
+    unstaged = "✗",
+    staged = "✓",
+    unmerged = "",
+    renamed = "➜",
+    untracked = "★",
+    deleted = "",
+    ignored = "◌"
   },
   folder = {
-    default = '',
-    open = '',
-    empty = '',
-    empty_open = '',
-    symlink = '',
-    symlink_open = '',
+    default = "",
+    open = "",
+    empty = "",
+    empty_open = "",
+    symlink = "",
+    symlink_open = "",
   },
   lsp = {
-    hint = '',
-    info = '',
-    warning = '',
-    error = '',
+    hint = "",
+    info = "",
+    warning = "",
+    error = "",
   }
 }
 
-local tree_cb = require'nvim-tree.config'.nvim_tree_callback
+local tree_cb = require('nvim-tree.config').nvim_tree_callback
 vim.g.nvim_tree_bindings = {
   ["<CR>"]           = tree_cb("edit"),
   ["o"]              = tree_cb("edit"),
@@ -78,9 +78,9 @@ vim.api.nvim_set_keymap("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", {noremap = 
 vim.api.nvim_set_keymap("n", "<leader>r", "<cmd>NvimTreeRefresh<cr>", {noremap = true})
 vim.api.nvim_set_keymap("n", "<leader>n", "<cmd>NvimTreeFindFile<cr>", {noremap = true})
 
-vim.cmd [[augroup vimrc]]
-vim.cmd [[autocmd FileType NvimTree set nowrap]]
-vim.cmd [[autocmd FileType NvimTree nnoremap <buffer><leader>w :set nowrap!<CR>]]
-vim.cmd [[augroup END]]
+vim.cmd("augroup vimrc")
+vim.cmd("autocmd FileType NvimTree set nowrap")
+vim.cmd("autocmd FileType NvimTree nnoremap <buffer><leader>w :set nowrap!<CR>")
+vim.cmd("augroup END")
 
 vim.o.termguicolors = true -- Required for colors to work in tree
