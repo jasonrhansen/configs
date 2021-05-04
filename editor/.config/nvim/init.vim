@@ -334,7 +334,7 @@ let g:python3_host_prog = trim(system('which python3.9'))
 "                 Custom Mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" <leader><leader> toggles between buffers
+" Toggle between buffers
 nnoremap <leader><leader> <c-^>
 
 " Turn off search highlights by pressing return unless in quickfix window
@@ -343,9 +343,6 @@ nnoremap <expr> <cr> &buftype ==# 'quickfix' ? "\<CR>" : ':noh<cr>'
 " Escape is too much of a reach. Use jk to exit insert mode and command mode.
 inoremap jk <esc>
 cnoremap jk <c-e><c-u><esc>
-" Also c-k works well for this
-inoremap <c-k> <esc>
-cnoremap <c-k> <c-e><c-u><esc>
 
 " Make editing and sourcing .vimrc really easy.
 nnoremap <leader>ve :vsplit $MYVIMRC<cr>
@@ -355,7 +352,7 @@ nnoremap <leader>vs :source $MYVIMRC<cr>
 nnoremap S diw"0P
 vnoremap S "_d"0P
 
-" Make "Y" work from the cursor to end of line instead of like "yy"
+" Make 'Y' work from the cursor to end of line instead of like 'yy'
 nnoremap Y y$
 
 " Fast saving
@@ -403,9 +400,6 @@ nnoremap ` '
 " Move between buffers faster
 nnoremap <silent> <C-b> :silent :bp<CR>
 nnoremap <silent> <C-n> :silent :bn<CR>
-
-" Switch between source and header files with a.vim
-nmap <leader>h :A<cr>
 
 " Resize windows with the arrow keys and shift key
 nnoremap <s-up> 10<C-W>+
