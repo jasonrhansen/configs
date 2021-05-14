@@ -4,6 +4,16 @@ local previewers = require("telescope.previewers")
 
 telescope.setup {
   defaults = {
+    vimgrep_arguments = {
+      'rg',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case',
+      '--hidden',
+    },
     prompt_position = "top",
     sorting_strategy = "ascending",
     mappings = {
@@ -12,8 +22,7 @@ telescope.setup {
         ["<esc>"] = actions.close,
       },
     },
-    -- Color devicons slow it down too much for large projects.
-    color_devicons = false,
+    color_devicons = true,
     file_previewer = previewers.vim_buffer_cat.new,
     grep_previewer = previewers.vim_buffer_vimgrep.new,
     qflist_previewer = previewers.vim_buffer_qflist.new,
