@@ -10,9 +10,7 @@ Plug 'nvim-lua/lsp-status.nvim'
 Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'glepnir/lspsaga.nvim'
 Plug 'onsails/lspkind-nvim'
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-" Plug 'nvim-treesitter/playground'
-" Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Fuzzy finder
 Plug 'nvim-lua/popup.nvim'
@@ -568,7 +566,7 @@ local lua_modules = {
   "config.nvim_tree",
   "config.gitsigns",
   "config.diffview", -- Must come after config.telescope because it overrides keymap
-  -- 'config.treesitter',
+  "config.treesitter",
 }
 
 for _, module_name in ipairs(lua_modules) do
