@@ -35,7 +35,7 @@ vim.cmd("augroup END")
 local normal_keymaps = {
   gh = "Lspsaga lsp_finder",
   K = "Lspsaga hover_doc",
-  ["<C-k>"] = "Lspsaga signature_help",
+  ["<leader>k"] = "Lspsaga signature_help",
   ["<C-f>"] = "lua require('lspsaga.action').smart_scroll_with_saga(1)",
   ["<C-b>"] = "lua require('lspsaga.action').smart_scroll_with_saga(-1)",
   ["<leader>a"] = "Lspsaga code_action",
@@ -52,7 +52,7 @@ for key, expression in pairs(normal_keymaps) do
   vim.api.nvim_set_keymap("n", key, "<cmd>" .. expression .. "<CR>", {noremap=true, silent=true})
 end
 
-vim.api.nvim_set_keymap("v", "<leader>ca", "<cmd><C-U>Lspsaga range_code_action<CR>", {noremap=true, silent=true})
+vim.api.nvim_set_keymap("v", "<leader>a", "<cmd><C-U>Lspsaga range_code_action<CR>", {noremap=true, silent=true})
 
 vim.api.nvim_exec(
 [[
