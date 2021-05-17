@@ -25,8 +25,7 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 
 " Autopairs
-Plug 'rstacruz/vim-closer' " Automatically closes `(`, `[`, and '{' after pressing enter
-Plug 'tpope/vim-endwise'   " Close with `end`, `endif`, `endfunction`, etc. for several languages
+Plug 'steelsojka/pears.nvim'
 
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
@@ -562,7 +561,7 @@ local lua_modules = {
   "config.lsp",
   "config.telescope",
   "config.compe",
-  "config.vim_closer", -- Must come after config.compe because it overrides keymap
+  "config.pears",
   "config.lspsaga",
   "config.nvim_tree",
   "config.gitsigns",
