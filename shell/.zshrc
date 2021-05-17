@@ -80,7 +80,7 @@ export FZF_DEFAULT_OPTS='
 '
 
 # Load zgen plugin manager
-source "${HOME}/.zgen/zgen/zgen.zsh"
+source "${HOME}/.zgen/zgen.zsh"
 
 if ! zgen saved; then
     echo "Creating a zgen save"

@@ -97,7 +97,7 @@ tmux new-session -d
 tmux kill-server
 
 echo "Installing zgen (zsh plugin manager)"
-zgen_dir=~/.zgen/zgen
+zgen_dir=~/.zgen
 if [ ! -e "$zgen_dir" ]; then
     mkdir -p "$zgen_dir"
     git clone https://github.com/tarjoilija/zgen.git "$zgen_dir"
