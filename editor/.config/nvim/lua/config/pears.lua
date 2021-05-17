@@ -1,18 +1,18 @@
 require "pears".setup(function(conf)
   conf.pair("'", {
     close = "'",
-    should_expand = function()
+    filetypes = {
       -- Disable expanding single quote in Rust because of lifetimes
-      return vim.api.nvim_buf_get_option(0, "filetype") ~= 'rust'
-    end
+      exclude = {'rust'}
+    },
   })
 
   conf.pair('"', {
     close = '"',
-    should_expand = function()
+    filetypes = {
       -- Disable expanding double quote for vimscript because of comments
-      return vim.api.nvim_buf_get_option(0, "filetype") ~= 'vim'
-    end
+      exclude = {'vim'}
+    },
   })
 
   -- Make it work with compe
