@@ -5,6 +5,9 @@ treesitter.setup {
   highlight = {
     enable = true,
   },
+  indent = {
+    enable = false
+  },
   playground = {
     enable = true,
     disable = {},

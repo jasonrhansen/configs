@@ -68,13 +68,18 @@ function M.s_tab_complete()
   end
 end
 
+-- Make compe play nicely with endwise
+-- Unfortunately endwise doesn't work when treesitter highlighting is enabled: https://github.com/nvim-treesitter/nvim-treesitter/issues/703
+vim.g.endwise_no_mappings = true
+
 vim.api.nvim_set_keymap("i", "<Tab>", [[luaeval('require("config.compe").tab_complete()')]], {expr = true})
 vim.api.nvim_set_keymap("s", "<Tab>", [[luaeval('require("config.compe").tab_complete()')]], {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", [[luaeval('require("config.compe").s_tab_complete()')]], {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", [[luaeval('require("config.compe").s_tab_complete()')]], {expr = true})
 
 vim.api.nvim_set_keymap('i', "<C-Space>", "compe#complete()", {noremap=true, silent=true, expr=true})
-vim.api.nvim_set_keymap('i', "<CR>", "compe#confirm('<CR>')", {noremap=true, silent=true, expr=true})
+-- After confirm call DiscretionaryEnd from endwise
+vim.api.nvim_set_keymap("i", "<CR>", [[compe#confirm('<CR>') . "<Plug>DiscretionaryEnd"]], {expr=true, silent=true})
 vim.api.nvim_set_keymap('i', "<C-e>", "compe#close('<C-e>')", {noremap=true, silent=true, expr=true})
 
 return M

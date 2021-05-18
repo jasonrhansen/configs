@@ -27,6 +27,7 @@ Plug 'hrsh7th/vim-vsnip-integ'
 " Autopairs
 " Plug 'steelsojka/pears.nvim'
 Plug 'jasonrhansen/pears.nvim', { 'branch': 'child-of-node-fix' }
+Plug 'tpope/vim-endwise'
 
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'

@@ -1,16 +1,14 @@
 local R = require "pears.rule"
 
+vim.g.endwise_no_mappings = true
+
+local function t(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
 require "pears".setup(function(conf)
   conf.remove_pair_on_outer_backspace(false)
-
-  -- Make it work with compe
-  conf.on_enter(function(pears_handle)
-    if vim.fn.pumvisible() == 1 and vim.fn.complete_info().selected ~= -1 then
-      return vim.fn["compe#confirm"]("<CR>")
-    else
-      return pears_handle()
-    end
-  end)
+  conf.expand_on_enter(false)
 
   local quotes_should_expand = R.all_of(
     R.not_(R.child_of_node("string", true)),
