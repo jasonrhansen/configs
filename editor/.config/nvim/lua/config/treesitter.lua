@@ -8,6 +8,10 @@ treesitter.setup {
   indent = {
     enable = false
   },
+  -- autoclose html tags
+  autotag = {
+    enable = true,
+  },
   playground = {
     enable = true,
     disable = {},

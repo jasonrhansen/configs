@@ -10,8 +10,11 @@ Plug 'nvim-lua/lsp-status.nvim'
 Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'glepnir/lspsaga.nvim'
 Plug 'onsails/lspkind-nvim'
+
+" Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
+Plug 'windwp/nvim-ts-autotag'
 
 " Fuzzy finder
 Plug 'nvim-lua/popup.nvim'
