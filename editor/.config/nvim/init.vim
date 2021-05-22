@@ -288,6 +288,12 @@ let g:jellybeans_overrides = {
 \}
 colorscheme jellybeans
 
+" Add undercurls for diagnostics
+highlight LspDiagnosticsUnderlineError cterm=underline gui=undercurl guisp=Red
+highlight LspDiagnosticsUnderlineWarning cterm=underline gui=undercurl guisp=Orange
+highlight LspDiagnosticsUnderlineInformation cterm=underline gui=undercurl guisp=LightBlue
+highlight LspDiagnosticsUnderlineHint cterm=underline gui=undercurl guisp=LightGrey
+
 " Cursor configuration
 " Use a blinking upright bar cursor in Insert mode, a solid block in normal
 " and a blinking underline in replace mode
