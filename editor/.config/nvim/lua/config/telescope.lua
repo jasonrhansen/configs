@@ -1,6 +1,7 @@
 local telescope = require("telescope")
 local actions = require("telescope.actions")
 local previewers = require("telescope.previewers")
+local trouble = require("trouble.providers.telescope")
 
 telescope.setup {
   defaults = {
@@ -20,6 +21,10 @@ telescope.setup {
       i = {
         -- Close with esc in insert mode.
         ["<esc>"] = actions.close,
+        ["<c-t>"] = trouble.open_with_trouble,
+      },
+      n = {
+        ["<c-t>"] = trouble.open_with_trouble,
       },
     },
     color_devicons = true,
