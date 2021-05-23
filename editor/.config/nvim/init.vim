@@ -50,6 +50,8 @@ Plug 'sindrets/diffview.nvim' " Open with :DiffviewOpen
 " Color themes
 Plug 'nanotech/jellybeans.vim'
 Plug 'glepnir/zephyr-nvim'
+Plug 'briones-gabriel/darcula-solid.nvim'
+Plug 'rktjmp/lush.nvim' " Required by darcula-solid
 
 " File manager
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
