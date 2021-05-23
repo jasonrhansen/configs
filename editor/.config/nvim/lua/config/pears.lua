@@ -1,14 +1,17 @@
 local R = require "pears.rule"
 
-vim.g.endwise_no_mappings = true
-
-local function t(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
 require "pears".setup(function(conf)
+  conf.on_enter(function(pears_handle)
+    if vim.fn.pumvisible() == 1 and vim.fn.complete_info().selected ~= -1 then
+      return vim.fn["compe#confirm"]("<CR>")
+    else
+      pears_handle()
+    end
+  end)
+
   conf.remove_pair_on_outer_backspace(false)
-  conf.expand_on_enter(false)
+  conf.preset("php")
+  conf.preset("tag_matching")
 
   local quotes_should_expand = R.all_of(
     R.not_(R.child_of_node("string", true)),
@@ -97,5 +100,14 @@ require "pears".setup(function(conf)
       exclude = {"comment"}
     },
     should_expand = brackets_should_expand
+  })
+  -- XML/HTML comments
+  conf.pair("<!--", {
+    close = "-->",
+    filetypes = {
+      "html",
+      "xml",
+      "eruby",
+    }
   })
 end)
