@@ -133,6 +133,7 @@ Plug 'cespare/vim-toml'
 Plug 'kchmck/vim-coffee-script'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'tpope/vim-rails'
+Plug 'fladson/vim-kitty' " kitty.conf
 
 call plug#end()
 
