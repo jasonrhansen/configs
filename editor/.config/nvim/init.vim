@@ -432,24 +432,34 @@ inoremap <F3> <C-o>:set list!<CR>
 cnoremap <F3> <C-c>:set list!<CR>
 
 if has('nvim')
-    " Make working with nvim terminal emulator nicer
-    tnoremap <esc> <c-\><c-n>
-    tnoremap <c-h> <c-\><c-n><c-w>h
-    tnoremap <c-j> <c-\><c-n><c-w>j
-    tnoremap <c-k> <c-\><c-n><c-w>k
-    tnoremap <c-l> <c-\><c-n><c-w>l
-    augroup vimrc
-        " Don't show line numbers in terminal
-        autocmd BufWinEnter,WinEnter term://* set nonumber
-        " Always put terminal in insert mode on enter
-        autocmd BufWinEnter,WinEnter term://* startinsert
-    augroup END
+  " Make working with nvim terminal emulator nicer
+  tnoremap <esc> <c-\><c-n>
+  tnoremap <c-h> <c-\><c-n><c-w>h
+  tnoremap <c-j> <c-\><c-n><c-w>j
+  tnoremap <c-k> <c-\><c-n><c-w>k
+  tnoremap <c-l> <c-\><c-n><c-w>l
+  augroup vimrc
+      " Don't show line numbers in terminal
+      autocmd BufWinEnter,WinEnter term://* set nonumber
+      " Always put terminal in insert mode on enter
+      autocmd BufWinEnter,WinEnter term://* startinsert
+  augroup END
 
-    " Don't let relativity handle line numbers in terminal
-    let g:relativity_buftype_ignore = ['nofile', 'terminal']
+  " Don't let relativity handle line numbers in terminal
+  let g:relativity_buftype_ignore = ['nofile', 'terminal']
 
-    set inccommand=nosplit
+  set inccommand=nosplit
 endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                   fugitive
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+augroup vimrc
+  " Automatically delete hidden fugitive buffers
+  autocmd BufReadPost fugitive://* set bufhidden=delete
+augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
