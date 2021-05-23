@@ -278,15 +278,15 @@ endif
 let base16colorspace=256
 let g:jellybeans_use_term_italics = 1
 let g:jellybeans_overrides = {
-\    'DiffAdd': { 'guifg': '65C254', 'guibg': '121212' },
-\    'DiffChange': { 'guifg': '2B8BF7', 'guibg': '121212' },
-\    'DiffDelete': { 'guifg': '902020', 'guibg': '121212' },
-\    'SignColumn': { 'guibg': '121212' },
+\    'DiffAdd': { 'guifg': '65C254', 'guibg': '151515' },
+\    'DiffChange': { 'guifg': '2B8BF7', 'guibg': '151515' },
+\    'DiffDelete': { 'guifg': '902020', 'guibg': '151515' },
+\    'SignColumn': { 'guibg': '151515' },
 \    'Pmenu': { 'ctermbg': '236', 'guibg': '333333' },
 \    'Search': { 'attr': 'none', 'guifg': 'FFFFFF', 'guibg': '384048' },
-\    'Normal': { 'guibg': '121212' },
-\    'LineNr': { 'guibg': '121212' },
-\    'NonText': { 'guibg': '121212' },
+\    'Normal': { 'guibg': '151515' },
+\    'LineNr': { 'guibg': '151515' },
+\    'NonText': { 'guibg': '151515' },
 \    'Constant': { 'guifg': '7697D6' },
 \}
 colorscheme jellybeans
