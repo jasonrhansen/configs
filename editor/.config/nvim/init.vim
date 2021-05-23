@@ -80,6 +80,9 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat' " Make repeat with `.` command work for vim-surround
 
+" ]q for :cnext. [q for :cprevious. ]a for :next. [b for :bprevious, etc.
+Plug 'tpope/vim-unimpaired'
+
 " Add emacs key bindings to vim in insert and command-line modes.
 Plug 'maxbrunsfeld/vim-emacs-bindings'
 
