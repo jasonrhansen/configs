@@ -78,8 +78,6 @@ vim.api.nvim_set_keymap("i", "<S-Tab>", [[luaeval('require("config.compe").s_tab
 vim.api.nvim_set_keymap("s", "<S-Tab>", [[luaeval('require("config.compe").s_tab_complete()')]], {expr = true})
 
 vim.api.nvim_set_keymap('i', "<C-Space>", "compe#complete()", {noremap=true, silent=true, expr=true})
--- After confirm call DiscretionaryEnd from endwise
-vim.api.nvim_set_keymap("i", "<CR>", [[compe#confirm('<CR>') . "<Plug>DiscretionaryEnd"]], {expr=true, silent=true})
 vim.api.nvim_set_keymap('i', "<C-e>", "compe#close('<C-e>')", {noremap=true, silent=true, expr=true})
 
 return M
