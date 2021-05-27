@@ -15,8 +15,8 @@ require "pears".setup(function(conf)
 
   local quotes_should_expand = R.all_of(
     R.not_(R.child_of_node("string", true)),
-    R.not_(R.start_of_context "[a-zA-Z0-9]"),
-    R.not_(R.match_next "[a-zA-Z0-9]")
+    R.not_(R.start_of_context("[a-zA-Z0-9]")),
+    R.not_(R.match_next("[a-zA-Z0-9]"))
   )
 
   conf.pair("'", {
@@ -94,13 +94,17 @@ require "pears".setup(function(conf)
     should_expand = brackets_should_expand
   })
 
+  local enter_pressed = R.virtual_key(R.VirtualKey.ENTER)
+
   conf.pair('{', {
     close = '}',
     filetypes = {
       exclude = {"comment"}
     },
+    expand_when = enter_pressed,
     should_expand = brackets_should_expand
   })
+
   -- XML/HTML comments
   conf.pair("<!--", {
     close = "-->",

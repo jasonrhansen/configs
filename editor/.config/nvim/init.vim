@@ -28,8 +28,7 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 
 " Autopairs
-" Plug 'steelsojka/pears.nvim'
-Plug '~/dev/others/pears.nvim'
+Plug 'steelsojka/pears.nvim'
 Plug 'tpope/vim-endwise'
 
 " Tmux
