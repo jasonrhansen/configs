@@ -64,5 +64,7 @@ keymaps = vim.tbl_map(function (keymap)
   return {"<cmd>lua require'telescope.builtin'." .. keymap[1] .. "<cr>", keymap[2]}
 end, keymaps)
 
+keymaps.name = "Telescope"
+
 -- Register keymaps with whick-key
-wk.register(keymaps, { prefix = "t" })
+wk.register(keymaps, { prefix = "<leader>t" })
