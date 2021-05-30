@@ -8,9 +8,13 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'nvim-lua/lsp_extensions.nvim'
-Plug 'glepnir/lspsaga.nvim'
+" Plug 'glepnir/lspsaga.nvim'
+Plug '~/dev/others/lspsaga.nvim'
 Plug 'onsails/lspkind-nvim'
 Plug 'folke/trouble.nvim'
+
+" Improved quickfix window
+Plug 'kevinhwang91/nvim-bqf'
 
 " Displays a popup with possible key bindings of the command you started typing
 Plug 'folke/which-key.nvim'
@@ -585,5 +589,7 @@ for _, module_name in ipairs(lua_modules) do
 
   require(module_name)
 end
+
+require('bqf').setup {}
 
 EOF
