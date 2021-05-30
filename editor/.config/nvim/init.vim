@@ -12,6 +12,9 @@ Plug 'glepnir/lspsaga.nvim'
 Plug 'onsails/lspkind-nvim'
 Plug 'folke/trouble.nvim'
 
+" Displays a popup with possible key bindings of the command you started typing
+Plug 'folke/which-key.nvim'
+
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
@@ -214,6 +217,7 @@ set undofile
 set nobackup
 set nowritebackup
 set noswapfile
+set timeoutlen=500
 
 " indentation
 set expandtab                     " Indent with spaces
@@ -593,6 +597,7 @@ local lua_modules = {
   "config.diffview", -- Must come after config.telescope because it overrides keymap
   "config.treesitter",
   "config.trouble",
+  "config.which_key",
 }
 
 for _, module_name in ipairs(lua_modules) do

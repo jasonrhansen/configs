@@ -2,6 +2,7 @@ local telescope = require("telescope")
 local actions = require("telescope.actions")
 local previewers = require("telescope.previewers")
 local trouble = require("trouble.providers.telescope")
+local wk = require("which-key")
 
 telescope.setup {
   defaults = {
@@ -40,26 +41,28 @@ telescope.load_extension('fzy_native')
 
 -- Normal mode keymaps to call functions in 'telescope.builtin'
 local keymaps = {
-  tb = "buffers()",
-  tP = "find_files({find_command = {'rg', '-i', '--hidden', '--files', '-g', '!.git'}})",
-  tp = "git_files()",
-  tg = "live_grep()",
-  tG = "git_commits()",
-  tr = "grep_string{ shorten_path = true, word_match = '-w', only_sort_text = true, search = ''}",
-  tq = "quickfix()",
-  tt = "lsp_document_symbols()",
-  tT = "lsp_workspace_symbols()",
-  tR = "ls_references()",
-  ta = "ls_code_actions()",
-  ts = "treesitter()",
-  th = "command_history()",
-  tH = "help_tags()",
+  b = {"buffers()", "Telescope buffers"},
+  P = {"find_files({find_command = {'rg', '-i', '--hidden', '--files', '-g', '!.git'}})", "Telescope find_files"},
+  p = {"git_files()", "Telescope git_files"},
+  g = {"live_grep()", "Telescope live_grep"},
+  G = {"git_commits()", "Telescope git_commits"},
+  r = {"grep_string{ shorten_path = true, word_match = '-w', only_sort_text = true, search = ''}", "Telescope grep_string"},
+  q = {"quickfix()", "Telescope quickfix"},
+  t = {"lsp_document_symbols()", "Telescope lsp_document_symbols"},
+  T = {"lsp_workspace_symbols()", "Telescope lsp_workspace_symbols"},
+  R = {"ls_references()", "Telescope ls_references"},
+  a = {"ls_code_actions()", "Telescope actions"},
+  s = {"treesitter()", "Telescope treesitter"},
+  h = {"command_history()", "Telescope command_history"},
+  H = {"help_tags()", "Telescope help_tags"},
 
   -- Find my config files
-  tc = "find_files({cwd = '~/configs', find_command = {'rg', '-i', '--hidden', '--files', '-g', '!.git'}})",
+  c = {"find_files({cwd = '~/configs', find_command = {'rg', '-i', '--hidden', '--files', '-g', '!.git'}})", "Telescope find config files"},
 }
 
--- Add keybindings
-for key, func in pairs(keymaps) do
-  vim.api.nvim_set_keymap("n", key, "<cmd>lua require'telescope.builtin'." .. func .. "<CR>", {noremap=true, silent=true})
-end
+keymaps = vim.tbl_map(function (keymap)
+  return {"<cmd>lua require'telescope.builtin'." .. keymap[1] .. "<cr>", keymap[2]}
+end, keymaps)
+
+-- Register keymaps with whick-key
+wk.register(keymaps, { prefix = "t" })
