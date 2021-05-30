@@ -255,8 +255,6 @@ augroup vimrc
     autocmd FileType gitcommit set colorcolumn=80
 augroup END
 
-nnoremap <Leader>q :Bdelete<CR>
-
 set pastetoggle=<F2>
 
 " Still show syntax highlighting for really large files.
@@ -352,9 +350,6 @@ let g:python3_host_prog = trim(system('which python3.9'))
 "                 Custom Mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Toggle between buffers
-nnoremap <leader><leader> <c-^>
-
 " Turn off search highlights by pressing return unless in quickfix window
 nnoremap <expr> <cr> &buftype ==# 'quickfix' ? "\<CR>" : ':noh<cr>'
 
@@ -362,19 +357,12 @@ nnoremap <expr> <cr> &buftype ==# 'quickfix' ? "\<CR>" : ':noh<cr>'
 inoremap jk <esc>
 cnoremap jk <c-e><c-u><esc>
 
-" Make editing and sourcing .vimrc really easy.
-nnoremap <leader>ve :vsplit $MYVIMRC<cr>
-nnoremap <leader>vs :source $MYVIMRC<cr>
-
 " Add a 'stamp' command to replace word or selection with yanked text.
 nnoremap S diw"0P
 vnoremap S "_d"0P
 
 " Make 'Y' work from the cursor to end of line instead of like 'yy'
 nnoremap Y y$
-
-" Fast saving
-nnoremap <leader>w :w!<cr>
 
 " Reselect visual selection after indent
 xnoremap < <gv
@@ -534,16 +522,6 @@ augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                    ngswitcher
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-nnoremap <leader>nt <cmd>NgSwitchTS<CR>
-nnoremap <leader>nc <cmd>NgSwitchCSS<CR>
-nnoremap <leader>nh <cmd>NgSwitchHTML<CR>
-nnoremap <leader>ns <cmd>NgSwitchSpec<CR>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 vim-crates
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -598,6 +576,7 @@ local lua_modules = {
   "config.treesitter",
   "config.trouble",
   "config.which_key",
+  "config.keymaps",
 }
 
 for _, module_name in ipairs(lua_modules) do

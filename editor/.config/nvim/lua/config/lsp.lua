@@ -1,5 +1,6 @@
 local lspconfig = require("lspconfig")
 local lsp_status = require("lsp-status")
+local wk = require("which-key")
 
 local M = {}
 
@@ -107,29 +108,31 @@ local configs = {
 -- Normal mode keymaps that get added to a buffer when attaching an LSP client.
 local keymaps = {
   -- Go to things
-  gd = "vim.lsp.buf.definition()",
-  gD = "vim.lsp.buf.declaration()",
-  gy = "vim.lsp.buf.type_definition()",
-  gi = "vim.lsp.buf.implementation()",
-  gr = "vim.lsp.buf.references()",
-  g0 = "vim.lsp.buf.document_symbol()",
-  gW = "vim.lsp.buf.workspace_symbol()",
+  gd = {"vim.lsp.buf.definition()", "Jump to definition"},
+  gD = {"vim.lsp.buf.declaration()", "Jump to declaration"},
+  gy = {"vim.lsp.buf.type_definition()", "Jump to type definition"},
+  gi = {"vim.lsp.buf.implementation()", "Jump to implementation"},
+  gr = {"vim.lsp.buf.references()", "Get references"},
+  g0 = {"vim.lsp.buf.document_symbol()", "List document symbols"},
+  gW = {"vim.lsp.buf.workspace_symbol()", "List workspace symbols"},
 
-  ["<leader>f"] = "vim.lsp.buf.range_formatting()",
-  ["<leader>F"] = "vim.lsp.buf.formatting()",
+  ["<leader>f"] = {"vim.lsp.buf.range_formatting()", "Format range"},
+  ["<leader>F"] = {"vim.lsp.buf.formatting()", "Format buffer"},
 
   -- Diagnostics
-  ["<F10>"] = "require('config.lsp').toggle_diagnostic_virtual_text()",
+  ["<F10>"] = {"require('config.lsp').toggle_diagnostic_virtual_text()", "Toggle diagnostic virtual text"},
 }
+
+keymaps = vim.tbl_map(function (keymap)
+  return {"<cmd>lua " .. keymap[1] .. "<cr>", keymap[2]}
+end, keymaps)
 
 -- Shared attach function for all LSP clients.
 local function attach(client)
   lsp_status.on_attach(client)
 
-  -- Add LSP keybindings
-  for key, expression in pairs(keymaps) do
-    vim.api.nvim_buf_set_keymap(0, "n", key, "<cmd>lua " .. expression .. "<CR>", {noremap=true, silent=true})
-  end
+  -- Register keymaps with which-key
+  wk.register(keymaps, {buffer = vim.fn.bufnr("%")})
 end
 
 lspconfig.util.default_config = vim.tbl_extend(
