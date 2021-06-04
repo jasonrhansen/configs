@@ -132,7 +132,7 @@ local function attach(client)
   lsp_status.on_attach(client)
 
   -- Register keymaps with which-key
-  wk.register(keymaps, {buffer = vim.fn.bufnr("%")})
+  wk.register(keymaps, {buffer = 0})
 end
 
 lspconfig.util.default_config = vim.tbl_extend(
