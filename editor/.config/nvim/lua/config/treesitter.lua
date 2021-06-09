@@ -8,6 +8,12 @@ treesitter.setup {
   indent = {
     enable = false
   },
+  textsubjects = {
+      enable = true,
+      keymaps = {
+          ['.'] = 'textsubjects-smart',
+      }
+  },
   playground = {
     enable = true,
     disable = {},
