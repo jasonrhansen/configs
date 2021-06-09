@@ -9,9 +9,12 @@ Plug 'hrsh7th/nvim-compe'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'nvim-lua/lsp_extensions.nvim'
 " Plug 'glepnir/lspsaga.nvim'
-Plug '~/dev/others/lspsaga.nvim'
+Plug 'jasonrhansen/lspsaga.nvim', { 'branch': 'finder-preview-fixes' }
 Plug 'onsails/lspkind-nvim'
 Plug 'folke/trouble.nvim'
+
+" Location and syntax aware text objects which *do what you mean*
+Plug 'RRethy/nvim-treesitter-textsubjects'
 
 " Improved quickfix window
 Plug 'kevinhwang91/nvim-bqf'
