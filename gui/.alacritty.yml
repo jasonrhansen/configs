@@ -243,34 +243,67 @@ font:
   #indexed_colors: []
 
 # Colors (Jellybeans)
+# colors:
+#   bright:
+#     black: '#bdbdbd'
+#     blue: '#b1d8f6'
+#     cyan: '#1ab2a8'
+#     green: '#bddeab'
+#     magenta: '#fbdaff'
+#     red: '#ffa1a1'
+#     white: '#ffffff'
+#     yellow: '#ffdca0'
+#   cursor:
+#     cursor: '#bdbdbd'
+#     text: '#ffffff'
+#   normal:
+#     black: '#929292'
+#     blue: '#8fbfdc'
+#     cyan: '#00988e'
+#     green: '#94b979'
+#     magenta: '#c6b6ee'
+#     red: '#e27373'
+#     white: '#dedede'
+#     yellow: '#ffb964'
+#   primary:
+#     background: '#121212'
+#     foreground: '#dedede'
+#   selection:
+#     background: '#474e91'
+#     text: '#f4f4f4'
+
+# TokyoNight Alacritty Colors
 colors:
-  bright:
-    black: '#bdbdbd'
-    blue: '#b1d8f6'
-    cyan: '#1ab2a8'
-    green: '#bddeab'
-    magenta: '#fbdaff'
-    red: '#ffa1a1'
-    white: '#ffffff'
-    yellow: '#ffdca0'
-  cursor:
-    cursor: '#bdbdbd'
-    text: '#ffffff'
-  normal:
-    black: '#929292'
-    blue: '#8fbfdc'
-    cyan: '#00988e'
-    green: '#94b979'
-    magenta: '#c6b6ee'
-    red: '#e27373'
-    white: '#dedede'
-    yellow: '#ffb964'
+  # Default colors
   primary:
-    background: '#121212'
-    foreground: '#dedede'
-  selection:
-    background: '#474e91'
-    text: '#f4f4f4'
+    background: '0x1a1b26'
+    foreground: '0xc0caf5'
+
+  # Normal colors
+  normal:
+    black:   '0x15161E'
+    red:     '0xf7768e'
+    green:   '0x9ece6a'
+    yellow:  '0xe0af68'
+    blue:    '0x7aa2f7'
+    magenta: '0xbb9af7'
+    cyan:    '0x7dcfff'
+    white:   '0xa9b1d6'
+
+  # Bright colors
+  bright:
+    black:   '0x414868'
+    red:     '0xf7768e'
+    green:   '0x9ece6a'
+    yellow:  '0xe0af68'
+    blue:    '0x7aa2f7'
+    magenta: '0xbb9af7'
+    cyan:    '0x7dcfff'
+    white:   '0xc0caf5'
+
+  indexed_colors:
+    - { index: 16, color: '0xff9e64' }
+    - { index: 17, color: '0xdb4b4b' }
 
 # Bell
 #

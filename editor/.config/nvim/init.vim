@@ -62,6 +62,7 @@ Plug 'glepnir/zephyr-nvim'
 Plug 'briones-gabriel/darcula-solid.nvim'
 Plug 'rktjmp/lush.nvim' " Required by darcula-solid
 Plug 'shaunsingh/solarized.nvim'
+Plug 'folke/tokyonight.nvim'
 
 " File manager
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
@@ -301,7 +302,9 @@ let g:jellybeans_overrides = {
 \    'NonText': { 'guibg': '151515' },
 \    'Constant': { 'guifg': '7697D6' },
 \}
-colorscheme jellybeans
+
+let g:tokyonight_style = "night"
+colorscheme tokyonight
 
 " Add undercurls for diagnostics
 highlight LspDiagnosticsUnderlineError cterm=underline gui=undercurl guisp=Red
@@ -493,9 +496,7 @@ function Git()
   return ' ' . get(b:,'gitsigns_head','') . ' ' . get(b:,'gitsigns_status','')
 endfunction
 
-let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-      \ }
+let g:lightline = {'colorscheme': 'tokyonight'}
 
 let g:lightline.component_function = {
       \ 'filename': 'LightlineFilename',
@@ -505,7 +506,6 @@ let g:lightline.component_function = {
       \ 'filetype': 'MyFiletype',
       \ 'fileformat': 'MyFileformat',
       \ }
-
 
 let g:lightline.active = {
       \ 'left': [['mode', 'paste'], ['readonly', 'filename', 'modified'], ['git'], ['status']],
