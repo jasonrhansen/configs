@@ -47,7 +47,7 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'tmux-plugins/vim-tmux', { 'for': 'tmux' }
 
 " Status line
-Plug 'itchyny/lightline.vim'
+Plug 'hoob3rt/lualine.nvim'
 
 " Git
 Plug 'tpope/vim-git'
@@ -217,7 +217,7 @@ set noerrorbells
 set visualbell
 set secure
 set nomodeline                    " Use securemodelines instead
-set noshowmode                    " Lightline shows the mode
+set noshowmode                    " Lualine shows the mode
 set cmdheight=2                   " Better display for messages
 set updatetime=100                " You will have bad experience for diagnostic messages when it's default 4000.
 set shortmess+=c                  " Don't give ins-completion-menu messages
@@ -465,60 +465,6 @@ augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                   Lightline
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-function! LightlineFilename()
-  return expand('%:t') !=# '' ? @% : '[No Name]'
-endfunction
-
-function! Status() abort
-  return LspStatus()
-endfunction
-
-function! LspStatus() abort
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-    return luaeval("require('lsp-status').status()")
-  endif
-
-  return ''
-endfunction
-
-function! MyFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-endfunction
-
-function! MyFileformat()
-  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-endfunction
-
-function Git()
-  return ' ' . get(b:,'gitsigns_head','') . ' ' . get(b:,'gitsigns_status','')
-endfunction
-
-let g:lightline = {'colorscheme': 'tokyonight'}
-
-let g:lightline.component_function = {
-      \ 'filename': 'LightlineFilename',
-      \ 'git': 'Git',
-      \ 'status': 'Status',
-      \ 'sleuth': 'SleuthIndicator',
-      \ 'filetype': 'MyFiletype',
-      \ 'fileformat': 'MyFileformat',
-      \ }
-
-let g:lightline.active = {
-      \ 'left': [['mode', 'paste'], ['readonly', 'filename', 'modified'], ['git'], ['status']],
-      \ 'right': [['lineinfo'], ['percent'], ['filetype', 'fileformat', 'fileencoding', 'sleuth']]
-      \ }
-
-let g:lightline.inactive = {
-      \ 'left': [['filename']],
-      \ 'right': [['lineinfo'], ['percent']]
-      \ }
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                  lsp_extensions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -585,6 +531,7 @@ local lua_modules = {
   "config.trouble",
   "config.which_key",
   "config.keymaps",
+  "config.lualine",
 }
 
 for _, module_name in ipairs(lua_modules) do
