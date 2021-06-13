@@ -49,7 +49,7 @@ set listchars=tab:▸\              " Char representing a tab
 set listchars+=extends:❯          " Char representing an extending line
 set listchars+=nbsp:␣             " Non breaking space
 set listchars+=precedes:❮         " Char representing an extending line in the other direction
-set fillchars=vert:\ ,
+set fillchars=vert:\│
 set linebreak                     " Break properly, don't split words
 set scrolloff=4                   " Show context above/below cursorline
 set formatoptions+=j
@@ -148,6 +148,7 @@ let g:jellybeans_overrides = {
 \}
 
 let g:tokyonight_style = "night"
+let g:tokyonight_colors = { 'border': '#292E42' }
 colorscheme tokyonight
 
 " Add undercurls for diagnostics
