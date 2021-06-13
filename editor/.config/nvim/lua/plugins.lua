@@ -11,7 +11,10 @@ return require('packer').startup(function(use)
   use 'nvim-lua/lsp-status.nvim'
   use 'nvim-lua/lsp_extensions.nvim'
   -- use 'glepnir/lspsaga.nvim'
-  use {'jasonrhansen/lspsaga.nvim', branch = 'finder-preview-fixes'}
+  use {
+    'jasonrhansen/lspsaga.nvim',
+    branch = 'finder-preview-fixes'
+  }
   use 'onsails/lspkind-nvim'
   use 'folke/trouble.nvim'
 
@@ -19,20 +22,35 @@ return require('packer').startup(function(use)
   use 'RRethy/nvim-treesitter-textsubjects'
 
   -- Improved quickfix window
-  use {'kevinhwang91/nvim-bqf', config = function() require('bqf').setup() end}
+  use {
+    'kevinhwang91/nvim-bqf',
+    config = function()
+      require('bqf').setup()
+    end
+  }
 
   -- Displays a popup with possible key bindings of the command you started typing
   use 'folke/which-key.nvim'
 
   -- Treesitter
-  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-  use {'nvim-treesitter/playground', requires = 'nvim-treesitter/nvim-treesitter'}
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate'
+  }
+  use {
+    'nvim-treesitter/playground',
+    requires = 'nvim-treesitter/nvim-treesitter'
+  }
 
   -- Fuzzy finder
-  use 'nvim-lua/popup.nvim'
-  use 'nvim-lua/plenary.nvim'
-  use 'nvim-lua/telescope.nvim'
-  use 'nvim-telescope/telescope-fzy-native.nvim'
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'}
+  }
+  use {
+    'nvim-telescope/telescope-fzy-native.nvim',
+    requires = 'nvim-telescope/telescope.nvim'
+  }
 
   -- Snippets
   use 'rafamadriz/friendly-snippets'
@@ -55,13 +73,19 @@ return require('packer').startup(function(use)
   use 'tpope/vim-git'
   use 'tpope/vim-fugitive'
   use 'rhysd/committia.vim'
-  use 'lewis6991/gitsigns.nvim'
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = 'nvim-lua/plenary.nvim'
+  }
   use 'sindrets/diffview.nvim' -- Open with :DiffviewOpen
 
   -- Color themes
   use 'nanotech/jellybeans.vim'
   use 'glepnir/zephyr-nvim'
-  use {'briones-gabriel/darcula-solid.nvim', requires = 'rktjmp/lush.nvim'}
+  use {
+    'briones-gabriel/darcula-solid.nvim',
+    requires = 'rktjmp/lush.nvim'
+  }
   use 'shaunsingh/solarized.nvim'
   use 'folke/tokyonight.nvim'
 
