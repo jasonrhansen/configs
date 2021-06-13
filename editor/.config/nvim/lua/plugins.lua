@@ -1,11 +1,10 @@
--- On a new machine packer can be installed with the following commented code.
--- local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
--- if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
---   vim.fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
---   vim.api.nvim_command 'packadd packer.nvim'
--- end
+-- On a new machine packer can be installed by cloning the repo:
+-- git clone https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 return require('packer').startup(function(use)
+  -- Packer can manage itself
+  use 'wbthomason/packer.nvim'
+
   -- LSP
   use 'neovim/nvim-lspconfig'
   use 'hrsh7th/nvim-compe'
