@@ -46,7 +46,7 @@ export GOPATH=~/go
 export VISUAL=nvim
 export EDITOR=nvim
 
-eval `dircolors ~/.dir_colors/dircolors.jellybeans`
+eval `dircolors ~/.dir_colors/dircolors.ansi-dark`
 
 if type thefuck > /dev/null; then
     eval "$(thefuck --alias)"
