@@ -1,24 +1,13 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                  Plugins
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 lua require('plugins')
 
 " Automatically compile packer config
 autocmd BufWritePost plugins.lua PackerCompile
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                 Reset vimrc augroup
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Reset the vimrc augroup. Autocommands are added to this group throughout.
 augroup vimrc
     autocmd!
 augroup END
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                 General Settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible                  " be iMproved
 syntax on
 filetype plugin on
@@ -310,7 +299,7 @@ endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                   fugitive
+"                  Plugin Config
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 augroup vimrc
@@ -318,58 +307,33 @@ augroup vimrc
   autocmd BufReadPost fugitive://* set bufhidden=delete
 augroup END
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                  lsp_extensions
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 augroup vimrc
   " Type hints for Rust
   autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
         \ :lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "NonText", enabled = {"ChainingHint"} }
 augroup END
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                 vim-crates
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 if has('nvim')
   autocmd BufRead Cargo.toml call crates#toggle()
 endif
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                   vinarise
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " Detect binary file or large file automatically
 let g:vinarise_enable_auto_detect = 1
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                   vim-vsnip
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " Expand or jump
-imap <expr> <C-j> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'
-smap <expr> <C-j> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'
+imap <expr> <C-j> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'
+smap <expr> <C-j> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'
 
 " Jump forward or backward
-imap <expr> <c-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)' : '<c-k>'
-smap <expr> <c-k> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)' : '<c-k>'
+imap <expr> <c-k> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<c-k>'
+smap <expr> <c-k> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<c-k>'
 
 " Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
 " See https://github.com/hrsh7th/vim-vsnip/pull/50
-nmap        s   <Plug>(vsnip-select-text)
-xmap        s   <Plug>(vsnip-select-text)
-nmap        S   <Plug>(vsnip-cut-text)
-xmap        S   <Plug>(vsnip-cut-text)
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"             LUA Configuration
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap s <Plug>(vsnip-select-text)
+xmap s <Plug>(vsnip-select-text)
+nmap S <Plug>(vsnip-cut-text)
+xmap S <Plug>(vsnip-cut-text)
 
 lua << EOF
 
@@ -395,7 +359,5 @@ for _, module_name in ipairs(lua_modules) do
 
   require(module_name)
 end
-
-require('bqf').setup {}
 
 EOF

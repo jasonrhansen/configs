@@ -20,7 +20,7 @@ return require('packer').startup(function(use)
   use 'RRethy/nvim-treesitter-textsubjects'
 
   -- Improved quickfix window
-  use 'kevinhwang91/nvim-bqf'
+  use {'kevinhwang91/nvim-bqf', config = function() require('bqf').setup() end}
 
   -- Displays a popup with possible key bindings of the command you started typing
   use 'folke/which-key.nvim'
