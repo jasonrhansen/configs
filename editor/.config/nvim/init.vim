@@ -352,6 +352,7 @@ local lua_modules = {
   "config.which_key",
   "config.keymaps",
   "config.lualine",
+  "config.nvim_bufferline",
 }
 
 for _, module_name in ipairs(lua_modules) do

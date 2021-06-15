@@ -52,6 +52,12 @@ return require('packer').startup(function(use)
     requires = 'nvim-telescope/telescope.nvim'
   }
 
+  -- Buffer line
+  use {
+    'akinsho/nvim-bufferline.lua',
+    requires = 'kyazdani42/nvim-web-devicons'
+  }
+
   -- Snippets
   use 'rafamadriz/friendly-snippets'
   use 'hrsh7th/vim-vsnip'
@@ -90,8 +96,10 @@ return require('packer').startup(function(use)
   use 'folke/tokyonight.nvim'
 
   -- File manager
-  use 'kyazdani42/nvim-web-devicons' -- for file icons
-  use 'kyazdani42/nvim-tree.lua'
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = 'kyazdani42/nvim-web-devicons'
+  }
 
   -- Expand abbreviations for HTML like 'div>p#foo$*3>a' with '<c-y>,'
   use 'mattn/emmet-vim'
