@@ -28,16 +28,14 @@ nnoremap <c-m> :action MoveEditorToOppositeTabGroup<cr>
 " Quickly reload .ideavimrc
 nnoremap <leader>sv :source ~/.ideavimrc<cr>
 
-nmap tp :action GotoFile<cr>
-nmap tt :action FileStructurePopup<cr>
+nmap <leader>tp :action GotoFile<cr>
+nmap <leader>tP :action GotoFile<cr>
+nmap <leader>tt :action FileStructurePopup<cr>
 
 nmap <c-b> gT
 nmap <c-n> gt
 
-" Use my normal TagbarToggle key binding to activate the structure tool window
-nmap <leader>tt :action ActivateStructureToolWindow<cr>
-" Use my normal NERDTreeToggle key binding to activate the project tool window
-nmap <leader>nn :action ActivateProjectToolWindow<cr>
+nmap <leader>e :action ActivateProjectToolWindow<cr>
 nmap <leader>ot :action ActivateTerminalToolWindow<cr>
 nmap <leader>od :action ActivateDebugToolWindow<cr>
 nmap <leader>tc :action HideAllWindows<cr>
