@@ -16,7 +16,9 @@ telescope.setup {
       '--smart-case',
       '--hidden',
     },
-    prompt_position = "top",
+    layout_config = {
+      prompt_position = "top",
+    },
     sorting_strategy = "ascending",
     mappings = {
       i = {
