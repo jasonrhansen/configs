@@ -139,7 +139,10 @@ lspconfig.util.default_config = vim.tbl_extend(
   "force",
   lspconfig.util.default_config,
   {
-    on_attach = attach
+    on_attach = attach,
+    flags = {
+      debounce_text_changes = 150,
+    },
   }
 )
 
