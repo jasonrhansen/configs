@@ -167,9 +167,6 @@ return require('packer').startup(function(use)
   -- Add :DeleteHiddenBuffers to remove background buffers
   use 'arithran/vim-delete-hidden-buffers'
 
-  -- Run prettier with :Prettier, :PrettierAsync, :PrettierPartial, :PrettierFragment, etc.
-  use {'prettier/vim-prettier', run = 'yarn install'}
-
   -- Internal modeline support allows all sorts of annoying and potentially insecure options to be set.
   -- This plugin implements a more heavily restricted version.
   use 'ciaranm/securemodelines'
