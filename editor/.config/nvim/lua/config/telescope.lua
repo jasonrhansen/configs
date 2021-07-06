@@ -6,6 +6,7 @@ local wk = require("which-key")
 
 telescope.setup {
   defaults = {
+    winblend = 10,
     vimgrep_arguments = {
       'rg',
       '--color=never',
@@ -52,8 +53,8 @@ local keymaps = {
   q = {"quickfix()", "Telescope quickfix"},
   t = {"lsp_document_symbols()", "Telescope lsp_document_symbols"},
   T = {"lsp_workspace_symbols()", "Telescope lsp_workspace_symbols"},
-  R = {"ls_references()", "Telescope ls_references"},
-  a = {"ls_code_actions()", "Telescope actions"},
+  R = {"lsp_references()", "Telescope ls_references"},
+  a = {"lsp_code_actions()", "Telescope actions"},
   s = {"treesitter()", "Telescope treesitter"},
   h = {"command_history()", "Telescope command_history"},
   H = {"help_tags()", "Telescope help_tags"},
