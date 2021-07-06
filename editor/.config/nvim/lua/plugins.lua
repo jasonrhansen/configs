@@ -18,7 +18,6 @@ return require('packer').startup(function(use)
   use 'onsails/lspkind-nvim'
   use 'folke/trouble.nvim'
 
-
   -- Improved quickfix window
   use {
     'kevinhwang91/nvim-bqf',
@@ -125,7 +124,21 @@ return require('packer').startup(function(use)
   use 'kennykaye/vim-relativity'
 
   -- Comment code with gc{motion}, gcc, etc.
-  use 'tomtom/tcomment_vim'
+  use {
+    'terrortylor/nvim-comment',
+    config = function()
+      require('nvim_comment').setup()
+    end
+  }
+
+  -- Highlight and search for todo comments like TODO, HACK, BUG
+  use {
+    'folke/todo-comments.nvim',
+    requires = 'nvim-lua/plenary.nvim',
+    config = function()
+      require('todo-comments').setup()
+    end
+  }
 
   --" Hex editor
   use 'Shougo/vinarise.vim'
