@@ -18,8 +18,6 @@ return require('packer').startup(function(use)
   use 'onsails/lspkind-nvim'
   use 'folke/trouble.nvim'
 
-  -- Location and syntax aware text objects which *do what you mean*
-  use 'RRethy/nvim-treesitter-textsubjects'
 
   -- Improved quickfix window
   use {
@@ -39,6 +37,22 @@ return require('packer').startup(function(use)
   }
   use {
     'nvim-treesitter/playground',
+    requires = 'nvim-treesitter/nvim-treesitter'
+  }
+  use {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    requires = 'nvim-treesitter/nvim-treesitter'
+  }
+
+  -- Treesitter integration with the Angular framework.
+  use {
+    'nvim-treesitter/nvim-treesitter-angular',
+    requires = 'nvim-treesitter/nvim-treesitter'
+  }
+
+  -- Location and syntax aware text objects which *do what you mean*
+  use {
+    'RRethy/nvim-treesitter-textsubjects',
     requires = 'nvim-treesitter/nvim-treesitter'
   }
 
