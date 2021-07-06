@@ -173,10 +173,6 @@ return require('packer').startup(function(use)
   -- Icons to use in the status bar
   use 'ryanoasis/vim-devicons'
 
-  -- Defines motions ',w', ',b' and ',e' (similar to 'w', 'b', 'e'),
-  -- which do not move word-wise (forward/backward), but Camel-wise
-  use 'vim-scripts/camelcasemotion'
-
   -- Adds more text objects to operate on like (), {}, [], <>, and t for tags.
   use 'wellle/targets.vim'
 
