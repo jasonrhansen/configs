@@ -185,6 +185,9 @@ return require('packer').startup(function(use)
   -- This plugin implements a more heavily restricted version.
   use 'ciaranm/securemodelines'
 
+  -- Adds indentation guides to all lines (including empty lines).
+  use 'lukas-reineke/indent-blankline.nvim'
+
   -- Language plugins
   use 'jparise/vim-graphql'
   use 'cespare/vim-toml'
