@@ -43,12 +43,6 @@ return require('packer').startup(function(use)
     requires = 'nvim-treesitter/nvim-treesitter'
   }
 
-  -- Treesitter integration with the Angular framework.
-  use {
-    'nvim-treesitter/nvim-treesitter-angular',
-    requires = 'nvim-treesitter/nvim-treesitter'
-  }
-
   -- Location and syntax aware text objects which *do what you mean*
   use {
     'RRethy/nvim-treesitter-textsubjects',
