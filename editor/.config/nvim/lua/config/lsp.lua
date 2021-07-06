@@ -107,32 +107,39 @@ local configs = {
 
 -- Normal mode keymaps that get added to a buffer when attaching an LSP client.
 local keymaps = {
-  -- Go to things
-  gd = {"vim.lsp.buf.definition()", "Jump to definition"},
-  gD = {"vim.lsp.buf.declaration()", "Jump to declaration"},
-  gy = {"vim.lsp.buf.type_definition()", "Jump to type definition"},
-  gi = {"vim.lsp.buf.implementation()", "Jump to implementation"},
-  gr = {"vim.lsp.buf.references()", "Get references"},
-  g0 = {"vim.lsp.buf.document_symbol()", "List document symbols"},
-  gW = {"vim.lsp.buf.workspace_symbol()", "List workspace symbols"},
+  -- normal mode
+  n = {
+    -- Go to things
+    gd = {"vim.lsp.buf.definition()", "Jump to definition"},
+    gD = {"vim.lsp.buf.declaration()", "Jump to declaration"},
+    gy = {"vim.lsp.buf.type_definition()", "Jump to type definition"},
+    gi = {"vim.lsp.buf.implementation()", "Jump to implementation"},
+    gr = {"vim.lsp.buf.references()", "Get references"},
+    g0 = {"vim.lsp.buf.document_symbol()", "List document symbols"},
+    gW = {"vim.lsp.buf.workspace_symbol()", "List workspace symbols"},
 
-  ["<leader>f"] = {"vim.lsp.buf.range_formatting()", "Format range"},
-  ["<leader>F"] = {"vim.lsp.buf.formatting()", "Format buffer"},
+    ["<leader>f"] = {"vim.lsp.buf.formatting()", "Format buffer"},
 
-  -- Diagnostics
-  ["<F10>"] = {"require('config.lsp').toggle_diagnostic_virtual_text()", "Toggle diagnostic virtual text"},
+    -- Diagnostics
+    ["<F10>"] = {"require('config.lsp').toggle_diagnostic_virtual_text()", "Toggle diagnostic virtual text"},
+  },
+  -- visual mode
+  v = {
+    ["<leader>f"] = {"vim.lsp.buf.range_formatting()", "Format range"},
+  }
 }
-
-keymaps = vim.tbl_map(function (keymap)
-  return {"<cmd>lua " .. keymap[1] .. "<cr>", keymap[2]}
-end, keymaps)
 
 -- Shared attach function for all LSP clients.
 local function attach(client)
   lsp_status.on_attach(client)
 
   -- Register keymaps with which-key
-  wk.register(keymaps, {buffer = 0})
+  for mode, mappings in pairs(keymaps) do
+    for _, config in pairs(mappings) do
+      config[1] = "<cmd>lua " .. config[1] .. "<cr>"
+    end
+    wk.register(mappings, {buffer = 0, mode = mode})
+  end
 end
 
 lspconfig.util.default_config = vim.tbl_extend(
