@@ -5,7 +5,7 @@ autocmd BufWritePost plugins.lua PackerCompile
 
 " Reset the vimrc augroup. Autocommands are added to this group throughout.
 augroup vimrc
-    autocmd!
+  autocmd!
 augroup END
 
 set nocompatible                  " be iMproved
@@ -98,14 +98,14 @@ endif
 syntax sync minlines=256          " Increase scrolling performance
 
 augroup vimrc
-    " Allow .md extension to be recognized as markdown
-    autocmd BufRead,BufNewFile *.md set filetype=markdown
+  " Allow .md extension to be recognized as markdown
+  autocmd BufRead,BufNewFile *.md set filetype=markdown
 augroup END
 
 augroup vimrc
-    " Start git commits in insert mode
-    autocmd FileType gitcommit startinsert
-    autocmd FileType gitcommit set colorcolumn=80
+  " Start git commits in insert mode
+  autocmd FileType gitcommit startinsert
+  autocmd FileType gitcommit set colorcolumn=80
 augroup END
 
 set pastetoggle=<F2>
@@ -122,8 +122,8 @@ if !isdirectory(expand(&directory))
 endif
 
 augroup vimrc
-    " Automatically rebalance windows on vim resize
-    autocmd VimResized * :wincmd =
+  " Automatically rebalance windows on vim resize
+  autocmd VimResized * :wincmd =
 augroup END
 
 "  Color preferences
@@ -165,29 +165,29 @@ let &t_SR = "\<Esc>[3 q"
 let &t_EI = "\<Esc>[2 q"
 
 if has('unnamedplus')
-    " By default, Vim will not use the system clipboard when yanking/pasting to
-    " the default register. This option makes Vim use the system default
-    " clipboard.
-    " Note that on X11, there are _two_ system clipboards: the 'standard' one, and
-    " the selection/mouse-middle-click one. Vim sees the standard one as register
-    " '+' (and this option makes Vim use it by default) and the selection one as
-    " '*'.
-    " See :h 'clipboard' for details.
-    set clipboard=unnamedplus,unnamed
+  " By default, Vim will not use the system clipboard when yanking/pasting to
+  " the default register. This option makes Vim use the system default
+  " clipboard.
+  " Note that on X11, there are _two_ system clipboards: the 'standard' one, and
+  " the selection/mouse-middle-click one. Vim sees the standard one as register
+  " '+' (and this option makes Vim use it by default) and the selection one as
+  " '*'.
+  " See :h 'clipboard' for details.
+  set clipboard=unnamedplus,unnamed
 else
-    " Vim now also uses the selection system clipboard for default yank/paste.
-    set clipboard+=unnamed
+  " Vim now also uses the selection system clipboard for default yank/paste.
+  set clipboard+=unnamed
 endif
 
 " Don't use clipboard over ssh since it makes vim load too slowly.
 if !has("gui_running") && !has("nvim")
-    let g:display_num =
-                \ substitute(
-                \ substitute( $DISPLAY , "^[[:alpha:]]*:" , "" , "" ) ,
-                \ "\.[[:digit:]]*$" , "" , "" )
-    if ( g:display_num >= 10 )
-        set clipboard=exclude:.*
-    endif
+  let g:display_num =
+    \ substitute(
+    \ substitute( $DISPLAY , "^[[:alpha:]]*:" , "" , "" ) ,
+    \ "\.[[:digit:]]*$" , "" , "" )
+  if ( g:display_num >= 10 )
+    set clipboard=exclude:.*
+  endif
 endif
 
 " Automatically set tmux window name
@@ -286,10 +286,10 @@ if has('nvim')
   tnoremap <c-k> <c-\><c-n><c-w>k
   tnoremap <c-l> <c-\><c-n><c-w>l
   augroup vimrc
-      " Don't show line numbers in terminal
-      autocmd BufWinEnter,WinEnter term://* set nonumber
-      " Always put terminal in insert mode on enter
-      autocmd BufWinEnter,WinEnter term://* startinsert
+    " Don't show line numbers in terminal
+    autocmd BufWinEnter,WinEnter term://* set nonumber
+    " Always put terminal in insert mode on enter
+    autocmd BufWinEnter,WinEnter term://* startinsert
   augroup END
 
   " Don't let relativity handle line numbers in terminal
@@ -311,7 +311,7 @@ augroup END
 augroup vimrc
   " Type hints for Rust
   autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
-        \ :lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "NonText", enabled = {"ChainingHint"} }
+    \ :lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "NonText", enabled = {"ChainingHint"} }
 augroup END
 
 if has('nvim')
