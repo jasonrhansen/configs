@@ -81,7 +81,6 @@ vim.g.nvim_tree_bindings = {
 }
 
 vim.api.nvim_set_keymap("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", {noremap = true})
-vim.api.nvim_set_keymap("n", "<leader>r", "<cmd>NvimTreeRefresh<cr>", {noremap = true})
 vim.api.nvim_set_keymap("n", "<leader>.", "<cmd>NvimTreeFindFile<cr>", {noremap = true})
 
 vim.cmd("augroup vimrc")
