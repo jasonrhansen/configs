@@ -351,6 +351,9 @@ nnoremap <leader>i <cmd>IndentBlanklineToggle<cr>
 " workaround should no longer be necessary.
 set colorcolumn=99999
 
+" Search sessions in telescope
+nnoremap <leader>tS <cmd>SearchSession<cr>
+
 lua << EOF
 
 local lua_modules = {

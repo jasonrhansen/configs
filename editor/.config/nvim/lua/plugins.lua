@@ -201,6 +201,21 @@ return require('packer').startup(function(use)
   -- Adds indentation guides to all lines (including empty lines).
   use 'lukas-reineke/indent-blankline.nvim'
 
+  -- Sessions
+  use {
+    'rmagatti/auto-session',
+    config = function()
+      require('auto-session').setup {}
+    end
+  }
+  use {
+    'rmagatti/session-lens',
+    requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim'},
+    config = function()
+      require('session-lens').setup {}
+    end
+  }
+
   -- Language plugins
   use 'jparise/vim-graphql'
   use 'cespare/vim-toml'
