@@ -345,6 +345,11 @@ let g:indent_blankline_show_trailing_blankline_indent = v:false
 let g:indent_blankline_filetype_exclude = ['help']
 let g:indent_blankline_buftype_exclude = ['help', 'terminal', 'nofile']
 nnoremap <leader>i <cmd>IndentBlanklineToggle<cr>
+" Workaround around drawing bug when using cursorline with
+" indent-blankline (https://github.com/lukas-reineke/indent-blankline.nvim/issues/59).
+" When https://github.com/neovim/neovim/issues/14209 gets fixed this
+" workaround should no longer be necessary.
+set colorcolumn=99999
 
 lua << EOF
 
