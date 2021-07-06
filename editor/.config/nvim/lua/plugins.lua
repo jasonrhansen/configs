@@ -140,6 +140,10 @@ return require('packer').startup(function(use)
     end
   }
 
+  -- Sets the commentstring option based on the cursor location in the file via treesitter queries.
+  -- Useful when there are embedded languages in certain types of files.
+  use 'JoosepAlviste/nvim-ts-context-commentstring'
+
   --" Hex editor
   use 'Shougo/vinarise.vim'
 
