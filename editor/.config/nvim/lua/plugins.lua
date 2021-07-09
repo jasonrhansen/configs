@@ -138,6 +138,10 @@ return require('packer').startup(function(use)
   -- Useful when there are embedded languages in certain types of files.
   use 'JoosepAlviste/nvim-ts-context-commentstring'
 
+  -- Until there's a decent treesitter parser for viml, use this
+  -- plugin to automatically set commentstring for lua in vim files.
+  use 'suy/vim-context-commentstring'
+
   --" Hex editor
   use 'Shougo/vinarise.vim'
 
