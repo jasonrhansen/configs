@@ -121,7 +121,7 @@ local keymaps = {
     ["<leader>f"] = {"vim.lsp.buf.formatting()", "Format buffer"},
 
     -- Diagnostics
-    ["<F10>"] = {"require('config.lsp').toggle_diagnostic_virtual_text()", "Toggle diagnostic virtual text"},
+    ["<leader>V"] = {"require('config.lsp').toggle_diagnostic_virtual_text()", "Toggle diagnostic virtual text"},
   },
   -- visual mode
   v = {
