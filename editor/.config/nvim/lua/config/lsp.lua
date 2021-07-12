@@ -129,15 +129,18 @@ local keymaps = {
   }
 }
 
+for _, mappings in pairs(keymaps) do
+  for _, config in pairs(mappings) do
+    config[1] = "<cmd>lua " .. config[1] .. "<cr>"
+  end
+end
+
 -- Shared attach function for all LSP clients.
 local function attach(client)
   lsp_status.on_attach(client)
 
   -- Register keymaps with which-key
   for mode, mappings in pairs(keymaps) do
-    for _, config in pairs(mappings) do
-      config[1] = "<cmd>lua " .. config[1] .. "<cr>"
-    end
     wk.register(mappings, {buffer = 0, mode = mode})
   end
 end
