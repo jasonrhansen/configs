@@ -93,5 +93,4 @@ treesitter.setup {
   }
 }
 
-vim.api.nvim_set_keymap("", "<F8>", "<cmd>TSBufDisable highlight<CR>", {noremap=true, silent=true})
-vim.api.nvim_set_keymap("", "<F9>", "<cmd>TSBufEnable highlight<CR>", {noremap=true, silent=true})
+vim.api.nvim_set_keymap("", "<leader>T", "<cmd>TSBufToggle highlight<CR>", {noremap=true, silent=true})
