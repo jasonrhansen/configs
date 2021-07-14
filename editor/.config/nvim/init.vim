@@ -298,6 +298,7 @@ if has('nvim')
   set inccommand=nosplit
 endif
 
+au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                  Plugin Config

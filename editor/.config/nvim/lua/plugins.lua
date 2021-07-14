@@ -186,9 +186,6 @@ use 'ryanoasis/vim-devicons'
 -- Adds more text objects to operate on like (), {}, [], <>, and t for tags.
 use 'wellle/targets.vim'
 
--- Briefly highlight yanked text
-use 'machakann/vim-highlightedyank'
-
 -- Close buffers without closing windows and messing up the layout.
 use 'moll/vim-bbye'
 
