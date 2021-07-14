@@ -1,224 +1,231 @@
 -- On a new machine packer can be installed by cloning the repo:
 -- git clone https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
-return require('packer').startup(function(use)
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
+local packer = require('packer')
+local use = packer.use
 
-  -- LSP
-  use 'neovim/nvim-lspconfig'
-  use 'hrsh7th/nvim-compe'
-  use 'nvim-lua/lsp-status.nvim'
-  use 'nvim-lua/lsp_extensions.nvim'
-  -- use 'glepnir/lspsaga.nvim'
-  use {
-    'jasonrhansen/lspsaga.nvim',
-    branch = 'finder-preview-fixes'
-  }
-  use 'onsails/lspkind-nvim'
-  use 'folke/trouble.nvim'
+packer.init {
+  -- Some jobs never finish updating when I don't limit the number.
+  -- https://github.com/wbthomason/packer.nvim/issues/456
+  max_jobs = 20,
+}
 
-  -- Improved quickfix window
-  use {
-    'kevinhwang91/nvim-bqf',
-    config = function()
-      require('bqf').setup()
-    end
-  }
+-- Packer can manage itself
+use 'wbthomason/packer.nvim'
 
-  -- Displays a popup with possible key bindings of the command you started typing
-  use 'folke/which-key.nvim'
+-- LSP
+use 'neovim/nvim-lspconfig'
+use 'hrsh7th/nvim-compe'
+use 'nvim-lua/lsp-status.nvim'
+use 'nvim-lua/lsp_extensions.nvim'
+-- use 'glepnir/lspsaga.nvim'
+use {
+  'jasonrhansen/lspsaga.nvim',
+  branch = 'finder-preview-fixes'
+}
+use 'onsails/lspkind-nvim'
+use 'folke/trouble.nvim'
 
-  -- Treesitter
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate'
-  }
-  use {
-    'nvim-treesitter/playground',
-    requires = 'nvim-treesitter/nvim-treesitter'
-  }
-  use {
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    requires = 'nvim-treesitter/nvim-treesitter'
-  }
+-- Improved quickfix window
+use {
+  'kevinhwang91/nvim-bqf',
+  config = function()
+    require('bqf').setup()
+  end
+}
 
-  -- Location and syntax aware text objects which *do what you mean*
-  use {
-    'RRethy/nvim-treesitter-textsubjects',
-    requires = 'nvim-treesitter/nvim-treesitter'
-  }
+-- Displays a popup with possible key bindings of the command you started typing
+use 'folke/which-key.nvim'
 
-  -- Fuzzy finder
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'}
-  }
-  use {
-    'nvim-telescope/telescope-fzy-native.nvim',
-    requires = 'nvim-telescope/telescope.nvim'
-  }
+-- Treesitter
+use {
+  'nvim-treesitter/nvim-treesitter',
+  run = ':TSUpdate'
+}
+use {
+  'nvim-treesitter/playground',
+  requires = 'nvim-treesitter/nvim-treesitter'
+}
+use {
+  'nvim-treesitter/nvim-treesitter-textobjects',
+  requires = 'nvim-treesitter/nvim-treesitter'
+}
 
-  -- Buffer line
-  use {
-    'akinsho/nvim-bufferline.lua',
-    requires = 'kyazdani42/nvim-web-devicons'
-  }
+-- Location and syntax aware text objects which *do what you mean*
+use {
+  'RRethy/nvim-treesitter-textsubjects',
+  requires = 'nvim-treesitter/nvim-treesitter'
+}
 
-  -- Snippets
-  use 'rafamadriz/friendly-snippets'
-  use 'hrsh7th/vim-vsnip'
-  use 'hrsh7th/vim-vsnip-integ'
+-- Fuzzy finder
+use {
+  'nvim-telescope/telescope.nvim',
+  requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'}
+}
+use {
+  'nvim-telescope/telescope-fzy-native.nvim',
+  requires = 'nvim-telescope/telescope.nvim'
+}
 
-  -- Autopairs
-  use 'steelsojka/pears.nvim'
-  use 'tpope/vim-endwise'
+-- Buffer line
+use {
+  'akinsho/nvim-bufferline.lua',
+  requires = 'kyazdani42/nvim-web-devicons'
+}
 
-  -- Tmux
-  use 'christoomey/vim-tmux-navigator'
-  use 'edkolev/tmuxline.vim'
-  use {'tmux-plugins/vim-tmux', ft = 'tmux'}
+-- Snippets
+use 'rafamadriz/friendly-snippets'
+use 'hrsh7th/vim-vsnip'
+use 'hrsh7th/vim-vsnip-integ'
 
-  -- Status line
-  use 'hoob3rt/lualine.nvim'
+-- Autopairs
+use 'steelsojka/pears.nvim'
+use 'tpope/vim-endwise'
 
-  -- Git
-  use 'tpope/vim-git'
-  use 'tpope/vim-fugitive'
-  use 'rhysd/committia.vim'
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = 'nvim-lua/plenary.nvim'
-  }
-  use 'sindrets/diffview.nvim' -- Open with :DiffviewOpen
+-- Tmux
+use 'christoomey/vim-tmux-navigator'
+use 'edkolev/tmuxline.vim'
+use {'tmux-plugins/vim-tmux', ft = 'tmux'}
 
-  -- Color themes
-  use 'nanotech/jellybeans.vim'
-  use 'glepnir/zephyr-nvim'
-  use {
-    'briones-gabriel/darcula-solid.nvim',
-    requires = 'rktjmp/lush.nvim'
-  }
-  use 'shaunsingh/solarized.nvim'
-  use 'folke/tokyonight.nvim'
+-- Status line
+use 'hoob3rt/lualine.nvim'
 
-  -- File manager
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = 'kyazdani42/nvim-web-devicons'
-  }
+-- Git
+use 'tpope/vim-git'
+use 'tpope/vim-fugitive'
+use 'rhysd/committia.vim'
+use {
+  'lewis6991/gitsigns.nvim',
+  requires = 'nvim-lua/plenary.nvim'
+}
+use 'sindrets/diffview.nvim' -- Open with :DiffviewOpen
 
-  -- Expand abbreviations for HTML like 'div>p#foo$*3>a' with '<c-y>,'
-  use 'mattn/emmet-vim'
+-- Color themes
+use 'nanotech/jellybeans.vim'
+use 'glepnir/zephyr-nvim'
+use {
+  'briones-gabriel/darcula-solid.nvim',
+  requires = 'rktjmp/lush.nvim'
+}
+use 'shaunsingh/solarized.nvim'
+use 'folke/tokyonight.nvim'
 
-  -- Changes the working directory to the project root when you open a file.
-  use 'airblade/vim-rooter'
+-- File manager
+use {
+  'kyazdani42/nvim-tree.lua',
+  requires = 'kyazdani42/nvim-web-devicons'
+}
 
-  -- Automatically toggle relative line numbers based on mode.
-  use 'kennykaye/vim-relativity'
+-- Expand abbreviations for HTML like 'div>p#foo$*3>a' with '<c-y>,'
+use 'mattn/emmet-vim'
 
-  -- Comment code with gc{motion}, gcc, etc.
-  use {
-    'terrortylor/nvim-comment',
-    config = function()
-      require('nvim_comment').setup()
-    end
-  }
+-- Changes the working directory to the project root when you open a file.
+use 'airblade/vim-rooter'
 
-  -- Highlight and search for todo comments like TODO, HACK, BUG
-  use {
-    'folke/todo-comments.nvim',
-    requires = 'nvim-lua/plenary.nvim',
-    config = function()
-      require('todo-comments').setup()
-    end
-  }
+-- Automatically toggle relative line numbers based on mode.
+use 'kennykaye/vim-relativity'
 
-  -- Sets the commentstring option based on the cursor location in the file via treesitter queries.
-  -- Useful when there are embedded languages in certain types of files.
-  use 'JoosepAlviste/nvim-ts-context-commentstring'
+-- Comment code with gc{motion}, gcc, etc.
+use {
+  'terrortylor/nvim-comment',
+  config = function()
+    require('nvim_comment').setup()
+  end
+}
 
-  -- Until there's a decent treesitter parser for viml, use this
-  -- plugin to automatically set commentstring for lua in vim files.
-  use 'suy/vim-context-commentstring'
+-- Highlight and search for todo comments like TODO, HACK, BUG
+use {
+  'folke/todo-comments.nvim',
+  requires = 'nvim-lua/plenary.nvim',
+  config = function()
+    require('todo-comments').setup()
+  end
+}
 
-  --" Hex editor
-  use 'Shougo/vinarise.vim'
+-- Sets the commentstring option based on the cursor location in the file via treesitter queries.
+-- Useful when there are embedded languages in certain types of files.
+use 'JoosepAlviste/nvim-ts-context-commentstring'
 
-  -- Automatically adjust shiftwidth and expandtab based on the current file
-  use 'tpope/vim-sleuth'
+-- Until there's a decent treesitter parser for viml, use this
+-- plugin to automatically set commentstring for lua in vim files.
+use 'suy/vim-context-commentstring'
 
-  -- Easily add/delete/change 'surroundings': parentheses, brackets, quotes, XML
-  -- tags, etc. [cs, ds, ys, yss]
-  use 'tpope/vim-surround'
-  use 'tpope/vim-repeat' -- Make repeat with `.` command work for vim-surround
+--" Hex editor
+use 'Shougo/vinarise.vim'
 
-  -- ]q for :cnext. [q for :cprevious. ]a for :next. [b for :bprevious, etc.
-  use 'tpope/vim-unimpaired'
+-- Automatically adjust shiftwidth and expandtab based on the current file
+use 'tpope/vim-sleuth'
 
-  -- Add emacs key bindings to vim in insert and command-line modes.
-  use 'maxbrunsfeld/vim-emacs-bindings'
+-- Easily add/delete/change 'surroundings': parentheses, brackets, quotes, XML
+-- tags, etc. [cs, ds, ys, yss]
+use 'tpope/vim-surround'
+use 'tpope/vim-repeat' -- Make repeat with `.` command work for vim-surround
 
-  -- Show outdated crates in Cargo.toml
-  use 'mhinz/vim-crates'
+-- ]q for :cnext. [q for :cprevious. ]a for :next. [b for :bprevious, etc.
+use 'tpope/vim-unimpaired'
 
-  -- Vim sugar for the UNIX shell commands that need it the most (:Delete,
-  -- :Rename, :Mkdir, etc.)
-  use 'tpope/vim-eunuch'
+-- Add emacs key bindings to vim in insert and command-line modes.
+use 'maxbrunsfeld/vim-emacs-bindings'
 
-  -- Quickly switch between Angular files
-  use 'softoika/ngswitcher.vim'
+-- Show outdated crates in Cargo.toml
+use 'mhinz/vim-crates'
 
-  -- Highlight hex and RGB colors in code
-  use 'norcalli/nvim-colorizer.lua'
+-- Vim sugar for the UNIX shell commands that need it the most (:Delete,
+-- :Rename, :Mkdir, etc.)
+use 'tpope/vim-eunuch'
 
-  -- Icons to use in the status bar
-  use 'ryanoasis/vim-devicons'
+-- Quickly switch between Angular files
+use 'softoika/ngswitcher.vim'
 
-  -- Adds more text objects to operate on like (), {}, [], <>, and t for tags.
-  use 'wellle/targets.vim'
+-- Highlight hex and RGB colors in code
+use 'norcalli/nvim-colorizer.lua'
 
-  -- Briefly highlight yanked text
-  use 'machakann/vim-highlightedyank'
+-- Icons to use in the status bar
+use 'ryanoasis/vim-devicons'
 
-  -- Close buffers without closing windows and messing up the layout.
-  use 'moll/vim-bbye'
+-- Adds more text objects to operate on like (), {}, [], <>, and t for tags.
+use 'wellle/targets.vim'
 
-  -- Adds the following:
-  -- gS to split a one-liner into multiple lines
-  -- gJ (with the cursor on the first line of a block) to join a block into a single-line statement
-  use 'AndrewRadev/splitjoin.vim'
+-- Briefly highlight yanked text
+use 'machakann/vim-highlightedyank'
 
-  -- Add :DeleteHiddenBuffers to remove background buffers
-  use 'arithran/vim-delete-hidden-buffers'
+-- Close buffers without closing windows and messing up the layout.
+use 'moll/vim-bbye'
 
-  -- Internal modeline support allows all sorts of annoying and potentially insecure options to be set.
-  -- This plugin implements a more heavily restricted version.
-  use 'ciaranm/securemodelines'
+-- Adds the following:
+-- gS to split a one-liner into multiple lines
+-- gJ (with the cursor on the first line of a block) to join a block into a single-line statement
+use 'AndrewRadev/splitjoin.vim'
 
-  -- Adds indentation guides to all lines (including empty lines).
-  use 'lukas-reineke/indent-blankline.nvim'
+-- Add :DeleteHiddenBuffers to remove background buffers
+use 'arithran/vim-delete-hidden-buffers'
 
-  -- Sessions
-  use {
-    'rmagatti/auto-session',
-    config = function()
-      require('auto-session').setup {}
-    end
-  }
-  use {
-    'rmagatti/session-lens',
-    requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim'},
-    config = function()
-      require('session-lens').setup {}
-    end
-  }
+-- Internal modeline support allows all sorts of annoying and potentially insecure options to be set.
+-- This plugin implements a more heavily restricted version.
+use 'ciaranm/securemodelines'
 
-  -- Language plugins
-  use 'jparise/vim-graphql'
-  use 'cespare/vim-toml'
-  use 'kchmck/vim-coffee-script'
-  use 'mustache/vim-mustache-handlebars'
-  use 'tpope/vim-rails'
-  use 'fladson/vim-kitty' -- kitty.conf
-end)
+-- Adds indentation guides to all lines (including empty lines).
+use 'lukas-reineke/indent-blankline.nvim'
+
+-- Sessions
+use {
+  'rmagatti/auto-session',
+  config = function()
+    require('auto-session').setup {}
+  end
+}
+use {
+  'rmagatti/session-lens',
+  requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim'},
+  config = function()
+    require('session-lens').setup {}
+  end
+}
+
+-- Language plugins
+use 'jparise/vim-graphql'
+use 'cespare/vim-toml'
+use 'kchmck/vim-coffee-script'
+use 'mustache/vim-mustache-handlebars'
+use 'tpope/vim-rails'
+use 'fladson/vim-kitty' -- kitty.conf
