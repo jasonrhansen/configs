@@ -18,13 +18,14 @@ use 'neovim/nvim-lspconfig'
 use 'hrsh7th/nvim-compe'
 use 'nvim-lua/lsp-status.nvim'
 use 'nvim-lua/lsp_extensions.nvim'
--- use 'glepnir/lspsaga.nvim'
-use {
-  'jasonrhansen/lspsaga.nvim',
-  branch = 'finder-preview-fixes'
-}
 use 'onsails/lspkind-nvim'
 use 'folke/trouble.nvim'
+use {
+  'kosayoda/nvim-lightbulb',
+  config = function()
+    vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
+  end
+}
 
 -- Improved quickfix window
 use {

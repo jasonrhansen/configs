@@ -103,6 +103,7 @@ local configs = {
   vimls = {},
   vuels = {},
   yamlls = {},
+  zls = {},
 }
 
 -- Normal mode keymaps that get added to a buffer when attaching an LSP client.
@@ -117,10 +118,17 @@ local keymaps = {
     gr = {"vim.lsp.buf.references()", "Get references"},
     g0 = {"vim.lsp.buf.document_symbol()", "List document symbols"},
     gW = {"vim.lsp.buf.workspace_symbol()", "List workspace symbols"},
-
+    K = {"vim.lsp.buf.hover()", "Hover"},
+    ["<leader>k"] = {"vim.lsp.buf.signature_help()", "Signature help"},
+    ["<leader>D"] = {"vim.lsp.buf.type_definition()", "Signature help"},
+    ["<leader>rn"] = {"vim.lsp.buf.rename()", "Rename"},
+    ["<F2>"] = {"vim.lsp.buf.rename()", "Rename"},
+    ["<leader>a"] = {"vim.lsp.buf.code_action()", "Code action"},
+    ["<leader>d"] = {"vim.lsp.diagnostic.show_line_diagnostics()", "Line diagnostics"},
+    ["[d"] = {"vim.lsp.diagnostic.goto_prev()", "Jump to previous line diagnostic"},
+    ["]d"] = {"vim.lsp.diagnostic.goto_next()", "Jump to next line diagnostic"},
+    ["<leader>Q"] = {"vim.lsp.diagnostic.set_loclist()", "Open diagnostics in loclist"},
     ["<leader>f"] = {"vim.lsp.buf.formatting()", "Format buffer"},
-
-    -- Diagnostics
     ["<leader>V"] = {"require('config.lsp').toggle_diagnostic_virtual_text()", "Toggle diagnostic virtual text"},
   },
   -- visual mode

@@ -362,7 +362,6 @@ local lua_modules = {
   "config.telescope",
   "config.compe",
   "config.pears",
-  "config.lspsaga",
   "config.nvim_tree",
   "config.gitsigns",
   "config.diffview", -- Must come after config.telescope because it overrides keymap
