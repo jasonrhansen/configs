@@ -309,12 +309,6 @@ augroup vimrc
   autocmd BufReadPost fugitive://* set bufhidden=delete
 augroup END
 
-augroup vimrc
-  " Type hints for Rust
-  autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
-    \ :lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "NonText", enabled = {"ChainingHint"} }
-augroup END
-
 if has('nvim')
   autocmd BufRead Cargo.toml call crates#toggle()
 endif
@@ -371,6 +365,7 @@ local lua_modules = {
   "config.keymaps",
   "config.lualine",
   "config.nvim_bufferline",
+  "config.rust_tools",
 }
 
 for _, module_name in ipairs(lua_modules) do

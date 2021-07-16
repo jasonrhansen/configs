@@ -27,6 +27,12 @@ use {
   end
 }
 
+-- Rust enhanced LSP support
+use {
+  'simrat39/rust-tools.nvim',
+  requires = {'neovim/nvim-lspconfig', 'nvim-telescope/telescope.nvim'},
+}
+
 -- Improved quickfix window
 use {
   'kevinhwang91/nvim-bqf',

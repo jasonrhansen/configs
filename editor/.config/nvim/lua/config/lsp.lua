@@ -46,15 +46,8 @@ local configs = {
   -- omnisharp = {},
   -- Python
   pyright = {},
-  rust_analyzer = {
-    settings = {
-      ["rust-analyzer"] = {
-        cargo = {
-          allFeatures = true,
-        }
-      }
-    },
-  },
+  -- rust-analyzer is configured in rust_tools.lua, so no need to configure here.
+  -- rust_analyzer = {},
   -- Ruby
   solargraph = {
     settings = {
