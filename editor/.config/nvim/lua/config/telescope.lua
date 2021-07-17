@@ -25,8 +25,8 @@ telescope.setup {
       i = {
         -- Close with esc in insert mode.
         ["<esc>"] = actions.close,
-        ["<c-u>"] = actions.cycle_history_prev,
-        ["<c-d>"] = actions.cycle_history_next,
+        ["<c-b>"] = actions.cycle_history_prev,
+        ["<c-f>"] = actions.cycle_history_next,
         ["<c-t>"] = trouble.open_with_trouble,
       },
       n = {
