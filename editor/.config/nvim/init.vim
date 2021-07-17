@@ -368,7 +368,6 @@ local lua_modules = {
   "config.which_key",
   "config.keymaps",
   "config.lualine",
-  "config.nvim_bufferline",
   "config.rust_tools",
 }
 

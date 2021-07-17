@@ -73,12 +73,6 @@ use {
   requires = 'nvim-telescope/telescope.nvim'
 }
 
--- Buffer line
-use {
-  'akinsho/nvim-bufferline.lua',
-  requires = 'kyazdani42/nvim-web-devicons'
-}
-
 -- Snippets
 use 'rafamadriz/friendly-snippets'
 use 'hrsh7th/vim-vsnip'
