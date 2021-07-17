@@ -177,7 +177,7 @@ end
 -- Diagnostics config
 local virtual_text_config = {
   spacing = 2,
-  prefix = "~",
+  prefix = "■ ",
 }
 
 local show_virtual_text = true;
@@ -228,6 +228,30 @@ for type, icon in pairs(M.signs) do
   local hl = "LspDiagnosticsSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
+
+-- Show the sign with the max severity in sign column if there are multiple
+local orig_set_signs = vim.lsp.diagnostic.set_signs
+local set_signs_max_severity = function(diagnostics, bufnr, client_id, sign_ns, opts)
+  if not diagnostics then
+    return
+  end
+
+  -- Work out max severity diagnostic per line
+  local max_severity_per_line = {}
+  for _,d in pairs(diagnostics) do
+    if max_severity_per_line[d.range.start.line] then
+      local current_d = max_severity_per_line[d.range.start.line]
+      if d.severity < current_d.severity then
+        max_severity_per_line[d.range.start.line] = d
+      end
+    else
+      max_severity_per_line[d.range.start.line] = d
+    end
+  end
+
+  orig_set_signs(vim.tbl_values(max_severity_per_line), bufnr, client_id, sign_ns, opts)
+end
+vim.lsp.diagnostic.set_signs = set_signs_max_severity
 
 -- Status config
 lsp_status.register_progress()
