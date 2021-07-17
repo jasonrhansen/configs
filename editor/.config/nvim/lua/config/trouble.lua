@@ -35,10 +35,10 @@ trouble.setup {
   auto_fold = false, -- automatically fold a file trouble list at creation
   signs = {
     -- icons / text used for a diagnostic
-    error = lsp.sign_error,
-    warning = lsp.sign_warning,
-    hint = lsp.sign_hint,
-    information = lsp.sign_information,
+    error = lsp.signs.Error,
+    warning = lsp.signs.Warning,
+    hint = lsp.signs.Hint,
+    information = lsp.signs.Information,
     other = "﫠"
   },
   use_lsp_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client

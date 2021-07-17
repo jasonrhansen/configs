@@ -18,7 +18,6 @@ use 'neovim/nvim-lspconfig'
 use 'hrsh7th/nvim-compe'
 use 'nvim-lua/lsp-status.nvim'
 use 'nvim-lua/lsp_extensions.nvim'
-use 'onsails/lspkind-nvim'
 use 'folke/trouble.nvim'
 use {
   'kosayoda/nvim-lightbulb',

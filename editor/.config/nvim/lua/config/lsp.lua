@@ -217,87 +217,57 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 
-M.sign_error = ""
-M.sign_warning = ""
-M.sign_information = ""
-M.sign_hint = ""
+M.signs = {
+  Error = " ",
+  Warning = " ",
+  Hint = " ",
+  Information = " "
+}
 
-vim.fn.sign_define("LspDiagnosticsSignError", {
-  text = M.sign_error,
-  texthl = "LspDiagnosticsSignError",
-})
-
-vim.fn.sign_define("LspDiagnosticsSignWarning", {
-  text = M.sign_warning,
-  texthl = "LspDiagnosticsSignWarning",
-})
-
-vim.fn.sign_define("LspDiagnosticsSignInformation", {
-  text = M.sign_information,
-  texthl = "LspDiagnosticsSignInformation",
-})
-
-vim.fn.sign_define("LspDiagnosticsSignHint", {
-  text = M.sign_hint,
-  texthl = "LspDiagnosticsSignHint",
-})
-
--- Use the same color for all virtual text.
-vim.cmd("highlight link LspDiagnosticsVirtualTextError LspDiagnosticsVirtualTextHint")
-vim.cmd("highlight link LspDiagnosticsVirtualTextWarning LspDiagnosticsVirtualTextHint")
-vim.cmd("highlight link LspDiagnosticsVirtualTextInformation LspDiagnosticsVirtualTextHint")
+for type, icon in pairs(M.signs) do
+  local hl = "LspDiagnosticsSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end
 
 -- Status config
 lsp_status.register_progress()
 lsp_status.config({
   status_symbol = "  LSP:",
-  indicator_errors = M.sign_error,
-  indicator_warnings = M.sign_warning,
-  indicator_info = M.sign_information,
-  indicator_hint = M.sign_hint,
+  indicator_errors = M.signs.Error,
+  indicator_warnings = M.signs.Warning,
+  indicator_info = M.signs.Information,
+  indicator_hint = M.signs.Hint,
   indicator_ok = "✓",
   spinner_frames = {"⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"},
 })
 
--- Add LspLog command
-function _G.reload_lsp()
-  vim.lsp.stop_client(vim.lsp.get_active_clients())
-  vim.cmd("edit")
-end
-vim.cmd("command! -nargs=0 LspLog call v:lua.open_lsp_log()")
+M.icons = {
+  Class = " ",
+  Color = " ",
+  Constant = " ",
+  Constructor = " ",
+  Enum = "了 ",
+  EnumMember = " ",
+  Field = " ",
+  File = " ",
+  Folder = " ",
+  Function = " ",
+  Interface = "ﰮ ",
+  Keyword = " ",
+  Method = "ƒ ",
+  Module = " ",
+  Property = " ",
+  Snippet = "﬌ ",
+  Struct = " ",
+  Text = " ",
+  Unit = " ",
+  Value = " ",
+  Variable = " ",
+}
 
--- Add LspRestart command
-function _G.open_lsp_log()
-  local path = vim.lsp.get_log_path()
-  vim.cmd("edit " .. path)
+local kinds = vim.lsp.protocol.CompletionItemKind
+for i, kind in ipairs(kinds) do
+  kinds[i] = M.icons[kind] or kind
 end
-vim.cmd("command! -nargs=0 LspRestart call v:lua.reload_lsp()")
-
--- Add icons to completion menu
-require('lspkind').init({
-  with_text = true,
-  symbol_map = {
-    Text = '',
-    Method = 'ƒ',
-    Function = '',
-    Constructor = '',
-    Variable = '',
-    Class = '',
-    Interface = 'ﰮ',
-    Module = '',
-    Property = '',
-    Unit = '',
-    Value = '',
-    Enum = '了',
-    Keyword = '',
-    Snippet = '﬌',
-    Color = '',
-    File = '',
-    Folder = '',
-    EnumMember = '',
-    Constant = '',
-    Struct = ''
-  },
-})
 
 return M
