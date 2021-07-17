@@ -298,7 +298,11 @@ if has('nvim')
   set inccommand=nosplit
 endif
 
-au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}
+augroup vimrc
+  au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}
+augroup END
+
+command! BufOnly execute '%bdelete|edit #|normal `"'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                  Plugin Config
