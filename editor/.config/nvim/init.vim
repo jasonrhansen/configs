@@ -151,6 +151,18 @@ let g:tokyonight_style = "night"
 let g:tokyonight_colors = { 'border': '#292E42' }
 colorscheme tokyonight
 
+let s:bright_comments = v:false
+function! ToggleBrightComments()
+  let s:bright_comments = !s:bright_comments
+  if s:bright_comments
+    hi Comment guifg=#9ca5cf
+  else
+    hi Comment guifg=#565F89
+  endif
+endfunction
+
+nnoremap <silent> <leader>c <cmd>call ToggleBrightComments()<cr>
+
 " Add undercurls for diagnostics
 highlight LspDiagnosticsUnderlineError cterm=underline gui=undercurl guisp=Red
 highlight LspDiagnosticsUnderlineWarning cterm=underline gui=undercurl guisp=Orange
