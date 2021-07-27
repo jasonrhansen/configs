@@ -36,7 +36,7 @@ set textwidth=0
 set undolevels=1000
 set showcmd
 set showmatch
-set number
+set number relativenumber
 set cursorline
 set autoread
 set background=dark
@@ -290,26 +290,6 @@ noremap <F3> :set list!<CR>
 inoremap <F3> <C-o>:set list!<CR>
 cnoremap <F3> <C-c>:set list!<CR>
 
-if has('nvim')
-  " Make working with nvim terminal emulator nicer
-  tnoremap <esc> <c-\><c-n>
-  tnoremap <c-h> <c-\><c-n><c-w>h
-  tnoremap <c-j> <c-\><c-n><c-w>j
-  tnoremap <c-k> <c-\><c-n><c-w>k
-  tnoremap <c-l> <c-\><c-n><c-w>l
-  augroup vimrc
-    " Don't show line numbers in terminal
-    autocmd BufWinEnter,WinEnter term://* set nonumber
-    " Always put terminal in insert mode on enter
-    autocmd BufWinEnter,WinEnter term://* startinsert
-  augroup END
-
-  " Don't let relativity handle line numbers in terminal
-  let g:relativity_buftype_ignore = ['nofile', 'terminal']
-
-  set inccommand=nosplit
-endif
-
 augroup vimrc
   au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}
 augroup END
@@ -320,6 +300,11 @@ command! BufOnly execute '%bdelete|edit #|normal `"'
 "                  Plugin Config
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Toggle relativize line numbers
+nnoremap <silent> <leader>l :let [&number, &relativenumber] =
+  \ [!&number && (g:relativize_with_number \|\| !g:relativize_enabled),
+  \ !&relativenumber && g:relativize_enabled]<CR>
+" 
 augroup vimrc
   " Automatically delete hidden fugitive buffers
   autocmd BufReadPost fugitive://* set bufhidden=delete

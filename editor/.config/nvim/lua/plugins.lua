@@ -123,7 +123,7 @@ use 'mattn/emmet-vim'
 use 'airblade/vim-rooter'
 
 -- Automatically toggle relative line numbers based on mode.
-use 'kennykaye/vim-relativity'
+use 'ericbn/vim-relativize'
 
 -- Comment code with gc{motion}, gcc, etc.
 use {
