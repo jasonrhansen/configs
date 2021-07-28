@@ -91,21 +91,22 @@ set undodir=~/.vim/tmp/undo//     " undo files
 
 set mouse=a                       " Enable mouse in all modes
 set mousemodel=popup_setpos       " Right-click on selection should bring up a menu
-if !has('nvim')
-  set ttymouse=xterm2             " Needed to be able to resize panes with mouse
-endif
 
 syntax sync minlines=256          " Increase scrolling performance
 
 augroup vimrc
   " Allow .md extension to be recognized as markdown
   autocmd BufRead,BufNewFile *.md set filetype=markdown
-augroup END
 
-augroup vimrc
   " Start git commits in insert mode
   autocmd FileType gitcommit startinsert
   autocmd FileType gitcommit set colorcolumn=80
+  
+  " Automatically rebalance windows on vim resize
+  autocmd VimResized * :wincmd =
+
+  " Briefly highlight yanked text
+  au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}
 augroup END
 
 set pastetoggle=<F2>
@@ -120,11 +121,6 @@ endif
 if !isdirectory(expand(&directory))
   call mkdir(expand(&directory), "p")
 endif
-
-augroup vimrc
-  " Automatically rebalance windows on vim resize
-  autocmd VimResized * :wincmd =
-augroup END
 
 "  Color preferences
 if !has('gui_running')
@@ -177,17 +173,6 @@ if has('unnamedplus')
 else
   " Vim now also uses the selection system clipboard for default yank/paste.
   set clipboard+=unnamed
-endif
-
-" Don't use clipboard over ssh since it makes vim load too slowly.
-if !has("gui_running") && !has("nvim")
-  let g:display_num =
-    \ substitute(
-    \ substitute( $DISPLAY , "^[[:alpha:]]*:" , "" , "" ) ,
-    \ "\.[[:digit:]]*$" , "" , "" )
-  if ( g:display_num >= 10 )
-    set clipboard=exclude:.*
-  endif
 endif
 
 " Automatically set tmux window name
@@ -278,10 +263,6 @@ noremap <F3> :set list!<CR>
 inoremap <F3> <C-o>:set list!<CR>
 cnoremap <F3> <C-c>:set list!<CR>
 
-augroup vimrc
-  au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}
-augroup END
-
 command! BufOnly execute '%bdelete|edit #|normal `"'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -291,11 +272,9 @@ command! BufOnly execute '%bdelete|edit #|normal `"'
 augroup vimrc
   " Automatically delete hidden fugitive buffers
   autocmd BufReadPost fugitive://* set bufhidden=delete
-augroup END
 
-if has('nvim')
   autocmd BufRead Cargo.toml call crates#toggle()
-endif
+augroup END
 
 " Detect binary file or large file automatically
 let g:vinarise_enable_auto_detect = 1
