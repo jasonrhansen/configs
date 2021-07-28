@@ -101,7 +101,6 @@ use {
 use 'sindrets/diffview.nvim' -- Open with :DiffviewOpen
 
 -- Color themes
-use 'nanotech/jellybeans.vim'
 use 'glepnir/zephyr-nvim'
 use {
   'briones-gabriel/darcula-solid.nvim',
