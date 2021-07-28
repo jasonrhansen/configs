@@ -80,8 +80,13 @@ vim.g.nvim_tree_bindings = {
   { key = "g?",                           cb = tree_cb("toggle_help") },
 }
 
-vim.api.nvim_set_keymap("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", {noremap = true})
-vim.api.nvim_set_keymap("n", "<leader>.", "<cmd>NvimTreeFindFile<cr>", {noremap = true})
+local wk = require("which-key")
+wk.register({
+  ["<leader>"] = {
+    e     = {"<cmd>NvimTreeToggle<cr>",   "Toggle file tree"},
+    ["."] = {"<cmd>NvimTreeFindFile<cr>", "Find file in tree"},
+  }
+})
 
 vim.cmd("augroup vimrc")
 vim.cmd("autocmd FileType NvimTree set nowrap")

@@ -98,4 +98,5 @@ treesitter.setup {
   },
 }
 
-vim.api.nvim_set_keymap("", "<leader>T", "<cmd>TSBufToggle highlight<CR>", {noremap=true, silent=true})
+local wk = require("which-key")
+wk.register({["<leader>T"] = {"<cmd>TSBufToggle highlight<CR>", "Toggle treesitter highlights"}})

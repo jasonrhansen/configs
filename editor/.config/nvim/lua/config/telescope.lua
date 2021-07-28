@@ -46,23 +46,22 @@ telescope.load_extension('fzy_native')
 
 -- Normal mode keymaps to call functions in 'telescope.builtin'
 local keymaps = {
-  b = {"buffers()", "Telescope buffers"},
-  P = {"find_files({find_command = {'rg', '-i', '--hidden', '--files', '-g', '!.git'}})", "Telescope find_files"},
-  p = {"git_files()", "Telescope git_files"},
-  g = {"live_grep()", "Telescope live_grep"},
-  G = {"git_commits()", "Telescope git_commits"},
-  r = {"grep_string{ shorten_path = true, word_match = '-w', only_sort_text = true, search = ''}", "Telescope grep_string"},
-  q = {"quickfix()", "Telescope quickfix"},
-  t = {"lsp_document_symbols()", "Telescope lsp_document_symbols"},
-  T = {"lsp_workspace_symbols()", "Telescope lsp_workspace_symbols"},
-  R = {"lsp_references()", "Telescope ls_references"},
-  a = {"lsp_code_actions()", "Telescope actions"},
-  s = {"treesitter()", "Telescope treesitter"},
-  h = {"command_history()", "Telescope command_history"},
-  H = {"help_tags()", "Telescope help_tags"},
+  b = {"buffers()", "Search buffers"},
+  P = {"find_files({find_commankd = {'rg', '-i', '--hidden', '--files', '-g', '!.git'}})", "Search files"},
+  p = {"git_files()", "Search git files"},
+  g = {"live_grep()", "Search live grep"},
+  r = {"grep_string{ shorten_path = true, word_match = '-w', only_sort_text = true, search = ''}", "Search grep string"},
+  q = {"quickfix()", "Search quickfix"},
+  t = {"lsp_document_symbols()", "Search LSP document symbols"},
+  T = {"lsp_workspace_symbols()", "Search LSP workspace symbols"},
+  R = {"lsp_references()", "Search LSP references"},
+  a = {"lsp_code_actions()", "Search code actions"},
+  s = {"treesitter()", "Search treesitter"},
+  h = {"command_history()", "Search command history"},
+  H = {"help_tags()", "Search help tags"},
 
   -- Find my config files
-  c = {"find_files({cwd = '~/configs', find_command = {'rg', '-i', '--hidden', '--files', '-g', '!.git'}})", "Telescope find config files"},
+  c = {"find_files({cwd = '~/configs', find_command = {'rg', '-i', '--hidden', '--files', '-g', '!.git'}})", "Search config files"},
 }
 
 keymaps = vim.tbl_map(function (keymap)
@@ -73,3 +72,6 @@ keymaps.name = "Telescope"
 
 -- Register keymaps with whick-key
 wk.register(keymaps, { prefix = "<leader>t" })
+
+-- SearchSession defined in rmagatti/session-lens
+wk.register({["<leader>tS"] = {"<cmd>SearchSession<cr>", "Search sessions"}})

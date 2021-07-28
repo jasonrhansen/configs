@@ -151,18 +151,6 @@ let g:tokyonight_style = "night"
 let g:tokyonight_colors = { 'border': '#292E42' }
 colorscheme tokyonight
 
-let s:bright_comments = v:false
-function! ToggleBrightComments()
-  let s:bright_comments = !s:bright_comments
-  if s:bright_comments
-    hi Comment guifg=#9ca5cf
-  else
-    hi Comment guifg=#565F89
-  endif
-endfunction
-
-nnoremap <silent> <leader>c <cmd>call ToggleBrightComments()<cr>
-
 " Add undercurls for diagnostics
 highlight LspDiagnosticsUnderlineError cterm=underline gui=undercurl guisp=Red
 highlight LspDiagnosticsUnderlineWarning cterm=underline gui=undercurl guisp=Orange
@@ -300,11 +288,6 @@ command! BufOnly execute '%bdelete|edit #|normal `"'
 "                  Plugin Config
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Toggle relativize line numbers
-nnoremap <silent> <leader>l :let [&number, &relativenumber] =
-  \ [!&number && (g:relativize_with_number \|\| !g:relativize_enabled),
-  \ !&relativenumber && g:relativize_enabled]<CR>
-" 
 augroup vimrc
   " Automatically delete hidden fugitive buffers
   autocmd BufReadPost fugitive://* set bufhidden=delete
@@ -340,15 +323,12 @@ let g:indent_blankline_show_current_context = v:false
 let g:indent_blankline_show_trailing_blankline_indent = v:false
 let g:indent_blankline_filetype_exclude = ['help', 'packer']
 let g:indent_blankline_buftype_exclude = ['help', 'terminal', 'nofile']
-nnoremap <leader>i <cmd>IndentBlanklineToggle<cr>
+
 " Workaround around drawing bug when using cursorline with
 " indent-blankline (https://github.com/lukas-reineke/indent-blankline.nvim/issues/59).
 " When https://github.com/neovim/neovim/issues/14209 gets fixed this
 " workaround should no longer be necessary.
 set colorcolumn=99999
-
-" Search sessions in telescope
-nnoremap <leader>tS <cmd>SearchSession<cr>
 
 lua << EOF
 

@@ -9,7 +9,11 @@ wk.register({
     ve = {"<cmd>vsplit $MYVIMRC<cr>", "Edit init.vim"},
     vs = {"<cmd>source $MYVIMRC<cr>", "Reload init.vim"},
     w = {"w!<cr>", "Save (force)"},
+    c = {"<cmd>lua require'config.keymaps'.toggle_bright_comments()<cr>", "Toggle bright comments"},
+    i = {"<cmd>IndentBlanklineToggle<cr>", "Toggle indent guides"},
     q = {"<cmd>Bdelete<cr>", "Delete buffer"},
+    l = {"<cmd>lua require'config.keymaps'.toggle_line_numbers()<cr>", "Toggle line numbers"},
+    L = {"<cmd>RelativizeToggle<cr>", "Toggle Relativize"},
     n = {
       name = "NG Switcher",
       t = {"<cmd>NgSwitchTS<cr>", "Switch to TS"},
@@ -33,3 +37,23 @@ wk.register({
     }
   },
 })
+
+
+local M = {}
+
+function M.toggle_line_numbers()
+  vim.o.number = not vim.o.number and (vim.g.relativize_with_number == 1 or vim.g.relativize_enabled == 1)
+  vim.o.relativenumber = not vim.o.relativenumber and vim.g.relativize_enabled == 1
+end
+
+local bright_comments = false
+function M.toggle_bright_comments()
+  bright_comments = not bright_comments
+  if bright_comments then
+    vim.cmd [[ hi Comment guifg=#9ca5cf ]]
+  else
+    vim.cmd [[ hi Comment guifg=#565F89 ]]
+  end
+end
+
+return M

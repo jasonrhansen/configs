@@ -32,9 +32,6 @@ require("diffview").setup {
   }
 }
 
-vim.api.nvim_set_keymap("n", "<leader>z", "<cmd>DiffviewOpen<CR>", {noremap=true, silent=true})
-vim.api.nvim_set_keymap("n", "<leader>Z", "<cmd>DiffviewClose<CR>", {noremap=true, silent=true})
-
 -- Integrate with Telescope git_commits to be able to open the selected commit with DiffViewOpen.
 local action_state = require("telescope.actions.state")
 
@@ -57,6 +54,13 @@ function M.git_commits()
   })
 end
 
-vim.api.nvim_set_keymap("n", "tG", "<cmd>lua require('config.diffview').git_commits()<CR>", {noremap=true, silent=true})
+local wk = require("which-key")
+wk.register({
+  ["<leader>"] = {
+    z = {"<cmd>DiffviewOpen<CR>", "Open Diffview"},
+    Z = {"<cmd>DiffviewClose<CR>", "Close Diffview"},
+    ["tG"] = {"<cmd>lua require('config.diffview').git_commits()<CR>", "Search git commits" },
+  },
+})
 
 return M
