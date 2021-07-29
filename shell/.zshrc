@@ -112,7 +112,7 @@ alias lst='exa --tree'
 
 alias clear='clear; tmux clear-history > /dev/null'
 
-alias fixmouse='echo -e  "\e[?1000l"'
+alias fixmouse='echo -e "\e[?1000h\e[?1000l"'
 
 # Boron is based on jellybeans
 export BAT_THEME="Boron"
