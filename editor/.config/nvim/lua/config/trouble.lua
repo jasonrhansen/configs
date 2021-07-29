@@ -1,7 +1,7 @@
 local trouble = require("trouble")
 local lsp = require("config.lsp")
 
-trouble.setup {
+trouble.setup({
   position = "bottom", -- position of the list can be: bottom, top, left, right
   height = 10, -- height of the trouble list when position is top or bottom
   width = 50, -- width of the list when position is left or right
@@ -13,8 +13,8 @@ trouble.setup {
     close = "q", -- close the list
     cancel = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
     refresh = "r", -- manually refresh
-    jump = {"<cr>", "<tab>"}, -- jump to the diagnostic or open / close folds
-    jump_close = {"o"}, -- jump to the diagnostic and close the list
+    jump = { "<cr>", "<tab>" }, -- jump to the diagnostic or open / close folds
+    jump_close = { "o" }, -- jump to the diagnostic and close the list
     open_split = { "<c-x>" }, -- open buffer in new split
     open_vsplit = { "<c-v>" }, -- open buffer in new vsplit
     open_tab = { "<c-t>" }, -- open buffer in new tab
@@ -22,11 +22,11 @@ trouble.setup {
     toggle_preview = "P", -- toggle auto_preview
     hover = "K", -- opens a small poup with the full multiline message
     preview = "p", -- preview the diagnostic location
-    close_folds = {"zM", "zm"}, -- close all folds
-    open_folds = {"zR", "zr"}, -- open all folds
-    toggle_fold = {"zA", "za"}, -- toggle fold of current file
+    close_folds = { "zM", "zm" }, -- close all folds
+    open_folds = { "zR", "zr" }, -- open all folds
+    toggle_fold = { "zA", "za" }, -- toggle fold of current file
     previous = "k", -- preview item
-    next = "j" -- next item
+    next = "j", -- next item
   },
   indent_lines = true, -- add an indent guide below the fold icons
   auto_open = false, -- automatically open the list when you have diagnostics
@@ -39,16 +39,24 @@ trouble.setup {
     warning = lsp.signs.Warning,
     hint = lsp.signs.Hint,
     information = lsp.signs.Information,
-    other = "﫠"
+    other = "﫠",
   },
-  use_lsp_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
-}
+  use_lsp_diagnostic_signs = false, -- enabling this will use the signs defined in your lsp client
+})
 
-vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>", {silent = true, noremap = true})
-vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble lsp_workspace_diagnostics<cr>", {silent = true, noremap = true})
-vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble lsp_document_diagnostics<cr>", {silent = true, noremap = true})
-vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>", {silent = true, noremap = true})
-vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", {silent = true, noremap = true})
-vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>", {silent = true, noremap = true})
-
-
+vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>", { silent = true, noremap = true })
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>xw",
+  "<cmd>Trouble lsp_workspace_diagnostics<cr>",
+  { silent = true, noremap = true }
+)
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>xd",
+  "<cmd>Trouble lsp_document_diagnostics<cr>",
+  { silent = true, noremap = true }
+)
+vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>", { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>", { silent = true, noremap = true })

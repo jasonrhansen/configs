@@ -1,10 +1,10 @@
-require("gitsigns").setup {
+require("gitsigns").setup({
   signs = {
-    add = {hl = "GitSignsAdd", text = "▋"},
-    change = {hl = "GitSignsChange",text= "▋"},
-    delete = {hl= "GitSignsDelete", text = "▁"},
-    topdelete = {hl ="GitSignsDelete",text = "▔"},
-    changedelete = {hl = "GitSignsDelete", text = "~"},
+    add = { hl = "GitSignsAdd", text = "▋" },
+    change = { hl = "GitSignsChange", text = "▋" },
+    delete = { hl = "GitSignsDelete", text = "▁" },
+    topdelete = { hl = "GitSignsDelete", text = "▔" },
+    changedelete = { hl = "GitSignsDelete", text = "~" },
   },
   numhl = false,
   linehl = false,
@@ -13,8 +13,8 @@ require("gitsigns").setup {
     noremap = true,
     buffer = true,
 
-    ["n ]c"] = { expr = true, [[&diff ? "]c" : "<cmd>lua require('gitsigns').next_hunk()<CR>"]]},
-    ["n [c"] = { expr = true, [[&diff ? "[c" : "<cmd>lua require('gitsigns').prev_hunk()<CR>"]]},
+    ["n ]c"] = { expr = true, [[&diff ? "]c" : "<cmd>lua require('gitsigns').next_hunk()<CR>"]] },
+    ["n [c"] = { expr = true, [[&diff ? "[c" : "<cmd>lua require('gitsigns').prev_hunk()<CR>"]] },
 
     ["n <leader>hs"] = "<cmd>lua require('gitsigns').stage_hunk()<CR>",
     ["n <leader>hu"] = "<cmd>lua require('gitsigns').undo_stage_hunk()<CR>",
@@ -25,15 +25,15 @@ require("gitsigns").setup {
 
     -- Text objects
     ["o ih"] = ":<C-U>lua require('gitsigns').select_hunk()<CR>",
-    ["x ih"] = ":<C-U>lua require('gitsigns').select_hunk()<CR>"
+    ["x ih"] = ":<C-U>lua require('gitsigns').select_hunk()<CR>",
   },
   watch_index = {
-    interval = 1000
+    interval = 1000,
   },
   current_line_blame = true,
   sign_priority = 6,
   update_debounce = 100,
   status_formatter = nil, -- Use default
   use_decoration_api = true,
-  use_internal_diff = true,  -- If luajit is present
-}
+  use_internal_diff = true, -- If luajit is present
+})

@@ -1,6 +1,6 @@
-local R = require "pears.rule"
+local R = require("pears.rule")
 
-require "pears".setup(function(conf)
+require("pears").setup(function(conf)
   conf.on_enter(function(pears_handle)
     if vim.fn.pumvisible() == 1 and vim.fn.complete_info().selected ~= -1 then
       return vim.fn["compe#confirm"]("<CR>")
@@ -22,7 +22,7 @@ require "pears".setup(function(conf)
   conf.pair("'", {
     close = "'",
     filetypes = {
-      exclude = {"comment"}
+      exclude = { "comment" },
     },
     should_expand = R.all_of(
       -- Disable for Rust lifetimes
@@ -30,79 +30,79 @@ require "pears".setup(function(conf)
       R.not_(R.child_of_node("type_arguments", true)),
 
       quotes_should_expand
-    )
+    ),
   })
 
   conf.pair('"', {
     close = '"',
     filetypes = {
-      exclude = {"vim", "comment"}
+      exclude = { "vim", "comment" },
     },
-    should_expand = quotes_should_expand
+    should_expand = quotes_should_expand,
   })
 
   conf.pair("`", {
     close = "`",
     filetypes = {
-      exclude = {"comment"}
+      exclude = { "comment" },
     },
-    should_expand = quotes_should_expand
+    should_expand = quotes_should_expand,
   })
 
   conf.pair('"""', {
     close = '"""',
     filetypes = {
-      exclude = {"comment"}
+      exclude = { "comment" },
     },
-    should_expand = quotes_should_expand
+    should_expand = quotes_should_expand,
   })
 
   conf.pair("'''", {
     close = "'''",
     filetypes = {
-      exclude = {"comment"}
+      exclude = { "comment" },
     },
-    should_expand = quotes_should_expand
+    should_expand = quotes_should_expand,
   })
 
   conf.pair("```", {
     close = "```",
     filetypes = {
-      exclude = {"comment"}
+      exclude = { "comment" },
     },
-    should_expand = quotes_should_expand
+    should_expand = quotes_should_expand,
   })
 
   local brackets_should_expand = R.all_of(
     R.not_(R.child_of_node("string", true)),
-    R.not_(R.match_next "[a-zA-Z0-9\"'([{]")
+    R.not_(R.match_next("[a-zA-Z0-9\"'([{]"))
   )
 
-  conf.pair('(', {
-    close = ')',
+  conf.pair("(", {
+    close = ")",
     filetypes = {
-      exclude = {"comment"}
+      exclude = { "comment" },
     },
-    should_expand = brackets_should_expand
+    should_expand = brackets_should_expand,
   })
 
-  conf.pair('[', {
-    close = ']',
+  conf.pair("[", {
+    close = "]",
     filetypes = {
-      exclude = {"comment"}
+      exclude = { "comment" },
     },
-    should_expand = brackets_should_expand
+    should_expand = brackets_should_expand,
   })
 
   local enter_pressed = R.virtual_key(R.VirtualKey.ENTER)
 
-  conf.pair('{', {
-    close = '}',
+  conf.pair("{", {
+    close = "}",
     filetypes = {
-      exclude = {"comment"}
+      exclude = { "comment" },
     },
     expand_when = enter_pressed,
-    should_expand = brackets_should_expand
+    should_expand = brackets_should_expand,
   })
 
   -- XML/HTML comments
@@ -112,6 +112,6 @@ require "pears".setup(function(conf)
       "html",
       "xml",
       "eruby",
-    }
+    },
   })
 end)

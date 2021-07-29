@@ -1,6 +1,6 @@
 local M = {}
 
-require("compe").setup {
+require("compe").setup({
   enabled = true,
   autocomplete = true,
   debug = false,
@@ -25,8 +25,8 @@ require("compe").setup {
     vsnip = true,
     treesitter = false,
     omni = false,
-  };
-}
+  },
+})
 
 vim.o.completeopt = "menuone,noselect"
 
@@ -35,11 +35,11 @@ local function t(str)
 end
 
 local function check_back_space()
-  local col = vim.fn.col('.') - 1
-  if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-      return true
+  local col = vim.fn.col(".") - 1
+  if col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
+    return true
   else
-      return false
+    return false
   end
 end
 
@@ -49,19 +49,19 @@ end
 function M.tab_complete()
   if vim.fn.pumvisible() == 1 then
     return t("<C-n>")
-  elseif vim.fn.call("vsnip#available", {1}) == 1 then
+  elseif vim.fn.call("vsnip#available", { 1 }) == 1 then
     return t("<Plug>(vsnip-expand-or-jump)")
   elseif check_back_space() then
     return t("<Tab>")
   else
-    return vim.fn['compe#complete']()
+    return vim.fn["compe#complete"]()
   end
 end
 
 function M.s_tab_complete()
   if vim.fn.pumvisible() == 1 then
     return t("<C-p>")
-  elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
+  elseif vim.fn.call("vsnip#jumpable", { -1 }) == 1 then
     return t("<Plug>(vsnip-jump-prev)")
   else
     return t("<S-Tab>")
@@ -72,12 +72,12 @@ end
 -- Unfortunately endwise doesn't work when treesitter highlighting is enabled: https://github.com/nvim-treesitter/nvim-treesitter/issues/703
 vim.g.endwise_no_mappings = true
 
-vim.api.nvim_set_keymap("i", "<Tab>", [[luaeval('require("config.compe").tab_complete()')]], {expr = true})
-vim.api.nvim_set_keymap("s", "<Tab>", [[luaeval('require("config.compe").tab_complete()')]], {expr = true})
-vim.api.nvim_set_keymap("i", "<S-Tab>", [[luaeval('require("config.compe").s_tab_complete()')]], {expr = true})
-vim.api.nvim_set_keymap("s", "<S-Tab>", [[luaeval('require("config.compe").s_tab_complete()')]], {expr = true})
+vim.api.nvim_set_keymap("i", "<Tab>", [[luaeval('require("config.compe").tab_complete()')]], { expr = true })
+vim.api.nvim_set_keymap("s", "<Tab>", [[luaeval('require("config.compe").tab_complete()')]], { expr = true })
+vim.api.nvim_set_keymap("i", "<S-Tab>", [[luaeval('require("config.compe").s_tab_complete()')]], { expr = true })
+vim.api.nvim_set_keymap("s", "<S-Tab>", [[luaeval('require("config.compe").s_tab_complete()')]], { expr = true })
 
-vim.api.nvim_set_keymap('i', "<C-Space>", "compe#complete()", {noremap=true, silent=true, expr=true})
-vim.api.nvim_set_keymap('i', "<C-e>", "compe#close('<C-e>')", {noremap=true, silent=true, expr=true})
+vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", { noremap = true, silent = true, expr = true })
+vim.api.nvim_set_keymap("i", "<C-e>", "compe#close('<C-e>')", { noremap = true, silent = true, expr = true })
 
 return M

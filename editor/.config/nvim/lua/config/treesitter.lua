@@ -1,6 +1,6 @@
 local treesitter = require("nvim-treesitter.configs")
 
-treesitter.setup {
+treesitter.setup({
   ensure_installed = "maintained",
 
   highlight = {
@@ -8,14 +8,14 @@ treesitter.setup {
   },
 
   indent = {
-    enable = false
+    enable = false,
   },
 
   textsubjects = {
-      enable = true,
-      keymaps = {
-          ['.'] = 'textsubjects-smart',
-      }
+    enable = true,
+    keymaps = {
+      ["."] = "textsubjects-smart",
+    },
   },
 
   textobjects = {
@@ -34,7 +34,6 @@ treesitter.setup {
         ["ac"] = "@class.outer",
         ["ic"] = "@class.inner",
       },
-
     },
     swap = {
       enable = true,
@@ -79,24 +78,24 @@ treesitter.setup {
     updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
     persist_queries = false, -- Whether the query persists across vim sessions
     keybindings = {
-      toggle_query_editor = 'o',
-      toggle_hl_groups = 'i',
-      toggle_injected_languages = 't',
-      toggle_anonymous_nodes = 'a',
-      toggle_language_display = 'I',
-      focus_language = 'f',
-      unfocus_language = 'F',
-      update = 'R',
-      goto_node = '<cr>',
-      show_help = '?',
+      toggle_query_editor = "o",
+      toggle_hl_groups = "i",
+      toggle_injected_languages = "t",
+      toggle_anonymous_nodes = "a",
+      toggle_language_display = "I",
+      focus_language = "f",
+      unfocus_language = "F",
+      update = "R",
+      goto_node = "<cr>",
+      show_help = "?",
     },
   },
   query_linter = {
     enable = true,
     use_virtual_text = true,
-    lint_events = {"BufWrite", "CursorHold"},
+    lint_events = { "BufWrite", "CursorHold" },
   },
-}
+})
 
 local wk = require("which-key")
-wk.register({["<leader>T"] = {"<cmd>TSBufToggle highlight<CR>", "Toggle treesitter highlights"}})
+wk.register({ ["<leader>T"] = { "<cmd>TSBufToggle highlight<CR>", "Toggle treesitter highlights" } })
