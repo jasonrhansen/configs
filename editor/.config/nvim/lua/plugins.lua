@@ -1,227 +1,233 @@
 -- On a new machine packer can be installed by cloning the repo:
 -- git clone https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
-local packer = require('packer')
+local packer = require("packer")
 local use = packer.use
 
-packer.init {
+packer.init({
   -- Some jobs never finish updating when I don't limit the number.
   -- https://github.com/wbthomason/packer.nvim/issues/456
   max_jobs = 20,
-}
+})
 
 -- Packer can manage itself
-use 'wbthomason/packer.nvim'
+use("wbthomason/packer.nvim")
 
 -- LSP
-use 'neovim/nvim-lspconfig'
-use 'hrsh7th/nvim-compe'
-use 'nvim-lua/lsp-status.nvim'
-use 'nvim-lua/lsp_extensions.nvim'
-use 'folke/trouble.nvim'
-use {
-  'kosayoda/nvim-lightbulb',
+use("neovim/nvim-lspconfig")
+use("hrsh7th/nvim-compe")
+use("nvim-lua/lsp-status.nvim")
+use("nvim-lua/lsp_extensions.nvim")
+use("folke/trouble.nvim")
+use({
+  "kosayoda/nvim-lightbulb",
   config = function()
-    vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
-  end
-}
+    vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
+  end,
+})
 
 -- Rust enhanced LSP support
-use {
-  'simrat39/rust-tools.nvim',
-  requires = {'neovim/nvim-lspconfig', 'nvim-telescope/telescope.nvim'},
-}
+use({
+  "simrat39/rust-tools.nvim",
+  requires = { "neovim/nvim-lspconfig", "nvim-telescope/telescope.nvim" },
+})
+
+-- Inject LSP diagnostics, code actions, and more via Lua
+use({
+  "yujinyuz/null-ls.nvim",
+  requires = "nvim-lua/plenary.nvim",
+})
 
 -- Improved quickfix window
-use {
-  'kevinhwang91/nvim-bqf',
+use({
+  "kevinhwang91/nvim-bqf",
   config = function()
-    require('bqf').setup()
-  end
-}
+    require("bqf").setup()
+  end,
+})
 
 -- Displays a popup with possible key bindings of the command you started typing
-use 'folke/which-key.nvim'
+use("folke/which-key.nvim")
 
 -- Treesitter
-use {
-  'nvim-treesitter/nvim-treesitter',
-  run = ':TSUpdate'
-}
-use {
-  'nvim-treesitter/playground',
-  requires = 'nvim-treesitter/nvim-treesitter'
-}
-use {
-  'nvim-treesitter/nvim-treesitter-textobjects',
-  requires = 'nvim-treesitter/nvim-treesitter'
-}
+use({
+  "nvim-treesitter/nvim-treesitter",
+  run = ":TSUpdate",
+})
+use({
+  "nvim-treesitter/playground",
+  requires = "nvim-treesitter/nvim-treesitter",
+})
+use({
+  "nvim-treesitter/nvim-treesitter-textobjects",
+  requires = "nvim-treesitter/nvim-treesitter",
+})
 
 -- Location and syntax aware text objects which *do what you mean*
-use {
-  'RRethy/nvim-treesitter-textsubjects',
-  requires = 'nvim-treesitter/nvim-treesitter'
-}
+use({
+  "RRethy/nvim-treesitter-textsubjects",
+  requires = "nvim-treesitter/nvim-treesitter",
+})
 
 -- Fuzzy finder
-use {
-  'nvim-telescope/telescope.nvim',
-  requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'}
-}
-use {
-  'nvim-telescope/telescope-fzy-native.nvim',
-  requires = 'nvim-telescope/telescope.nvim'
-}
+use({
+  "nvim-telescope/telescope.nvim",
+  requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
+})
+use({
+  "nvim-telescope/telescope-fzy-native.nvim",
+  requires = "nvim-telescope/telescope.nvim",
+})
 
 -- Snippets
-use 'rafamadriz/friendly-snippets'
-use 'hrsh7th/vim-vsnip'
-use 'hrsh7th/vim-vsnip-integ'
+use("rafamadriz/friendly-snippets")
+use("hrsh7th/vim-vsnip")
+use("hrsh7th/vim-vsnip-integ")
 
 -- Autopairs
-use 'steelsojka/pears.nvim'
-use 'tpope/vim-endwise'
+use("steelsojka/pears.nvim")
+use("tpope/vim-endwise")
 
 -- Tmux
-use 'christoomey/vim-tmux-navigator'
-use 'edkolev/tmuxline.vim'
-use {'tmux-plugins/vim-tmux', ft = 'tmux'}
+use("christoomey/vim-tmux-navigator")
+use("edkolev/tmuxline.vim")
+use({ "tmux-plugins/vim-tmux", ft = "tmux" })
 
 -- Status line
-use 'hoob3rt/lualine.nvim'
+use("hoob3rt/lualine.nvim")
 
 -- Git
-use 'tpope/vim-git'
-use 'tpope/vim-fugitive'
-use 'rhysd/committia.vim'
-use {
-  'lewis6991/gitsigns.nvim',
-  requires = 'nvim-lua/plenary.nvim'
-}
-use 'sindrets/diffview.nvim' -- Open with :DiffviewOpen
+use("tpope/vim-git")
+use("tpope/vim-fugitive")
+use("rhysd/committia.vim")
+use({
+  "lewis6991/gitsigns.nvim",
+  requires = "nvim-lua/plenary.nvim",
+})
+use("sindrets/diffview.nvim") -- Open with :DiffviewOpen
 
 -- Color themes
-use 'glepnir/zephyr-nvim'
-use {
-  'briones-gabriel/darcula-solid.nvim',
-  requires = 'rktjmp/lush.nvim'
-}
-use 'shaunsingh/solarized.nvim'
-use 'folke/tokyonight.nvim'
+use("glepnir/zephyr-nvim")
+use({
+  "briones-gabriel/darcula-solid.nvim",
+  requires = "rktjmp/lush.nvim",
+})
+use("shaunsingh/solarized.nvim")
+use("folke/tokyonight.nvim")
 
 -- File manager
-use {
-  'kyazdani42/nvim-tree.lua',
-  requires = 'kyazdani42/nvim-web-devicons'
-}
+use({
+  "kyazdani42/nvim-tree.lua",
+  requires = "kyazdani42/nvim-web-devicons",
+})
 
 -- Expand abbreviations for HTML like 'div>p#foo$*3>a' with '<c-y>,'
-use 'mattn/emmet-vim'
+use("mattn/emmet-vim")
 
 -- Changes the working directory to the project root when you open a file.
-use 'airblade/vim-rooter'
+use("airblade/vim-rooter")
 
 -- Automatically toggle relative line numbers based on mode.
-use 'ericbn/vim-relativize'
+use("ericbn/vim-relativize")
 
 -- Comment code with gc{motion}, gcc, etc.
-use {
-  'terrortylor/nvim-comment',
+use({
+  "terrortylor/nvim-comment",
   config = function()
-    require('nvim_comment').setup()
-  end
-}
+    require("nvim_comment").setup()
+  end,
+})
 
 -- Highlight and search for todo comments like TODO, HACK, BUG
-use {
-  'folke/todo-comments.nvim',
-  requires = 'nvim-lua/plenary.nvim',
+use({
+  "folke/todo-comments.nvim",
+  requires = "nvim-lua/plenary.nvim",
   config = function()
-    require('todo-comments').setup()
-  end
-}
+    require("todo-comments").setup()
+  end,
+})
 
 -- Sets the commentstring option based on the cursor location in the file via treesitter queries.
 -- Useful when there are embedded languages in certain types of files.
-use 'JoosepAlviste/nvim-ts-context-commentstring'
+use("JoosepAlviste/nvim-ts-context-commentstring")
 
 -- Until there's a decent treesitter parser for viml, use this
 -- plugin to automatically set commentstring for lua in vim files.
-use 'suy/vim-context-commentstring'
+use("suy/vim-context-commentstring")
 
 --" Hex editor
-use 'Shougo/vinarise.vim'
+use("Shougo/vinarise.vim")
 
 -- Automatically adjust shiftwidth and expandtab based on the current file
-use 'tpope/vim-sleuth'
+use("tpope/vim-sleuth")
 
 -- Easily add/delete/change 'surroundings': parentheses, brackets, quotes, XML
 -- tags, etc. [cs, ds, ys, yss]
-use 'tpope/vim-surround'
-use 'tpope/vim-repeat' -- Make repeat with `.` command work for vim-surround
+use("tpope/vim-surround")
+use("tpope/vim-repeat") -- Make repeat with `.` command work for vim-surround
 
 -- ]q for :cnext. [q for :cprevious. ]a for :next. [b for :bprevious, etc.
-use 'tpope/vim-unimpaired'
+use("tpope/vim-unimpaired")
 
 -- Add emacs key bindings to vim in insert and command-line modes.
-use 'maxbrunsfeld/vim-emacs-bindings'
+use("maxbrunsfeld/vim-emacs-bindings")
 
 -- Show outdated crates in Cargo.toml
-use 'mhinz/vim-crates'
+use("mhinz/vim-crates")
 
 -- Vim sugar for the UNIX shell commands that need it the most (:Delete,
 -- :Rename, :Mkdir, etc.)
-use 'tpope/vim-eunuch'
+use("tpope/vim-eunuch")
 
 -- Quickly switch between Angular files
-use 'softoika/ngswitcher.vim'
+use("softoika/ngswitcher.vim")
 
 -- Highlight hex and RGB colors in code
-use 'norcalli/nvim-colorizer.lua'
+use("norcalli/nvim-colorizer.lua")
 
 -- Icons to use in the status bar
-use 'ryanoasis/vim-devicons'
+use("ryanoasis/vim-devicons")
 
 -- Adds more text objects to operate on like (), {}, [], <>, and t for tags.
-use 'wellle/targets.vim'
+use("wellle/targets.vim")
 
 -- Close buffers without closing windows and messing up the layout.
-use 'moll/vim-bbye'
+use("moll/vim-bbye")
 
 -- Adds the following:
 -- gS to split a one-liner into multiple lines
 -- gJ (with the cursor on the first line of a block) to join a block into a single-line statement
-use 'AndrewRadev/splitjoin.vim'
+use("AndrewRadev/splitjoin.vim")
 
 -- Add :DeleteHiddenBuffers to remove background buffers
-use 'arithran/vim-delete-hidden-buffers'
+use("arithran/vim-delete-hidden-buffers")
 
 -- Internal modeline support allows all sorts of annoying and potentially insecure options to be set.
 -- This plugin implements a more heavily restricted version.
-use 'ciaranm/securemodelines'
+use("ciaranm/securemodelines")
 
 -- Adds indentation guides to all lines (including empty lines).
-use 'lukas-reineke/indent-blankline.nvim'
+use("lukas-reineke/indent-blankline.nvim")
 
 -- Sessions
-use {
-  'rmagatti/auto-session',
+use({
+  "rmagatti/auto-session",
   config = function()
-    require('auto-session').setup {}
-  end
-}
-use {
-  'rmagatti/session-lens',
-  requires = {'rmagatti/auto-session', 'nvim-telescope/telescope.nvim'},
+    require("auto-session").setup({})
+  end,
+})
+use({
+  "rmagatti/session-lens",
+  requires = { "rmagatti/auto-session", "nvim-telescope/telescope.nvim" },
   config = function()
-    require('session-lens').setup {}
-  end
-}
+    require("session-lens").setup({})
+  end,
+})
 
 -- Language plugins
-use 'jparise/vim-graphql'
-use 'cespare/vim-toml'
-use 'kchmck/vim-coffee-script'
-use 'mustache/vim-mustache-handlebars'
-use 'tpope/vim-rails'
-use 'fladson/vim-kitty' -- kitty.conf
+use("jparise/vim-graphql")
+use("cespare/vim-toml")
+use("kchmck/vim-coffee-script")
+use("mustache/vim-mustache-handlebars")
+use("tpope/vim-rails")
+use("fladson/vim-kitty") -- kitty.conf
