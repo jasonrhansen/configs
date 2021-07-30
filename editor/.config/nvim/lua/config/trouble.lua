@@ -44,19 +44,15 @@ trouble.setup({
   use_lsp_diagnostic_signs = false, -- enabling this will use the signs defined in your lsp client
 })
 
-vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>", { silent = true, noremap = true })
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>xw",
-  "<cmd>Trouble lsp_workspace_diagnostics<cr>",
-  { silent = true, noremap = true }
-)
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>xd",
-  "<cmd>Trouble lsp_document_diagnostics<cr>",
-  { silent = true, noremap = true }
-)
-vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>", { silent = true, noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", { silent = true, noremap = true })
-vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>", { silent = true, noremap = true })
+local wk = require("which-key")
+wk.register({
+  ["<leader>x"] = {
+    name = "Trouble",
+    x = { "<cmd>Trouble<cr>", "Trouble" },
+    l = { "<cmd>Trouble loclist<cr>", "Trouble loclist" },
+    q = { "<cmd>Trouble quickfix<cr>", "Trouble quickfix" },
+    w = { "<cmd>Trouble lsp_workspace_diagnostics<cr>", "Trouble lsp workspace diagnostics" },
+    d = { "<cmd>Trouble lsp_document_diagnostics<cr>", "Trouble lsp document diagnostics" },
+    r = { "<cmd>Trouble lsp_references<cr>", "Trouble lsp references" },
+  },
+})
