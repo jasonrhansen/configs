@@ -110,7 +110,12 @@ local configs = {
     cmd = { "sql-language-server", "up", "--method", "stdio" },
   },
   svelte = {},
-  tsserver = {},
+  tsserver = {
+    on_attach = function(client, _)
+      -- disable tsserver formatting in favor of null-ls
+      client.resolved_capabilities.document_formatting = false
+    end,
+  },
   vimls = {},
   vuels = {},
   yamlls = {},
@@ -169,8 +174,6 @@ local function attach(client)
   for mode, mappings in pairs(keymaps) do
     wk.register(mappings, { buffer = 0, mode = mode })
   end
-
-  print(client.name)
 
   if vim.tbl_contains(M.format_on_save_names, client.name) then
     vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
