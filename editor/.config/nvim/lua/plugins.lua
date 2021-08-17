@@ -134,7 +134,12 @@ use("ericbn/vim-relativize")
 use({
   "terrortylor/nvim-comment",
   config = function()
-    require("nvim_comment").setup()
+    require("nvim_comment").setup({
+      hook = function()
+        -- Update commentstring based on treesitter context
+        require("ts_context_commentstring.internal").update_commentstring()
+      end,
+    })
   end,
 })
 
@@ -150,10 +155,6 @@ use({
 -- Sets the commentstring option based on the cursor location in the file via treesitter queries.
 -- Useful when there are embedded languages in certain types of files.
 use("JoosepAlviste/nvim-ts-context-commentstring")
-
--- Until there's a decent treesitter parser for viml, use this
--- plugin to automatically set commentstring for lua in vim files.
-use("suy/vim-context-commentstring")
 
 --" Hex editor
 use("Shougo/vinarise.vim")

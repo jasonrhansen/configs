@@ -18,6 +18,12 @@ treesitter.setup({
     },
   },
 
+  context_commentstring = {
+    enable = true,
+    -- Configure nvim-comment to call this with hook.
+    enable_autocmd = false,
+  },
+
   textobjects = {
     select = {
       enable = true,
