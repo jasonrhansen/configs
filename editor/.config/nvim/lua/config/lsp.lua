@@ -125,6 +125,7 @@ local configs = {
 -- Which LSP clients should automatically format when saving.
 M.format_on_save_names = {
   "rust_analyzer",
+  "gopls",
   -- Formatting will actually be done by `null_ls.builtins.formatting.stylua`.
   "sumneko_lua",
 }
