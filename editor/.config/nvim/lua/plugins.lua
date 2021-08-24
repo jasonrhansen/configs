@@ -15,7 +15,6 @@ use("wbthomason/packer.nvim")
 
 -- LSP
 use("neovim/nvim-lspconfig")
-use("hrsh7th/nvim-compe")
 use("nvim-lua/lsp-status.nvim")
 use("nvim-lua/lsp_extensions.nvim")
 use("folke/trouble.nvim")
@@ -24,6 +23,19 @@ use({
   config = function()
     vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
   end,
+})
+
+-- Completion
+use("hrsh7th/nvim-cmp")
+use("hrsh7th/cmp-buffer")
+use("hrsh7th/cmp-calc")
+use("hrsh7th/cmp-nvim-lsp")
+use("hrsh7th/cmp-nvim-lua")
+use("hrsh7th/cmp-path")
+use("hrsh7th/cmp-vsnip")
+use({
+  "andersevenrud/compe-tmux",
+  branch = "cmp",
 })
 
 -- Rust enhanced LSP support
@@ -86,7 +98,6 @@ use("hrsh7th/vim-vsnip-integ")
 
 -- Autopairs
 use("steelsojka/pears.nvim")
-use("tpope/vim-endwise")
 
 -- Tmux
 use("christoomey/vim-tmux-navigator")

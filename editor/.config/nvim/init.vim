@@ -298,7 +298,7 @@ lua << EOF
 local lua_modules = {
   "config.lsp",
   "config.telescope",
-  "config.compe",
+  "config.nvim_cmp",
   "config.pears",
   "config.nvim_tree",
   "config.gitsigns",
