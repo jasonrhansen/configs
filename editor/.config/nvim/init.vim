@@ -242,11 +242,6 @@ nnoremap <s-right> 3<C-W>>
 imap <c-s> <esc>:w<cr>
 nmap <c-s> <esc>:w<cr>
 
-" Toggle list chars with F3
-noremap <F3> :set list!<CR>
-inoremap <F3> <C-o>:set list!<CR>
-cnoremap <F3> <C-c>:set list!<CR>
-
 command! BufOnly execute '%bdelete|edit #|normal `"'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
