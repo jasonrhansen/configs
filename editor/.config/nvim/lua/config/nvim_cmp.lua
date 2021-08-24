@@ -12,9 +12,6 @@ cmp.setup({
     keword_length = 1,
     completeopt = "menu,menuone,noselect",
   },
-  sorting = {
-    priority_weight = 2.,
-  },
   mapping = {
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping.select_next_item(),
@@ -36,14 +33,18 @@ cmp.setup({
       end
     end,
   },
+  -- Order sources by priority
   sources = {
-    { name = "buffer" },
-    { name = "calc" },
-    { name = "nvim_lsp" },
     { name = "nvim_lua" },
-    { name = "path" },
-    { name = "tmux" },
+    { name = "nvim_lsp" },
     { name = "vsnip" },
+    { name = "path" },
+    { name = "calc" },
+    { name = "buffer" },
+    { name = "tmux" },
+  },
+  sorting = {
+    priority_weight = 2.,
   },
   formatting = {
     format = function(entry, vim_item)
