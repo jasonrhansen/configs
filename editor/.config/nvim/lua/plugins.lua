@@ -184,8 +184,8 @@ use("tpope/vim-unimpaired")
 -- Add emacs key bindings to vim in insert and command-line modes.
 use("maxbrunsfeld/vim-emacs-bindings")
 
--- Show outdated crates in Cargo.toml
-use("mhinz/vim-crates")
+-- Help manage crates.io versions
+use { 'Saecki/crates.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 
 -- Vim sugar for the UNIX shell commands that need it the most (:Delete,
 -- :Rename, :Mkdir, etc.)

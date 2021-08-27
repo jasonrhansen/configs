@@ -251,8 +251,6 @@ command! BufOnly execute '%bdelete|edit #|normal `"'
 augroup vimrc
   " Automatically delete hidden fugitive buffers
   autocmd BufReadPost fugitive://* set bufhidden=delete
-
-  autocmd BufRead Cargo.toml call crates#toggle()
 augroup END
 
 " Detect binary file or large file automatically
@@ -304,6 +302,7 @@ local lua_modules = {
   "config.keymaps",
   "config.lualine",
   "config.rust_tools",
+  "config.crates",
 }
 
 for _, module_name in ipairs(lua_modules) do
