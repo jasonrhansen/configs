@@ -2,6 +2,51 @@ local cmp = require("cmp")
 
 local M = {}
 
+local kind_icons = {
+  Class = " ",
+  Color = " ",
+  Constant = " ",
+  Constructor = " ",
+  Enum = "了 ",
+  EnumMember = " ",
+  Field = " ",
+  File = " ",
+  Folder = " ",
+  Function = " ",
+  Interface = "ﰮ ",
+  Keyword = " ",
+  Method = "ƒ ",
+  Module = " ",
+  Property = " ",
+  Snippet = "﬌ ",
+  Struct = " ",
+  Text = " ",
+  Unit = " ",
+  Value = " ",
+  Variable = " ",
+}
+
+-- Ordered with highest priority first.
+local sources = {
+  { name = "nvim_lua", menu = "[Lua]" }, -- Complete neovim's Lua runtime API such as vim.lsp.*
+  { name = "nvim_lsp", menu = "[LSP]" },
+  { name = "vsnip", menu = "[VSnip]" },
+  { name = "path", menu = "[Path]" },
+  { name = "calc", menu = "[Calc]" },
+  { name = "buffer", menu = "[Buffer]" },
+  { name = "tmux", menu = "[Tmux]" },
+  { name = "crates", menu = "[Crates]" },
+}
+
+local source_names = vim.tbl_map(function(source)
+  return { name = source.name }
+end, sources)
+
+local source_menus = {};
+for _, source in ipairs(sources) do
+  source_menus[source.name]  = source.menu
+end
+
 local check_back_space = function()
   local col = vim.fn.col(".") - 1
   return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
@@ -41,48 +86,18 @@ cmp.setup({
     end,
   },
   -- Order sources by priority
-  sources = {
-    { name = "nvim_lua" },
-    { name = "nvim_lsp" },
-    { name = "vsnip" },
-    { name = "path" },
-    { name = "calc" },
-    { name = "buffer" },
-    { name = "tmux" },
-  },
+  sources = source_names,
   sorting = {
     priority_weight = 2.,
   },
   formatting = {
     format = function(entry, vim_item)
-      vim_item.kind = M.icons[vim_item.kind]
+      vim_item.kind = (kind_icons[vim_item.kind] or vim_item.kind) .. " " .. vim_item.kind
+      vim_item.menu = source_menus[entry.source.name] or entry.source.name
       return vim_item
     end,
   },
 })
 
-M.icons = {
-  Class = " ",
-  Color = " ",
-  Constant = " ",
-  Constructor = " ",
-  Enum = "了 ",
-  EnumMember = " ",
-  Field = " ",
-  File = " ",
-  Folder = " ",
-  Function = " ",
-  Interface = "ﰮ ",
-  Keyword = " ",
-  Method = "ƒ ",
-  Module = " ",
-  Property = " ",
-  Snippet = "﬌ ",
-  Struct = " ",
-  Text = " ",
-  Unit = " ",
-  Value = " ",
-  Variable = " ",
-}
 
 return M
