@@ -42,9 +42,9 @@ local source_names = vim.tbl_map(function(source)
   return { name = source.name }
 end, sources)
 
-local source_menus = {};
+local source_menus = {}
 for _, source in ipairs(sources) do
-  source_menus[source.name]  = source.menu
+  source_menus[source.name] = source.menu
 end
 
 local check_back_space = function()
@@ -98,6 +98,5 @@ cmp.setup({
     end,
   },
 })
-
 
 return M

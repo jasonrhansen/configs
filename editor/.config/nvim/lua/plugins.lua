@@ -185,7 +185,7 @@ use("tpope/vim-unimpaired")
 use("maxbrunsfeld/vim-emacs-bindings")
 
 -- Help manage crates.io versions
-use { 'Saecki/crates.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+use({ "Saecki/crates.nvim", requires = { "nvim-lua/plenary.nvim" } })
 
 -- Vim sugar for the UNIX shell commands that need it the most (:Delete,
 -- :Rename, :Mkdir, etc.)
