@@ -115,7 +115,6 @@ use({
   "lewis6991/gitsigns.nvim",
   requires = "nvim-lua/plenary.nvim",
 })
-use("sindrets/diffview.nvim") -- Open with :DiffviewOpen
 
 -- Color themes
 use("glepnir/zephyr-nvim")

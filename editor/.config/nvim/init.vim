@@ -295,7 +295,6 @@ local lua_modules = {
   "config.pears",
   "config.nvim_tree",
   "config.gitsigns",
-  "config.diffview", -- Must come after config.telescope because it overrides keymap
   "config.treesitter",
   "config.trouble",
   "config.which_key",
