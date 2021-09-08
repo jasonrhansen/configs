@@ -226,7 +226,22 @@ use("arithran/vim-delete-hidden-buffers")
 use("ciaranm/securemodelines")
 
 -- Adds indentation guides to all lines (including empty lines).
-use("lukas-reineke/indent-blankline.nvim")
+use({
+  "lukas-reineke/indent-blankline.nvim",
+  config = function()
+    require("indent_blankline").setup({
+      char = "│",
+      use_treesitter = true,
+      show_first_indent_level = true,
+      show_current_context = false,
+      show_trailing_blankline_indent = false,
+      filetype_exclude = { "help", "packer" },
+      buftype_exclude = { "help", "terminal", "nofile" },
+    })
+
+    vim.g.indent_blankline_enabled = false
+  end,
+})
 
 -- Sessions
 use({
