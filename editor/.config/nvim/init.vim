@@ -1,8 +1,5 @@
 lua require('plugins')
 
-" Automatically compile packer config
-autocmd BufWritePost plugins.lua PackerCompile
-
 " Reset the vimrc augroup. Autocommands are added to this group throughout.
 augroup vimrc
   autocmd!
