@@ -52,6 +52,12 @@ use({
   requires = { "neovim/nvim-lspconfig", "nvim-telescope/telescope.nvim" },
 })
 
+-- Utilities to improve the TypeScript development experience for Neovim's built-in LSP client
+use({
+  "jose-elias-alvarez/nvim-lsp-ts-utils",
+  requires = { "neovim/nvim-lspconfig", "nvim-lua/plenary.nvim" },
+})
+
 -- Inject LSP diagnostics, code actions, and more via Lua
 use({
   "yujinyuz/null-ls.nvim",
