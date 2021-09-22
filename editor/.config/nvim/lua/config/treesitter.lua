@@ -5,7 +5,7 @@ treesitter.setup({
 
   highlight = {
     enable = true,
-    disable = { "php" },
+    disable = { "php", "html" },
   },
 
   indent = {
