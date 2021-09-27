@@ -262,14 +262,16 @@ function M.toggle_diagnostic_virtual_text()
   print("Turned diagnostic virtual text", vim.b.diagnostic_show_virtual_text and "ON" or "OFF")
 end
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-  signs = {
-    -- Signify priority is 10, so make diagnostic signs higher than that.
-    priority = 11,
-  },
+M.signs = {
+  Error = " ",
+  Warning = " ",
+  Hint = " ",
+  Information = " ",
+}
+
+vim.diagnostic.config({
   underline = true,
-  update_in_insert = false,
-  virtual_text = function(bufnr, _)
+  virtual_text = function(_, bufnr)
     local ok, show = pcall(vim.api.nvim_buf_get_var, bufnr, "diagnostic_show_virtual_text")
 
     -- Buffer variable not set, so use default.
@@ -283,43 +285,15 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 
     return false
   end,
+  signs = true,
+  update_in_insert = false,
+  severity_sort = true,
 })
 
-M.signs = {
-  Error = " ",
-  Warning = " ",
-  Hint = " ",
-  Information = " ",
-}
-
 for type, icon in pairs(M.signs) do
-  local hl = "LspDiagnosticsSign" .. type
+  local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
-
--- Show the sign with the max severity in sign column if there are multiple
-local orig_set_signs = vim.lsp.diagnostic.set_signs
-local set_signs_max_severity = function(diagnostics, bufnr, client_id, sign_ns, opts)
-  if not diagnostics then
-    return
-  end
-
-  -- Work out max severity diagnostic per line
-  local max_severity_per_line = {}
-  for _, d in pairs(diagnostics) do
-    if max_severity_per_line[d.range.start.line] then
-      local current_d = max_severity_per_line[d.range.start.line]
-      if d.severity < current_d.severity then
-        max_severity_per_line[d.range.start.line] = d
-      end
-    else
-      max_severity_per_line[d.range.start.line] = d
-    end
-  end
-
-  orig_set_signs(vim.tbl_values(max_severity_per_line), bufnr, client_id, sign_ns, opts)
-end
-vim.lsp.diagnostic.set_signs = set_signs_max_severity
 
 -- Status config
 lsp_status.register_progress()
