@@ -2,3 +2,4 @@ packer_compiled.*
 
 !.*
 .git
+.DS_Store
