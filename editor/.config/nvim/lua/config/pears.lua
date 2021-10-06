@@ -3,7 +3,21 @@ local R = require("pears.rule")
 require("pears").setup(function(conf)
   conf.remove_pair_on_outer_backspace(false)
   conf.preset("php")
-  conf.preset("tag_matching")
+  conf.preset("tag_matching", {
+    filetypes = {
+      include = {
+        "javascriptreact",
+        "typescriptreact",
+        "php",
+        "jsx",
+        "tsx",
+        "html",
+        "xml",
+        "markdown",
+        "eruby",
+      },
+    },
+  })
 
   local quotes_should_expand = R.all_of(
     R.not_(R.child_of_node("string", true)),
