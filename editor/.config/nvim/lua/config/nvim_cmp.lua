@@ -68,7 +68,7 @@ cmp.setup({
       behavior = cmp.ConfirmBehavior.Insert,
       select = false,
     }),
-    ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+    ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
   },
   -- Order sources by priority
   sources = source_names,

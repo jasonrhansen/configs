@@ -30,6 +30,17 @@ end
 local sumneko_root_path = vim.fn.expand("$HOME/dev/others/lua-language-server")
 local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
 
+null_ls.config({
+  sources = {
+    -- npm install -g @fsouza/prettierd
+    null_ls.builtins.formatting.prettierd,
+    -- cargo install stylua
+    null_ls.builtins.formatting.stylua.with({
+      args = { "-s", "--indent-type", "Spaces", "--indent-width", "2", "-" },
+    }),
+  },
+})
+
 -- Language server configs
 local configs = {
   angularls = {
@@ -50,6 +61,7 @@ local configs = {
   -- Java
   -- jdtls = {},
   jsonls = {},
+  ["null-ls"] = {},
   -- C#, VB
   -- omnisharp = {},
   -- Python
@@ -232,17 +244,6 @@ for name, config in pairs(configs) do
 
   lspconfig[name].setup(config)
 end
-
-null_ls.setup({
-  sources = {
-    -- npm install -g @fsouza/prettierd
-    null_ls.builtins.formatting.prettierd,
-    -- cargo install stylua
-    null_ls.builtins.formatting.stylua.with({
-      args = { "-s", "--indent-type", "Spaces", "--indent-width", "2", "-" },
-    }),
-  },
-})
 
 -- Diagnostics config
 local virtual_text_config = {
