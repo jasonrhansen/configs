@@ -1,6 +1,6 @@
-vim.g.nvim_tree_ignore = { ".git", "node_modules", ".cache" }
+local lsp = require("config.lsp")
+
 vim.g.nvim_tree_indent_markers = 1
-vim.g.nvim_tree_hide_dotfiles = 0
 vim.g.nvim_tree_git_hl = 0
 
 vim.g.nvim_tree_show_icons = {
@@ -29,12 +29,6 @@ vim.g.nvim_tree_icons = {
     empty_open = "",
     symlink = "",
     symlink_open = "",
-  },
-  lsp = {
-    hint = "",
-    info = "",
-    warning = "",
-    error = "",
   },
 }
 
@@ -73,7 +67,15 @@ require("nvim-tree").setup({
   -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually)
   update_cwd = true,
   -- show lsp diagnostics in the signcolumn
-  lsp_diagnostics = true,
+  diagnostics = {
+    enable = true,
+    icons = {
+      hint = lsp.signs.Hint,
+      info = lsp.signs.Information,
+      warning = lsp.signs.Warning,
+      error = lsp.signs.Error,
+    },
+  },
   -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
   update_focused_file = {
     -- enables the feature
@@ -91,6 +93,11 @@ require("nvim-tree").setup({
     cmd = nil,
     -- the command arguments as a list
     args = {},
+  },
+
+  filters = {
+    dotfiles = false,
+    custom = { ".git", "node_modules", ".cache" },
   },
 
   view = {
