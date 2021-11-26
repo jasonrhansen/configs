@@ -46,6 +46,14 @@ use({
   branch = "cmp",
 })
 
+-- Show function signature when you type
+use({
+  "ray-x/lsp_signature.nvim",
+  config = function()
+    require("lsp_signature").setup()
+  end,
+})
+
 -- Rust enhanced LSP support
 use({
   "simrat39/rust-tools.nvim",
