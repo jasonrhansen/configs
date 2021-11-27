@@ -18,10 +18,6 @@ stow shell
 stow editor
 stow gui
 
-# Symlinks for neovim to use vim config
-ln -s ~/.vim ~/.config/nvim
-ln -s ~/.vimrc ~/.config/nvim/init.vim
-
 # Install rust with rustup
 curl https://sh.rustup.rs -sSf | sh
 rustup install stable
@@ -57,14 +53,6 @@ npm install -g vim-language-server
 npm install -g vls
 npm install -g yaml-language-server
 
-pub=$HOME/.ssh/id_rsa.pub
-echo 'Checking for SSH key, generating one if it does not exist...'
-[[ -f $pub ]] || ssh-keygen -t rsa
-
-echo 'Copying public key to clipboard. Paste it into your Github account...'
-[[ -f $pub ]] && pbcopy < "$pub"
-open 'https://github.com/account/ssh'
-
 echo "Installing base16-shell"
 base16_dir=~/.config/base16-shell
 if [ ! -e "$base16_dir" ]; then
@@ -77,10 +65,9 @@ infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > $TERM.ti
 tic $TERM.ti
 rm $TERM.ti
 
-echo "Installing vim-plug and vim plugins"
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-vim +PlugClean +qall
-vim +PlugInstall +qall
+echo "Installing packer.nvim and neovim plugins"
+git clone https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+nvim +PackerSync
 
 echo "Installing tmux plugin manager"
 tmux_plugins_dir=~/.tmux/plugins
@@ -106,9 +93,4 @@ fi
 if [[ "$SHELL" != *zsh ]]; then
     echo "Making zsh the default shell"
     chsh -s "$(command -v zsh)"
-fi
-
-gutentags_cache_dir=~/.gutentags
-if [ ! -e "$gutentags_cache_dir" ]; then
-    mkdir -p "$gutentags_cache_dir"
 fi
