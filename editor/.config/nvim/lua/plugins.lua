@@ -41,10 +41,7 @@ use("hrsh7th/cmp-nvim-lsp")
 use("hrsh7th/cmp-nvim-lua")
 use("hrsh7th/cmp-path")
 use("hrsh7th/cmp-vsnip")
-use({
-  "andersevenrud/compe-tmux",
-  branch = "cmp",
-})
+use("andersevenrud/cmp-tmux")
 
 -- Show function signature when you type
 use({
