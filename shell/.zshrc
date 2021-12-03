@@ -59,6 +59,7 @@ alias tmks='tmux kill-session -t'
 alias tmksv='tmux kill-server'
 alias tma='tmux attach -t'
 alias tmn='tmux new -s'
+alias tmd="tmux new -s $(basename $(pwd)) > /dev/null || tmux attach -t $(basename $(pwd))"
 
 tm() {
     local session
