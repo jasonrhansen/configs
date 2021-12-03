@@ -72,6 +72,7 @@ require("rust-tools").setup({
   -- these override the defaults set by rust-tools.nvim
   -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
   server = {
+    cmd = { "rustup", "run",  "nightly", "rust-analyzer" },
     settings = {
       ["rust-analyzer"] = {
         cargo = {
