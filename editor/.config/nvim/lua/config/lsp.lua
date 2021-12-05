@@ -242,6 +242,8 @@ for name, config in pairs(configs) do
     },
   }
 
+  config.capabilities = require('cmp_nvim_lsp').update_capabilities(config.capabilities)
+
   lspconfig[name].setup(config)
 end
 
