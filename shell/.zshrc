@@ -111,7 +111,7 @@ alias la='exa -a'
 alias lla='exa -la'
 alias lst='exa --tree'
 
-alias clear='clear; tmux clear-history > /dev/null'
+alias clear='clear; tmux clear-history 2> /dev/null'
 
 alias fixmouse='echo -e "\e[?1000h\e[?1000l"'
 
