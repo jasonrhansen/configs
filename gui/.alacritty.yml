@@ -687,9 +687,9 @@ key_bindings:
   - { key: Y,           mods: Alt,     chars: "\x1by"                       }
   - { key: Z,           mods: Alt,     chars: "\x1bz"                       }
   - { key: N,           mods: Command, action: SpawnNewInstance             }
-  - { key: N,           mods: Command, action: SpawnNewInstance             }
   - { key: N,           mods: Shift|Control, action: SpawnNewInstance       }
   - { key: F11,                        action: ToggleFullscreen             }
+  - { key: Return,      mods: Alt,     action: ToggleFullscreen             }
   #- { key: Paste,                                action: Paste          }
   #- { key: Copy,                                 action: Copy           }
   #- { key: L,         mods: Control,             action: ClearLogNotice }
