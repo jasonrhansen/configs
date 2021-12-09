@@ -59,7 +59,6 @@ alias tmks='tmux kill-session -t'
 alias tmksv='tmux kill-server'
 alias tma='tmux attach -t'
 alias tmn='tmux new -s'
-alias tmd="tmux new -s $(basename $(pwd)) > /dev/null || tmux attach -t $(basename $(pwd))"
 
 tm() {
     local session
@@ -67,6 +66,10 @@ tm() {
     session=$(tmux list-sessions -F "#{session_name}" | \
         sk --query="$1" --select-1 --exit-0) &&
         tmux attach-session -t "$session" || tmux new-session -s $newsession
+}
+
+tmd() {
+  tmux new -s $(basename $(pwd)) > /dev/null || tmux attach -t $(basename $(pwd))
 }
 
 # autojump
