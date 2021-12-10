@@ -34,6 +34,7 @@ null_ls.config({
   sources = {
     -- npm install -g @fsouza/prettierd
     null_ls.builtins.formatting.prettierd,
+    null_ls.builtins.formatting.rubocop,
     -- cargo install stylua
     null_ls.builtins.formatting.stylua.with({
       args = { "-s", "--indent-type", "Spaces", "--indent-width", "2", "-" },
@@ -74,6 +75,8 @@ local configs = {
       solargraph = {
         useBundler = false,
         diagnostics = true,
+        -- Use null-ls wth rubocop for formatting.
+        formatting = false,
       },
     },
   },
@@ -242,7 +245,7 @@ for name, config in pairs(configs) do
     },
   }
 
-  config.capabilities = require('cmp_nvim_lsp').update_capabilities(config.capabilities)
+  config.capabilities = require("cmp_nvim_lsp").update_capabilities(config.capabilities)
 
   lspconfig[name].setup(config)
 end
