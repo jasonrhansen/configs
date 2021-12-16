@@ -30,7 +30,7 @@ end
 local sumneko_root_path = vim.fn.expand("$HOME/dev/others/lua-language-server")
 local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
 
-null_ls.config({
+null_ls.setup({
   sources = {
     -- npm install -g @fsouza/prettierd
     null_ls.builtins.formatting.prettierd,
@@ -62,7 +62,6 @@ local configs = {
   -- Java
   -- jdtls = {},
   jsonls = {},
-  ["null-ls"] = {},
   -- C#, VB
   -- omnisharp = {},
   -- Python
