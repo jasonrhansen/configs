@@ -273,6 +273,7 @@ use({
 })
 
 -- Remote clipboard
+-- No need to use `lemonade`. This will allow copying to clipboard over SSH.
 use({
   "ojroques/vim-oscyank",
   config = function()
