@@ -29,6 +29,7 @@ set backspace=indent,eol,start
 set incsearch
 set wildchar=<Tab>
 set foldmethod=marker
+set nofoldenable
 set textwidth=0
 set undolevels=1000
 set showcmd
