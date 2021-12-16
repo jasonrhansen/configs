@@ -170,8 +170,6 @@ local configs = {
 M.format_on_save_names = {
   "rust_analyzer",
   "gopls",
-  -- Formatting will actually be done by `null_ls.builtins.formatting.stylua`.
-  "sumneko_lua",
 }
 
 -- Normal mode keymaps that get added to a buffer when attaching an LSP client.
