@@ -143,6 +143,7 @@ use({
 })
 use("shaunsingh/solarized.nvim")
 use("folke/tokyonight.nvim")
+use("rebelot/kanagawa.nvim")
 
 -- File manager
 use({
