@@ -120,7 +120,6 @@ use("steelsojka/pears.nvim")
 
 -- Tmux
 use("christoomey/vim-tmux-navigator")
-use("edkolev/tmuxline.vim")
 use({ "tmux-plugins/vim-tmux", ft = "tmux" })
 
 -- Status line
