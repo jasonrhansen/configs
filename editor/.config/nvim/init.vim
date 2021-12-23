@@ -127,7 +127,9 @@ endif
 
 let g:tokyonight_style = "night"
 let g:tokyonight_colors = { 'border': '#292E42' }
-colorscheme tokyonight
+" colorscheme tokyonight
+
+colorscheme kanagawa
 
 " Add undercurls for diagnostics
 highlight LspDiagnosticsUnderlineError cterm=underline gui=undercurl guisp=Red
