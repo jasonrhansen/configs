@@ -34,7 +34,7 @@ set textwidth=0
 set undolevels=1000
 set showcmd
 set showmatch
-set number relativenumber
+set number norelativenumber
 set cursorline
 set autoread
 set background=dark
