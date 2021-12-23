@@ -129,6 +129,14 @@ let g:tokyonight_style = "night"
 let g:tokyonight_colors = { 'border': '#292E42' }
 " colorscheme tokyonight
 
+lua << EOF
+local colors = require("kanagawa.colors")
+require("kanagawa").setup({
+  overrides = {
+    VertSplit = { fg = colors.sumiInk4, bg = "NONE" },
+  }
+})
+EOF
 colorscheme kanagawa
 
 " Add undercurls for diagnostics
@@ -143,6 +151,7 @@ highlight LspDiagnosticsUnderlineHint cterm=underline gui=undercurl guisp=LightG
 let &t_SI = "\<Esc>[5 q"
 let &t_SR = "\<Esc>[3 q"
 let &t_EI = "\<Esc>[2 q"
+
 
 if has('unnamedplus')
   " By default, Vim will not use the system clipboard when yanking/pasting to
