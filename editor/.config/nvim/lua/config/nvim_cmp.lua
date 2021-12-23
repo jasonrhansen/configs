@@ -3,27 +3,30 @@ local cmp = require("cmp")
 local M = {}
 
 local kind_icons = {
-  Class = " ",
-  Color = " ",
-  Constant = " ",
-  Constructor = " ",
-  Enum = "了 ",
-  EnumMember = " ",
-  Field = " ",
-  File = " ",
-  Folder = " ",
-  Function = " ",
-  Interface = "ﰮ ",
-  Keyword = " ",
-  Method = "ƒ ",
-  Module = " ",
-  Property = " ",
-  Snippet = "﬌ ",
-  Struct = " ",
-  Text = " ",
-  Unit = " ",
-  Value = " ",
-  Variable = " ",
+  Class = "",
+  Color = "",
+  Constant = "",
+  Constructor = "",
+  Enum = "",
+  EnumMember = "",
+  Event = "",
+  Field = "",
+  File = "",
+  Folder = "",
+  Function = "",
+  Interface = "ﰮ",
+  Keyword = "",
+  Method = "ƒ",
+  Module = "",
+  Operator = "",
+  Property = "",
+  Reference = "",
+  Snippet = "﬌",
+  Struct = "",
+  Text = "",
+  Unit = "",
+  Value = "",
+  Variable = "",
 }
 
 -- Ordered with highest priority first.
@@ -77,7 +80,7 @@ cmp.setup({
   },
   formatting = {
     format = function(entry, vim_item)
-      vim_item.kind = (kind_icons[vim_item.kind] or vim_item.kind) .. " " .. vim_item.kind
+      vim_item.kind = (kind_icons[vim_item.kind] or " ") .. " " .. vim_item.kind
       vim_item.menu = source_menus[entry.source.name] or entry.source.name
       return vim_item
     end,
