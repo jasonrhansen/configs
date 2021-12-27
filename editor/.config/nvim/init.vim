@@ -130,10 +130,10 @@ let g:tokyonight_colors = { 'border': '#292E42' }
 " colorscheme tokyonight
 
 lua << EOF
-local colors = require("kanagawa.colors")
+local colors = require("kanagawa").colors
 require("kanagawa").setup({
   overrides = {
-    VertSplit = { fg = colors.sumiInk4, bg = "NONE" },
+    VertSplit = { fg = colors.bg, bg = colors.sumiInk4 },
   }
 })
 EOF
