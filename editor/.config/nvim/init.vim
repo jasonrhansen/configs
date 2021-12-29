@@ -202,10 +202,6 @@ nnoremap Y y$
 xnoremap < <gv
 xnoremap > >gv
 
-" This command will allow us to save a file we don't have permission to save
-" *after* we have already opened it. Super useful.
-cnoremap w!! w !sudo tee % >/dev/null
-
 " These create newlines like o and O but stay in normal mode
 nnoremap <silent> zj o<Esc>k
 nnoremap <silent> zk O<Esc>j
@@ -302,6 +298,8 @@ local lua_modules = {
   "config.lualine",
   "config.rust_tools",
   "config.crates",
+  "config.dap",
+  "config.ultest",
 }
 
 for _, module_name in ipairs(lua_modules) do

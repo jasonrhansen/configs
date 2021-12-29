@@ -279,6 +279,20 @@ use({
   end,
 })
 
+-- DAP (Debug Adapter Protocol)
+use("mfussenegger/nvim-dap")
+use("nvim-telescope/telescope-dap.nvim")
+use("theHamsta/nvim-dap-virtual-text")
+use("rcarriga/nvim-dap-ui")
+use("Pocco81/DAPInstall.nvim")
+
+-- Testing
+use({
+  "rcarriga/vim-ultest",
+  requires = { "vim-test/vim-test" },
+  run = ":UpdateRemotePlugins",
+})
+
 -- Language plugins
 use("jparise/vim-graphql")
 use("cespare/vim-toml")
