@@ -1,3 +1,5 @@
+local dap = require("dap")
+
 require("telescope").load_extension("dap")
 
 -- Show virtual text for current frame
@@ -52,3 +54,36 @@ for _, config in ipairs(keymap_config) do
   -- Register keymaps with whick-key
   require("which-key").register(keymaps, { prefix = config.prefix })
 end
+
+dap.adapters.lldb = {
+  type = "executable",
+  command = "/usr/bin/lldb-vscode-13",
+  name = "lldb",
+}
+
+dap.configurations.rust = {
+  {
+    name = "Launch",
+    type = "lldb",
+    request = "launch",
+    program = function()
+      return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+    end,
+    cwd = "${workspaceFolder}",
+    stopOnEntry = false,
+    args = {},
+    runInTerminal = false,
+  },
+  {
+    -- If you get an "Operation not permitted" error using this, try disabling YAMA:
+    --  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+    name = "Attach to process",
+    type = "lldb",
+    request = "attach",
+    pid = require('dap.utils').pick_process,
+    args = {},
+  },
+}
+
+dap.configurations.c = dap.configurations.rust
+dap.configurations.cpp = dap.configurations.rust
