@@ -58,6 +58,12 @@ local keymaps = {
   s = { "treesitter()", "Search treesitter" },
   h = { "command_history()", "Search command history" },
   H = { "help_tags()", "Search help tags" },
+  j = { "jumplist()", "Search jumplist" },
+  o = { "vim_options()", "Search vim options" },
+  k = { "keymaps()", "Search keymaps" },
+  C = { "colorscheme()", "Search colorschemes" },
+  Gc = { "git_commits()", "Search git commits" },
+  Gb = { "git_branches()", "Search git branches" },
 
   -- Find my config files
   c = {
