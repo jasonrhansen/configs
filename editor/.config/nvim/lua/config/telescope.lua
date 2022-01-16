@@ -39,9 +39,9 @@ telescope.setup({
   },
 })
 
--- Use native fzy for better performance.
+-- Use native fzf for better performance.
 -- This will override the default file and generic sorters.
-telescope.load_extension("fzy_native")
+telescope.load_extension("fzf")
 
 -- Normal mode keymaps to call functions in 'telescope.builtin'
 local keymaps = {

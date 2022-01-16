@@ -106,8 +106,9 @@ use({
   requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
 })
 use({
-  "nvim-telescope/telescope-fzy-native.nvim",
+  "nvim-telescope/telescope-fzf-native.nvim",
   requires = "nvim-telescope/telescope.nvim",
+  run = "make",
 })
 
 -- Snippets
@@ -274,7 +275,7 @@ use({
 use({
   "ojroques/vim-oscyank",
   config = function()
-    vim.cmd[[autocmd TextYankPost * if v:event.operator is 'y' && (v:event.regname is '' || v:event.regname is '+') | execute 'OSCYankReg "' | endif"]]
+    vim.cmd([[autocmd TextYankPost * if v:event.operator is 'y' && (v:event.regname is '' || v:event.regname is '+') | execute 'OSCYankReg "' | endif"]])
     vim.g.oscyank_silent = true
   end,
 })
