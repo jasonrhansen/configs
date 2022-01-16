@@ -2,6 +2,8 @@ local R = require("pears.rule")
 
 require("pears").setup(function(conf)
   conf.remove_pair_on_outer_backspace(false)
+  -- Disable for telescope.
+  conf.disabled_filetypes({""})
   conf.preset("php")
   conf.preset("tag_matching", {
     filetypes = {
