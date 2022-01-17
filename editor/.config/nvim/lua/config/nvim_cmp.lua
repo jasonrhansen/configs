@@ -77,6 +77,16 @@ cmp.setup({
   sources = source_names,
   sorting = {
     priority_weight = 2.,
+    comparators = {
+      cmp.config.compare.offset,
+      cmp.config.compare.exact,
+      cmp.config.compare.score,
+      require("cmp-under-comparator").under,
+      cmp.config.compare.kind,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.length,
+      cmp.config.compare.order,
+    },
   },
   formatting = {
     format = function(entry, vim_item)

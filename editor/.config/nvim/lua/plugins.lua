@@ -42,6 +42,8 @@ use("hrsh7th/cmp-nvim-lua")
 use("hrsh7th/cmp-path")
 use("hrsh7th/cmp-vsnip")
 use("andersevenrud/cmp-tmux")
+-- Better sort for completion items that start with one or more underscores
+use("lukas-reineke/cmp-under-comparator")
 
 -- Show function signature when you type
 use({
