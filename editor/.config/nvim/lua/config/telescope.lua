@@ -198,6 +198,7 @@ end
 
 -- Normal mode keymaps to call functions in 'telescope.builtin'
 local keymaps = {
+  name = "Telescope",
   b = { "buffers()", "Search buffers" },
   P = { "find_files()", "Search files" },
   p = { "git_files()", "Search git files" },
@@ -216,15 +217,26 @@ local keymaps = {
   k = { "keymaps()", "Search keymaps" },
   c = { "find_config_files()", "Search config files" },
   C = { "colorscheme()", "Search colorschemes" },
-  Gc = { "git_commits()", "Search git commits" },
-  Gb = { "git_branches()", "Search git branches" },
+  G = {
+    name = "Git",
+    c = { "git_commits()", "Search git commits" },
+    b = { "git_branches()", "Search git branches" },
+  }
 }
 
-keymaps = vim.tbl_map(function(keymap)
-  return { "<cmd>lua require('config.telescope')." .. keymap[1] .. "<cr>", keymap[2] }
-end, keymaps)
+local function to_telescope_keymaps(table)
+  return vim.tbl_map(function(keymap)
+    if (type(keymap) ~= "table") then
+      return keymap
+    elseif keymap["name"] ~= nil then
+      return to_telescope_keymaps(keymap)
+    else
+      return { "<cmd>lua require('config.telescope')." .. keymap[1] .. "<cr>", keymap[2] }
+    end
+  end, table)
+end
 
-keymaps.name = "Telescope"
+keymaps = to_telescope_keymaps(keymaps)
 
 -- Register keymaps with whick-key
 wk.register(keymaps, { prefix = "<leader>t" })

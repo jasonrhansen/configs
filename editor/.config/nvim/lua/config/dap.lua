@@ -23,15 +23,15 @@ local keymap_config = {
     },
   },
   {
-    name = "Telescope",
+    name = "DAP (Debug Adapter Protocol)",
     cmd_prefix = "require'telescope'.extensions.dap",
-    prefix = "<leader>t",
+    prefix = "<leader>td",
     normal = {
-      ["dc"] = { "commands()", "DAP commands" },
-      ["dC"] = { "configurations()", "DAP configurations" },
-      ["db"] = { "list_breakpoints()", "DAP breakpoints" },
-      ["dv"] = { "variables()", "DAP variables" },
-      ["df"] = { "frames()", "DAP frames" },
+      ["c"] = { "commands()", "DAP commands" },
+      ["C"] = { "configurations()", "DAP configurations" },
+      ["b"] = { "list_breakpoints()", "DAP breakpoints" },
+      ["v"] = { "variables()", "DAP variables" },
+      ["f"] = { "frames()", "DAP frames" },
     },
   },
   {
