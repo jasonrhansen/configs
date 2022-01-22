@@ -120,6 +120,10 @@ use("hrsh7th/vim-vsnip-integ")
 
 -- Autopairs
 use("steelsojka/pears.nvim")
+use({
+  "RRethy/nvim-treesitter-endwise",
+  requires = "nvim-treesitter/nvim-treesitter",
+})
 
 -- Tmux
 use("christoomey/vim-tmux-navigator")
@@ -276,7 +280,9 @@ use({
 use({
   "ojroques/vim-oscyank",
   config = function()
-    vim.cmd([[autocmd TextYankPost * if v:event.operator is 'y' && (v:event.regname is '' || v:event.regname is '+') | execute 'OSCYankReg "' | endif"]])
+    vim.cmd(
+      [[autocmd TextYankPost * if v:event.operator is 'y' && (v:event.regname is '' || v:event.regname is '+') | execute 'OSCYankReg "' | endif"]]
+    )
     vim.g.oscyank_silent = true
   end,
 })

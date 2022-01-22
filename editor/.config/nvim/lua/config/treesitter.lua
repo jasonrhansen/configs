@@ -25,6 +25,10 @@ treesitter.setup({
     enable_autocmd = false,
   },
 
+  endwise = {
+    enable = true,
+  },
+
   textobjects = {
     select = {
       enable = true,
