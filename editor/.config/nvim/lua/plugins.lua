@@ -24,7 +24,6 @@ use("wbthomason/packer.nvim")
 -- LSP
 use("neovim/nvim-lspconfig")
 use("nvim-lua/lsp-status.nvim")
-use("nvim-lua/lsp_extensions.nvim")
 use("folke/trouble.nvim")
 use({
   "kosayoda/nvim-lightbulb",
