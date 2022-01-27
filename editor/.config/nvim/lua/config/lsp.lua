@@ -299,7 +299,6 @@ for type, icon in pairs(M.signs) do
 end
 
 -- Status config
-lsp_status.register_progress()
 lsp_status.config({
   status_symbol = "  LSP:",
   indicator_errors = M.signs.Error,
