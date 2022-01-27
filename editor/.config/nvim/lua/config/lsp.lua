@@ -308,6 +308,7 @@ lsp_status.config({
   indicator_hint = M.signs.Hint,
   indicator_ok = "✓",
   spinner_frames = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" },
+  current_function = false,
 })
 
 return M
