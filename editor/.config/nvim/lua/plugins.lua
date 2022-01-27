@@ -32,6 +32,16 @@ use({
     vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
   end,
 })
+use({
+  "j-hui/fidget.nvim",
+  config = function()
+    require("fidget").setup({
+      text = {
+        spinner = "circle_halves",
+      },
+    })
+  end,
+})
 
 -- Completion
 use("hrsh7th/nvim-cmp")
