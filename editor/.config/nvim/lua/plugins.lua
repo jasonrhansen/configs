@@ -42,18 +42,6 @@ use({
   end,
 })
 
--- Completion
-use("hrsh7th/nvim-cmp")
-use("hrsh7th/cmp-buffer")
-use("hrsh7th/cmp-calc")
-use("hrsh7th/cmp-nvim-lsp")
-use("hrsh7th/cmp-nvim-lua")
-use("hrsh7th/cmp-path")
-use("hrsh7th/cmp-vsnip")
-use("andersevenrud/cmp-tmux")
--- Better sort for completion items that start with one or more underscores
-use("lukas-reineke/cmp-under-comparator")
-
 -- Show function signature when you type
 use({
   "ray-x/lsp_signature.nvim",
@@ -80,6 +68,18 @@ use({
   requires = "nvim-lua/plenary.nvim",
 })
 
+-- Completion
+use("hrsh7th/nvim-cmp")
+use("hrsh7th/cmp-buffer")
+use("hrsh7th/cmp-calc")
+use("hrsh7th/cmp-nvim-lsp")
+use("hrsh7th/cmp-nvim-lua")
+use("hrsh7th/cmp-path")
+use("hrsh7th/cmp-vsnip")
+use("andersevenrud/cmp-tmux")
+-- Better sort for completion items that start with one or more underscores
+use("lukas-reineke/cmp-under-comparator")
+
 -- Improved quickfix window
 use({
   "kevinhwang91/nvim-bqf",
@@ -102,12 +102,6 @@ use({
 })
 use({
   "nvim-treesitter/nvim-treesitter-textobjects",
-  requires = "nvim-treesitter/nvim-treesitter",
-})
-
--- Location and syntax aware text objects which *do what you mean*
-use({
-  "RRethy/nvim-treesitter-textsubjects",
   requires = "nvim-treesitter/nvim-treesitter",
 })
 
@@ -151,11 +145,6 @@ use({
 })
 
 -- Color themes
-use({
-  "briones-gabriel/darcula-solid.nvim",
-  requires = "rktjmp/lush.nvim",
-})
-use("shaunsingh/solarized.nvim")
 use("folke/tokyonight.nvim")
 use("rebelot/kanagawa.nvim")
 
@@ -200,9 +189,6 @@ use({
 -- Useful when there are embedded languages in certain types of files.
 use("JoosepAlviste/nvim-ts-context-commentstring")
 
---" Hex editor
-use("Shougo/vinarise.vim")
-
 -- Automatically adjust shiftwidth and expandtab based on the current file
 use("tpope/vim-sleuth")
 
@@ -238,11 +224,6 @@ use("wellle/targets.vim")
 
 -- Close buffers without closing windows and messing up the layout.
 use("moll/vim-bbye")
-
--- Adds the following:
--- gS to split a one-liner into multiple lines
--- gJ (with the cursor on the first line of a block) to join a block into a single-line statement
-use("AndrewRadev/splitjoin.vim")
 
 -- Add :DeleteHiddenBuffers to remove background buffers
 use("arithran/vim-delete-hidden-buffers")

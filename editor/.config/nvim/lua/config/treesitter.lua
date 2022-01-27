@@ -12,13 +12,6 @@ treesitter.setup({
     enable = false,
   },
 
-  textsubjects = {
-    enable = true,
-    keymaps = {
-      ["."] = "textsubjects-smart",
-    },
-  },
-
   context_commentstring = {
     enable = true,
     -- Configure nvim-comment to call this with hook.
