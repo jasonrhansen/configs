@@ -70,6 +70,10 @@ local configs = {
   -- rust_analyzer = {},
   -- Ruby
   solargraph = {
+    init_options = {
+      -- Use null-ls wth rubocop for formatting.
+      formatting = false,
+    },
     settings = {
       solargraph = {
         useBundler = false,
