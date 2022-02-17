@@ -16,19 +16,8 @@ local angularls_cmd = {
   angularls_path,
 }
 
-local system_name
-if vim.fn.has("mac") == 1 then
-  system_name = "macOS"
-elseif vim.fn.has("unix") == 1 then
-  system_name = "Linux"
-elseif vim.fn.has("win32") == 1 then
-  system_name = "Windows"
-else
-  print("Unsupported system for sumneko")
-end
-
 local sumneko_root_path = vim.fn.expand("$HOME/dev/others/lua-language-server")
-local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
+local sumneko_binary = sumneko_root_path .. "/bin/lua-language-server"
 
 null_ls.setup({
   sources = {
