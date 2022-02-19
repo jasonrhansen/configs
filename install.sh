@@ -27,6 +27,7 @@ rustup component add clippy
 rustup component add rls
 rustup component add rustfmt
 rustup component add rust-analysis
+rustup +nightly component add rust-analyzer-preview
 
 # Install wasm-pack
 curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
