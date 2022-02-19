@@ -83,6 +83,9 @@ export FZF_DEFAULT_OPTS='
   --color info:183,prompt:110,spinner:107,pointer:167,marker:215
 '
 
+# Lazy load the zsh-nvm plugin. It will load the first time nvm, npm, or node are run.
+export NVM_LAZY_LOAD=true
+
 # Load zgen plugin manager
 source "${HOME}/.zgen/zgen.zsh"
 
@@ -97,6 +100,7 @@ if ! zgen saved; then
     zgen load mafredri/zsh-async
     zgen load zsh-users/zsh-completions
     zgen load chrissicool/zsh-256color
+    zgen load lukechilds/zsh-nvm
     # This plugin should be loaded last
     zgen load zsh-users/zsh-syntax-highlighting
 
@@ -104,9 +108,6 @@ if ! zgen saved; then
 fi
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
 alias ls='exa'
 alias ll='exa -l'
