@@ -32,7 +32,7 @@ rustup component add rust-analysis
 curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
 # Install Node Version Manager
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
 # Install latest LTS version of node
 nvm install --lts --default
@@ -52,6 +52,11 @@ npm install -g typescript typescript-language-server
 npm install -g vim-language-server
 npm install -g vls
 npm install -g yaml-language-server
+
+# Install formatters to use with null-ls
+npm install -g @fsouza/prettierd
+cargo install stylua
+gem install rubocop
 
 echo "Installing base16-shell"
 base16_dir=~/.config/base16-shell
