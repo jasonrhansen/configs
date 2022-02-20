@@ -164,17 +164,7 @@ use("airblade/vim-rooter")
 use("ericbn/vim-relativize")
 
 -- Comment code with gc{motion}, gcc, etc.
-use({
-  "terrortylor/nvim-comment",
-  config = function()
-    require("nvim_comment").setup({
-      hook = function()
-        -- Update commentstring based on treesitter context
-        require("ts_context_commentstring.internal").update_commentstring()
-      end,
-    })
-  end,
-})
+use("numToStr/Comment.nvim")
 
 -- Highlight and search for todo comments like TODO, HACK, BUG
 use({

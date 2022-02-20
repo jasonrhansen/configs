@@ -294,6 +294,7 @@ local lua_modules = {
   "config.crates",
   "config.dap",
   "config.ultest",
+  "config.comment",
 }
 
 for _, module_name in ipairs(lua_modules) do
