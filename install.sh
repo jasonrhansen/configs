@@ -37,6 +37,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
 # Install latest LTS version of node
 nvm install --lts --default
+nvm alias default stable
 
 # Install language servers to be used with neovim LSP
 npm install -g @angular/language-server
