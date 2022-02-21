@@ -18,23 +18,8 @@ if [[ $platform == 'Darwin' ]]; then
     export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
     export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
-    export ANDROID_HOME=~/Library/Android/sdk
-    export NDK_HOME=$ANDROID_HOME/ndk-bundle
-
     alias retroarch='/Applications/RetroArch.app/Contents/MacOS/RetroArch'
-
-    function ala() {
-        /Applications/Alacritty.app/Contents/MacOS/alacritty > /dev/null 2> /dev/null &
-        disown
-    }
 fi
-
-# Linux specific configuration
-if [[ $platform == 'Linux' ]]; then
-    alias pac='packer-color'
-    alias way='env GDK_BACKEND=wayland'
-fi
-
 
 # Keep custom completions in .zfunc
 fpath+=~/.zfunc
@@ -47,30 +32,6 @@ export VISUAL=nvim
 export EDITOR=nvim
 
 eval `dircolors ~/.dir_colors/dircolors.ansi-dark`
-
-if type thefuck > /dev/null; then
-    eval "$(thefuck --alias)"
-fi
-
-# tmux aliases
-alias tms='tmux new-session -s'
-alias tmls='tmux list-sessions'
-alias tmks='tmux kill-session -t'
-alias tmksv='tmux kill-server'
-alias tma='tmux attach -t'
-alias tmn='tmux new -s'
-
-tm() {
-    local session
-    newsession=${1:-new}
-    session=$(tmux list-sessions -F "#{session_name}" | \
-        sk --query="$1" --select-1 --exit-0) &&
-        tmux attach-session -t "$session" || tmux new-session -s $newsession
-}
-
-tmd() {
-  tmux new -s $(basename $(pwd)) > /dev/null || tmux attach -t $(basename $(pwd))
-}
 
 # autojump
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
@@ -116,16 +77,27 @@ alias lla='exa -la'
 alias lst='exa --tree'
 
 alias clear='clear; tmux clear-history 2> /dev/null'
-
+ 
 alias fixmouse='echo -e "\e[?1000h\e[?1000l"'
-
-# Boron is based on jellybeans
-export BAT_THEME="Boron"
 
 # Highlight
 alias less='bat'
 alias more='bat'
 
+# tmux aliases
+alias tms='tmux new-session -s'
+alias tmls='tmux list-sessions'
+alias tmks='tmux kill-session -t'
+alias tmksv='tmux kill-server'
+alias tma='tmux attach -t'
+alias tmn='tmux new -s'
+# Create a tmux session with the name set to the dir name. 
+tmd() {
+  tmux new -s $(basename $(pwd)) > /dev/null || tmux attach -t $(basename $(pwd))
+}
+
+# Boron is based on jellybeans
+export BAT_THEME="Boron"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # prompt (install with "cargo install starship")
