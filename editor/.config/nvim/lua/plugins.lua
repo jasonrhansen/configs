@@ -110,11 +110,7 @@ use({
   "nvim-telescope/telescope.nvim",
   requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
 })
-use({
-  "nvim-telescope/telescope-fzf-native.nvim",
-  requires = "nvim-telescope/telescope.nvim",
-  run = "make",
-})
+use "natecraddock/telescope-zf-native.nvim"
 
 -- Snippets
 use("rafamadriz/friendly-snippets")

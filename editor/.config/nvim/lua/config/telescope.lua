@@ -67,9 +67,9 @@ telescope.setup({
   },
 })
 
--- Use native fzf for better performance.
+-- Use native zf for better performance.
 -- This will override the default file and generic sorters.
-telescope.load_extension("fzf")
+telescope.load_extension("zf-native")
 
 function M.buffers()
   require("telescope.builtin").buffers()
