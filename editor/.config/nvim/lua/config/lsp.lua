@@ -19,18 +19,6 @@ local angularls_cmd = {
 local sumneko_root_path = vim.fn.expand("$HOME/dev/others/lua-language-server")
 local sumneko_binary = sumneko_root_path .. "/bin/lua-language-server"
 
-null_ls.setup({
-  sources = {
-    -- npm install -g @fsouza/prettierd
-    null_ls.builtins.formatting.prettierd,
-    null_ls.builtins.formatting.rubocop,
-    -- cargo install stylua
-    null_ls.builtins.formatting.stylua.with({
-      args = { "-s", "--indent-type", "Spaces", "--indent-width", "2", "-" },
-    }),
-  },
-})
-
 -- Language server configs
 local configs = {
   angularls = {
@@ -59,16 +47,10 @@ local configs = {
   -- rust_analyzer = {},
   -- Ruby
   solargraph = {
-    init_options = {
-      -- Use null-ls wth rubocop for formatting.
-      formatting = false,
-    },
     settings = {
       solargraph = {
         useBundler = false,
         diagnostics = true,
-        -- Use null-ls wth rubocop for formatting.
-        formatting = false,
       },
     },
   },
@@ -119,9 +101,7 @@ local configs = {
   svelte = {},
   tsserver = {
     on_attach = function(client, bufnr)
-      -- disable tsserver formatting in favor of null-ls
-      client.resolved_capabilities.document_formatting = false
-      client.resolved_capabilities.document_range_formatting = false
+      M.attach()
 
       local ts_utils = require("nvim-lsp-ts-utils")
 
@@ -165,6 +145,14 @@ M.format_on_save_names = {
   "gopls",
 }
 
+-- Which LSP clients to disable formatting for so null-ls can be used instead
+-- without it asking each time which formatter to use.
+M.disable_formatting_names = {
+  "tsserver",
+  "solargraph",
+  "sumneko_lua",
+}
+
 -- Normal mode keymaps that get added to a buffer when attaching an LSP client.
 local keymaps = {
   -- normal mode
@@ -202,7 +190,7 @@ for _, mappings in pairs(keymaps) do
 end
 
 -- Shared attach function for all LSP clients.
-local function attach(client)
+function M.attach(client)
   lsp_status.on_attach(client)
 
   -- Register keymaps with which-key
@@ -213,10 +201,16 @@ local function attach(client)
   if vim.tbl_contains(M.format_on_save_names, client.name) then
     vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
   end
+
+  if vim.tbl_contains(M.disable_formatting_names, client.name) then
+    -- disable formatting in favor of null-ls
+    client.resolved_capabilities.document_formatting = false
+    client.resolved_capabilities.document_range_formatting = false
+  end
 end
 
 lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
-  on_attach = attach,
+  on_attach = M.attach,
   flags = {
     debounce_text_changes = 150,
   },
@@ -240,6 +234,18 @@ for name, config in pairs(configs) do
 
   lspconfig[name].setup(config)
 end
+
+null_ls.setup({
+  sources = {
+    -- npm install -g @fsouza/prettierd
+    null_ls.builtins.formatting.prettierd,
+    null_ls.builtins.formatting.rubocop,
+    -- cargo install stylua
+    null_ls.builtins.formatting.stylua.with({
+      args = { "-s", "--indent-type", "Spaces", "--indent-width", "2", "-" },
+    }),
+  },
+})
 
 -- Diagnostics config
 local virtual_text_config = {
