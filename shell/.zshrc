@@ -83,8 +83,8 @@ export FZF_DEFAULT_OPTS='
   --color info:183,prompt:110,spinner:107,pointer:167,marker:215
 '
 
-# Lazy load the zsh-nvm plugin. It will load the first time nvm, npm, or node are run.
-export NVM_LAZY_LOAD=true
+# Disable lazy load the zsh-nvm plugin.
+export NVM_LAZY_LOAD=false
 
 # Load zgen plugin manager
 source "${HOME}/.zgen/zgen.zsh"
