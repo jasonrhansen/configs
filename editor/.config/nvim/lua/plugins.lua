@@ -12,11 +12,7 @@ vim.cmd([[
 local packer = require("packer")
 local use = packer.use
 
-packer.init({
-  -- Some jobs never finish updating when I don't limit the number.
-  -- https://github.com/wbthomason/packer.nvim/issues/456
-  max_jobs = 20,
-})
+packer.init()
 
 -- Packer can manage itself
 use("wbthomason/packer.nvim")
