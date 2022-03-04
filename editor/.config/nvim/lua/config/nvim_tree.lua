@@ -49,6 +49,10 @@ vim.o.termguicolors = true -- Required for colors to work in tree
 
 local tree_cb = require("nvim-tree.config").nvim_tree_callback
 
+local function custom_callback(callback_name)
+    return string.format(":lua require('config.nvim_tree_utils').%s()<CR>", callback_name)
+end
+
 require("nvim-tree").setup({
   -- disables netrw completely
   disable_netrw = false,
@@ -145,6 +149,8 @@ require("nvim-tree").setup({
         { key = "s", cb = tree_cb("system_open") },
         { key = "q", cb = tree_cb("close") },
         { key = "g?", cb = tree_cb("toggle_help") },
+        { key = "<c-f>", cb = custom_callback "launch_find_files" },
+        { key = "<c-g>", cb = custom_callback "launch_live_grep" },
       },
     },
   },
