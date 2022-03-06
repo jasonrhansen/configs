@@ -106,3 +106,6 @@ eval "$(starship init zsh)"
 eval "$(rbenv init -)"
 
 alias luamake=~/dev/others/lua-language-server/3rd/luamake/luamake
+
+# Set blinking block cursor
+printf "\x1b[1 q"
