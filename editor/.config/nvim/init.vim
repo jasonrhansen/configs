@@ -270,12 +270,6 @@ xmap s <Plug>(vsnip-select-text)
 nmap S <Plug>(vsnip-cut-text)
 xmap S <Plug>(vsnip-cut-text)
 
-" Workaround around drawing bug when using cursorline with
-" indent-blankline (https://github.com/lukas-reineke/indent-blankline.nvim/issues/59).
-" When https://github.com/neovim/neovim/issues/14209 gets fixed this
-" workaround should no longer be necessary.
-set colorcolumn=99999
-
 lua << EOF
 
 local lua_modules = {
