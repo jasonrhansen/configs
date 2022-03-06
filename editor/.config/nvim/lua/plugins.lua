@@ -280,3 +280,11 @@ use("kchmck/vim-coffee-script")
 use("mustache/vim-mustache-handlebars")
 use("tpope/vim-rails")
 use("fladson/vim-kitty") -- kitty.conf
+
+-- Muliple cursors
+use({
+  "mg979/vim-visual-multi",
+  config = function()
+    vim.g.VM_mouse_mappings = 1
+  end,
+})
