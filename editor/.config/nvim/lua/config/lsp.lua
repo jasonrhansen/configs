@@ -101,7 +101,7 @@ local configs = {
   svelte = {},
   tsserver = {
     on_attach = function(client, bufnr)
-      M.attach()
+      M.attach(client)
 
       local ts_utils = require("nvim-lsp-ts-utils")
 
