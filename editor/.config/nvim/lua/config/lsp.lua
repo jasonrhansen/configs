@@ -5,7 +5,7 @@ local wk = require("which-key")
 
 local M = {}
 
-local node_lib_path = vim.fn.expand("$HOME/.nvm/versions/node/v14.16.1/lib")
+local node_lib_path = vim.fn.expand("$HOME/.nvm/versions/node/v16.14.0/lib")
 local angularls_path = node_lib_path .. "/node_modules/@angular/language-server"
 local angularls_cmd = {
   "ngserver",
