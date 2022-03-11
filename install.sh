@@ -43,17 +43,15 @@ nvm alias default stable
 npm install -g @angular/language-server
 npm install -g bash-language-server
 npm install -g npm
-npm install -g vscode-css-languageserver-bin
 npm install -g dockerfile-language-server-nodejs
 npm install -g graphql-language-service-cli
-npm install -g vscode-html-languageserver-bin
 npm install -g intelephense
-npm install -g vscode-json-languageserver
 npm install -g sql-language-server
 npm install -g typescript typescript-language-server
 npm install -g vim-language-server
 npm install -g vls
 npm install -g yaml-language-server
+npm install -g vscode-langservers-extracted
 
 # Install formatters to use with null-ls
 npm install -g @fsouza/prettierd
