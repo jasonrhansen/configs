@@ -23,7 +23,6 @@ set history=1000
 set ignorecase
 set smartcase
 set title
-set scrolloff=3
 set ruler
 set backspace=indent,eol,start
 set incsearch
