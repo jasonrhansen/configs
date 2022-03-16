@@ -39,6 +39,8 @@ local configs = {
   -- Java
   -- jdtls = {},
   jsonls = {},
+  -- XML
+  lemminx = {},
   -- C#, VB
   -- omnisharp = {},
   -- Python
