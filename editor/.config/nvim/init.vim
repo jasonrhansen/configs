@@ -53,7 +53,7 @@ set formatoptions+=j
 set sidescrolloff=5
 set shiftround
 set nostartofline
-set laststatus=2
+set laststatus=3                  " Global statusline
 set noerrorbells
 set visualbell
 set secure

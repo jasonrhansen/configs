@@ -35,3 +35,5 @@ lualine.setup({
   tabline = {},
   extensions = { "fugitive", "nvim-tree", "quickfix" },
 })
+
+vim.go.laststatus = 3
