@@ -14,6 +14,7 @@ wk.register({
     q = { "<cmd>Bdelete<cr>", "Delete buffer" },
     l = { "<cmd>lua require'config.keymaps'.toggle_line_numbers()<cr>", "Toggle line numbers" },
     L = { "<cmd>RelativizeToggle<cr>", "Toggle Relativize" },
+    g = { "<cmd>lua require'config.keymaps'.toggle_global_statusline()<cr>", "Toggle global statusline" },
     n = {
       name = "NG Switcher",
       t = { "<cmd>NgSwitchTS<cr>", "Switch to TS" },
@@ -52,6 +53,16 @@ function M.toggle_bright_comments()
     vim.cmd([[ hi Comment guifg=#9ca5cf ]])
   else
     vim.cmd([[ hi Comment guifg=#565F89 ]])
+  end
+end
+
+function M.toggle_global_statusline()
+  if vim.go.laststatus ~= 3 then
+    vim.go.laststatus = 3
+    print("Turned global satusline ON")
+  else
+    vim.go.laststatus = 2
+    print("Turned global satusline OFF")
   end
 end
 
