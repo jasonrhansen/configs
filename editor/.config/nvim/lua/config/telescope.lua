@@ -138,7 +138,7 @@ function M.lsp_code_actions()
   require("telescope.builtin").lsp_code_actions(opts)
 end
 
-function M.lsp_treesitter()
+function M.treesitter()
   local opts = {}
   require("telescope.builtin").treesitter(opts)
 end
