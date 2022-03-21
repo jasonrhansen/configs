@@ -59,10 +59,8 @@ end
 function M.toggle_global_statusline()
   if vim.go.laststatus ~= 3 then
     vim.go.laststatus = 3
-    print("Turned global satusline ON")
   else
     vim.go.laststatus = 2
-    print("Turned global satusline OFF")
   end
 end
 
