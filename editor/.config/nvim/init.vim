@@ -34,7 +34,7 @@ set undolevels=1000
 set showcmd
 set showmatch
 set number norelativenumber
-set cursorline
+set nocursorline
 set autoread
 set background=dark
 set guioptions-=m                 " Remove menu bar
