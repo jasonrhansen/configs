@@ -142,8 +142,13 @@ use("rebelot/kanagawa.nvim")
 
 -- File manager
 use({
-  "kyazdani42/nvim-tree.lua",
-  requires = "kyazdani42/nvim-web-devicons",
+  "nvim-neo-tree/neo-tree.nvim",
+  branch = "v2.x",
+  requires = {
+    "nvim-lua/plenary.nvim",
+    "kyazdani42/nvim-web-devicons",
+    "MunifTanjim/nui.nvim",
+  }
 })
 
 -- Expand abbreviations for HTML like 'div>p#foo$*3>a' with '<c-y>,'
