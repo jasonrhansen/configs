@@ -1,7 +1,6 @@
 # Allow configuration that's specific to a machine to be put in ~/.zsh_local.sh
 [ -f ~/.zsh_local.sh ] && source ~/.zsh_local.sh
 
-platform=`uname`
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
@@ -10,23 +9,8 @@ bindkey -e
 
 zstyle :compinstall filename '/home/jrhansen/.zshrc'
 
-export PATH=~/bin:$PATH:~/go/bin:~/.cargo/bin
-
-# OS X specific configuration
-if [[ $platform == 'Darwin' ]]; then
-    # Add coreutils to path.
-    export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-    export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-
-    alias retroarch='/Applications/RetroArch.app/Contents/MacOS/RetroArch'
-fi
-
 # Keep custom completions in .zfunc
 fpath+=~/.zfunc
-
-export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/library"
-
-export GOPATH=~/go
 
 export VISUAL=nvim
 export EDITOR=nvim
@@ -62,8 +46,6 @@ if ! zgen saved; then
     zgen save
 fi
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
 alias ls='exa'
 alias ll='exa -l'
 alias la='exa -a'
@@ -73,10 +55,6 @@ alias lst='exa --tree'
 alias clear='clear; tmux clear-history 2> /dev/null'
  
 alias fixmouse='echo -e "\e[?1000h\e[?1000l"'
-
-# Highlight
-alias less='bat'
-alias more='bat'
 
 # tmux aliases
 alias tms='tmux new-session -s'
@@ -90,14 +68,18 @@ tmd() {
   tmux new -s $(basename $(pwd)) > /dev/null || tmux attach -t $(basename $(pwd))
 }
 
+alias luamake=~/dev/others/lua-language-server/3rd/luamake/luamake
+
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/library"
+export GOPATH=~/go
+
+export PATH=~/bin:$PATH
+export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:~/.cargo/bin
+export PATH=$PATH:~/.rvm/bin
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # prompt (install with "cargo install starship")
 eval "$(starship init zsh)"
 
 eval "$(rbenv init -)"
-
-alias luamake=~/dev/others/lua-language-server/3rd/luamake/luamake
-
-# Set blinking block cursor
-printf "\x1b[1 q"
