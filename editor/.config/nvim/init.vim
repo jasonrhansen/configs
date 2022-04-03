@@ -275,6 +275,7 @@ local lua_modules = {
   "config.telescope",
   "config.nvim_cmp",
   "config.pears",
+  "config.window_picker",
   "config.neo_tree",
   "config.gitsigns",
   "config.treesitter",
