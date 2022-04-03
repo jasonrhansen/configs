@@ -38,12 +38,6 @@ eval `dircolors ~/.dir_colors/dircolors.ansi-dark`
 
 export SKIM_DEFAULT_COMMAND='rg --files --hidden --follow -g "!{node_modules}/*" 2> /dev/null'
 
-# jellybeans theme
-export FZF_DEFAULT_OPTS='
-  --color fg:188,bg:233,hl:103,fg+:222,bg+:234,hl+:104
-  --color info:183,prompt:110,spinner:107,pointer:167,marker:215
-'
-
 # Disable lazy load the zsh-nvm plugin.
 export NVM_LAZY_LOAD=false
 
@@ -96,8 +90,6 @@ tmd() {
   tmux new -s $(basename $(pwd)) > /dev/null || tmux attach -t $(basename $(pwd))
 }
 
-# Boron is based on jellybeans
-export BAT_THEME="Boron"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # prompt (install with "cargo install starship")
