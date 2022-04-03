@@ -16,6 +16,7 @@ let &showbreak = '↳ '
 set encoding=utf-8
 set hidden
 set wildmenu
+set wildchar=<Tab>
 set wildmode=longest,list,full
 set wildignorecase
 set showfulltag
@@ -26,7 +27,6 @@ set title
 set ruler
 set backspace=indent,eol,start
 set incsearch
-set wildchar=<Tab>
 set foldmethod=marker
 set nofoldenable
 set textwidth=0
@@ -103,10 +103,8 @@ augroup vimrc
   autocmd VimResized * :wincmd =
 
   " Briefly highlight yanked text
-  au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=500}
+  au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=300}
 augroup END
-
-set pastetoggle=<F2>
 
 " Still show syntax highlighting for really large files.
 set redrawtime=10000
@@ -184,8 +182,8 @@ inoremap jk <esc>
 cnoremap jk <c-e><c-u><esc>
 
 " Add a 'stamp' command to replace word or selection with yanked text.
-nnoremap S diw"0P
-vnoremap S "_d"0P
+nnoremap <leader>p "_diwP
+vnoremap <leader>p "_dP
 
 " Make 'Y' work from the cursor to end of line instead of like 'yy'
 nnoremap Y y$
@@ -269,13 +267,6 @@ smap <expr> <C-j> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'
 " Jump forward or backward
 imap <expr> <c-k> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<c-k>'
 smap <expr> <c-k> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<c-k>'
-
-" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
-" See https://github.com/hrsh7th/vim-vsnip/pull/50
-nmap s <Plug>(vsnip-select-text)
-xmap s <Plug>(vsnip-select-text)
-nmap S <Plug>(vsnip-cut-text)
-xmap S <Plug>(vsnip-cut-text)
 
 lua << EOF
 
