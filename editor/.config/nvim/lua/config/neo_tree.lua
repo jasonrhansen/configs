@@ -117,6 +117,21 @@ require("neo-tree").setup({
       mappings = {
         ["tf"] = "telescope_find",
         ["tg"] = "telescope_grep",
+        w = function(state)
+          local node = state.tree:get_node()
+          local success, picker = pcall(require, "window-picker")
+          if not success then
+            print(
+              "You'll need to install window-picker to use this command: https://github.com/s1n7ax/nvim-window-picker"
+            )
+            return
+          end
+          local picked_window_id = picker.pick_window()
+          if picked_window_id then
+            vim.api.nvim_set_current_win(picked_window_id)
+            vim.cmd("edit " .. vim.fn.fnameescape(node.path))
+          end
+        end,
       },
     },
     commands = {
@@ -154,55 +169,13 @@ require("neo-tree").setup({
       },
     },
   },
-  event_handlers = {
-    {
-      event = "file_open_requested",
-      handler = function(args)
-        local state = args.state
-        local path = args.path
-        local open_cmd = args.open_cmd or "edit"
-
-        local suitable_window_found = false
-        local picked_window_id = require("window-picker").pick_window()
-        local success = pcall(vim.api.nvim_set_current_win, picked_window_id)
-        if success then
-          suitable_window_found = true
-        end
-
-        -- find a suitable window to open the file in
-        if not suitable_window_found then
-          if state.window.position == "right" then
-            vim.cmd("wincmd t")
-          else
-            vim.cmd("wincmd w")
-          end
-        end
-        local attempts = 0
-        while attempts < 4 and vim.bo.filetype == "neo-tree" do
-          attempts = attempts + 1
-          vim.cmd("wincmd w")
-        end
-        if vim.bo.filetype == "neo-tree" then
-          -- Neo-tree must be the only window, restore it's status as a sidebar
-          local winid = vim.api.nvim_get_current_win()
-          local width = require("neo-tree.utils").get_value(state, "window.width", 40)
-          vim.cmd("vsplit " .. path)
-          vim.api.nvim_win_set_width(winid, width)
-        else
-          vim.cmd(open_cmd .. " " .. path)
-        end
-
-        -- If you don't return this, it will proceed to open the file using built-in logic.
-        return { handled = true }
-      end,
-    },
-  },
 })
 
 local wk = require("which-key")
 wk.register({
   ["<leader>"] = {
-    e = { "<cmd>Neotree toggle<cr>", "Open file tree" },
+    e = { "<cmd>Neotree<cr>", "Open file tree" },
+    E = { "<cmd>Neotree close<cr>", "Close file tree" },
     ["."] = { "<cmd>Neotree reveal<cr>", "Find file in tree" },
   },
 })
