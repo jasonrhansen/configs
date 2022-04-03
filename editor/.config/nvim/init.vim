@@ -225,6 +225,23 @@ nnoremap k gk
 nnoremap ' `
 nnoremap ` '
 
+" Don't move cursor when joining lines
+nnoremap J mzJ`z
+
+" Add undo break points for punctuation
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ! !<c-g>u
+inoremap ? ?<c-g>u
+
+" Move lines up and down
+inoremap <m-k> <esc>:m .-2<cr>==
+inoremap <m-j> <esc>:m .+1<cr>==
+nnoremap <m-k> :m .-2<cr>==
+nnoremap <m-j> :m .+1<cr>==
+vnoremap <m-k> :m '<-2<cr>gv=gv
+vnoremap <m-j> :m '>+1<cr>gv=gv
+
 " Move between buffers faster
 nnoremap <silent> <C-b> :silent :bp<CR>
 nnoremap <silent> <C-n> :silent :bn<CR>
