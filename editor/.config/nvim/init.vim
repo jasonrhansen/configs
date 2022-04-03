@@ -202,10 +202,6 @@ nnoremap <silent> zk O<Esc>j
 nnoremap g; g;zz
 nnoremap g, g,z
 
-" Use Q for formatting the current paragraph (or visual selection)
-vnoremap Q gq
-nnoremap Q gqap
-
 " With this map, we can select some text in visual mode and by invoking the map,
 " have the selection automatically filled in as the search text and the cursor
 " placed in the position for typing the replacement text. Also, this will ask
@@ -241,10 +237,6 @@ nnoremap <m-k> :m .-2<cr>==
 nnoremap <m-j> :m .+1<cr>==
 vnoremap <m-k> :m '<-2<cr>gv=gv
 vnoremap <m-j> :m '>+1<cr>gv=gv
-
-" Move between buffers faster
-nnoremap <silent> <C-b> :silent :bp<CR>
-nnoremap <silent> <C-n> :silent :bn<CR>
 
 " Resize windows with the arrow keys and shift key
 nnoremap <s-up> 10<C-W>+
