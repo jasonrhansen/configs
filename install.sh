@@ -58,6 +58,8 @@ npm install -g @fsouza/prettierd
 cargo install stylua
 gem install rubocop
 
+cargo install tree-sitter-cli
+
 echo "Installing base16-shell"
 base16_dir=~/.config/base16-shell
 if [ ! -e "$base16_dir" ]; then
