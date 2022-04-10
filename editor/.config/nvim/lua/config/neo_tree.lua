@@ -65,6 +65,7 @@ require("neo-tree").setup({
       ["<cr>"] = "open",
       ["S"] = "open_split",
       ["s"] = "open_vsplit",
+      ["w"] = "open_with_window_picker",
       ["C"] = "close_node",
       ["<bs>"] = "navigate_up",
       ["."] = "set_root",
@@ -117,21 +118,12 @@ require("neo-tree").setup({
       mappings = {
         ["tf"] = "telescope_find",
         ["tg"] = "telescope_grep",
-        w = function(state)
-          local node = state.tree:get_node()
-          local success, picker = pcall(require, "window-picker")
-          if not success then
-            print(
-              "You'll need to install window-picker to use this command: https://github.com/s1n7ax/nvim-window-picker"
-            )
-            return
-          end
-          local picked_window_id = picker.pick_window()
-          if picked_window_id then
-            vim.api.nvim_set_current_win(picked_window_id)
-            vim.cmd("edit " .. vim.fn.fnameescape(node.path))
-          end
-        end,
+        ["<bs>"] = "navigate_up",
+        ["."] = "set_root",
+        ["H"] = "toggle_hidden",
+        ["/"] = "fuzzy_finder",
+        ["f"] = "filter_on_submit",
+        ["<c-x>"] = "clear_filter",
       },
     },
     commands = {
@@ -152,6 +144,8 @@ require("neo-tree").setup({
     window = {
       mappings = {
         ["bd"] = "buffer_delete",
+        ["<bs>"] = "navigate_up",
+        ["."] = "set_root",
       },
     },
   },

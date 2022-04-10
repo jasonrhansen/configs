@@ -148,9 +148,9 @@ use({
     "nvim-lua/plenary.nvim",
     "kyazdani42/nvim-web-devicons",
     "MunifTanjim/nui.nvim",
+    "s1n7ax/nvim-window-picker",
   }
 })
-use( "s1n7ax/nvim-window-picker")
 
 -- Expand abbreviations for HTML like 'div>p#foo$*3>a' with '<c-y>,'
 use("mattn/emmet-vim")
