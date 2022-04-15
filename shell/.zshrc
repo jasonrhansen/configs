@@ -61,11 +61,18 @@ alias tms='tmux new-session -s'
 alias tmls='tmux list-sessions'
 alias tmks='tmux kill-session -t'
 alias tmksv='tmux kill-server'
-alias tma='tmux attach -t'
 alias tmn='tmux new -s'
 # Create a tmux session with the name set to the dir name. 
 tmd() {
   tmux new -s $(basename $(pwd)) > /dev/null || tmux attach -t $(basename $(pwd))
+}
+tma() {
+  if [ -n $1 ]
+  then
+    tmux attach -t "$1"
+  else
+    tmux attach
+  fi
 }
 
 alias luamake=~/dev/others/lua-language-server/3rd/luamake/luamake
