@@ -268,6 +268,10 @@ smap <expr> <C-j> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'
 imap <expr> <c-k> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<c-k>'
 smap <expr> <c-k> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<c-k>'
 
+" Use new, faster filetype detection introduced in neovim 0.7
+let g:do_filetype_lua = 1
+let g:did_load_filetypes = 0
+
 lua << EOF
 
 local lua_modules = {
