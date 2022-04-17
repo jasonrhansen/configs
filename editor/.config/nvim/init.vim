@@ -166,8 +166,8 @@ if exists('$TMUX') && !exists('$NORENAME')
   augroup END
 endif
 
-let g:python_host_prog = trim(system('which python2.7'))
-let g:python3_host_prog = trim(system('which python3.9'))
+let g:python_host_prog = trim(system('which python2'))
+let g:python3_host_prog = trim(system('which python3'))
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
