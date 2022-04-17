@@ -50,9 +50,9 @@ local bright_comments = false
 function M.toggle_bright_comments()
   bright_comments = not bright_comments
   if bright_comments then
-    vim.cmd([[ hi Comment guifg=#9ca5cf ]])
+    vim.cmd([[ hi Comment guifg=#a2a199 ]])
   else
-    vim.cmd([[ hi Comment guifg=#565F89 ]])
+    vim.cmd([[ hi Comment guifg=#727169 ]])
   end
 end
 
