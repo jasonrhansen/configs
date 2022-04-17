@@ -7,7 +7,7 @@ SAVEHIST=1000
 setopt appendhistory extendedglob
 bindkey -e
 
-zstyle :compinstall filename '/home/jrhansen/.zshrc'
+zstyle :compinstall filename "$HOME/.zshrc"
 
 # Keep custom completions in .zfunc
 fpath+=~/.zfunc
