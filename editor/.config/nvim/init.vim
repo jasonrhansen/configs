@@ -13,81 +13,6 @@ let mapleader="\<SPACE>"
 let maplocalleader="-"
 let &showbreak = '↳ '
 
-set encoding=utf-8
-set hidden
-set wildmenu
-set wildchar=<Tab>
-set wildmode=longest,list,full
-set wildignorecase
-set showfulltag
-set history=1000
-set ignorecase
-set smartcase
-set title
-set ruler
-set backspace=indent,eol,start
-set incsearch
-set foldmethod=marker
-set nofoldenable
-set textwidth=0
-set undolevels=1000
-set showcmd
-set showmatch
-set number norelativenumber
-set nocursorline
-set autoread
-set background=dark
-set guioptions-=m                 " Remove menu bar
-set guioptions-=T                 " Remove toolbar
-set breakindent
-set breakindentopt=sbr
-set nolist
-set listchars=tab:▸\              " Char representing a tab
-set listchars+=extends:❯          " Char representing an extending line
-set listchars+=nbsp:␣             " Non breaking space
-set listchars+=precedes:❮         " Char representing an extending line in the other direction
-set fillchars=vert:\│
-set linebreak                     " Break properly, don't split words
-set scrolloff=4                   " Show context above/below cursorline
-set formatoptions+=j
-set sidescrolloff=5
-set shiftround
-set nostartofline
-set laststatus=3                  " Global statusline
-set noerrorbells
-set visualbell
-set secure
-set nomodeline                    " Use securemodelines instead
-set noshowmode                    " Lualine shows the mode
-set updatetime=100                " You will have bad experience for diagnostic messages when it's default 4000.
-set shortmess+=c                  " Don't give ins-completion-menu messages
-set signcolumn=yes                " Always show signcolumns
-set undofile
-set nobackup
-set nowritebackup
-set noswapfile
-set timeoutlen=500
-
-" indentation
-set expandtab                     " Indent with spaces
-set shiftwidth=2                  " Number of spaces to use when indenting
-set smartindent                   " Auto indent new lines
-set softtabstop=2                 " Number of spaces a <tab> counts for when inserting
-set tabstop=2                     " Number of spaces a <tab> counts for
-
-" Session and view options to save
-set sessionoptions=buffers,folds,tabpages,curdir,globals
-set viewoptions=cursor,folds
-
-" This feels more natural
-set splitbelow
-set splitright
-
-set undodir=~/.vim/tmp/undo//     " undo files
-
-set mouse=a                       " Enable mouse in all modes
-set mousemodel=popup_setpos       " Right-click on selection should bring up a menu
-
 syntax sync minlines=256          " Increase scrolling performance
 
 augroup vimrc
@@ -105,9 +30,6 @@ augroup vimrc
   autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=300}
 augroup END
 
-" Still show syntax highlighting for really large files.
-set redrawtime=10000
-
 " Make those folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
   call mkdir(expand(&undodir), "p")
@@ -116,10 +38,6 @@ if !isdirectory(expand(&directory))
   call mkdir(expand(&directory), "p")
 endif
 
-"  Color preferences
-if !has('gui_running')
-  set t_Co=256
-endif
 
 let g:tokyonight_style = "night"
 let g:tokyonight_colors = { 'border': '#292E42' }
@@ -134,13 +52,6 @@ require("kanagawa").setup({
 })
 EOF
 colorscheme kanagawa
-
-" Cursor configuration
-" Use a blinking upright bar cursor in Insert mode, a solid block in normal
-" and a blinking underline in replace mode
-set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-  \,sm:block-blinkwait175-blinkoff150-blinkon175
 
 if has('unnamedplus')
   " By default, Vim will not use the system clipboard when yanking/pasting to
@@ -281,6 +192,7 @@ let g:did_load_filetypes = 0
 lua << EOF
 
 local lua_modules = {
+  "config.options",
   "config.lsp",
   "config.telescope",
   "config.nvim_cmp",
