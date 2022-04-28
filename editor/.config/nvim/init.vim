@@ -59,7 +59,6 @@ set visualbell
 set secure
 set nomodeline                    " Use securemodelines instead
 set noshowmode                    " Lualine shows the mode
-set cmdheight=2                   " Better display for messages
 set updatetime=100                " You will have bad experience for diagnostic messages when it's default 4000.
 set shortmess+=c                  " Don't give ins-completion-menu messages
 set signcolumn=yes                " Always show signcolumns
