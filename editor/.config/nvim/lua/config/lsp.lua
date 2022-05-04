@@ -176,7 +176,7 @@ local keymaps = {
     ["[d"] = { "vim.diagnostic.goto_prev()", "Jump to previous line diagnostic" },
     ["]d"] = { "vim.diagnostic.goto_next()", "Jump to next line diagnostic" },
     ["<leader>Q"] = { "vim.diagnostic.set_loclist()", "Open diagnostics in loclist" },
-    ["<leader>f"] = { "vim.lsp.buf.formatting()", "Format buffer" },
+    ["<leader>f"] = { "vim.lsp.buf.format { async = true }", "Format buffer" },
     ["<leader>V"] = { "require('config.lsp').toggle_diagnostic_virtual_text()", "Toggle diagnostic virtual text" },
   },
   -- visual mode
@@ -206,8 +206,8 @@ function M.attach(client)
 
   if vim.tbl_contains(M.disable_formatting_names, client.name) then
     -- disable formatting in favor of null-ls
-    client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.document_range_formatting = false
+    client.server_capabilities.document_formatting = false
+    client.server_capabilities.document_range_formatting = false
   end
 end
 
