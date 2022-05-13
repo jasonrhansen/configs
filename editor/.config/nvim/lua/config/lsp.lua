@@ -132,7 +132,7 @@ local configs = {
       vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", ":TSLspOrganize<CR>", opts)
       vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", ":TSLspRenameFile<CR>", opts)
       vim.api.nvim_buf_set_keymap(bufnr, "n", "<F2>", ":TSLspRenameFile<CR>", opts)
-      vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", ":TSLspImportAll<CR>", opts)
+      vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>I", ":TSLspImportAll<CR>", opts)
     end,
   },
   vimls = {},
@@ -163,7 +163,7 @@ local keymaps = {
     gd = { "vim.lsp.buf.definition()", "Jump to definition" },
     gD = { "vim.lsp.buf.declaration()", "Jump to declaration" },
     gy = { "vim.lsp.buf.type_definition()", "Jump to type definition" },
-    gi = { "vim.lsp.buf.implementation()", "Jump to implementation" },
+    gI = { "vim.lsp.buf.implementation()", "Jump to implementation" },
     gr = { "vim.lsp.buf.references()", "Get references" },
     g0 = { "vim.lsp.buf.document_symbol()", "List document symbols" },
     gW = { "vim.lsp.buf.workspace_symbol()", "List workspace symbols" },
