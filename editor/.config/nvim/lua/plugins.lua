@@ -76,14 +76,6 @@ use("andersevenrud/cmp-tmux")
 -- Better sort for completion items that start with one or more underscores
 use("lukas-reineke/cmp-under-comparator")
 
--- Improved quickfix window
-use({
-  "kevinhwang91/nvim-bqf",
-  config = function()
-    require("bqf").setup()
-  end,
-})
-
 -- Displays a popup with possible key bindings of the command you started typing
 use("folke/which-key.nvim")
 
