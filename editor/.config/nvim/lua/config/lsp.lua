@@ -201,7 +201,7 @@ function M.attach(client)
   end
 
   if vim.tbl_contains(M.format_on_save_names, client.name) then
-    vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
+    vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.format({ async = true })")
   end
 
   if vim.tbl_contains(M.disable_formatting_names, client.name) then
