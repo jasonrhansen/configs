@@ -3,3 +3,4 @@ packer_compiled.*
 !.*
 .git
 .DS_Store
+history.txt
