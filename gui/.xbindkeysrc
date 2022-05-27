@@ -1,4 +1,4 @@
-# Configure buttons to switch workspaces (cosmic shell) for MX Master 2S
+# Configure buttons to switch workspaces (Pop Shell) for MX Master 2S
 
 # backward button => workspace up
 "xte 'keydown Control_L' 'keydown Super_L' 'key Down' 'keyup Control_L' 'keyup Super_L'"
