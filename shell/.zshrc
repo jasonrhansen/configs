@@ -85,6 +85,7 @@ export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:~/.cargo/bin
 export PATH=$PATH:~/.rvm/bin
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$PATH:~/.local/bin"
 
 # prompt (install with "cargo install starship")
 eval "$(starship init zsh)"
