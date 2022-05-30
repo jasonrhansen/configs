@@ -54,6 +54,7 @@ set sidescrolloff=5
 set shiftround
 set nostartofline
 set laststatus=3                  " Global statusline
+set winbar=%=%m\ %f                " Show right-aligned modified and filename in winbar
 set noerrorbells
 set visualbell
 set secure

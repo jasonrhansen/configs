@@ -15,6 +15,7 @@ wk.register({
     l = { "<cmd>lua require'config.keymaps'.toggle_line_numbers()<cr>", "Toggle line numbers" },
     L = { "<cmd>RelativizeToggle<cr>", "Toggle Relativize" },
     g = { "<cmd>lua require'config.keymaps'.toggle_global_statusline()<cr>", "Toggle global statusline" },
+    W = { "<cmd>lua require'config.keymaps'.toggle_winbar()<cr>", "Toggle winbar" },
     n = {
       name = "NG Switcher",
       t = { "<cmd>NgSwitchTS<cr>", "Switch to TS" },
@@ -61,6 +62,17 @@ function M.toggle_global_statusline()
     vim.go.laststatus = 3
   else
     vim.go.laststatus = 2
+  end
+end
+
+M.saved_winbar = vim.go.winbar
+
+function M.toggle_winbar()
+  if vim.go.winbar == nil or vim.go.winbar == "" then
+    vim.go.winbar = M.saved_winbar
+  else
+    M.saved_winbar = vim.go.winbar
+    vim.go.winbar = nil
   end
 end
 
