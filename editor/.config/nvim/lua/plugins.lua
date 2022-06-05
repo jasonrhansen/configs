@@ -263,6 +263,7 @@ use("nvim-telescope/telescope-dap.nvim")
 use("theHamsta/nvim-dap-virtual-text")
 use("rcarriga/nvim-dap-ui")
 use("Pocco81/DAPInstall.nvim")
+use("jbyuki/one-small-step-for-vimkind") -- Neovim Lua
 
 -- Testing
 use({

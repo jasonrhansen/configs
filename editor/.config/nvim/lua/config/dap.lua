@@ -1,11 +1,20 @@
 local dap = require("dap")
+local dapui = require("dapui")
 
+dapui.setup()
 require("telescope").load_extension("dap")
+require("nvim-dap-virtual-text").setup()
 
--- Show virtual text for current frame
-vim.g.dap_virtual_text = true
-
-require("dapui").setup()
+-- Set up some listeners to automatically open and close dapui.
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+  dapui.close()
+end
 
 local keymap_config = {
   {
@@ -57,7 +66,7 @@ end
 
 dap.adapters.lldb = {
   type = "executable",
-  command = "/usr/bin/lldb-vscode-13",
+  command = "/usr/bin/lldb-vscode-14",
   name = "lldb",
 }
 
@@ -80,10 +89,34 @@ dap.configurations.rust = {
     name = "Attach to process",
     type = "lldb",
     request = "attach",
-    pid = require('dap.utils').pick_process,
+    pid = require("dap.utils").pick_process,
     args = {},
   },
 }
 
 dap.configurations.c = dap.configurations.rust
 dap.configurations.cpp = dap.configurations.rust
+
+dap.configurations.lua = {
+  {
+    type = "nlua",
+    request = "attach",
+    name = "Attach to running Neovim instance",
+    host = function()
+      local value = vim.fn.input("Host [127.0.0.1]: ")
+      if value ~= "" then
+        return value
+      end
+      return "127.0.0.1"
+    end,
+    port = function()
+      local val = tonumber(vim.fn.input("Port: "))
+      assert(val, "Please provide a port number")
+      return val
+    end,
+  },
+}
+
+dap.adapters.nlua = function(callback, config)
+  callback({ type = "server", host = config.host, port = config.port })
+end
