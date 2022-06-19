@@ -280,3 +280,11 @@ use({
     vim.g.VM_mouse_mappings = 1
   end,
 })
+
+-- Fix neovim CursorHold and CursorHoldI autocmd events (performance bug)
+use({
+  "antoinemadec/FixCursorHold.nvim",
+  config = function()
+    vim.g.cursorhold_updatetime = 100
+  end,
+})
