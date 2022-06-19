@@ -265,13 +265,6 @@ use("rcarriga/nvim-dap-ui")
 use("Pocco81/DAPInstall.nvim")
 use("jbyuki/one-small-step-for-vimkind") -- Neovim Lua
 
--- Testing
-use({
-  "rcarriga/vim-ultest",
-  requires = { "vim-test/vim-test" },
-  run = ":UpdateRemotePlugins",
-})
-
 -- Language plugins
 use("jparise/vim-graphql")
 use("cespare/vim-toml")

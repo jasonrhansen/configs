@@ -290,7 +290,6 @@ local lua_modules = {
   "config.rust_tools",
   "config.crates",
   "config.dap",
-  "config.ultest",
   "config.comment",
 }
 
