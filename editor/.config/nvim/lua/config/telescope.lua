@@ -9,7 +9,16 @@ local wk = require("which-key")
 local M = {}
 
 local previewer_maker = function(filepath, bufnr, opts)
+  opts = opts or {}
+
   filepath = vim.fn.expand(filepath)
+
+  -- Don't preview large files
+  vim.loop.fs_stat(filepath, function(_, stat)
+    if not stat or stat.size > 50000 then
+      return
+    end
+  end)
 
   -- Don't preview binary files
   require("plenary.job"):new({
