@@ -195,6 +195,11 @@ function M.find_config_files()
   require("telescope.builtin").find_files(opts)
 end
 
+function M.diagnostics()
+  local opts = {}
+  require("telescope.builtin").diagnostics(opts)
+end
+
 -- Normal mode keymaps to call functions in 'telescope.builtin'
 local keymaps = {
   name = "Telescope",
@@ -219,7 +224,8 @@ local keymaps = {
     name = "Git",
     c = { "git_commits()", "Search git commits" },
     b = { "git_branches()", "Search git branches" },
-  }
+  },
+  D = { "diagnostics()", "Search diagnostics" },
 }
 
 local function to_telescope_keymaps(table)
