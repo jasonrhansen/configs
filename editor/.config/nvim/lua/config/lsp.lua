@@ -182,6 +182,7 @@ local keymaps = {
   -- visual mode
   v = {
     ["<leader>f"] = { "vim.lsp.buf.range_formatting()", "Format range" },
+    ["<leader>a"] = { "vim.lsp.buf.range_code_action()", "Code action for range" },
   },
 }
 

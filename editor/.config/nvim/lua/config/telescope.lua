@@ -137,16 +137,6 @@ function M.lsp_references()
   require("telescope.builtin").lsp_references(opts)
 end
 
-function M.lsp_code_actions()
-  local opts = themes.get_dropdown({
-    border = true,
-    previewer = false,
-    shorten_path = false,
-  })
-
-  require("telescope.builtin").lsp_code_actions(opts)
-end
-
 function M.treesitter()
   local opts = {}
   require("telescope.builtin").treesitter(opts)
@@ -217,7 +207,6 @@ local keymaps = {
   t = { "lsp_document_symbols()", "Search LSP document symbols" },
   T = { "lsp_workspace_symbols()", "Search LSP workspace symbols" },
   R = { "lsp_references()", "Search LSP references" },
-  a = { "lsp_code_actions()", "Search code actions" },
   s = { "treesitter()", "Search treesitter" },
   h = { "command_history()", "Search command history" },
   H = { "help_tags()", "Search help tags" },
