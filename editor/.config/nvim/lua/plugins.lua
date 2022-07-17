@@ -100,6 +100,9 @@ use({
 })
 use("natecraddock/telescope-zf-native.nvim")
 
+-- Enhanced vim.ui.select and vim.ui.input
+use("stevearc/dressing.nvim")
+
 -- Snippets
 use("rafamadriz/friendly-snippets")
 use("hrsh7th/vim-vsnip")
