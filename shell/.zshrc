@@ -77,7 +77,6 @@ tma() {
 
 alias luamake=~/dev/others/lua-language-server/3rd/luamake/luamake
 
-export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/library"
 export GOPATH=~/go
 
 export PATH=~/bin:$PATH
@@ -86,6 +85,8 @@ export PATH=$PATH:~/.cargo/bin
 export PATH=$PATH:~/.rvm/bin
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$PATH:~/.local/bin"
+
+export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/library"
 
 # prompt (install with "cargo install starship")
 eval "$(starship init zsh)"
