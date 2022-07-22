@@ -71,7 +71,6 @@ use("hrsh7th/cmp-calc")
 use("hrsh7th/cmp-nvim-lsp")
 use("hrsh7th/cmp-nvim-lua")
 use("hrsh7th/cmp-path")
-use("hrsh7th/cmp-vsnip")
 use("andersevenrud/cmp-tmux")
 -- Better sort for completion items that start with one or more underscores
 use("lukas-reineke/cmp-under-comparator")
@@ -105,8 +104,8 @@ use("stevearc/dressing.nvim")
 
 -- Snippets
 use("rafamadriz/friendly-snippets")
-use("hrsh7th/vim-vsnip")
-use("hrsh7th/vim-vsnip-integ")
+use("L3MON4D3/LuaSnip")
+use("saadparwaiz1/cmp_luasnip")
 
 -- Autopairs
 use("steelsojka/pears.nvim")
@@ -144,7 +143,7 @@ use({
     "kyazdani42/nvim-web-devicons",
     "MunifTanjim/nui.nvim",
     "s1n7ax/nvim-window-picker",
-  }
+  },
 })
 
 -- Expand abbreviations for HTML like 'div>p#foo$*3>a' with '<c-y>,'

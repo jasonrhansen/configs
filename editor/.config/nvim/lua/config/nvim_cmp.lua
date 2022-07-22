@@ -33,7 +33,7 @@ local kind_icons = {
 local sources = {
   { name = "nvim_lua", menu = "[Lua]" }, -- Complete neovim's Lua runtime API such as vim.lsp.*
   { name = "nvim_lsp", menu = "[LSP]" },
-  { name = "vsnip", menu = "[VSnip]" },
+  { name = "luasnip", menu = "[LuaSnip]" },
   { name = "path", menu = "[Path]" },
   { name = "calc", menu = "[Calc]" },
   { name = "buffer", menu = "[Buffer]" },
@@ -53,7 +53,7 @@ end
 cmp.setup({
   snippet = {
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
+      require('luasnip').lsp_expand(args.body)
     end,
   },
   completion = {

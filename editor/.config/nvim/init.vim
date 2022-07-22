@@ -261,12 +261,16 @@ augroup END
 let g:vinarise_enable_auto_detect = 1
 
 " Expand or jump
-imap <expr> <C-j> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'
-smap <expr> <C-j> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'
+imap <silent><expr> <C-j> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<C-j>'
+snoremap <silent> <C-j> <cmd>lua require('luasnip').jump(1)<Cr>
 
-" Jump forward or backward
-imap <expr> <c-k> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<c-k>'
-smap <expr> <c-k> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<c-k>'
+" Jump backward
+inoremap <silent> <C-k> <cmd>lua require'luasnip'.jump(-1)<Cr>
+snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(-1)<Cr>
+
+" For changing choices in choiceNodes.
+imap <silent><expr> <C-e> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+smap <silent><expr> <C-e> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
 
 " Use new, faster filetype detection introduced in neovim 0.7
 let g:do_filetype_lua = 1
@@ -291,6 +295,7 @@ local lua_modules = {
   "config.crates",
   "config.dap",
   "config.comment",
+  "config.luasnip",
 }
 
 for _, module_name in ipairs(lua_modules) do
