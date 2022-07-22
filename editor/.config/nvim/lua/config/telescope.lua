@@ -8,17 +8,12 @@ local wk = require("which-key")
 
 local M = {}
 
+local MAX_PREVIEW_FILE_SIZE = 100000
+
 local previewer_maker = function(filepath, bufnr, opts)
   opts = opts or {}
 
   filepath = vim.fn.expand(filepath)
-
-  -- Don't preview large files
-  vim.loop.fs_stat(filepath, function(_, stat)
-    if not stat or stat.size > 50000 then
-      return
-    end
-  end)
 
   -- Don't preview binary files
   require("plenary.job"):new({
@@ -27,7 +22,16 @@ local previewer_maker = function(filepath, bufnr, opts)
     on_exit = function(j)
       local mime_type = vim.split(j:result()[1], "/")[1]
       if mime_type == "text" then
-        previewers.buffer_previewer_maker(filepath, bufnr, opts)
+        -- Don't preview large files
+        vim.loop.fs_stat(filepath, function(_, stat)
+          if not stat or stat.size > MAX_PREVIEW_FILE_SIZE then
+            vim.schedule(function()
+              vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "FILE TOO LARGE FOR PREVIEW" })
+            end)
+          else
+            previewers.buffer_previewer_maker(filepath, bufnr, opts)
+          end
+        end)
       else
         vim.schedule(function()
           vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
