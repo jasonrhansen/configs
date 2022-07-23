@@ -108,7 +108,13 @@ use("L3MON4D3/LuaSnip")
 use("saadparwaiz1/cmp_luasnip")
 
 -- Autopairs
-use("steelsojka/pears.nvim")
+use({
+  "jasonrhansen/pears.nvim",
+  branch = "config-disable"
+})
+-- If my config-disable branch gets merged
+-- into upstream, switch back.
+-- use("steelsojka/pears.nvim")
 use({
   "RRethy/nvim-treesitter-endwise",
   requires = "nvim-treesitter/nvim-treesitter",

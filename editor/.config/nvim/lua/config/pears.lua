@@ -1,9 +1,17 @@
+local treesitter_config = require("config.treesitter")
 local R = require("pears.rule")
 
 require("pears").setup(function(conf)
   conf.remove_pair_on_outer_backspace(false)
-  -- Disable for telescope.
-  conf.disabled_filetypes({""})
+  conf.disable(function (bufnr)
+    local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
+    -- Disable for telescope.
+    if filetype == "" then
+      return true
+    end
+    -- Use the same disabling logic I use for treesitter.
+    return treesitter_config.disable(filetype, bufnr)
+  end)
   conf.preset("php")
   conf.preset("tag_matching", {
     filetypes = {

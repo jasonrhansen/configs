@@ -1,5 +1,14 @@
 local treesitter = require("nvim-treesitter.configs")
 
+local M = {}
+
+local disabled_filetypes = { "php", "html" }
+
+function M.disable(lang, bufnr)
+  return vim.tbl_contains(disabled_filetypes, lang)
+    or (lang == "typescript" and vim.api.nvim_buf_line_count(bufnr) > 10000)
+end
+
 treesitter.setup({
   ensure_installed = {
     "bash",
@@ -68,26 +77,30 @@ treesitter.setup({
 
   highlight = {
     enable = true,
-    disable = { "php", "html" },
+    disable = M.disable,
   },
 
   indent = {
     enable = false,
+    disable = M.disable,
   },
 
   context_commentstring = {
     enable = true,
+    disable = M.disable,
     -- Configure nvim-comment to call this with hook.
     enable_autocmd = false,
   },
 
   endwise = {
     enable = true,
+    disable = M.disable,
   },
 
   textobjects = {
     select = {
       enable = true,
+      disable = M.disable,
 
       -- Automatically jump forward to textobj, similar to targets.vim
       lookahead = true,
@@ -104,6 +117,7 @@ treesitter.setup({
     },
     swap = {
       enable = true,
+      disable = M.disable,
       swap_next = {
         ["<leader>sa"] = "@parameter.inner",
         ["<leader>sp"] = "@parameter.inner",
@@ -119,6 +133,7 @@ treesitter.setup({
     },
     move = {
       enable = true,
+      disable = M.disable,
       set_jumps = true, -- whether to set jumps in the jumplist
       goto_next_start = {
         ["]m"] = "@function.outer",
@@ -141,7 +156,7 @@ treesitter.setup({
 
   playground = {
     enable = true,
-    disable = {},
+    disable = M.disable,
     updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
     persist_queries = false, -- Whether the query persists across vim sessions
     keybindings = {
@@ -159,6 +174,7 @@ treesitter.setup({
   },
   query_linter = {
     enable = true,
+    disable = M.disable,
     use_virtual_text = true,
     lint_events = { "BufWrite", "CursorHold" },
   },
@@ -166,3 +182,5 @@ treesitter.setup({
 
 local wk = require("which-key")
 wk.register({ ["<leader>T"] = { "<cmd>TSBufToggle highlight<CR>", "Toggle treesitter highlights" } })
+
+return M
