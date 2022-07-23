@@ -13,21 +13,6 @@ require("pears").setup(function(conf)
     return treesitter_config.disable(filetype, bufnr)
   end)
   conf.preset("php")
-  conf.preset("tag_matching", {
-    filetypes = {
-      include = {
-        "javascriptreact",
-        "typescriptreact",
-        "php",
-        "jsx",
-        "tsx",
-        "html",
-        "xml",
-        "markdown",
-        "eruby",
-      },
-    },
-  })
 
   local quotes_should_expand = R.all_of(
     R.not_(R.child_of_node("string", true)),
