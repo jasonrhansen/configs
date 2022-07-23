@@ -5,7 +5,10 @@ local wk = require("which-key")
 
 local M = {}
 
-local node_lib_path = vim.fn.expand("$HOME/.nvm/versions/node/v16.14.0/lib")
+
+local node_path = vim.fn.expand("$HOME/.nvm/versions/node/v16.14.0")
+local node_lib_path = node_path .. "/lib"
+local tsserver_cmd = { node_path .. "/bin/typescript-language-server", "--stdio" }
 local angularls_path = node_lib_path .. "/node_modules/@angular/language-server"
 local angularls_cmd = {
   "ngserver",
@@ -102,6 +105,11 @@ local configs = {
   },
   svelte = {},
   tsserver = {
+    cmd = tsserver_cmd,
+
+    -- Needed for inlay hints.
+    init_options = require("nvim-lsp-ts-utils").init_options,
+
     on_attach = function(client, bufnr)
       M.attach(client)
 
@@ -122,6 +130,24 @@ local configs = {
         },
         import_all_scan_buffers = 100,
         import_all_select_source = false,
+
+         -- inlay hints
+        auto_inlay_hints = true,
+        inlay_hints_highlight = "Comment",
+        inlay_hints_priority = 200, -- priority of the hint extmarks
+        inlay_hints_throttle = 150, -- throttle the inlay hint request
+        -- inlay_hints_format = { -- format options for individual hint kind
+        --     Type = {},
+        --     Parameter = {},
+        --     Enum = {},
+        --     -- Example format customization for `Type` kind:
+        --     -- Type = {
+        --     --     highlight = "Comment",
+        --     --     text = function(text)
+        --     --         return "->" .. text:sub(2)
+        --     --     end,
+        --     -- },
+        -- },
       })
 
       -- required to fix code action ranges and filter diagnostics
@@ -130,8 +156,7 @@ local configs = {
       -- no default maps, so you may want to define some here
       local opts = { silent = true }
       vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", ":TSLspOrganize<CR>", opts)
-      vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", ":TSLspRenameFile<CR>", opts)
-      vim.api.nvim_buf_set_keymap(bufnr, "n", "<F2>", ":TSLspRenameFile<CR>", opts)
+      vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rf", ":TSLspRenameFile<CR>", opts)
       vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>I", ":TSLspImportAll<CR>", opts)
     end,
   },
