@@ -14,7 +14,9 @@ require("retrail").setup {
     exclude = {
       "",
       "diff",
-      "help"
+      "help",
+      "lspinfo",
+      "checkhealth",
     },
   },
   -- Trim on write behaviour.
