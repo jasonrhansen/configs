@@ -98,7 +98,7 @@ augroup vimrc
   " Start git commits in insert mode
   autocmd FileType gitcommit startinsert
   autocmd FileType gitcommit set colorcolumn=80
-  
+
   " Automatically rebalance windows on vim resize
   autocmd VimResized * :wincmd =
 
@@ -296,11 +296,12 @@ local lua_modules = {
   "config.dap",
   "config.comment",
   "config.luasnip",
+  "config.nvim_retrail",
 }
 
 for _, module_name in ipairs(lua_modules) do
   -- Remove cached module so config can be reloaded without restarting neovim
-  package.loaded[module_name] = nil 
+  package.loaded[module_name] = nil
 
   require(module_name)
 end
