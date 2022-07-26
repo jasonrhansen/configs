@@ -11,6 +11,15 @@ vim.fn.sign_define("DiagnosticSignInfo", { text = lsp.signs.Information, texthl 
 vim.fn.sign_define("DiagnosticSignHint", { text = lsp.signs.Hint, texthl = "DiagnosticSignHint" })
 
 require("neo-tree").setup({
+  sources = {
+    "filesystem",
+    "buffers",
+    "git_status",
+  },
+  default_source = "filesystem",
+  source_selector = {
+    winbar = true,
+  },
   close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
   popup_border_style = "rounded",
   enable_git_status = true,
@@ -67,13 +76,7 @@ require("neo-tree").setup({
       ["s"] = "open_vsplit",
       ["w"] = "open_with_window_picker",
       ["C"] = "close_node",
-      ["<bs>"] = "navigate_up",
-      ["."] = "set_root",
-      ["H"] = "toggle_hidden",
       ["R"] = "refresh",
-      ["/"] = "fuzzy_finder",
-      ["f"] = "filter_on_submit",
-      ["<c-x>"] = "clear_filter",
       ["a"] = "add",
       ["A"] = "add_directory",
       ["d"] = "delete",
@@ -91,7 +94,7 @@ require("neo-tree").setup({
     filtered_items = {
       -- When true, they will just be displayed differently than normal items.
       visible = false,
-      hide_dotfiles = true,
+      hide_dotfiles = false,
       hide_gitignored = true,
       hide_by_name = {
         "node_modules",
@@ -122,8 +125,11 @@ require("neo-tree").setup({
         ["."] = "set_root",
         ["H"] = "toggle_hidden",
         ["/"] = "fuzzy_finder",
+        ["D"] = "fuzzy_finder_directory",
         ["f"] = "filter_on_submit",
         ["<c-x>"] = "clear_filter",
+        ["[g"] = "prev_git_modified",
+        ["]g"] = "next_git_modified",
       },
     },
     commands = {
