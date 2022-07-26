@@ -54,7 +54,6 @@ set sidescrolloff=5
 set shiftround
 set nostartofline
 set laststatus=3                  " Global statusline
-set winbar=%=%m\ %f               " Show right-aligned modified and filename in winbar
 set noerrorbells
 set visualbell
 set secure
@@ -103,7 +102,7 @@ augroup vimrc
   autocmd VimResized * :wincmd =
 
   " Briefly highlight yanked text
-  au TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=300}
+  autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=300}
 augroup END
 
 " Still show syntax highlighting for really large files.
@@ -297,6 +296,7 @@ local lua_modules = {
   "config.comment",
   "config.luasnip",
   "config.nvim_retrail",
+  "config.winbar",
 }
 
 for _, module_name in ipairs(lua_modules) do
