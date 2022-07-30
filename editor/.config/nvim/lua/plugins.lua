@@ -100,7 +100,19 @@ use({
 use("natecraddock/telescope-zf-native.nvim")
 
 -- Enhanced vim.ui.select and vim.ui.input
-use("stevearc/dressing.nvim")
+use({
+  "stevearc/dressing.nvim",
+  config = function()
+    require("dressing").setup({
+      input = {
+        override = function(conf)
+          -- TODO: Remove this workaround when https://github.com/neovim/neovim/issues/19464 is fixed.
+          conf.height = 2
+        end
+      }
+    })
+  end,
+})
 
 -- Snippets
 use("rafamadriz/friendly-snippets")
