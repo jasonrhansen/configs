@@ -1,7 +1,5 @@
 local cmp = require("cmp")
 
-local M = {}
-
 local kind_icons = {
   Class = "",
   Color = "",
@@ -50,15 +48,17 @@ for _, source in ipairs(sources) do
   source_menus[source.name] = source.menu
 end
 
+vim.o.completeopt = "menu,menuone,noselect"
+
 cmp.setup({
+  preselect = cmp.PreselectMode.None,
   snippet = {
     expand = function(args)
       require('luasnip').lsp_expand(args.body)
     end,
   },
-  completion = {
-    keword_length = 1,
-    completeopt = "menu,menuone,noselect",
+  window = {
+    documentation = cmp.config.window.bordered(),
   },
   mapping = {
     ["<C-p>"] = cmp.mapping.select_prev_item(),
@@ -96,5 +96,3 @@ cmp.setup({
     end,
   },
 })
-
-return M
