@@ -2,6 +2,7 @@
 
 local wk = require("which-key")
 
+-- Normal mode leader mappings
 wk.register({
   ["<leader>"] = {
     name = "Leader",
@@ -39,6 +40,95 @@ wk.register({
     },
   },
 })
+
+-- Turn off search highlights by pressing return unless in quickfix window.
+wk.register({
+  ["<cr>"] = { '&buftype ==# "quickfix" ? "<CR>" : ":noh<cr>"', "Turn off search highlights", expr = true },
+})
+
+-- Escape is too much of a reach. Use jk to exit insert mode and command mode.
+wk.register({ jk = { "<esc>", "Exit insert mode" } }, { mode = "i" })
+wk.register({ jk = { "<c-e><c-u><esc>", "Exit command mode" } }, { mode = "c" })
+
+-- Add a 'stamp' command to replace word or selection with yanked text.
+wk.register({ ["<leader>p"] = { '"_diwP', '"Stamp" yanked text' } }, { mode = "n" })
+wk.register({ ["<leader>p"] = { '"_dP', '"Stamp" yanked text' } }, { mode = "v" })
+
+-- Make 'Y' work from the cursor to end of line instead of like 'yy'.
+wk.register({ Y = { "y$", "Yank to end of line" } })
+
+-- Reselect visual selection after indent.
+wk.register({
+  ["<"] = { "<gv", "Indent left and reselect" },
+  [">"] = { ">gv", "Indent right and reselect" },
+}, { mode = "x" })
+
+-- Create newlines like o and O but stay in normal mode.
+wk.register({
+  ["zj"] = { "o<Esc>k", "Newline below" },
+  ["zk"] = { "O<Esc>j", "Newline above" },
+})
+
+-- Center the screen when jumping through the changelist.
+wk.register({
+  ["g;"] = { "g;zz", "Next in changelist, and center" },
+  ["g,"] = { "g,z", "Previous in changelist, and center" },
+})
+
+-- This makes j and k work on "screen lines" instead of on "file lines"; now, when
+-- we have a long line that wraps to multiple screen lines, j and k behave as we
+-- expect them to.
+wk.register({
+  ["j"] = { "gj", "Cursor down" },
+  ["k"] = { "gk", "Cursor up" },
+})
+
+-- Swap implementations of ` and ' jump to markers.
+-- By default, ' jumps to the marked line, ` jumps to the marked line and
+-- column, so swap them
+wk.register({
+  ["'"] = { "`", "Jump to mark" },
+  ["`"] = { "'", "Jump to marked line" },
+})
+
+-- Don't move cursor when joining lines.
+wk.register({ J = { "mzJ`z", "Join lines" } })
+
+-- Add undo break points for punctuation.
+wk.register({
+  [","] = { ",<C-g>u", ", with undo breakpoint" },
+  ["."] = { ".<C-g>u", ". with undo breakpoint" },
+  ["!"] = { "!<C-g>u", "! with undo breakpoint" },
+  ["?"] = { "?<C-g>u", "? with undo breakpoint" },
+}, { mode = "i" })
+
+-- Move lines up and down, and re-indent.
+wk.register({
+  ["<m-k>"] = { ":m .-2<cr>==", "Move line up" },
+  ["<m-j>"] = { ":m .+1<cr>==", "Move line down" },
+}, { mode = "n" })
+wk.register({
+  ["<m-k>"] = { "<esc>:m .-2<cr>==", "Move line up" },
+  ["<m-j>"] = { "<esc>:m .+1<cr>==", "Move line down" },
+}, { mode = "i" })
+wk.register({
+  ["<m-k>"] = { ":m '<-2<cr>gv=gv", "Move lines up" },
+  ["<m-j>"] = { ":m '>+1<cr>gv=gv", "Move lines down" },
+}, { mode = "v" })
+
+-- Exit insert mode and save just by hitting CTRL-s.
+wk.register({ ["<C-s>"] = { "<esc>:w<cr>", "Exit insert mode and save" } }, { mode = "n", noremap = false })
+wk.register({ ["<C-s>"] = { "<esc>:w<cr>", "Exit insert mode and save" } }, { mode = "i", noremap = false })
+
+-- I never use the command line window on purpose, but I do open it sometimes
+-- on accident when trying to get to the command line, so make q: open the command line.
+wk.register({ ["q:"] = { ":", "Open command line" } }, { silent = false })
+
+-- With this map, we can select some text in visual mode and by invoking the map,
+-- have the selection automatically filled in as the search text and the cursor
+-- placed in the position for typing the replacement text. Also, this will ask
+-- for confirmation before it replaces any instance of the search text in the file.
+wk.register({ ["<C-r>"] = { '"hy:%s/<C-r>h//gc<left><left><left>', "Substitute with selection" } }, { mode = "v", silent = false })
 
 local M = {}
 

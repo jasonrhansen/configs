@@ -31,3 +31,54 @@ luasnip.add_snippets("rust", {
 
   s("pd", fmt([[println!("{}: {{:?}}", {});]], { same(1), i(1) })),
 })
+
+-- Keymaps
+local wk = require("which-key")
+wk.register({
+  ["<C-j>"] = {
+    function()
+      if luasnip.expand_or_jumpable() then
+        luasnip.jump(1)
+      end
+    end,
+    "Snippet - expand or jump next",
+  },
+}, { mode = "i", noremap = false })
+wk.register({
+  ["<C-j>"] = {
+    function()
+      luasnip.jump(1)
+    end,
+    "Snippet - jump next",
+  },
+}, { mode = "s" })
+wk.register({
+  ["<C-k>"] = {
+    function()
+      luasnip.jump(-1)
+    end,
+    "Snippet - jump previous",
+  },
+}, { mode = "i" })
+wk.register({
+  ["<C-k>"] = {
+    function()
+      luasnip.jump(-1)
+    end,
+    "Snippet - jump previous",
+  },
+}, { mode = "s" })
+wk.register({
+  ["<C-e>"] = {
+    "luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'",
+    "Snippet - next choice",
+    expr = true,
+  },
+}, { mode = "i", noremap = false })
+wk.register({
+  ["<C-e>"] = {
+    "luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'",
+    "Snippet - next choice",
+    expr = true,
+  },
+}, { mode = "s", noremap = false })

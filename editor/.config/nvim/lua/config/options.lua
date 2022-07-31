@@ -1,5 +1,6 @@
 local opt = vim.opt
 
+opt.compatible = false
 opt.encoding = "utf-8"
 opt.hidden = true
 opt.wildmenu = true
