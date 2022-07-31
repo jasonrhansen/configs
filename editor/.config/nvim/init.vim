@@ -245,6 +245,9 @@ nnoremap <s-right> 3<C-W>>
 imap <c-s> <esc>:w<cr>
 nmap <c-s> <esc>:w<cr>
 
+" I never use command line window on purpose
+nnoremap q: :
+
 command! BufOnly execute '%bdelete|edit #|normal `"'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
