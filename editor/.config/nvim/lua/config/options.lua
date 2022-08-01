@@ -30,7 +30,7 @@ opt.breakindent = true
 opt.breakindentopt = "sbr"
 opt.list = false
 opt.listchars = { tab = "▸ ", extends = "❯", nbsp = "␣", precedes = "❮" }
-opt.fillchars = { vert = "|" }
+opt.fillchars = { vert = "│" }
 opt.linebreak = true -- Break properly, don't split words
 opt.scrolloff = 4 -- Show context above/below cursorline
 opt.formatoptions:append({ "j" })
