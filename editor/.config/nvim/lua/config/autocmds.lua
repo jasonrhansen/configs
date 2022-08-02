@@ -31,7 +31,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   group = "jason-config",
   pattern = { "fugitive:///*" },
   callback = function()
-    vim.bo = "delete"
+    vim.bo.bufhidden = "delete"
   end,
 })
 
