@@ -1,4 +1,4 @@
-require('plugins')
+require("plugins")
 
 local lua_modules = {
   "config.options",
@@ -24,6 +24,7 @@ local lua_modules = {
   "config.luasnip",
   "config.nvim_retrail",
   "config.winbar",
+  "config.indent_blankline",
 }
 
 for _, module_name in ipairs(lua_modules) do
