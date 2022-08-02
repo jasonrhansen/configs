@@ -1,11 +1,10 @@
 lua require('plugins')
 
-command! BufOnly execute '%bdelete|edit #|normal `"'
-
 lua << EOF
 
 local lua_modules = {
   "config.options",
+  "config.commands",
   "config.autocmds",
   "config.theme",
   "config.lsp",
