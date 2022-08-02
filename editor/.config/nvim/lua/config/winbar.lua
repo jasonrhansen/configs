@@ -25,14 +25,14 @@ local function set_winbar(highlight)
 end
 
 vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
-  group = "vimrc",
+  group = "jason-config",
   callback = function()
     set_winbar("Normal")
   end,
 })
 
 vim.api.nvim_create_autocmd({ "WinLeave" }, {
-  group = "vimrc",
+  group = "jason-config",
   callback = function()
     set_winbar("Comment")
   end,
