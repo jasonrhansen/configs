@@ -1,6 +1,4 @@
-lua require('plugins')
-
-lua << EOF
+require('plugins')
 
 local lua_modules = {
   "config.options",
@@ -34,5 +32,3 @@ for _, module_name in ipairs(lua_modules) do
 
   require(module_name)
 end
-
-EOF
