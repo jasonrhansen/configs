@@ -251,17 +251,9 @@ use({
   end,
 })
 
--- Remote clipboard
--- No need to use `lemonade`. This will allow copying to clipboard over SSH.
-use({
-  "ojroques/vim-oscyank",
-  config = function()
-    vim.cmd(
-      [[autocmd TextYankPost * if v:event.operator is 'y' && (v:event.regname is '' || v:event.regname is '+') | execute 'OSCYankReg "' | endif"]]
-    )
-    vim.g.oscyank_silent = true
-  end,
-})
+-- Copy text to the system clipboard using the ANSI OSC52 sequence.
+-- This is location-independent, including from remote SSH sessions.
+use("ojroques/nvim-osc52")
 
 -- DAP (Debug Adapter Protocol)
 use("mfussenegger/nvim-dap")
