@@ -38,6 +38,10 @@ use({
   end,
 })
 
+-- Easily install and manage LSP servers, DAP servers, linters, and formatters.
+use { "williamboman/mason.nvim" }
+use { "williamboman/mason-lspconfig.nvim" }
+
 -- Show function signature when you type
 use({
   "ray-x/lsp_signature.nvim",

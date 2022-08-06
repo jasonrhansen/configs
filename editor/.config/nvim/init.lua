@@ -6,6 +6,7 @@ local lua_modules = {
   "config.autocmds",
   "config.theme",
   "config.lsp",
+  "config.mason",
   "config.telescope",
   "config.nvim_cmp",
   "config.window_picker",

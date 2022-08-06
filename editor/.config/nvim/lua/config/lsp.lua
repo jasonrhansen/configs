@@ -6,30 +6,9 @@ local wk = require("which-key")
 local M = {}
 
 
-local node_path = vim.fn.expand("$HOME/.nvm/versions/node/v16.14.0")
-local node_lib_path = node_path .. "/lib"
-local tsserver_cmd = { node_path .. "/bin/typescript-language-server", "--stdio" }
-local angularls_path = node_lib_path .. "/node_modules/@angular/language-server"
-local angularls_cmd = {
-  "ngserver",
-  "--stdio",
-  "--tsProbeLocations",
-  node_lib_path,
-  "--ngProbeLocations",
-  angularls_path,
-}
-
-local sumneko_root_path = vim.fn.expand("$HOME/dev/others/lua-language-server")
-local sumneko_binary = sumneko_root_path .. "/bin/lua-language-server"
-
 -- Language server configs
 local configs = {
-  angularls = {
-    cmd = angularls_cmd,
-    on_new_config = function(new_config)
-      new_config.cmd = angularls_cmd
-    end,
-  },
+  angularls = {},
   bashls = {},
   cmake = {},
   cssls = {},
@@ -62,7 +41,6 @@ local configs = {
   -- Swift, C/C++/Objective-C
   sourcekit = {},
   sumneko_lua = {
-    cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
     settings = {
       Lua = {
         runtime = {
@@ -100,13 +78,9 @@ local configs = {
       },
     },
   },
-  sqlls = {
-    cmd = { "sql-language-server", "up", "--method", "stdio" },
-  },
+  sqlls = {},
   svelte = {},
   tsserver = {
-    cmd = tsserver_cmd,
-
     -- Needed for inlay hints.
     init_options = require("nvim-lsp-ts-utils").init_options,
 

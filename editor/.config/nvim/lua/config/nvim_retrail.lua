@@ -17,6 +17,7 @@ require("retrail").setup {
       "help",
       "lspinfo",
       "checkhealth",
+      "mason.nvim",
     },
   },
   -- Trim on write behaviour.
