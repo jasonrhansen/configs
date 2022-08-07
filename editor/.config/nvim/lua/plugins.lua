@@ -92,6 +92,7 @@ use({
   "nvim-treesitter/nvim-treesitter-textobjects",
   requires = "nvim-treesitter/nvim-treesitter",
 })
+use("nvim-treesitter/nvim-treesitter-context")
 
 -- Fuzzy finder
 use({

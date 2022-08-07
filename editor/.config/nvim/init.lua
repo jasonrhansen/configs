@@ -12,6 +12,7 @@ local lua_modules = {
   "config.neo_tree",
   "config.gitsigns",
   "config.treesitter",
+  "config.treesitter_context",
   "config.pears",
   "config.trouble",
   "config.which_key",
