@@ -227,9 +227,6 @@ use("wellle/targets.vim")
 -- Close buffers without closing windows and messing up the layout.
 use("moll/vim-bbye")
 
--- Add :DeleteHiddenBuffers to remove background buffers
-use("arithran/vim-delete-hidden-buffers")
-
 -- Internal modeline support allows all sorts of annoying and potentially insecure options to be set.
 -- This plugin implements a more heavily restricted version.
 use("ciaranm/securemodelines")
