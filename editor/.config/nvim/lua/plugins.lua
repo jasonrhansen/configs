@@ -21,6 +21,9 @@ use({
       text = {
         spinner = "circle_halves",
       },
+      window = {
+        relative = "editor",
+      }
     })
   end,
 })
