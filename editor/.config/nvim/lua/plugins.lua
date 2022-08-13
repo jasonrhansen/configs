@@ -123,12 +123,17 @@ use("saadparwaiz1/cmp_luasnip")
 
 -- Autopairs
 use({
-  "jasonrhansen/pears.nvim",
-  branch = "config-disable",
+  "windwp/nvim-autopairs",
+  config = function()
+    require("nvim-autopairs").setup({})
+  end,
 })
--- If my config-disable branch gets merged
--- into upstream, switch back.
--- use("steelsojka/pears.nvim")
+use({
+  "windwp/nvim-ts-autotag",
+  config = function()
+    require("nvim-ts-autotag").setup({})
+  end,
+})
 use({
   "RRethy/nvim-treesitter-endwise",
   requires = "nvim-treesitter/nvim-treesitter",

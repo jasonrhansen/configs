@@ -13,7 +13,6 @@ local lua_modules = {
   "config.gitsigns",
   "config.treesitter",
   "config.treesitter_context",
-  "config.pears",
   "config.trouble",
   "config.which_key",
   "config.keymaps",
