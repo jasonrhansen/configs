@@ -43,13 +43,32 @@ if vim.fn.exists("$TMUX") == 1 and vim.fn.exists("$NORENAME") == 0 then
       if vim.o.buftype == "" then
         vim.fn.system("tmux rename-window " .. vim.fn.expand("%:t:S"))
       end
-    end
+    end,
   })
 
   vim.api.nvim_create_autocmd({ "VimLeave" }, {
     group = "jason-config",
     callback = function()
       vim.fn.system("tmux set-window automatic-rename on")
-    end
+    end,
   })
 end
+
+-- Update lightbulb on cursor hold.
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+  group = "jason-config",
+  callback = function()
+    require("nvim-lightbulb").update_lightbulb()
+  end,
+})
+
+-- Automatically compile packer config when changes are made to plugins.lua.
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  group = "jason-config",
+  pattern = "plugins.lua",
+  callback = function()
+    package.loaded["plugins"] = nil
+    require("plugins")
+    vim.cmd("PackerCompile")
+  end,
+})

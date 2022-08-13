@@ -1,14 +1,6 @@
 -- On a new machine packer can be installed by cloning the repo:
 -- git clone https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
--- Automatically compile packer config when changes are made to this file
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]])
-
 local packer = require("packer")
 local use = packer.use
 
@@ -21,12 +13,7 @@ use("wbthomason/packer.nvim")
 use("neovim/nvim-lspconfig")
 use("nvim-lua/lsp-status.nvim")
 use("folke/trouble.nvim")
-use({
-  "kosayoda/nvim-lightbulb",
-  config = function()
-    vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
-  end,
-})
+use("kosayoda/nvim-lightbulb")
 use({
   "j-hui/fidget.nvim",
   config = function()
