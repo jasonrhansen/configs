@@ -26,6 +26,7 @@ local lua_modules = {
   "config.winbar",
   "config.indent_blankline",
   "config.nvim_osc52",
+  "config.nvim_autopairs",
 }
 
 for _, module_name in ipairs(lua_modules) do

@@ -122,12 +122,7 @@ use("L3MON4D3/LuaSnip")
 use("saadparwaiz1/cmp_luasnip")
 
 -- Autopairs
-use({
-  "windwp/nvim-autopairs",
-  config = function()
-    require("nvim-autopairs").setup({})
-  end,
-})
+use("windwp/nvim-autopairs")
 use({
   "windwp/nvim-ts-autotag",
   config = function()
