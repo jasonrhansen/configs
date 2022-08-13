@@ -196,8 +196,12 @@ use("tpope/vim-sleuth")
 
 -- Easily add/delete/change 'surroundings': parentheses, brackets, quotes, XML
 -- tags, etc. [cs, ds, ys, yss]
-use("tpope/vim-surround")
-use("tpope/vim-repeat") -- Make repeat with `.` command work for vim-surround
+use({
+  "kylechui/nvim-surround",
+  config = function()
+    require("nvim-surround").setup({})
+  end,
+})
 
 -- ]q for :cnext. [q for :cprevious. ]a for :next. [b for :bprevious, etc.
 use("tpope/vim-unimpaired")
