@@ -1,5 +1,6 @@
 local autopairs = require("nvim-autopairs")
 local Rule = require("nvim-autopairs.rule")
+local cond = require('nvim-autopairs.conds')
 
 autopairs.setup({})
 
@@ -7,7 +8,7 @@ autopairs.setup({})
 autopairs.remove_rule("{")
 autopairs.add_rules({
   Rule("{", "}", "-ruby"):end_wise(),
-  Rule("{", "}", "ruby"),
+  Rule("{", "}", "ruby"):with_move(cond.move_right()),
 })
 
 -- Arrow functions in javascript/typescript.
