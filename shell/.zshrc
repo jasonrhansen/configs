@@ -15,6 +15,10 @@ fpath+=~/.zfunc
 export VISUAL=nvim
 export EDITOR=nvim
 
+if [[ -v WEZTERM_PANE ]]; then
+  export TERM=wezterm
+fi
+
 eval `dircolors ~/.dir_colors/dircolors.ansi-dark`
 
 # autojump
@@ -53,7 +57,7 @@ alias lla='exa -la'
 alias lst='exa --tree'
 
 alias clear='clear; tmux clear-history 2> /dev/null'
- 
+
 alias fixmouse='echo -e "\e[?1000h\e[?1000l"'
 
 # tmux aliases
@@ -62,7 +66,7 @@ alias tmls='tmux list-sessions'
 alias tmks='tmux kill-session -t'
 alias tmksv='tmux kill-server'
 alias tmn='tmux new -s'
-# Create a tmux session with the name set to the dir name. 
+# Create a tmux session with the name set to the dir name.
 tmd() {
   tmux new -s $(basename $(pwd)) > /dev/null || tmux attach -t $(basename $(pwd))
 }
