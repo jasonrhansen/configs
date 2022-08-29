@@ -63,6 +63,7 @@ treesitter.setup({
     "scheme",
     "scss",
     "svelte",
+    "sql",
     "todotxt",
     "toml",
     "tsx",
