@@ -5,7 +5,6 @@ local wk = require("which-key")
 
 local M = {}
 
-
 local node_path = vim.fn.expand("$HOME/.nvm/versions/node/v16.14.0")
 local node_lib_path = node_path .. "/lib"
 local tsserver_cmd = { node_path .. "/bin/typescript-language-server", "--stdio" }
@@ -111,6 +110,7 @@ local configs = {
     init_options = require("nvim-lsp-ts-utils").init_options,
 
     on_attach = function(client, bufnr)
+
       M.attach(client)
 
       local ts_utils = require("nvim-lsp-ts-utils")
