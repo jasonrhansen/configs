@@ -210,7 +210,16 @@ use("tpope/vim-eunuch")
 use("softoika/ngswitcher.vim")
 
 -- Highlight hex and RGB colors in code
-use("norcalli/nvim-colorizer.lua")
+use({
+  "brenoprata10/nvim-highlight-colors",
+  config = function()
+    require("nvim-highlight-colors").setup({
+      render = 'background'
+    })
+    local wk = require("which-key")
+    wk.register({ ["<leader>C"] = { "<cmd>HighlightColorsToggle<cr>", "Toggle highlight colors" } })
+  end
+})
 
 -- Icons to use in the status bar
 use("ryanoasis/vim-devicons")
