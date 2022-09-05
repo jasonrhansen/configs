@@ -23,7 +23,7 @@ use({
       },
       window = {
         relative = "editor",
-      }
+      },
     })
   end,
 })
