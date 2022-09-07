@@ -214,11 +214,11 @@ use({
   "brenoprata10/nvim-highlight-colors",
   config = function()
     require("nvim-highlight-colors").setup({
-      render = 'background'
+      render = "background",
     })
     local wk = require("which-key")
     wk.register({ ["<leader>C"] = { "<cmd>HighlightColorsToggle<cr>", "Toggle highlight colors" } })
-  end
+  end,
 })
 
 -- Icons to use in the status bar
