@@ -9,6 +9,10 @@ function M.disable(lang, bufnr)
     or (lang == "typescript" and vim.api.nvim_buf_line_count(bufnr) > 10000)
 end
 
+local disable_indent = function(lang, bufnr)
+  return lang == "ruby" or M.disable(lang, bufnr)
+end
+
 treesitter.setup({
   ensure_installed = {
     "bash",
@@ -83,7 +87,7 @@ treesitter.setup({
 
   indent = {
     enable = true,
-    disable = M.disable,
+    disable = disable_indent,
   },
 
   context_commentstring = {
