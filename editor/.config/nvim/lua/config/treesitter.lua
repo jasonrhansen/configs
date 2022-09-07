@@ -82,7 +82,7 @@ treesitter.setup({
   },
 
   indent = {
-    enable = false,
+    enable = true,
     disable = M.disable,
   },
 
