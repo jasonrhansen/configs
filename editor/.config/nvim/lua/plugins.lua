@@ -90,6 +90,7 @@ use({
   requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
 })
 use("natecraddock/telescope-zf-native.nvim")
+use {"smartpde/telescope-recent-files"}
 
 -- Enhanced vim.ui.select and vim.ui.input
 use({

@@ -84,6 +84,8 @@ telescope.setup({
 -- This will override the default file and generic sorters.
 telescope.load_extension("zf-native")
 
+telescope.load_extension("recent_files")
+
 function M.buffers()
   require("telescope.builtin").buffers()
 end
@@ -251,5 +253,7 @@ wk.register(keymaps, { prefix = "<leader>t" })
 
 -- SearchSession defined in rmagatti/session-lens
 wk.register({ ["<leader>tS"] = { "<cmd>SearchSession<cr>", "Search sessions" } })
+
+wk.register({ ["<leader>tf"] = { "<cmd>lua require('telescope').extensions.recent_files.pick()<cr>", "Search recent files" } })
 
 return M
