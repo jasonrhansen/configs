@@ -27,6 +27,7 @@ local lua_modules = {
   "config.indent_blankline",
   "config.nvim_osc52",
   "config.nvim_autopairs",
+  "config.git_messenger",
 }
 
 for _, module_name in ipairs(lua_modules) do

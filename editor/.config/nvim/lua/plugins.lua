@@ -141,6 +141,7 @@ use({
   requires = "nvim-lua/plenary.nvim",
 })
 use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
+use ("rhysd/git-messenger.vim")
 
 -- Color themes
 use("folke/tokyonight.nvim")
