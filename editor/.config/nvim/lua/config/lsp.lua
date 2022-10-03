@@ -33,6 +33,7 @@ local configs = {
   cmake = {},
   cssls = {},
   dockerls = {},
+  elmls = {},
   gopls = {},
   graphql = {},
   html = {},
