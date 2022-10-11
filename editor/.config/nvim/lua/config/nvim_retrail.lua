@@ -17,6 +17,7 @@ require("retrail").setup {
       "help",
       "lspinfo",
       "checkhealth",
+      "gitmessengerpopup",
     },
   },
   -- Trim on write behaviour.
