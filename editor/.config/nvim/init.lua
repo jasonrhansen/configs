@@ -1,6 +1,7 @@
 require("plugins")
 
 local lua_modules = {
+  "config.globals",
   "config.options",
   "config.commands",
   "config.autocmds",
