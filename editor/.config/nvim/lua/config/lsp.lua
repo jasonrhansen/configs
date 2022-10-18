@@ -251,20 +251,15 @@ lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_c
 
 -- Inititialize all language servers
 for name, config in pairs(configs) do
+  local capabilities = config.capabilities or {}
+
   -- Add lsp_status capabilities
-  config.capabilities = vim.tbl_extend("keep", config.capabilities or {}, lsp_status.capabilities)
+  capabilities = vim.tbl_extend("keep", capabilities, lsp_status.capabilities)
 
-  config.capabilities.textDocument.completion.completionItem.snippetSupport = true
-  config.capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = {
-      "documentation",
-      "detail",
-      "additionalTextEdits",
-    },
-  }
+  -- Add nvim_cmp capabilities
+  capabilities = vim.tbl_extend("keep", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-  config.capabilities = require("cmp_nvim_lsp").update_capabilities(config.capabilities)
-
+  config.capabilities = capabilities
   lspconfig[name].setup(config)
 end
 
