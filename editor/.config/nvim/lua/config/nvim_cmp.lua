@@ -29,14 +29,14 @@ local kind_icons = {
 
 -- Ordered with highest priority first.
 local sources = {
-  { name = "nvim_lua", menu = "[Lua]" }, -- Complete neovim's Lua runtime API such as vim.lsp.*
-  { name = "nvim_lsp", menu = "[LSP]" },
-  { name = "luasnip", menu = "[LuaSnip]" },
-  { name = "path", menu = "[Path]" },
-  { name = "calc", menu = "[Calc]" },
-  { name = "buffer", menu = "[Buffer]" },
-  { name = "tmux", menu = "[Tmux]" },
-  { name = "crates", menu = "[Crates]" },
+  { name = "nvim_lua", menu = "Lua" }, -- Complete neovim's Lua runtime API such as vim.lsp.*
+  { name = "nvim_lsp", menu = "LSP" },
+  { name = "luasnip", menu = "LuaSnip" },
+  { name = "path", menu = "Path" },
+  { name = "calc", menu = "Calc" },
+  { name = "buffer", menu = "Buffer" },
+  { name = "tmux", menu = "Tmux" },
+  { name = "crates", menu = "Crates" },
 }
 
 local source_names = vim.tbl_map(function(source)
@@ -93,8 +93,9 @@ cmp.setup({
     },
   },
   formatting = {
+    fields = { "kind", "abbr", "menu" },
     format = function(entry, vim_item)
-      vim_item.kind = (kind_icons[vim_item.kind] or " ") .. " " .. vim_item.kind
+      vim_item.kind = (kind_icons[vim_item.kind] or "?") .. " "
       vim_item.menu = source_menus[entry.source.name] or entry.source.name
       return vim_item
     end,
