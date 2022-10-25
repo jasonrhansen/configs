@@ -90,7 +90,7 @@ use({
   requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
 })
 use("natecraddock/telescope-zf-native.nvim")
-use {"smartpde/telescope-recent-files"}
+use("smartpde/telescope-recent-files")
 
 -- Enhanced vim.ui.select and vim.ui.input
 use({
@@ -141,7 +141,7 @@ use({
   requires = "nvim-lua/plenary.nvim",
 })
 use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
-use ("rhysd/git-messenger.vim")
+use("rhysd/git-messenger.vim")
 
 -- Color themes
 use("folke/tokyonight.nvim")
@@ -295,3 +295,12 @@ use({
 use({
   "zakharykaplan/nvim-retrail",
 })
+
+use {
+  "max397574/better-escape.nvim",
+  config = function()
+    require("better_escape").setup({
+      mapping = { "jk" }
+    })
+  end,
+}

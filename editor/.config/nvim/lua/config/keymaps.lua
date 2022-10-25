@@ -46,10 +46,6 @@ wk.register({
   ["<cr>"] = { '&buftype ==# "quickfix" ? "<CR>" : ":noh<cr>"', "Turn off search highlights", expr = true },
 })
 
--- Escape is too much of a reach. Use jk to exit insert mode and command mode.
-wk.register({ jk = { "<esc>", "Exit insert mode" } }, { mode = "i" })
-wk.register({ jk = { "<c-e><c-u><esc>", "Exit command mode" } }, { mode = "c" })
-
 -- Add a 'stamp' command to replace word or selection with yanked text.
 wk.register({ ["<leader>p"] = { '"_diwP', '"Stamp" yanked text' } }, { mode = "n" })
 wk.register({ ["<leader>p"] = { '"_dP', '"Stamp" yanked text' } }, { mode = "v" })
