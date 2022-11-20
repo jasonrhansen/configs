@@ -1,6 +1,41 @@
 -- Misc. key maps defined with which-key
 
+local function toggle_line_numbers()
+  vim.o.number = not vim.o.number and (vim.g.relativize_with_number == 1 or vim.g.relativize_enabled == 1)
+  vim.o.relativenumber = not vim.o.relativenumber and vim.g.relativize_enabled == 1
+end
+
+local bright_comments = false
+local function toggle_bright_comments()
+  bright_comments = not bright_comments
+  if bright_comments then
+    vim.cmd([[ hi Comment guifg=#a2a199 ]])
+  else
+    vim.cmd([[ hi Comment guifg=#727169 ]])
+  end
+end
+
+local function toggle_global_statusline()
+  if vim.go.laststatus ~= 3 then
+    vim.go.laststatus = 3
+  else
+    vim.go.laststatus = 2
+  end
+end
+
+local saved_winbar = vim.go.winbar
+
+local function toggle_winbar()
+  if vim.go.winbar == nil or vim.go.winbar == "" then
+    vim.go.winbar = saved_winbar
+  else
+    saved_winbar = vim.go.winbar
+    vim.go.winbar = nil
+  end
+end
+
 local wk = require("which-key")
+local pick_window = require("config.util").pick_window
 
 -- Normal mode leader mappings
 wk.register({
@@ -10,13 +45,13 @@ wk.register({
     ve = { "<cmd>vsplit $MYVIMRC<cr>", "Edit init.vim" },
     vs = { "<cmd>source $MYVIMRC<cr>", "Reload init.vim" },
     w = { "w!<cr>", "Save (force)" },
-    c = { "<cmd>lua require'config.keymaps'.toggle_bright_comments()<cr>", "Toggle bright comments" },
     i = { "<cmd>IndentBlanklineToggle<cr>", "Toggle indent guides" },
     q = { "<cmd>Bdelete<cr>", "Delete buffer" },
-    l = { "<cmd>lua require'config.keymaps'.toggle_line_numbers()<cr>", "Toggle line numbers" },
     L = { "<cmd>RelativizeToggle<cr>", "Toggle Relativize" },
-    g = { "<cmd>lua require'config.keymaps'.toggle_global_statusline()<cr>", "Toggle global statusline" },
-    W = { "<cmd>lua require'config.keymaps'.toggle_winbar()<cr>", "Toggle winbar" },
+    c = { toggle_bright_comments, "Toggle bright comments" },
+    l = { toggle_line_numbers, "Toggle line numbers" },
+    g = { toggle_global_statusline, "Toggle global statusline" },
+    W = { toggle_winbar, "Toggle winbar" },
     n = {
       name = "NG Switcher",
       t = { "<cmd>NgSwitchTS<cr>", "Switch to TS" },
@@ -25,10 +60,10 @@ wk.register({
       S = { "<cmd>NgSwitchSpec<cr>", "Switch to Spec" },
       n = {
         name = "NG Switcher (pick window)",
-        t = { "<cmd>lua require('config.util').pick_window_and_do(function () vim.cmd('NgSwitchTS') end)<cr>", "Switch to TS (pick window)" },
-        c = { "<cmd>lua require('config.util').pick_window_and_do(function () vim.cmd('NgSwitchCSS') end)<cr>", "Switch to CSS/SCSS (pick window)" },
-        h = { "<cmd>lua require('config.util').pick_window_and_do(function () vim.cmd('NgSwitchHTML') end)<cr>", "Switch to HTML (pick window)" },
-        s = { "<cmd>lua require('config.util').pick_window_and_do(function () vim.cmd('NgSwitchSpec') end)<cr>", "Switch to Spec (pick window)" },
+        t = { pick_window("NgSwitchTS"), "Switch to TS (pick window)" },
+        c = { pick_window("NgSwitchCSS"), "Switch to CSS/SCSS (pick window)" },
+        h = { pick_window("NgSwitchHTML"), "Switch to HTML (pick window)" },
+        s = { pick_window("NgSwitchSpec"), "Switch to Spec (pick window)" },
       },
     },
   },
@@ -117,42 +152,7 @@ wk.register({ ["q:"] = { ":", "Open command line" } }, { silent = false })
 -- have the selection automatically filled in as the search text and the cursor
 -- placed in the position for typing the replacement text. Also, this will ask
 -- for confirmation before it replaces any instance of the search text in the file.
-wk.register({ ["<C-r>"] = { '"hy:%s/<C-r>h//gc<left><left><left>', "Substitute with selection" } }, { mode = "v", silent = false })
-
-local M = {}
-
-function M.toggle_line_numbers()
-  vim.o.number = not vim.o.number and (vim.g.relativize_with_number == 1 or vim.g.relativize_enabled == 1)
-  vim.o.relativenumber = not vim.o.relativenumber and vim.g.relativize_enabled == 1
-end
-
-local bright_comments = false
-function M.toggle_bright_comments()
-  bright_comments = not bright_comments
-  if bright_comments then
-    vim.cmd([[ hi Comment guifg=#a2a199 ]])
-  else
-    vim.cmd([[ hi Comment guifg=#727169 ]])
-  end
-end
-
-function M.toggle_global_statusline()
-  if vim.go.laststatus ~= 3 then
-    vim.go.laststatus = 3
-  else
-    vim.go.laststatus = 2
-  end
-end
-
-M.saved_winbar = vim.go.winbar
-
-function M.toggle_winbar()
-  if vim.go.winbar == nil or vim.go.winbar == "" then
-    vim.go.winbar = M.saved_winbar
-  else
-    M.saved_winbar = vim.go.winbar
-    vim.go.winbar = nil
-  end
-end
-
-return M
+wk.register(
+  { ["<C-r>"] = { '"hy:%s/<C-r>h//gc<left><left><left>', "Substitute with selection" } },
+  { mode = "v", silent = false }
+)

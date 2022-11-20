@@ -6,8 +6,6 @@ local previewers = require("telescope.previewers")
 local trouble = require("trouble.providers.telescope")
 local wk = require("which-key")
 
-local M = {}
-
 local MAX_PREVIEW_FILE_SIZE = 100000
 
 local previewer_maker = function(filepath, bufnr, opts)
@@ -86,52 +84,52 @@ telescope.load_extension("zf-native")
 
 telescope.load_extension("recent_files")
 
-function M.buffers()
+local function buffers()
   require("telescope.builtin").buffers()
 end
 
-function M.find_files()
+local function find_files()
   local opts = {
     find_command = { "rg", "-i", "--hidden", "--files", "-g", "!.git" },
   }
   require("telescope.builtin").find_files(opts)
 end
 
-function M.git_files()
+local function git_files()
   local opts = {}
   local ok = pcall(require("telescope.builtin").git_files, opts)
   -- Fallback to find_files() if it can't find .git directory
   if not ok then
-    M.find_files()
+    find_files()
   end
 end
 
-function M.live_grep()
+local function live_grep()
   local opts = {}
   require("telescope.builtin").live_grep(opts)
 end
 
-function M.resume()
+local function resume()
   local opts = {}
   require("telescope.builtin").resume(opts)
 end
 
-function M.quickfix()
+local function quickfix()
   local opts = {}
   require("telescope.builtin").quickfix(opts)
 end
 
-function M.lsp_document_symbols()
+local function lsp_document_symbols()
   local opts = {}
   require("telescope.builtin").lsp_document_symbols(opts)
 end
 
-function M.lsp_workspace_symbols()
+local function lsp_workspace_symbols()
   local opts = {}
   require("telescope.builtin").lsp_workspace_symbols(opts)
 end
 
-function M.lsp_references()
+local function lsp_references()
   local opts = {
     layout_strategy = "vertical",
     layout_config = {
@@ -143,37 +141,37 @@ function M.lsp_references()
   require("telescope.builtin").lsp_references(opts)
 end
 
-function M.treesitter()
+local function treesitter()
   local opts = {}
   require("telescope.builtin").treesitter(opts)
 end
 
-function M.command_history()
+local function command_history()
   local opts = {}
   require("telescope.builtin").command_history(opts)
 end
 
-function M.help_tags()
+local function help_tags()
   local opts = {}
   require("telescope.builtin").help_tags(opts)
 end
 
-function M.jumplist()
+local function jumplist()
   local opts = {}
   require("telescope.builtin").jumplist(opts)
 end
 
-function M.vim_options()
+local function vim_options()
   local opts = {}
   require("telescope.builtin").vim_options(opts)
 end
 
-function M.keymaps()
+local function keymaps()
   local opts = {}
   require("telescope.builtin").keymaps(opts)
 end
 
-function M.colorscheme()
+local function colorscheme()
   local opts = themes.get_dropdown({
     border = true,
     previewer = false,
@@ -182,18 +180,18 @@ function M.colorscheme()
   require("telescope.builtin").colorscheme(opts)
 end
 
-function M.git_commits()
+local function git_commits()
   local opts = {}
   require("telescope.builtin").git_commits(opts)
 end
 
-function M.git_branches()
+local function git_branches()
   local opts = {}
   require("telescope.builtin").git_branches(opts)
 end
 
 -- Find my config files
-function M.find_config_files()
+local function find_config_files()
   local opts = {
     cwd = "~/configs",
     find_command = { "rg", "-i", "--hidden", "--files", "-g", "!.git" },
@@ -201,59 +199,38 @@ function M.find_config_files()
   require("telescope.builtin").find_files(opts)
 end
 
-function M.diagnostics()
+local function diagnostics()
   local opts = {}
   require("telescope.builtin").diagnostics(opts)
 end
 
--- Normal mode keymaps to call functions in 'telescope.builtin'
-local keymaps = {
+wk.register({
   name = "Telescope",
-  b = { "buffers()", "Search buffers" },
-  P = { "find_files()", "Search files" },
-  p = { "git_files()", "Search git files" },
-  g = { "live_grep()", "Search live grep" },
-  r = { "resume()", "Resume search" },
-  q = { "quickfix()", "Search quickfix" },
-  t = { "lsp_document_symbols()", "Search LSP document symbols" },
-  T = { "lsp_workspace_symbols()", "Search LSP workspace symbols" },
-  R = { "lsp_references()", "Search LSP references" },
-  s = { "treesitter()", "Search treesitter" },
-  h = { "command_history()", "Search command history" },
-  H = { "help_tags()", "Search help tags" },
-  j = { "jumplist()", "Search jumplist" },
-  o = { "vim_options()", "Search vim options" },
-  k = { "keymaps()", "Search keymaps" },
-  c = { "find_config_files()", "Search config files" },
-  C = { "colorscheme()", "Search colorschemes" },
+  prefix = "<leader>t",
+  b = { buffers, "Search buffers" },
+  P = { find_files, "Search files" },
+  p = { git_files, "Search git files" },
+  g = { live_grep, "Search live grep" },
+  r = { resume, "Resume search" },
+  q = { quickfix, "Search quickfix" },
+  t = { lsp_document_symbols, "Search LSP document symbols" },
+  T = { lsp_workspace_symbols, "Search LSP workspace symbols" },
+  R = { lsp_references, "Search LSP references" },
+  s = { treesitter, "Search treesitter" },
+  h = { command_history, "Search command history" },
+  H = { help_tags, "Search help tags" },
+  j = { jumplist, "Search jumplist" },
+  o = { vim_options, "Search vim options" },
+  k = { keymaps, "Search keymaps" },
+  c = { find_config_files, "Search config files" },
+  C = { colorscheme, "Search colorschemes" },
+  D = { diagnostics, "Search diagnostics" },
+  f = { telescope.extensions.recent_files.pick, "Search recent files" },
+  -- SearchSession defined in rmagatti/session-lens
+  S = { "<cmd>SearchSession<cr>", "Search sessions" },
   G = {
     name = "Git",
-    c = { "git_commits()", "Search git commits" },
-    b = { "git_branches()", "Search git branches" },
+    c = { git_commits, "Search git commits" },
+    b = { git_branches, "Search git branches" },
   },
-  D = { "diagnostics()", "Search diagnostics" },
-}
-
-local function to_telescope_keymaps(table)
-  return vim.tbl_map(function(keymap)
-    if (type(keymap) ~= "table") then
-      return keymap
-    elseif keymap["name"] ~= nil then
-      return to_telescope_keymaps(keymap)
-    else
-      return { "<cmd>lua require('config.telescope')." .. keymap[1] .. "<cr>", keymap[2] }
-    end
-  end, table)
-end
-
-keymaps = to_telescope_keymaps(keymaps)
-
--- Register keymaps with whick-key
-wk.register(keymaps, { prefix = "<leader>t" })
-
--- SearchSession defined in rmagatti/session-lens
-wk.register({ ["<leader>tS"] = { "<cmd>SearchSession<cr>", "Search sessions" } })
-
-wk.register({ ["<leader>tf"] = { "<cmd>lua require('telescope').extensions.recent_files.pick()<cr>", "Search recent files" } })
-
-return M
+})

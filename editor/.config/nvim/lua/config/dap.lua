@@ -1,5 +1,6 @@
 local dap = require("dap")
 local dapui = require("dapui")
+local telescope_dap = require('telescope').extensions.dap
 
 dapui.setup()
 require("telescope").load_extension("dap")
@@ -19,49 +20,33 @@ end
 local keymap_config = {
   {
     name = "DAP (Debug Adapter Protocol)",
-    cmd_prefix = "require'dap'",
     prefix = "",
-    normal = {
-      ["<F5>"] = { "continue()", "Continue" },
-      ["<F7>"] = { "step_into()", "Step into" },
-      ["<F8>"] = { "step_over()", "Step over" },
-      ["<F9>"] = { "step_out()", "Step out" },
-      ["<leader>b"] = { "toggle_breakpoint()", "Toggle breakpoint" },
-      ["<leader>B"] = { "set_breakpoint(vim.fn.input('Breakpoint condition: ')", "Set breakpoint" },
-      ["<leader>r"] = { "repl_open()", "Open REPL" },
-    },
+    ["<F5>"] = { dap.continue, "Continue" },
+    ["<F7>"] = { dap.step_into, "Step into" },
+    ["<F8>"] = { dap.step_over, "Step over" },
+    ["<F9>"] = { dap.step_out, "Step out" },
+    ["<leader>b"] = { dap.toggle_breakpoint, "Toggle breakpoint" },
+    ["<leader>B"] = { function () dap.set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, "Set breakpoint" },
+    ["<leader>r"] = { dap.repl_open, "Open REPL" },
   },
   {
     name = "DAP (Debug Adapter Protocol)",
-    cmd_prefix = "require'telescope'.extensions.dap",
     prefix = "<leader>td",
-    normal = {
-      ["c"] = { "commands()", "DAP commands" },
-      ["C"] = { "configurations()", "DAP configurations" },
-      ["b"] = { "list_breakpoints()", "DAP breakpoints" },
-      ["v"] = { "variables()", "DAP variables" },
-      ["f"] = { "frames()", "DAP frames" },
-    },
+    ["c"] = { telescope_dap.commands, "DAP commands" },
+    ["C"] = { telescope_dap.configurations, "DAP configurations" },
+    ["b"] = { telescope_dap.list_breakpoints, "DAP breakpoints" },
+    ["v"] = { telescope_dap.variables, "DAP variables" },
+    ["f"] = { telescope_dap.frames, "DAP frames" },
   },
   {
     name = "DAP (Debug Adapter Protocol)",
-    cmd_prefix = "require'dapui'",
-    prefix = "",
-    normal = {
-      ["<leader>D"] = { "toggle()", "Toggle DAP UI" },
-    },
+    ["<leader>D"] = { dapui.toggle, "Toggle DAP UI" },
   },
 }
 
-for _, config in ipairs(keymap_config) do
-  local keymaps = vim.tbl_map(function(keymap)
-    return { "<cmd>lua " .. config.cmd_prefix .. "." .. keymap[1] .. "<cr>", keymap[2] }
-  end, config.normal)
-
-  keymaps.name = config.name
-
+for _, keymaps in ipairs(keymap_config) do
   -- Register keymaps with whick-key
-  require("which-key").register(keymaps, { prefix = config.prefix })
+  require("which-key").register(keymaps)
 end
 
 dap.adapters.lldb = {

@@ -1,4 +1,6 @@
-require("gitsigns").setup({
+local gitsigns = require("gitsigns")
+
+gitsigns.setup({
   signs = {
     add = { hl = "GitSignsAdd", text = "▋" },
     change = { hl = "GitSignsChange", text = "▋" },
@@ -29,12 +31,12 @@ require("gitsigns").setup({
 
       ["<leader>h"] = {
         name = "Gitsigns",
-        ["s"] = { "<cmd>lua require('gitsigns').stage_hunk()<CR>", "Stage hunk" },
-        ["u"] = { "<cmd>lua require('gitsigns').undo_stage_hunk()<CR>", "Unstage hunk" },
-        ["r"] = { "<cmd>lua require('gitsigns').reset_hunk()<CR>", "Reset hunk" },
-        ["R"] = { "<cmd>lua require('gitsigns').reset_buffer()<CR>", "Reset buffer" },
-        ["p"] = { "<cmd>lua require('gitsigns').preview_hunk()<CR>", "Preview hunk" },
-        ["b"] = { "<cmd>lua require('gitsigns').blame_line()<CR>", "Blame line" },
+        ["s"] = { gitsigns.stage_hunk, "Stage hunk" },
+        ["u"] = { gitsigns.undo_stage_hunk, "Unstage hunk" },
+        ["r"] = { gitsigns.reset_hunk, "Reset hunk" },
+        ["R"] = { gitsigns.reset_buffer, "Reset buffer" },
+        ["p"] = { gitsigns.preview_hunk, "Preview hunk" },
+        ["b"] = { gitsigns.blame_line, "Blame line" },
       },
     }
 
@@ -42,13 +44,7 @@ require("gitsigns").setup({
     wk.register(normal_keymaps, { buffer = bufnr })
 
     -- Text objects
-    wk.register(
-      { ["ih"] = { ":<C-U>lua require('gitsigns').select_hunk()<CR>", "Select hunk" } },
-      { mode = "o", buffer = bufnr }
-    )
-    wk.register(
-      { ["ih"] = { ":<C-U>lua require('gitsigns').select_hunk()<CR>", "Select hunk" } },
-      { mode = "x", buffer = bufnr }
-    )
+    wk.register({ ["ih"] = { gitsigns.select_hunk, "Select hunk" } }, { mode = "o", buffer = bufnr })
+    wk.register({ ["ih"] = { gitsigns.select_hunk, "Select hunk" } }, { mode = "x", buffer = bufnr })
   end,
 })

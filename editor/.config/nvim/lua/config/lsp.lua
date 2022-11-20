@@ -111,7 +111,6 @@ local configs = {
     init_options = require("nvim-lsp-ts-utils").init_options,
 
     on_attach = function(client, bufnr)
-
       M.attach(client)
 
       local ts_utils = require("nvim-lsp-ts-utils")
@@ -132,7 +131,7 @@ local configs = {
         import_all_scan_buffers = 100,
         import_all_select_source = false,
 
-         -- inlay hints
+        -- inlay hints
         auto_inlay_hints = true,
         inlay_hints_highlight = "Comment",
         inlay_hints_priority = 200, -- priority of the hint extmarks
@@ -181,46 +180,42 @@ M.disable_formatting_names = {
   "sumneko_lua",
 }
 
+local pick_window = require("config.util").pick_window
+
 -- Normal mode keymaps that get added to a buffer when attaching an LSP client.
 local keymaps = {
   -- normal mode
   n = {
     -- Go to things
-    gd = { "vim.lsp.buf.definition()", "Jump to definition" },
-    gD = { "vim.lsp.buf.declaration()", "Jump to declaration" },
-    gy = { "vim.lsp.buf.type_definition()", "Jump to type definition" },
-    gI = { "vim.lsp.buf.implementation()", "Jump to implementation" },
-    gr = { "vim.lsp.buf.references()", "Get references" },
-    g0 = { "vim.lsp.buf.document_symbol()", "List document symbols" },
-    gW = { "vim.lsp.buf.workspace_symbol()", "List workspace symbols" },
-    ["<leader>gd"] = { "require('config.util').pick_window_and_do(vim.lsp.buf.definition)", "Pick window and jump to definition" },
-    ["<leader>gD"] = { "require('config.util').pick_window_and_do(vim.lsp.buf.declaration)", "Pick window and jump to declaration" },
-    ["<leader>gy"] = { "require('config.util').pick_window_and_do(vim.lsp.buf.type_definition)", "Pick window and jump to type definition" },
-    ["<leader>gI"] = { "require('config.util').pick_window_and_do(vim.lsp.buf.implementation)", "Pick window and jump to implementation" },
-    K = { "vim.lsp.buf.hover()", "Hover" },
-    ["<leader>k"] = { "vim.lsp.buf.signature_help()", "Signature help" },
-    ["<leader>rn"] = { "vim.lsp.buf.rename()", "Rename" },
-    ["<F2>"] = { "vim.lsp.buf.rename()", "Rename" },
-    ["<leader>a"] = { "vim.lsp.buf.code_action()", "Code action" },
-    ["<leader>d"] = { "vim.diagnostic.open_float()", "Line diagnostics" },
-    ["[d"] = { "vim.diagnostic.goto_prev()", "Jump to previous line diagnostic" },
-    ["]d"] = { "vim.diagnostic.goto_next()", "Jump to next line diagnostic" },
-    ["<leader>Q"] = { "vim.diagnostic.set_loclist()", "Open diagnostics in loclist" },
-    ["<leader>f"] = { "vim.lsp.buf.format { async = true }", "Format buffer" },
-    ["<leader>V"] = { "require('config.lsp').toggle_diagnostic_virtual_text()", "Toggle diagnostic virtual text" },
+    gd = { vim.lsp.buf.definition, "Jump to definition" },
+    gD = { vim.lsp.buf.declaration, "Jump to declaration" },
+    gy = { vim.lsp.buf.type_definition, "Jump to type definition" },
+    gI = { vim.lsp.buf.implementation, "Jump to implementation" },
+    gr = { vim.lsp.buf.references, "Get references" },
+    g0 = { vim.lsp.buf.document_symbol, "List document symbols" },
+    gW = { vim.lsp.buf.workspace_symbol, "List workspace symbols" },
+    ["<leader>gd"] = { pick_window(vim.lsp.buf.definition), "Pick window and jump to definition" },
+    ["<leader>gD"] = { pick_window(vim.lsp.buf.declaration), "Pick window and jump to declaration" },
+    ["<leader>gy"] = { pick_window(vim.lsp.buf.type_definition), "Pick window and jump to type definition" },
+    ["<leader>gI"] = { pick_window(vim.lsp.buf.implementation), "Pick window and jump to implementation" },
+    K = { vim.lsp.buf.hover, "Hover" },
+    ["<leader>k"] = { vim.lsp.buf.signature_help, "Signature help" },
+    ["<leader>rn"] = { vim.lsp.buf.rename, "Rename" },
+    ["<F2>"] = { vim.lsp.buf.rename, "Rename" },
+    ["<leader>a"] = { vim.lsp.buf.code_action, "Code action" },
+    ["<leader>d"] = { vim.diagnostic.open_float, "Line diagnostics" },
+    ["[d"] = { vim.diagnostic.goto_prev, "Jump to previous line diagnostic" },
+    ["]d"] = { vim.diagnostic.goto_next, "Jump to next line diagnostic" },
+    ["<leader>Q"] = { vim.diagnostic.set_loclist, "Open diagnostics in loclist" },
+    ["<leader>f"] = { function() vim.lsp.buf.format({ async = true }) end, "Format buffer" },
+    ["<leader>V"] = { M.toggle_diagnostic_virtual_text, "Toggle diagnostic virtual text" },
   },
   -- visual mode
   v = {
-    ["<leader>f"] = { "vim.lsp.buf.range_formatting()", "Format range" },
-    ["<leader>a"] = { "vim.lsp.buf.range_code_action()", "Code action for range" },
+    ["<leader>f"] = { vim.lsp.buf.range_formatting, "Format range" },
+    ["<leader>a"] = { vim.lsp.buf.range_code_action, "Code action for range" },
   },
 }
-
-for _, mappings in pairs(keymaps) do
-  for _, config in pairs(mappings) do
-    config[1] = "<cmd>lua " .. config[1] .. "<cr>"
-  end
-end
 
 -- Shared attach function for all LSP clients.
 function M.attach(client)
