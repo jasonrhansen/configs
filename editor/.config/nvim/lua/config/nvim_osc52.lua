@@ -1,3 +1,8 @@
+-- Only use OSC52 for SSH sessions. No need to use locally.
+if os.getenv("SSH_CLIENT") == nil then
+  return
+end
+
 local osc52 = require("osc52")
 
 osc52.setup({
