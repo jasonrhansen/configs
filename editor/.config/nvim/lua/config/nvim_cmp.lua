@@ -59,6 +59,7 @@ cmp.setup({
   },
   window = {
     documentation = cmp.config.window.bordered(),
+    completion = cmp.config.window.bordered(),
   },
   mapping = {
     ["<C-p>"] = cmp.mapping.select_prev_item(),
