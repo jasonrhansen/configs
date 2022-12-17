@@ -1,6 +1,3 @@
--- On a new machine packer can be installed by cloning the repo:
--- git clone https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-
 local packer = require("packer")
 local use = packer.use
 
@@ -72,7 +69,9 @@ use("folke/which-key.nvim")
 -- Treesitter
 use({
   "nvim-treesitter/nvim-treesitter",
-  run = ":TSUpdate",
+  run = function()
+    pcall(require("nvim-treesitter.install").update({ with_sync = true }))
+  end,
 })
 use({
   "nvim-treesitter/playground",
@@ -296,11 +295,11 @@ use({
   "zakharykaplan/nvim-retrail",
 })
 
-use {
+use({
   "max397574/better-escape.nvim",
   config = function()
     require("better_escape").setup({
-      mapping = { "jk" }
+      mapping = { "jk" },
     })
   end,
-}
+})
