@@ -155,7 +155,6 @@ require("mason-lspconfig").setup({
     "jsonls",
     "lemminx",
     "pyright",
-    "solargraph",
     "sumneko_lua",
     "sqlls",
     "tsserver",
