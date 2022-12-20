@@ -13,11 +13,17 @@ require("retrail").setup {
     -- Excluded filetype list. Overrides `include` list.
     exclude = {
       "",
+      "alpha",
+      "checkhealth",
       "diff",
       "help",
       "lspinfo",
-      "checkhealth",
+      "man",
+      "mason",
       "gitmessengerpopup",
+      "TelescopePrompt",
+      "Trouble",
+      "WhichKey",
     },
   },
   -- Trim on write behaviour.
