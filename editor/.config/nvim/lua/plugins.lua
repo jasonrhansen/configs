@@ -24,6 +24,9 @@ use({
     })
   end,
 })
+-- Automatically install LSPs to stdpath for neovim
+use("williamboman/mason.nvim")
+use("williamboman/mason-lspconfig.nvim")
 
 -- Show function signature when you type
 use({

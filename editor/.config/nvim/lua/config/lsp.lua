@@ -5,30 +5,14 @@ local wk = require("which-key")
 
 local M = {}
 
-local node_path = vim.fn.expand("$HOME/.nvm/versions/node/v16.14.0")
-local node_lib_path = node_path .. "/lib"
-local tsserver_cmd = { node_path .. "/bin/typescript-language-server", "--stdio" }
-local angularls_path = node_lib_path .. "/node_modules/@angular/language-server"
-local angularls_cmd = {
-  "ngserver",
-  "--stdio",
-  "--tsProbeLocations",
-  node_lib_path,
-  "--ngProbeLocations",
-  angularls_path,
-}
-
-local sumneko_root_path = vim.fn.expand("$HOME/dev/others/lua-language-server")
-local sumneko_binary = sumneko_root_path .. "/bin/lua-language-server"
+-- Make runtime files discoverable to the lua server
+local sumneko_runtime_path = vim.split(package.path, ';')
+table.insert(sumneko_runtime_path, 'lua/?.lua')
+table.insert(sumneko_runtime_path, 'lua/?/init.lua')
 
 -- Language server configs
 local configs = {
-  angularls = {
-    cmd = angularls_cmd,
-    on_new_config = function(new_config)
-      new_config.cmd = angularls_cmd
-    end,
-  },
+  angularls = {},
   bashls = {},
   cmake = {},
   cssls = {},
@@ -59,15 +43,12 @@ local configs = {
       },
     },
   },
-  -- Swift, C/C++/Objective-C
-  sourcekit = {},
   sumneko_lua = {
-    cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
     settings = {
       Lua = {
         runtime = {
           version = "LuaJIT",
-          path = vim.split(package.path, ";"),
+          path = sumneko_runtime_path,
         },
         diagnostics = {
           enable = true,
@@ -87,10 +68,7 @@ local configs = {
         },
         workspace = {
           -- Make the server aware of Neovim runtime files
-          library = {
-            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-          },
+          library = vim.api.nvim_get_runtime_file('', true),
           preloadFileSize = 200,
         },
         -- Do not send telemetry data containing a randomized but unique identifier
@@ -105,8 +83,6 @@ local configs = {
   },
   svelte = {},
   tsserver = {
-    cmd = tsserver_cmd,
-
     -- Needed for inlay hints.
     init_options = require("nvim-lsp-ts-utils").init_options,
 
@@ -165,6 +141,28 @@ local configs = {
   yamlls = {},
   zls = {},
 }
+
+require("mason").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = {
+    "angularls",
+    "bashls",
+    "cssls",
+    "dockerls",
+    "graphql",
+    "html",
+    "intelephense",
+    "jsonls",
+    "lemminx",
+    "pyright",
+    "solargraph",
+    "sumneko_lua",
+    "sqlls",
+    "tsserver",
+    "vimls",
+    "yamlls",
+  }
+})
 
 -- Which LSP clients should automatically format when saving.
 M.format_on_save_names = {
