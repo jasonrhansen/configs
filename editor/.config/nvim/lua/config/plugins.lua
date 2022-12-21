@@ -37,6 +37,7 @@ return {
   -- Enhanced vim.ui.select and vim.ui.input
   {
     "stevearc/dressing.nvim",
+    event = "VeryLazy",
     config = function()
       require("dressing").setup({
         input = {
@@ -124,6 +125,7 @@ return {
   -- Highlight hex and RGB colors in code
   {
     "brenoprata10/nvim-highlight-colors",
+    event = "VeryLazy",
     config = function()
       require("nvim-highlight-colors").setup({
         render = "background",
