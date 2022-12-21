@@ -7,12 +7,13 @@ local M = {
     "hrsh7th/cmp-nvim-lsp",
   },
 }
-  M.signs = {
-    Error = " ",
-    Warning = " ",
-    Hint = " ",
-    Information = " ",
-  }
+
+M.signs = {
+  Error = " ",
+  Warning = " ",
+  Hint = " ",
+  Information = " ",
+}
 
 function M.config()
   local lspconfig = require("lspconfig")
