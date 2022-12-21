@@ -8,7 +8,6 @@ local M = {
   },
 }
 
-
 function M.config()
   local lspconfig = require("lspconfig")
   local lsp_status = require("lsp-status")

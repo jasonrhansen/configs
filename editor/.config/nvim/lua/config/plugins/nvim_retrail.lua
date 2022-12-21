@@ -23,6 +23,7 @@ function M.config()
         "checkhealth",
         "diff",
         "help",
+        "lazy",
         "lspinfo",
         "man",
         "mason",
