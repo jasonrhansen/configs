@@ -157,27 +157,6 @@ function M.config()
     zls = {},
   }
 
-  require("mason").setup()
-  require("mason-lspconfig").setup({
-    ensure_installed = {
-      "angularls",
-      "bashls",
-      "cssls",
-      "dockerls",
-      "graphql",
-      "html",
-      "intelephense",
-      "jsonls",
-      "lemminx",
-      "pyright",
-      "sumneko_lua",
-      "sqlls",
-      "tsserver",
-      "vimls",
-      "yamlls",
-    },
-  })
-
   -- Which LSP clients should automatically format when saving.
   M.format_on_save_names = {
     "rust_analyzer",

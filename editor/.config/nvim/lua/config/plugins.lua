@@ -14,10 +14,6 @@ return {
     end,
   },
 
-  -- Automatically install LSPs to stdpath for neovim
-  "williamboman/mason.nvim",
-  "williamboman/mason-lspconfig.nvim",
-
   -- Show function signature when you type
   {
     "ray-x/lsp_signature.nvim",
