@@ -8,12 +8,6 @@ local M = {
   },
 }
 
-M.signs = {
-  Error = " ",
-  Warning = " ",
-  Hint = " ",
-  Information = " ",
-}
 
 function M.config()
   local lspconfig = require("lspconfig")
@@ -24,6 +18,95 @@ function M.config()
   local sumneko_runtime_path = vim.split(package.path, ";")
   table.insert(sumneko_runtime_path, "lua/?.lua")
   table.insert(sumneko_runtime_path, "lua/?/init.lua")
+
+  -- Which LSP clients should automatically format when saving.
+  local format_on_save_names = {
+    "rust_analyzer",
+    "gopls",
+  }
+
+  -- Which LSP clients to disable formatting for so null-ls can be used instead
+  -- without it asking each time which formatter to use.
+  local disable_formatting_names = {
+    "tsserver",
+    "solargraph",
+    "sumneko_lua",
+  }
+
+  local show_virtual_text = true
+
+  -- Allow virtual text to be toggled for a buffer.
+  local toggle_diagnostic_virtual_text = function()
+    if vim.b.diagnostic_show_virtual_text == nil then
+      -- Hasn't been set yet, so set to default.
+      vim.b.diagnostic_show_virtual_text = show_virtual_text
+    end
+    vim.b.diagnostic_show_virtual_text = not vim.b.diagnostic_show_virtual_text
+    print("Turned diagnostic virtual text", vim.b.diagnostic_show_virtual_text and "ON" or "OFF")
+  end
+
+
+  local pick_window = require("util").pick_window
+
+  -- Normal mode keymaps that get added to a buffer when attaching an LSP client.
+  local keymaps = {
+    -- normal mode
+    n = {
+      -- Go to things
+      gd = { vim.lsp.buf.definition, "Jump to definition" },
+      gD = { vim.lsp.buf.declaration, "Jump to declaration" },
+      gy = { vim.lsp.buf.type_definition, "Jump to type definition" },
+      gI = { vim.lsp.buf.implementation, "Jump to implementation" },
+      gr = { vim.lsp.buf.references, "Get references" },
+      g0 = { vim.lsp.buf.document_symbol, "List document symbols" },
+      gW = { vim.lsp.buf.workspace_symbol, "List workspace symbols" },
+      ["<leader>gd"] = { pick_window(vim.lsp.buf.definition), "Pick window and jump to definition" },
+      ["<leader>gD"] = { pick_window(vim.lsp.buf.declaration), "Pick window and jump to declaration" },
+      ["<leader>gy"] = { pick_window(vim.lsp.buf.type_definition), "Pick window and jump to type definition" },
+      ["<leader>gI"] = { pick_window(vim.lsp.buf.implementation), "Pick window and jump to implementation" },
+      K = { vim.lsp.buf.hover, "Hover" },
+      ["<leader>k"] = { vim.lsp.buf.signature_help, "Signature help" },
+      ["<leader>rn"] = { vim.lsp.buf.rename, "Rename" },
+      ["<F2>"] = { vim.lsp.buf.rename, "Rename" },
+      ["<leader>a"] = { vim.lsp.buf.code_action, "Code action" },
+      ["<leader>d"] = { vim.diagnostic.open_float, "Line diagnostics" },
+      ["[d"] = { vim.diagnostic.goto_prev, "Jump to previous line diagnostic" },
+      ["]d"] = { vim.diagnostic.goto_next, "Jump to next line diagnostic" },
+      ["<leader>Q"] = { vim.diagnostic.set_loclist, "Open diagnostics in loclist" },
+      ["<leader>f"] = {
+        function()
+          vim.lsp.buf.format({ async = true })
+        end,
+        "Format buffer",
+      },
+      ["<leader>V"] = { toggle_diagnostic_virtual_text, "Toggle diagnostic virtual text" },
+    },
+    -- visual mode
+    v = {
+      ["<leader>f"] = { vim.lsp.buf.range_formatting, "Format range" },
+      ["<leader>a"] = { vim.lsp.buf.range_code_action, "Code action for range" },
+    },
+  }
+
+  -- Shared attach function for all LSP clients.
+  local attach = function(client)
+    lsp_status.on_attach(client)
+
+    -- Register keymaps with which-key
+    for mode, mappings in pairs(keymaps) do
+      wk.register(mappings, { buffer = 0, mode = mode })
+    end
+
+    if vim.tbl_contains(format_on_save_names, client.name) then
+      vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.format({ async = true })")
+    end
+
+    if vim.tbl_contains(disable_formatting_names, client.name) then
+      -- disable formatting in favor of null-ls
+      client.server_capabilities.document_formatting = false
+      client.server_capabilities.document_range_formatting = false
+    end
+  end
 
   -- Language server configs
   local configs = {
@@ -102,7 +185,7 @@ function M.config()
       init_options = require("nvim-lsp-ts-utils").init_options,
 
       on_attach = function(client, bufnr)
-        M.attach(client)
+        attach(client)
 
         local ts_utils = require("nvim-lsp-ts-utils")
 
@@ -157,84 +240,8 @@ function M.config()
     zls = {},
   }
 
-  -- Which LSP clients should automatically format when saving.
-  M.format_on_save_names = {
-    "rust_analyzer",
-    "gopls",
-  }
-
-  -- Which LSP clients to disable formatting for so null-ls can be used instead
-  -- without it asking each time which formatter to use.
-  M.disable_formatting_names = {
-    "tsserver",
-    "solargraph",
-    "sumneko_lua",
-  }
-
-  local pick_window = require("util").pick_window
-
-  -- Normal mode keymaps that get added to a buffer when attaching an LSP client.
-  local keymaps = {
-    -- normal mode
-    n = {
-      -- Go to things
-      gd = { vim.lsp.buf.definition, "Jump to definition" },
-      gD = { vim.lsp.buf.declaration, "Jump to declaration" },
-      gy = { vim.lsp.buf.type_definition, "Jump to type definition" },
-      gI = { vim.lsp.buf.implementation, "Jump to implementation" },
-      gr = { vim.lsp.buf.references, "Get references" },
-      g0 = { vim.lsp.buf.document_symbol, "List document symbols" },
-      gW = { vim.lsp.buf.workspace_symbol, "List workspace symbols" },
-      ["<leader>gd"] = { pick_window(vim.lsp.buf.definition), "Pick window and jump to definition" },
-      ["<leader>gD"] = { pick_window(vim.lsp.buf.declaration), "Pick window and jump to declaration" },
-      ["<leader>gy"] = { pick_window(vim.lsp.buf.type_definition), "Pick window and jump to type definition" },
-      ["<leader>gI"] = { pick_window(vim.lsp.buf.implementation), "Pick window and jump to implementation" },
-      K = { vim.lsp.buf.hover, "Hover" },
-      ["<leader>k"] = { vim.lsp.buf.signature_help, "Signature help" },
-      ["<leader>rn"] = { vim.lsp.buf.rename, "Rename" },
-      ["<F2>"] = { vim.lsp.buf.rename, "Rename" },
-      ["<leader>a"] = { vim.lsp.buf.code_action, "Code action" },
-      ["<leader>d"] = { vim.diagnostic.open_float, "Line diagnostics" },
-      ["[d"] = { vim.diagnostic.goto_prev, "Jump to previous line diagnostic" },
-      ["]d"] = { vim.diagnostic.goto_next, "Jump to next line diagnostic" },
-      ["<leader>Q"] = { vim.diagnostic.set_loclist, "Open diagnostics in loclist" },
-      ["<leader>f"] = {
-        function()
-          vim.lsp.buf.format({ async = true })
-        end,
-        "Format buffer",
-      },
-      ["<leader>V"] = { M.toggle_diagnostic_virtual_text, "Toggle diagnostic virtual text" },
-    },
-    -- visual mode
-    v = {
-      ["<leader>f"] = { vim.lsp.buf.range_formatting, "Format range" },
-      ["<leader>a"] = { vim.lsp.buf.range_code_action, "Code action for range" },
-    },
-  }
-
-  -- Shared attach function for all LSP clients.
-  function M.attach(client)
-    lsp_status.on_attach(client)
-
-    -- Register keymaps with which-key
-    for mode, mappings in pairs(keymaps) do
-      wk.register(mappings, { buffer = 0, mode = mode })
-    end
-
-    if vim.tbl_contains(M.format_on_save_names, client.name) then
-      vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.format({ async = true })")
-    end
-
-    if vim.tbl_contains(M.disable_formatting_names, client.name) then
-      -- disable formatting in favor of null-ls
-      client.server_capabilities.document_formatting = false
-      client.server_capabilities.document_range_formatting = false
-    end
-  end
-
   lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
-    on_attach = M.attach,
+    on_attach = attach,
     flags = {
       debounce_text_changes = 150,
     },
@@ -272,25 +279,6 @@ function M.config()
     prefix = "■ ",
   }
 
-  local show_virtual_text = true
-
-  -- Allow virtual text to be toggled for a buffer.
-  function M.toggle_diagnostic_virtual_text()
-    if vim.b.diagnostic_show_virtual_text == nil then
-      -- Hasn't been set yet, so set to default.
-      vim.b.diagnostic_show_virtual_text = show_virtual_text
-    end
-    vim.b.diagnostic_show_virtual_text = not vim.b.diagnostic_show_virtual_text
-    print("Turned diagnostic virtual text", vim.b.diagnostic_show_virtual_text and "ON" or "OFF")
-  end
-
-  M.signs = {
-    Error = " ",
-    Warning = " ",
-    Hint = " ",
-    Information = " ",
-  }
-
   vim.diagnostic.config({
     underline = true,
     virtual_text = function(_, bufnr)
@@ -312,7 +300,8 @@ function M.config()
     severity_sort = true,
   })
 
-  for type, icon in pairs(M.signs) do
+  local signs = require('config.signs')
+  for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
   end
@@ -320,10 +309,10 @@ function M.config()
   -- Status config
   lsp_status.config({
     status_symbol = "  LSP:",
-    indicator_errors = M.signs.Error,
-    indicator_warnings = M.signs.Warning,
-    indicator_info = M.signs.Information,
-    indicator_hint = M.signs.Hint,
+    indicator_errors = signs.Error,
+    indicator_warnings = signs.Warning,
+    indicator_info = signs.Information,
+    indicator_hint = signs.Hint,
     indicator_ok = "✓",
     current_function = false,
   })

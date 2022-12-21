@@ -4,7 +4,7 @@ local M = {
 
 function M.config()
   local trouble = require("trouble")
-  local lsp = require("config.plugins.lsp")
+  local signs = require('config.signs')
 
   trouble.setup({
     position = "bottom", -- position of the list can be: bottom, top, left, right
@@ -40,10 +40,10 @@ function M.config()
     auto_fold = false, -- automatically fold a file trouble list at creation
     signs = {
       -- icons / text used for a diagnostic
-      error = lsp.signs.Error,
-      warning = lsp.signs.Warning,
-      hint = lsp.signs.Hint,
-      information = lsp.signs.Information,
+      error = signs.Error,
+      warning = signs.Warning,
+      hint = signs.Hint,
+      information = signs.Information,
       other = "﫠",
     },
     use_lsp_diagnostic_signs = false, -- enabling this will use the signs defined in your lsp client
