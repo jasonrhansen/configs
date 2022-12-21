@@ -21,4 +21,11 @@ M.pick_window = function(func_or_cmd)
   end
 end
 
+function M.require(module_name)
+  -- Remove cached module so config can be reloaded without restarting neovim
+  package.loaded[module_name] = nil
+
+  require(module_name)
+end
+
 return M

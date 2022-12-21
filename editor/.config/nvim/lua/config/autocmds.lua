@@ -53,22 +53,3 @@ if vim.fn.exists("$TMUX") == 1 and vim.fn.exists("$NORENAME") == 0 then
     end,
   })
 end
-
--- Update lightbulb on cursor hold.
-vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-  group = "jason-config",
-  callback = function()
-    require("nvim-lightbulb").update_lightbulb()
-  end,
-})
-
--- Automatically compile packer config when changes are made to plugins.lua.
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  group = "jason-config",
-  pattern = "plugins.lua",
-  callback = function()
-    package.loaded["plugins"] = nil
-    require("plugins")
-    vim.cmd("PackerCompile")
-  end,
-})

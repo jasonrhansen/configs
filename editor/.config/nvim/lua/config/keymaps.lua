@@ -35,7 +35,7 @@ local function toggle_winbar()
 end
 
 local wk = require("which-key")
-local pick_window = require("config.util").pick_window
+local pick_window = require("util").pick_window
 
 -- Normal mode leader mappings
 wk.register({
