@@ -20,6 +20,7 @@ function M.config()
       "jsonls",
       "lemminx",
       "pyright",
+      "rust_analyzer",
       "sumneko_lua",
       "sqlls",
       "tsserver",
