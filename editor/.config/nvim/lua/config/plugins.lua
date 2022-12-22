@@ -22,6 +22,20 @@ return {
     end,
   },
 
+  -- Inlay type hints
+  {
+    "lvimuser/lsp-inlayhints.nvim",
+    event = "LspAttach",
+    config = function()
+      require("lsp-inlayhints").setup({
+        inlay_hints = {
+          highlight = "Comment",
+          only_current_line = true,
+        },
+      })
+    end
+  },
+
   -- Utilities to improve the TypeScript development experience for Neovim's built-in LSP client
   {
     "jose-elias-alvarez/nvim-lsp-ts-utils",

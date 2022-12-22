@@ -88,8 +88,9 @@ function M.config()
   }
 
   -- Shared attach function for all LSP clients.
-  local attach = function(client)
+  local attach = function(client, buffer)
     lsp_status.on_attach(client)
+    require("lsp-inlayhints").on_attach(client, buffer)
 
     -- Register keymaps with which-key
     for mode, mappings in pairs(keymaps) do
@@ -129,8 +130,8 @@ function M.config()
     -- omnisharp = {},
     -- Python
     pyright = {},
-    -- rust-analyzer is configured in rust_tools.lua, so no need to configure here.
-    -- rust_analyzer = {},
+    -- Rust
+    rust_analyzer = {},
     -- Ruby
     solargraph = {
       settings = {
@@ -172,6 +173,9 @@ function M.config()
           telemetry = {
             enable = false,
           },
+          hint = {
+            enable = true,
+          }
         },
       },
     },
