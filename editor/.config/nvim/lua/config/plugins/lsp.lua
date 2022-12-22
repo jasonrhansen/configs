@@ -24,6 +24,11 @@ function M.config()
     "gopls",
   }
 
+  -- Which LSP clients should get inlay type hints.
+  local inlay_typehint_names = {
+    "rust_analyzer",
+  }
+
   -- Which LSP clients to disable formatting for so null-ls can be used instead
   -- without it asking each time which formatter to use.
   local disable_formatting_names = {
@@ -43,7 +48,6 @@ function M.config()
     vim.b.diagnostic_show_virtual_text = not vim.b.diagnostic_show_virtual_text
     print("Turned diagnostic virtual text", vim.b.diagnostic_show_virtual_text and "ON" or "OFF")
   end
-
 
   local pick_window = require("util").pick_window
 
@@ -90,7 +94,10 @@ function M.config()
   -- Shared attach function for all LSP clients.
   local attach = function(client, buffer)
     lsp_status.on_attach(client)
-    require("lsp-inlayhints").on_attach(client, buffer)
+
+    if vim.tbl_contains(inlay_typehint_names, client.name) then
+      require("lsp-inlayhints").on_attach(client, buffer)
+    end
 
     -- Register keymaps with which-key
     for mode, mappings in pairs(keymaps) do
@@ -175,7 +182,7 @@ function M.config()
           },
           hint = {
             enable = true,
-          }
+          },
         },
       },
     },
@@ -184,11 +191,33 @@ function M.config()
     },
     svelte = {},
     tsserver = {
-      -- Needed for inlay hints.
-      init_options = require("nvim-lsp-ts-utils").init_options,
+      -- settings = {
+      --   typescript = {
+      --     inlayHints = {
+      --       includeInlayParameterNameHints = "all",
+      --       includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+      --       includeInlayFunctionParameterTypeHints = true,
+      --       includeInlayVariableTypeHints = true,
+      --       includeInlayPropertyDeclarationTypeHints = true,
+      --       includeInlayFunctionLikeReturnTypeHints = true,
+      --       includeInlayEnumMemberValueHints = true,
+      --     },
+      --   },
+      --   javascript = {
+      --     inlayHints = {
+      --       includeInlayParameterNameHints = "all",
+      --       includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+      --       includeInlayFunctionParameterTypeHints = true,
+      --       includeInlayVariableTypeHints = true,
+      --       includeInlayPropertyDeclarationTypeHints = true,
+      --       includeInlayFunctionLikeReturnTypeHints = true,
+      --       includeInlayEnumMemberValueHints = true,
+      --     },
+      --   },
+      -- },
 
       on_attach = function(client, bufnr)
-        attach(client)
+        attach(client, bufnr)
 
         local ts_utils = require("nvim-lsp-ts-utils")
 
@@ -207,24 +236,6 @@ function M.config()
           },
           import_all_scan_buffers = 100,
           import_all_select_source = false,
-
-          -- inlay hints
-          auto_inlay_hints = true,
-          inlay_hints_highlight = "Comment",
-          inlay_hints_priority = 200, -- priority of the hint extmarks
-          inlay_hints_throttle = 150, -- throttle the inlay hint request
-          -- inlay_hints_format = { -- format options for individual hint kind
-          --     Type = {},
-          --     Parameter = {},
-          --     Enum = {},
-          --     -- Example format customization for `Type` kind:
-          --     -- Type = {
-          --     --     highlight = "Comment",
-          --     --     text = function(text)
-          --     --         return "->" .. text:sub(2)
-          --     --     end,
-          --     -- },
-          -- },
         })
 
         -- required to fix code action ranges and filter diagnostics
@@ -303,7 +314,7 @@ function M.config()
     severity_sort = true,
   })
 
-  local signs = require('config.signs')
+  local signs = require("config.signs")
   for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
