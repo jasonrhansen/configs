@@ -288,7 +288,7 @@ function M.config()
     capabilities = vim.tbl_extend("keep", capabilities, lsp_status.capabilities)
 
     -- Add nvim_cmp capabilities
-    capabilities = vim.tbl_extend("keep", capabilities, require("cmp_nvim_lsp").default_capabilities())
+    capabilities = vim.tbl_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
     config.capabilities = capabilities
     lspconfig[name].setup(config)

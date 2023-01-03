@@ -18,7 +18,6 @@ local M = {
   },
 }
 
-
 local kind_icons = {
   Class = "",
   Color = "",
