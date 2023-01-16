@@ -280,7 +280,7 @@ function M.config()
     },
   })
 
-  -- Inititialize all language servers
+  -- Initialize all language servers
   for name, config in pairs(configs) do
     local capabilities = config.capabilities or {}
 
