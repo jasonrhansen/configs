@@ -40,6 +40,7 @@ function M.config()
   -- Which LSP clients should get inlay type hints.
   local inlay_typehint_names = {
     "rust_analyzer",
+    "tsserver",
   }
 
   -- Which LSP clients to disable formatting for so null-ls can be used instead
@@ -210,30 +211,30 @@ function M.config()
     svelte = {},
     tsserver = {
       cmd = tsserver_cmd,
-      -- settings = {
-      --   typescript = {
-      --     inlayHints = {
-      --       includeInlayParameterNameHints = "all",
-      --       includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-      --       includeInlayFunctionParameterTypeHints = true,
-      --       includeInlayVariableTypeHints = true,
-      --       includeInlayPropertyDeclarationTypeHints = true,
-      --       includeInlayFunctionLikeReturnTypeHints = true,
-      --       includeInlayEnumMemberValueHints = true,
-      --     },
-      --   },
-      --   javascript = {
-      --     inlayHints = {
-      --       includeInlayParameterNameHints = "all",
-      --       includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-      --       includeInlayFunctionParameterTypeHints = true,
-      --       includeInlayVariableTypeHints = true,
-      --       includeInlayPropertyDeclarationTypeHints = true,
-      --       includeInlayFunctionLikeReturnTypeHints = true,
-      --       includeInlayEnumMemberValueHints = true,
-      --     },
-      --   },
-      -- },
+      settings = {
+        typescript = {
+          inlayHints = {
+            includeInlayParameterNameHints = "all",
+            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayVariableTypeHints = true,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+            includeInlayEnumMemberValueHints = true,
+          },
+        },
+        javascript = {
+          inlayHints = {
+            includeInlayParameterNameHints = "all",
+            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayVariableTypeHints = true,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+            includeInlayEnumMemberValueHints = true,
+          },
+        },
+      },
 
       on_attach = function(client, bufnr)
         attach(client, bufnr)
