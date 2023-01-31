@@ -6,11 +6,13 @@ local M = {
     "nvim-lua/plenary.nvim",
     "natecraddock/telescope-zf-native.nvim",
     "smartpde/telescope-recent-files",
+    "nvim-telescope/telescope-live-grep-args.nvim"
   },
 }
 
 function M.config()
   local telescope = require("telescope")
+  local lga_actions = require("telescope-live-grep-args.actions")
   local themes = require("telescope.themes")
   local actions = require("telescope.actions")
   local action_layout = require("telescope.actions.layout")
@@ -90,6 +92,17 @@ function M.config()
       qflist_previewer = previewers.vim_buffer_qflist.new,
       buffer_previewer_maker = previewer_maker,
     },
+    extensions = {
+      live_grep_args = {
+        auto_quoting = true,
+        mappings = {
+          i = {
+            ["<C-k>"] = lga_actions.quote_prompt(),
+            ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+          },
+        },
+      },
+    },
   })
 
   -- Use native zf for better performance.
@@ -121,6 +134,10 @@ function M.config()
   local function live_grep()
     local opts = {}
     require("telescope.builtin").live_grep(opts)
+  end
+
+  local function live_grep_args()
+    require("telescope").extensions.live_grep_args.live_grep_args()
   end
 
   local function resume()
@@ -225,6 +242,7 @@ function M.config()
     P = { find_files, "Search files" },
     p = { git_files, "Search git files" },
     g = { live_grep, "Search live grep" },
+    a = { live_grep_args, "Search live grep with args" },
     r = { resume, "Resume search" },
     q = { quickfix, "Search quickfix" },
     t = { lsp_document_symbols, "Search LSP document symbols" },
