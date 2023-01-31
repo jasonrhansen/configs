@@ -230,7 +230,14 @@ function M.config()
     require("telescope.builtin").find_files(opts)
   end
 
-  local function diagnostics()
+  local function buffer_diagnostics()
+    local opts = {
+      bufnr = 0,
+    }
+    require("telescope.builtin").diagnostics(opts)
+  end
+
+  local function workspace_diagnostics()
     local opts = {}
     require("telescope.builtin").diagnostics(opts)
   end
@@ -256,7 +263,8 @@ function M.config()
     k = { keymaps, "Search keymaps" },
     c = { find_config_files, "Search config files" },
     C = { colorscheme, "Search colorschemes" },
-    D = { diagnostics, "Search diagnostics" },
+    d = { buffer_diagnostics, "Search buffer diagnostics" },
+    D = { workspace_diagnostics, "Search workspace diagnostics" },
     f = { telescope.extensions.recent_files.pick, "Search recent files" },
     -- SearchSession defined in rmagatti/session-lens
     S = { "<cmd>SearchSession<cr>", "Search sessions" },
