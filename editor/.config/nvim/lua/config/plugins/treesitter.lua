@@ -1,7 +1,10 @@
 local M = {
   "nvim-treesitter/nvim-treesitter",
   build = function()
-    pcall(require("nvim-treesitter.install").update({ with_sync = true }))
+    local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
+    if ts_update ~= nil then
+      ts_update()
+    end
   end,
   dependencies = {
     "nvim-treesitter/playground",
