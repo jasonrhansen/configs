@@ -53,3 +53,13 @@ if vim.fn.exists("$TMUX") == 1 and vim.fn.exists("$NORENAME") == 0 then
     end,
   })
 end
+
+-- Treat *.pdf.erb like *.html.erb for syntax highlighting.
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  group = "jason-config",
+  pattern = { "*.pdf.erb" },
+  callback = function()
+    vim.b.eruby_subtype = 'html'
+    vim.cmd('do Syntax')
+  end,
+})
