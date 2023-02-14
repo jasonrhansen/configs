@@ -14,9 +14,9 @@ function M.config()
   local null_ls = require("null-ls")
   local wk = require("which-key")
 
-  local sumneko_runtime_path = vim.split(package.path, ";")
-  table.insert(sumneko_runtime_path, "lua/?.lua")
-  table.insert(sumneko_runtime_path, "lua/?/init.lua")
+  local lua_ls_runtime_path = vim.split(package.path, ";")
+  table.insert(lua_ls_runtime_path, "lua/?.lua")
+  table.insert(lua_ls_runtime_path, "lua/?/init.lua")
 
   local node_path = vim.fn.expand("$HOME/.nvm/versions/node/v16.14.0")
   local node_lib_path = node_path .. "/lib"
@@ -48,7 +48,7 @@ function M.config()
   local disable_formatting_names = {
     "tsserver",
     "solargraph",
-    "sumneko_lua",
+    "lua_ls",
   }
 
   local show_virtual_text = true
@@ -167,12 +167,12 @@ function M.config()
         },
       },
     },
-    sumneko_lua = {
+    lua_ls = {
       settings = {
         Lua = {
           runtime = {
             version = "LuaJIT",
-            path = sumneko_runtime_path,
+            path = lua_ls_runtime_path,
           },
           diagnostics = {
             enable = true,
@@ -245,7 +245,6 @@ function M.config()
           debug = false,
           disable_commands = false,
           enable_import_on_completion = true,
-
           -- import all
           import_all_timeout = 5000, -- ms
           import_all_priorities = {

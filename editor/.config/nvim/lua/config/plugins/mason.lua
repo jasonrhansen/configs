@@ -21,7 +21,7 @@ function M.config()
       "lemminx",
       "pyright",
       "rust_analyzer",
-      "sumneko_lua",
+      "lua_ls",
       "sqlls",
       "tsserver",
       "vimls",
