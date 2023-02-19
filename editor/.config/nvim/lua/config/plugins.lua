@@ -205,7 +205,6 @@ return {
     end,
   },
 
-
   {
     "max397574/better-escape.nvim",
     config = function()
