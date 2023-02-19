@@ -10,6 +10,13 @@ return {
         window = {
           relative = "editor",
         },
+        sources = {
+          -- Because of integration with ts-node-action, every time the cursor position
+          -- changes a null-ls notification is shown, which can be quite annoying, so ignore them.
+          ["null-ls"] = {
+            ignore = true,
+          },
+        },
       })
     end,
   },
