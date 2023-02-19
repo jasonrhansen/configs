@@ -35,7 +35,7 @@ return {
     event = "LspAttach",
     config = function()
       require("lsp-inlayhints").setup({
-        inlay_hints = { highlight = "Comment", only_current_line = true,  },
+        inlay_hints = { highlight = "Comment", only_current_line = true },
       })
     end,
   },
@@ -205,11 +205,17 @@ return {
     end,
   },
 
+
   {
     "max397574/better-escape.nvim",
     config = function()
       require("better_escape").setup({
-        mapping = { "jk" },
+        mapping = { "jk", "kj" },
+        timeout = vim.o.timeoutlen,
+        clear_empty_lines = true,
+        keys = function()
+          return vim.api.nvim_win_get_cursor(0)[2] > 1 and "<esc>l" or "<esc>"
+        end,
       })
     end,
   },
