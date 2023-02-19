@@ -28,12 +28,9 @@ return {
     event = "LspAttach",
     config = function()
       require("lsp-inlayhints").setup({
-        inlay_hints = {
-          highlight = "Comment",
-          only_current_line = true,
-        },
+        inlay_hints = { highlight = "Comment", only_current_line = true,  },
       })
-    end
+    end,
   },
 
   -- Utilities to improve the TypeScript development experience for Neovim's built-in LSP client
