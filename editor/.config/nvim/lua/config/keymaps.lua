@@ -156,6 +156,3 @@ wk.register(
   { ["<C-r>"] = { '"hy:%s/<C-r>h//gc<left><left><left>', "Substitute with selection" } },
   { mode = "v", silent = false }
 )
-
--- Disable ESC to get used to using jk to exit insert mode.
-vim.keymap.set("i", "<esc>", "<nop>")
