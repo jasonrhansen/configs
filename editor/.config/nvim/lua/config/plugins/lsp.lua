@@ -304,6 +304,9 @@ function M.config()
         args = { "-s", "--indent-type", "Spaces", "--indent-width", "2", "-" },
       }),
     },
+    should_attach = function(bufnr)
+      return not require("util").is_large_file(bufnr);
+    end,
   })
 
   -- Diagnostics config
