@@ -18,12 +18,12 @@ function M.config()
 
   local disabled_filetypes = { "php", "html" }
 
-  function M.disable(lang, buf)
+  local disable = function(lang, buf)
     return vim.tbl_contains(disabled_filetypes, lang) or require("util").is_large_file(buf)
   end
 
   local disable_indent = function(lang, bufnr)
-    return lang == "ruby" or M.disable(lang, bufnr)
+    return lang == "ruby" or disable(lang, bufnr)
   end
 
   treesitter.setup({
@@ -92,33 +92,28 @@ function M.config()
       "yaml",
       "zig",
     },
-
     highlight = {
       enable = true,
-      disable = M.disable,
+      disable = disable,
     },
-
     indent = {
       enable = true,
       disable = disable_indent,
     },
-
     context_commentstring = {
       enable = true,
-      disable = M.disable,
+      disable = disable,
       -- Configure nvim-comment to call this with hook.
       enable_autocmd = false,
     },
-
     endwise = {
       enable = true,
-      disable = M.disable,
+      disable = disable,
     },
-
     textobjects = {
       select = {
         enable = true,
-        disable = M.disable,
+        disable = disable,
 
         -- Automatically jump forward to textobj, similar to targets.vim
         lookahead = true,
@@ -135,7 +130,7 @@ function M.config()
       },
       swap = {
         enable = true,
-        disable = M.disable,
+        disable = disable,
         swap_next = {
           ["<leader>sa"] = "@parameter.inner",
           ["<leader>sp"] = "@parameter.inner",
@@ -151,7 +146,7 @@ function M.config()
       },
       move = {
         enable = true,
-        disable = M.disable,
+        disable = disable,
         set_jumps = true, -- whether to set jumps in the jumplist
         goto_next_start = {
           ["]m"] = "@function.outer",
@@ -171,10 +166,9 @@ function M.config()
         },
       },
     },
-
     playground = {
       enable = true,
-      disable = M.disable,
+      disable = disable,
       updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
       persist_queries = false, -- Whether the query persists across vim sessions
       keybindings = {
@@ -192,7 +186,7 @@ function M.config()
     },
     query_linter = {
       enable = true,
-      disable = M.disable,
+      disable = disable,
       use_virtual_text = true,
       lint_events = { "BufWrite", "CursorHold" },
     },
@@ -232,7 +226,6 @@ function M.config()
       -- exactly match "impl_item" only)
       -- rust = true,
     },
-
     -- [!] The options below are exposed but shouldn't require your attention,
     --     you can safely ignore them.
 
