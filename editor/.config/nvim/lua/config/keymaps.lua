@@ -75,7 +75,9 @@ wk.register({
 })
 
 -- Add a 'stamp' command to replace word or selection with yanked text.
-wk.register({ ["<leader>p"] = { '"_diwP', '"Stamp" yanked text' } }, { mode = "n" })
+
+vim.keymap.set("n", "<Plug>StampYankedText", '"_diwP:call repeat#set("\\<Plug>StampYankedText")<CR>', { silent = true })
+wk.register({ ["<leader>p"] = { "<Plug>StampYankedText", '"Stamp" yanked text' } }, { mode = "n" })
 wk.register({ ["<leader>p"] = { '"_dP', '"Stamp" yanked text' } }, { mode = "v" })
 
 -- Make 'Y' work from the cursor to end of line instead of like 'yy'.
@@ -117,8 +119,13 @@ wk.register({
 
 -- Don't move cursor when joining lines. Also add a version that removes spaces between joined lines that's dot-repeatable.
 wk.register({ J = { "mzJ`z", "Join lines" } })
-vim.keymap.set("n", "<Plug>JoinLinesWithoutSpaces", 'mzJx`z:call repeat#set("\\<Plug>JoinLinesWithoutSpaces")<CR>', { silent = true, noremap = true })
-wk.register({ ["<leader>J"] = { "<Plug>JoinLinesWithoutSpaces", "Join lines without space" } }, { mode = "n", noremap = true })
+vim.keymap.set(
+  "n",
+  "<Plug>JoinLinesWithoutSpaces",
+  'mzJx`z:call repeat#set("\\<Plug>JoinLinesWithoutSpaces")<CR>',
+  { silent = true }
+)
+wk.register({ ["<leader>J"] = { "<Plug>JoinLinesWithoutSpaces", "Join lines without space" } })
 
 -- Add undo break points for punctuation.
 wk.register({
