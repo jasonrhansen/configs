@@ -5,14 +5,11 @@ local function toggle_line_numbers()
   vim.o.relativenumber = not vim.o.relativenumber and vim.g.relativize_enabled == 1
 end
 
-local bright_comments = false
+local comment_colors = { vim.fn.synIDattr(vim.fn.hlID("Comment"), "fg#"), "#a2a199" }
+local comment_color_index = 0
 local function toggle_bright_comments()
-  bright_comments = not bright_comments
-  if bright_comments then
-    vim.cmd([[ hi Comment guifg=#a2a199 ]])
-  else
-    vim.cmd([[ hi Comment guifg=#727169 ]])
-  end
+  comment_color_index = (comment_color_index + 1) % #comment_colors
+  vim.cmd.hi("Comment guifg=" .. comment_colors[comment_color_index + 1])
 end
 
 local function toggle_global_statusline()
@@ -24,7 +21,6 @@ local function toggle_global_statusline()
 end
 
 local saved_winbar = vim.go.winbar
-
 local function toggle_winbar()
   if vim.go.winbar == nil or vim.go.winbar == "" then
     vim.go.winbar = saved_winbar
