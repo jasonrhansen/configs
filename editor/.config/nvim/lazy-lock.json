@@ -13,6 +13,7 @@
   "cmp-tmux": { "branch": "main", "commit": "984772716f66d8ee88535a6bf3f94c4b4e1301f5" },
   "cmp-under-comparator": { "branch": "master", "commit": "6857f10272c3cfe930cece2afa2406e1385bfef8" },
   "cmp_luasnip": { "branch": "master", "commit": "18095520391186d634a0045dacaa346291096566" },
+  "codeium.nvim": { "branch": "main", "commit": "de7c4d17f5b10e6c38b3c68d3472fffca984acae" },
   "committia.vim": { "branch": "master", "commit": "0b4df1a7f48ffbc23b009bd14d58ee1be541917c" },
   "crates.nvim": { "branch": "main", "commit": "3fc7ddac13ddf65914a733ef074317c4c72ef05b" },
   "diffview.nvim": { "branch": "main", "commit": "11827d46e939b4748dbdb7e0df4982a63bd59d26" },
