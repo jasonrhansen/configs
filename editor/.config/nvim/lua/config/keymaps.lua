@@ -115,8 +115,10 @@ wk.register({
   ["`"] = { "'", "Jump to marked line" },
 })
 
--- Don't move cursor when joining lines.
+-- Don't move cursor when joining lines. Also add a version that removes spaces between joined lines that's dot-repeatable.
 wk.register({ J = { "mzJ`z", "Join lines" } })
+vim.keymap.set("n", "<Plug>JoinLinesWithoutSpaces", 'mzJx`z:call repeat#set("\\<Plug>JoinLinesWithoutSpaces")<CR>', { silent = true, noremap = true })
+wk.register({ ["<leader>J"] = { "<Plug>JoinLinesWithoutSpaces", "Join lines without space" } }, { mode = "n", noremap = true })
 
 -- Add undo break points for punctuation.
 wk.register({

@@ -218,4 +218,7 @@ return {
       })
     end,
   },
+
+  -- Make certain mappings dot-repeatable.
+  "tpope/vim-repeat",
 }
