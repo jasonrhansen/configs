@@ -73,7 +73,6 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
       print("Large file, disabling some options to increase performance...")
       vim.opt.undofile = false
       vim.opt.swapfile = false
-      vim.opt_local.redrawtime = 100 -- Still show syntax highlighting for really large files.
       vim.opt_local.foldmethod = "manual"
       vim.cmd("IndentBlanklineDisable")
       vim.cmd("TSContextDisable")
