@@ -11,7 +11,6 @@ local M = {
 function M.config()
   local lspconfig = require("lspconfig")
   local lsp_status = require("lsp-status")
-  local null_ls = require("null-ls")
   local wk = require("which-key")
 
   local lua_ls_runtime_path = vim.split(package.path, ";")
@@ -294,19 +293,11 @@ function M.config()
     lspconfig[name].setup(config)
   end
 
-  null_ls.setup({
-    sources = {
-      -- npm install -g @fsouza/prettierd
-      null_ls.builtins.formatting.prettierd,
-      null_ls.builtins.formatting.rubocop,
-      -- cargo install stylua
-      null_ls.builtins.formatting.stylua.with({
-        args = { "-s", "--indent-type", "Spaces", "--indent-width", "2", "-" },
-      }),
-    },
+  require("null-ls").setup({
     should_attach = function(bufnr)
       return not require("util").is_large_file(bufnr);
     end,
+    on_attach = attach,
   })
 
   -- Diagnostics config
