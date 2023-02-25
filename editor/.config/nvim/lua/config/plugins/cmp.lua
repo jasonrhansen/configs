@@ -49,7 +49,6 @@ local kind_icons = {
 local sources = {
   { name = "nvim_lua", menu = "Lua" }, -- Complete neovim's Lua runtime API such as vim.lsp.*
   { name = "nvim_lsp", menu = "LSP" },
-  { name = "codeium", menu = "Codeium" },
   { name = "luasnip", menu = "LuaSnip" },
   { name = "path", menu = "Path" },
   { name = "calc", menu = "Calc" },
