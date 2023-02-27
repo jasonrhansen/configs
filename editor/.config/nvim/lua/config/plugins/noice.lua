@@ -46,7 +46,7 @@ return {
         command_palette = false, -- position the cmdline and popupmenu together
         long_message_to_split = true, -- long messages will be sent to a split
         inc_rename = true, -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = true, -- add a border to hover docs and signature help
+        lsp_doc_border = false, -- add a border to hover docs and signature help
       },
       routes = {
         {
@@ -58,40 +58,24 @@ return {
           opts = { skip = true },
         },
         {
-          view = "mini",
           filter = {
-            find = "more line",
-          },
-        },
-        {
-          view = "mini",
-          filter = {
-            find = "fewer line",
-          },
-        },
-        {
-          filter = {
-            find = "code_action",
+            any = {
+              { find = "code_action" },
+              { find = "No node found at cursor" },
+              { find = "Diagnosing lua_ls" },
+            }
           },
           opts = { skip = true },
         },
         {
           filter = {
-            find = "No node found at cursor",
+            any = {
+              { find = "Session restored from" },
+              { find = "fewer line" },
+              { find = "more line" },
+            }
           },
-          opts = { skip = true },
-        },
-        {
           view = "mini",
-          filter = {
-            find = "Session restored from",
-          },
-        },
-        {
-          filter = {
-            find = "Diagnosing lua_ls",
-          },
-          opts = { skip = true },
         },
       },
       format = {
