@@ -13,4 +13,11 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 
 -- Load lazy
-require("lazy").setup("config.plugins")
+require("lazy").setup("config.plugins", {
+  install = {
+    missing = false,
+  },
+  change_detection = {
+    enabled = false,
+  }
+})
