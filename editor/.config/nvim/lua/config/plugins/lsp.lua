@@ -82,8 +82,6 @@ function M.config()
       ["<leader>gI"] = { pick_window(vim.lsp.buf.implementation), "Pick window and jump to implementation" },
       K = { vim.lsp.buf.hover, "Hover" },
       ["<leader>k"] = { vim.lsp.buf.signature_help, "Signature help" },
-      ["<leader>rn"] = { vim.lsp.buf.rename, "Rename" },
-      ["<F2>"] = { vim.lsp.buf.rename, "Rename" },
       ["<leader>a"] = { vim.lsp.buf.code_action, "Code action" },
       ["<leader>d"] = { vim.diagnostic.open_float, "Line diagnostics" },
       ["[d"] = { vim.diagnostic.goto_prev, "Jump to previous line diagnostic" },

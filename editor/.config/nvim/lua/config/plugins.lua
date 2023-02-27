@@ -1,31 +1,14 @@
 return {
-  -- Progress indicator
   {
-    "j-hui/fidget.nvim",
+    "smjonas/inc-rename.nvim",
     config = function()
-      require("fidget").setup({
-        text = {
-          spinner = "circle_halves",
-        },
-        window = {
-          relative = "editor",
-        },
-        sources = {
-          -- Because of integration with ts-node-action, every time the cursor position
-          -- changes a null-ls notification is shown, which can be quite annoying, so ignore them.
-          ["null-ls"] = {
-            ignore = true,
-          },
-        },
-      })
-    end,
-  },
-
-  -- Show function signature when you type
-  {
-    "ray-x/lsp_signature.nvim",
-    config = function()
-      require("lsp_signature").setup()
+      require("inc_rename").setup()
+      vim.keymap.set("n", "<leader>rn", function()
+        return ":IncRename " .. vim.fn.expand("<cword>")
+      end, { expr = true })
+      vim.keymap.set("n", "<F2>", function()
+        return ":IncRename " .. vim.fn.expand("<cword>")
+      end, { expr = true })
     end,
   },
 
@@ -50,22 +33,6 @@ return {
   {
     "jose-elias-alvarez/null-ls.nvim",
     dependencies = "nvim-lua/plenary.nvim",
-  },
-
-  -- Enhanced vim.ui.select and vim.ui.input
-  {
-    "stevearc/dressing.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("dressing").setup({
-        input = {
-          override = function(conf)
-            -- TODO: Remove this workaround when https://github.com/neovim/neovim/issues/19464 is fixed.
-            conf.height = 2
-          end,
-        },
-      })
-    end,
   },
 
   {

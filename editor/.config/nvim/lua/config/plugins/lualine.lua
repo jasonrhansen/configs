@@ -24,7 +24,14 @@ function M.config()
     sections = {
       lualine_a = { "mode" },
       lualine_b = { "branch", git_status },
-      lualine_c = { lsp_status },
+      lualine_c = {
+        lsp_status,
+        {
+          require("noice").api.status.search.get,
+          cond = require("noice").api.status.search.has,
+          color = "@constructor",
+        },
+      },
       lualine_x = { "SleuthIndicator", "encoding", "fileformat", "filetype" },
       lualine_y = { "progress" },
       lualine_z = { "location" },

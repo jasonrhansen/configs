@@ -61,6 +61,8 @@ function M.config()
       "llvm",
       "lua",
       "make",
+      "markdown",
+      "markdown_inline",
       "ninja",
       "nix",
       "ocaml",
