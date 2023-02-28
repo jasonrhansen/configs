@@ -5,8 +5,20 @@ return {
     "rcarriga/nvim-notify",
   },
   config = function()
+    local signs = require('config.signs')
     require("noice").setup({
       cmdline = {
+        format = {
+          cmdline = {
+            conceal = false,
+          },
+          lua = {
+            conceal = false,
+          },
+          help = {
+            conceal = false,
+          },
+        },
         view = "cmdline",
       },
       lsp = {
@@ -81,16 +93,16 @@ return {
       format = {
         level = {
           icons = {
-            error = require("config.signs").Error,
-            warn = require("config.signs").Warning,
-            info = require("config.signs").Information,
+            error = signs.Error,
+            warn = signs.Warning,
+            info = signs.Information,
           },
         },
         progress = {
           width = 10,
         },
         spinner = {
-          name = "clock",
+          name = "dots",
         },
       },
     })

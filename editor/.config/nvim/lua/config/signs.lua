@@ -3,4 +3,6 @@ return {
   Warning = " ",
   Hint = " ",
   Information = " ",
+  Debug = "",
+  Trace = "✎",
 }

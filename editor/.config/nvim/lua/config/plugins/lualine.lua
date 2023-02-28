@@ -29,7 +29,7 @@ function M.config()
         {
           require("noice").api.status.search.get,
           cond = require("noice").api.status.search.has,
-          color = "@constructor",
+          color = { fg = "#FFFFFF" },
         },
       },
       lualine_x = { "SleuthIndicator", "encoding", "fileformat", "filetype" },
