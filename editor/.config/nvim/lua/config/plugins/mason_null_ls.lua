@@ -7,7 +7,7 @@ return {
   },
   config = function()
     require("mason-null-ls").setup({
-      ensure_installed = { "prettierd", "stylua", "rubocop", "sql_formatter" },
+      ensure_installed = { "prettierd", "stylua", "sql_formatter" },
       automatic_installation = false,
       automatic_setup = true,
     })

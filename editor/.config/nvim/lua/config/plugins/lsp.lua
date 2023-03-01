@@ -64,6 +64,15 @@ function M.config()
 
   local pick_window = require("util").pick_window
 
+  local format_buffer = function()
+    vim.lsp.buf.format({
+      filter = function(client)
+        return not vim.tbl_contains(disable_formatting_names, client.name)
+      end,
+      async = true,
+    })
+  end
+
   -- Normal mode keymaps that get added to a buffer when attaching an LSP client.
   local keymaps = {
     -- normal mode
@@ -89,17 +98,12 @@ function M.config()
       ["[d"] = { vim.diagnostic.goto_prev, "Jump to previous line diagnostic" },
       ["]d"] = { vim.diagnostic.goto_next, "Jump to next line diagnostic" },
       ["<leader>Q"] = { vim.diagnostic.set_loclist, "Open diagnostics in loclist" },
-      ["<leader>f"] = {
-        function()
-          vim.lsp.buf.format({ async = true })
-        end,
-        "Format buffer",
-      },
+      ["<leader>f"] = { format_buffer, "Format buffer" },
       ["<leader>V"] = { toggle_diagnostic_virtual_text, "Toggle diagnostic virtual text" },
     },
     -- visual mode
     v = {
-      ["<leader>f"] = { vim.lsp.buf.range_formatting, "Format range" },
+      ["<leader>f"] = { format_buffer, "Format range" },
       ["<leader>a"] = { vim.lsp.buf.range_code_action, "Code action for range" },
     },
   }
@@ -119,12 +123,6 @@ function M.config()
 
     if vim.tbl_contains(format_on_save_names, client.name) then
       vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.format({ async = true })")
-    end
-
-    if vim.tbl_contains(disable_formatting_names, client.name) then
-      -- disable formatting in favor of null-ls
-      client.server_capabilities.document_formatting = false
-      client.server_capabilities.document_range_formatting = false
     end
   end
 
@@ -159,6 +157,9 @@ function M.config()
     rust_analyzer = {},
     -- Ruby
     solargraph = {
+      init_options = {
+        formatting = false,
+      },
       settings = {
         solargraph = {
           useBundler = false,
@@ -293,11 +294,15 @@ function M.config()
     lspconfig[name].setup(config)
   end
 
-  require("null-ls").setup({
+  local null_ls = require("null-ls")
+  null_ls.setup({
     should_attach = function(bufnr)
-      return not require("util").is_large_file(bufnr);
+      return not require("util").is_large_file(bufnr)
     end,
     on_attach = attach,
+    sources = {
+      null_ls.builtins.formatting.rubocop,
+    },
   })
 
   -- Diagnostics config
