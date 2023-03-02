@@ -6,7 +6,8 @@ local M = {
     "nvim-lua/plenary.nvim",
     "natecraddock/telescope-zf-native.nvim",
     "smartpde/telescope-recent-files",
-    "nvim-telescope/telescope-live-grep-args.nvim"
+    "nvim-telescope/telescope-live-grep-args.nvim",
+    "aaronhallaert/ts-advanced-git-search.nvim"
   },
 }
 
@@ -110,6 +111,7 @@ function M.config()
   telescope.load_extension("zf-native")
 
   telescope.load_extension("recent_files")
+  telescope.load_extension("advanced_git_search")
 
   local function buffers()
     require("telescope.builtin").buffers()
@@ -221,6 +223,26 @@ function M.config()
     require("telescope.builtin").git_branches(opts)
   end
 
+  local function git_diff_branch_file()
+    require("telescope").extensions.advanced_git_search.diff_branch_file()
+  end
+
+  local function git_diff_commit_line()
+    require("telescope").extensions.advanced_git_search.diff_commit_line()
+  end
+
+  local function git_diff_commit_file()
+    require("telescope").extensions.advanced_git_search.diff_commit_file()
+  end
+
+  local function git_search_log_content()
+    require("telescope").extensions.advanced_git_search.search_log_content()
+  end
+
+  local function git_checkout_reflog()
+    require("telescope").extensions.advanced_git_search.checkout_reflog()
+  end
+
   -- Find my config files
   local function find_config_files()
     local opts = {
@@ -229,7 +251,6 @@ function M.config()
     }
     require("telescope.builtin").find_files(opts)
   end
-
   local function buffer_diagnostics()
     local opts = {
       bufnr = 0,
@@ -272,6 +293,11 @@ function M.config()
       name = "Git",
       c = { git_commits, "Search git commits" },
       b = { git_branches, "Search git branches" },
+      B = { git_diff_branch_file, "Search git branches (open diff)" },
+      L = { git_diff_commit_line, "Search git commits for selected lines" },
+      f = { git_diff_commit_file, "Search git commits for current file" },
+      l = { git_search_log_content, "Search git log content" },
+      r = { git_checkout_reflog, "Search git reflog entries" },
     },
   })
 end
