@@ -71,11 +71,13 @@ function M.config()
 
   vim.o.completeopt = "menu,menuone,noselect"
 
+  local luasnip = require("luasnip")
+
   cmp.setup({
     preselect = cmp.PreselectMode.None,
     snippet = {
       expand = function(args)
-        require("luasnip").lsp_expand(args.body)
+        luasnip.lsp_expand(args.body)
       end,
     },
     window = {
@@ -93,10 +95,19 @@ function M.config()
         behavior = cmp.ConfirmBehavior.Insert,
         select = false,
       }),
-      ["<C-j>"] = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Insert,
-        select = true,
-      }),
+      ["<C-j>"] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          if luasnip.expandable() then
+            luasnip.expand()
+          else
+            cmp.confirm({ select = true })
+          end
+        elseif luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
+        else
+          fallback()
+        end
+      end, { "i", "s" }),
       ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
     },
     -- Order sources by priority
