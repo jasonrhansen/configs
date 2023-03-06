@@ -154,7 +154,18 @@ function M.config()
     -- Python
     pyright = {},
     -- Rust
-    rust_analyzer = {},
+    rust_analyzer = {
+      settings = {
+        ["rust-analyzer"] = {
+          procMacro = {
+            enable = true,
+          },
+          check = {
+            command = "clippy",
+          }
+        },
+      },
+    },
     -- Ruby
     solargraph = {
       init_options = {
