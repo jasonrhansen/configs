@@ -80,10 +80,6 @@ function M.config()
         luasnip.lsp_expand(args.body)
       end,
     },
-    window = {
-      documentation = cmp.config.window.bordered(),
-      completion = cmp.config.window.bordered(),
-    },
     mapping = {
       ["<C-p>"] = cmp.mapping.select_prev_item(),
       ["<C-n>"] = cmp.mapping.select_next_item(),
