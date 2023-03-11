@@ -13,10 +13,6 @@ function M.config()
   local lsp_status = require("lsp-status")
   local wk = require("which-key")
 
-  local lua_ls_runtime_path = vim.split(package.path, ";")
-  table.insert(lua_ls_runtime_path, "lua/?.lua")
-  table.insert(lua_ls_runtime_path, "lua/?/init.lua")
-
   local node_path = vim.fn.expand("$HOME/.nvm/versions/node/v16.14.0")
   local node_lib_path = node_path .. "/lib"
   local tsserver_cmd = { node_path .. "/bin/typescript-language-server", "--stdio" }
@@ -183,7 +179,6 @@ function M.config()
         Lua = {
           runtime = {
             version = "LuaJIT",
-            path = lua_ls_runtime_path,
           },
           diagnostics = {
             enable = true,
@@ -202,8 +197,8 @@ function M.config()
             },
           },
           workspace = {
-            -- Make the server aware of Neovim runtime files
-            library = vim.api.nvim_get_runtime_file("", true),
+            -- Uncomment the line below to make the server aware of Neovim runtime files (but this significantly increases time to load and uses up the system file watches.)
+            -- library = vim.api.nvim_get_runtime_file("", true),
             preloadFileSize = 200,
           },
           -- Do not send telemetry data containing a randomized but unique identifier
