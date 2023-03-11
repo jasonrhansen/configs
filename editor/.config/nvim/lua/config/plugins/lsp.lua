@@ -280,7 +280,6 @@ function M.config()
     },
     vimls = {},
     vuels = {},
-    yamlls = {},
     zls = {},
   }
 
