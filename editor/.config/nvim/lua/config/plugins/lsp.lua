@@ -156,6 +156,9 @@ function M.config()
           procMacro = {
             enable = true,
           },
+          cargo = {
+            loadOutDirsFromCheck = true,
+          },
           check = {
             command = "clippy",
           }
