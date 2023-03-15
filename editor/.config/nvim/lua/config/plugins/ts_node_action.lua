@@ -32,6 +32,8 @@ end
 
 return {
   "ckolkey/ts-node-action",
+  -- Disable for now while testing out treesj instead.
+  enabled = false,
   dependencies = { "nvim-treesitter", "tpope/vim-repeat" },
   config = function()
     local ts_node_action = require("ts-node-action")
