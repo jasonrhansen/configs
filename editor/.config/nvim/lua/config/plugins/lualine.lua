@@ -14,12 +14,20 @@ function M.config()
     return vim.b.gitsigns_status or ""
   end
 
+  vim.cmd.colorscheme("kanagawa")
+  local kanagawa_colors = require("kanagawa.colors").setup({ theme = 'wave' }).palette
+  local lualine_kanagawa = require('lualine.themes.kanagawa')
+  lualine_kanagawa.command.a.bg = kanagawa_colors.boatYellow2
+  lualine_kanagawa.command.b.fg = kanagawa_colors.boatYellow2
+  lualine_kanagawa.normal.b.bg = "#3B4261"
+  lualine_kanagawa.normal.c.bg = "#1F2335"
+
   lualine.setup({
     options = {
       icons_enabled = true,
-      theme = "auto",
-      component_separators = { "", "" },
-      section_separators = { "", "" },
+      theme = lualine_kanagawa,
+      component_separators = "│",
+      section_separators = { right = '', left = ''},
     },
     sections = {
       lualine_a = { "mode" },
