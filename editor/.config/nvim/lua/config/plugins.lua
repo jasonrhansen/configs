@@ -84,14 +84,37 @@ return {
   { "tmux-plugins/vim-tmux", ft = "tmux" },
 
   -- Git
-  "tpope/vim-git",
+  { "tpope/vim-git", cmd = "Git" },
   "tpope/vim-fugitive",
   "rhysd/committia.vim",
   { "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
 
   -- Color themes
-  "folke/tokyonight.nvim",
-  "rebelot/kanagawa.nvim",
+  {
+    "folke/tokyonight.nvim",
+    lazy = true,
+    config = function()
+      vim.g.tokyonight_style = "night"
+      vim.g.tokyonight_colors = { border = "#292E42" }
+    end
+  },
+  {
+    "rebelot/kanagawa.nvim",
+    lazy = true,
+    config = function()
+      require("kanagawa").setup({
+        colors = {
+          theme = {
+            all = {
+              ui = {
+                bg_gutter = "none",
+              },
+            },
+          },
+        },
+      })
+    end
+  },
 
   -- Expand abbreviations for HTML like 'div>p#foo$*3>a' with '<c-y>,'
   "mattn/emmet-vim",
