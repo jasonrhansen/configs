@@ -61,14 +61,43 @@ alias clear='clear; tmux clear-history 2> /dev/null'
 alias fixmouse='echo -e "\e[?1000h\e[?1000l"'
 
 # tmux aliases
-alias tms='tmux new-session -s'
 alias tmls='tmux list-sessions'
 alias tmks='tmux kill-session -t'
 alias tmksv='tmux kill-server'
 alias tmn='tmux new -s'
-# Create a tmux session with the name set to the dir name.
+# Fuzzy find project directory and create or open a tmux session.
+tms() {
+  if [ -z $1 ]; then
+    selected=$({ echo ~/configs && find ~/dev ~/dev/others -mindepth 1 -maxdepth 1 -type d; } | fzf)
+  else
+    selected=$1
+  fi
+
+  if [[ -z $selected ]]; then
+    return
+  fi
+
+  selected_name=$(basename "$selected" | tr . _)
+  tmux_running=$(pgrep tmux)
+
+  if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+      tmux new-session -s $selected_name -c $selected
+      return
+  fi
+
+  if ! tmux has-session -t=$selected_name 2> /dev/null; then
+      tmux new-session -ds $selected_name -c $selected
+  fi
+
+  if [[ -z $TMUX ]]; then
+    tmux attach -t $selected_name
+  else
+    tmux switch-client -t $selected_name
+  fi
+}
+# Create or open a tmux session with the name set to the dir name.
 tmd() {
-  tmux new -s $(basename $(pwd)) > /dev/null || tmux attach -t $(basename $(pwd))
+  tms "$(pwd)"
 }
 tma() {
   if [ -n $1 ]
