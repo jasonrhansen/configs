@@ -11,5 +11,6 @@ require("config.lazy")
 
 require("config.commands")
 require("config.theme")
+require("config.relativize")
 require("config.keymaps")
 require("config.winbar")

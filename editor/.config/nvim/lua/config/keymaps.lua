@@ -1,10 +1,5 @@
 -- Misc. key maps defined with which-key
 
-local function toggle_line_numbers()
-  vim.o.number = not vim.o.number and (vim.g.relativize_with_number == 1 or vim.g.relativize_enabled == 1)
-  vim.o.relativenumber = not vim.o.relativenumber and vim.g.relativize_enabled == 1
-end
-
 local comment_colors = { vim.fn.synIDattr(vim.fn.hlID("Comment"), "fg#"), "#a2a199" }
 local comment_color_index = 0
 local function toggle_bright_comments()
@@ -43,9 +38,7 @@ wk.register({
     w = { "w!<cr>", "Save (force)" },
     i = { "<cmd>IndentBlanklineToggle<cr>", "Toggle indent guides" },
     q = { "<cmd>Bdelete<cr>", "Delete buffer" },
-    L = { "<cmd>RelativizeToggle<cr>", "Toggle Relativize" },
     c = { toggle_bright_comments, "Toggle bright comments" },
-    l = { toggle_line_numbers, "Toggle line numbers" },
     g = { toggle_global_statusline, "Toggle global statusline" },
     W = { toggle_winbar, "Toggle winbar" },
     n = {

@@ -95,9 +95,6 @@ return {
   -- Changes the working directory to the project root when you open a file.
   "airblade/vim-rooter",
 
-  -- Automatically toggle relative line numbers based on mode.
-  "ericbn/vim-relativize",
-
   -- Highlight and search for todo comments like TODO, HACK, BUG
   {
     "folke/todo-comments.nvim",
