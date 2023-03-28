@@ -118,7 +118,7 @@ function M.config()
     end
 
     if vim.tbl_contains(format_on_save_names, client.name) then
-      vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.format({ async = true })")
+      vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format()")
     end
   end
 
