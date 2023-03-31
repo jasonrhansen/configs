@@ -49,8 +49,12 @@ return {
 
     vim.keymap.set("n", "<leader>c", function()
       require("copilot.suggestion").toggle_auto_trigger()
-      print("Toggled copilot auto trigger")
-    end, { desc = "Toggle copilot auto trigger" })
+      if vim.b.copilot_suggestion_auto_trigger then
+        print("Enabled copilot auto trigger")
+      else
+        print("Disabled copilot auto trigger")
+      end
+    end, { desc = "[copilot] toggle auto trigger" })
 
     local cmp = require("cmp")
     cmp.event:on("menu_opened", function()
