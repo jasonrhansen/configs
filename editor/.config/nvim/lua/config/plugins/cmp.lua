@@ -105,6 +105,22 @@ function M.config()
         end
       end, { "i", "s" }),
       ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
+      ["<M-]>"] = cmp.mapping(function(fallback)
+        cmp.mapping.close()(fallback)
+        require("copilot.suggestion").next()
+      end),
+      ["<M-j>"] = cmp.mapping(function(fallback)
+        cmp.mapping.close()(fallback)
+        require("copilot.suggestion").accept()
+      end),
+      ["<M-l>"] = cmp.mapping(function(fallback)
+        cmp.mapping.close()(fallback)
+        require("copilot.suggestion").accept_line()
+      end),
+      ["<M-w>"] = cmp.mapping(function(fallback)
+        cmp.mapping.close()(fallback)
+        require("copilot.suggestion").accept_word()
+      end),
     },
     -- Order sources by priority
     sources = source_names,
