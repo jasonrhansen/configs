@@ -38,7 +38,7 @@ wk.register({
     w = { "w!<cr>", "Save (force)" },
     i = { "<cmd>IndentBlanklineToggle<cr>", "Toggle indent guides" },
     q = { "<cmd>Bdelete<cr>", "Delete buffer" },
-    c = { toggle_bright_comments, "Toggle bright comments" },
+    b = { toggle_bright_comments, "Toggle bright comments" },
     g = { toggle_global_statusline, "Toggle global statusline" },
     W = { toggle_winbar, "Toggle winbar" },
     n = {

@@ -871,7 +871,9 @@ key_bindings:
   - { key: N,           mods: Command, action: SpawnNewInstance             }
   - { key: N,           mods: Shift|Control, action: SpawnNewInstance       }
   - { key: F11,                        action: ToggleFullscreen             }
-  - { key: Return,      mods: Alt,     action: ToggleFullscreen             }
+  - { key: Return,      mods: Alt,     chars: "\x1b\r"                      }
+  - { key: LBracket,    mods: Alt,     chars: "\x1b["                       }
+  - { key: RBracket,    mods: Alt,     chars: "\x1b]"                       }
 #key_bindings:
   #- { key: Paste,                                       action: Paste          }
   #- { key: Copy,                                        action: Copy           }
