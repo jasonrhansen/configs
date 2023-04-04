@@ -9,6 +9,8 @@ local M = {
     "hrsh7th/cmp-nvim-lsp-signature-help",
     "hrsh7th/cmp-nvim-lua",
     "hrsh7th/cmp-path",
+    "petertriho/cmp-git",
+    "hrsh7th/cmp-cmdline",
     "andersevenrud/cmp-tmux",
     -- Better sort for completion items that start with one or more underscores
     "lukas-reineke/cmp-under-comparator",
@@ -145,6 +147,33 @@ function M.config()
         return vim_item
       end,
     },
+  })
+
+  -- Set configuration for specific filetype.
+  cmp.setup.filetype("gitcommit", {
+    sources = cmp.config.sources({
+      { name = "cmp_git" },
+    }, {
+      { name = "buffer" },
+    }),
+  })
+
+  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline({ "/", "?" }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = "buffer" },
+    },
+  })
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(":", {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = "path" },
+    }, {
+      { name = "cmdline" },
+    }),
   })
 end
 
