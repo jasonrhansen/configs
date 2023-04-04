@@ -74,6 +74,14 @@ function M.config()
 
   cmp.setup({
     enabled = function()
+      local disabled = false
+      disabled = disabled or (vim.api.nvim_buf_get_option(0, "buftype") == "prompt")
+      disabled = disabled or (vim.fn.reg_recording() ~= "")
+      disabled = disabled or (vim.fn.reg_executing() ~= "")
+      if disabled then
+        return false
+      end
+
       -- Disable completion in comments.
       local context = require("cmp.config.context")
       -- Keep command mode completion enabled when cursor is in a comment.
