@@ -14,9 +14,6 @@ local M = {
     "andersevenrud/cmp-tmux",
     -- Better sort for completion items that start with one or more underscores
     "lukas-reineke/cmp-under-comparator",
-
-    -- Displays a popup with possible key bindings of the command you started typing
-    "folke/which-key.nvim",
   },
 }
 
