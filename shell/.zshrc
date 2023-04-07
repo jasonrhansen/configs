@@ -108,6 +108,15 @@ tma() {
   fi
 }
 
+# Fuzzy search for a directory and cd into it.
+sd() {
+  if [ -z $1 ]; then
+    cd "$(fdfind -t d | fzf)"
+  else
+    cd "$(fdfind -t d '' $1 | fzf)"
+  fi
+}
+
 alias luamake=~/dev/others/lua-language-server/3rd/luamake/luamake
 
 export GOPATH=~/go
