@@ -1,4 +1,4 @@
-vim.o.winbar = " "
+vim.wo.winbar = " "
 
 local ignore_filetypes = {
   "",

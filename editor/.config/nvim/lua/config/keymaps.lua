@@ -17,11 +17,11 @@ end
 
 local saved_winbar = vim.go.winbar
 local function toggle_winbar()
-  if vim.go.winbar == nil or vim.go.winbar == "" then
-    vim.go.winbar = saved_winbar
+  if vim.wo.winbar == nil or vim.wo.winbar == "" then
+    vim.wo.winbar = saved_winbar
   else
-    saved_winbar = vim.go.winbar
-    vim.go.winbar = nil
+    saved_winbar = vim.wo.winbar
+    vim.wo.winbar = nil
   end
 end
 
