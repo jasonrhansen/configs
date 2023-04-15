@@ -15,10 +15,7 @@ function M.config()
   end
 
   vim.cmd.colorscheme("kanagawa")
-  local kanagawa_colors = require("kanagawa.colors").setup({ theme = 'wave' }).palette
   local lualine_kanagawa = require('lualine.themes.kanagawa')
-  lualine_kanagawa.command.a.bg = kanagawa_colors.boatYellow2
-  lualine_kanagawa.command.b.fg = kanagawa_colors.boatYellow2
   lualine_kanagawa.normal.b.bg = "#3B4261"
   lualine_kanagawa.normal.c.bg = "#1F2335"
 
