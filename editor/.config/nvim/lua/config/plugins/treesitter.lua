@@ -16,7 +16,7 @@ local M = {
 function M.config()
   local treesitter = require("nvim-treesitter.configs")
 
-  local disabled_filetypes = { "php", "html" }
+  local disabled_filetypes = { "html" }
 
   local disable = function(lang, buf)
     return vim.tbl_contains(disabled_filetypes, lang) or require("util").is_large_file(buf)
