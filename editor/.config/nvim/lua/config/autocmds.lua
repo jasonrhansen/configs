@@ -71,14 +71,11 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
   callback = function(ev)
     if require("util").is_large_file(ev.buf) then
       print("Large file, disabling some options to increase performance...")
-      vim.opt.undofile = false
-      vim.opt.swapfile = false
       vim.opt_local.foldmethod = "manual"
       vim.cmd("IndentBlanklineDisable")
       vim.cmd("TSContextDisable")
       vim.diagnostic.disable(ev.buf)
       require('cmp').setup.buffer({ enabled = false })
-      require('nvim-autopairs').disable()
     end
   end,
 })
