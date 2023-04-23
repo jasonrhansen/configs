@@ -9,7 +9,9 @@ local M = {
     "nvim-telescope/telescope-live-grep-args.nvim",
     "aaronhallaert/ts-advanced-git-search.nvim",
     "nvim-telescope/telescope-symbols.nvim",
-    "barrett-ruth/telescope-http.nvim"
+    "barrett-ruth/telescope-http.nvim",
+    "nvim-telescope/telescope-frecency.nvim",
+    "kkharji/sqlite.lua", -- Needed for telescope-frecency
   },
 }
 
@@ -114,6 +116,7 @@ function M.config()
 
   telescope.load_extension("recent_files")
   telescope.load_extension("advanced_git_search")
+  telescope.load_extension("frecency")
 
   local function buffers()
     require("telescope.builtin").buffers()
@@ -289,6 +292,7 @@ function M.config()
     d = { buffer_diagnostics, "Search buffer diagnostics" },
     D = { workspace_diagnostics, "Search workspace diagnostics" },
     f = { telescope.extensions.recent_files.pick, "Search recent files" },
+    F = { telescope.extensions.frecency.frecency, "Search 'frecently' edited files" },
     -- SearchSession defined in rmagatti/session-lens
     S = { "<cmd>SearchSession<cr>", "Search sessions" },
     G = {
