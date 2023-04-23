@@ -7,7 +7,9 @@ local M = {
     "natecraddock/telescope-zf-native.nvim",
     "smartpde/telescope-recent-files",
     "nvim-telescope/telescope-live-grep-args.nvim",
-    "aaronhallaert/ts-advanced-git-search.nvim"
+    "aaronhallaert/ts-advanced-git-search.nvim",
+    "nvim-telescope/telescope-symbols.nvim",
+    "barrett-ruth/telescope-http.nvim"
   },
 }
 
