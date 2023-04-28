@@ -293,8 +293,6 @@ function M.config()
     D = { workspace_diagnostics, "Search workspace diagnostics" },
     f = { telescope.extensions.recent_files.pick, "Search recent files" },
     F = { telescope.extensions.frecency.frecency, "Search 'frecently' edited files" },
-    -- SearchSession defined in rmagatti/session-lens
-    S = { "<cmd>SearchSession<cr>", "Search sessions" },
     G = {
       name = "Git",
       c = { git_commits, "Search git commits" },
