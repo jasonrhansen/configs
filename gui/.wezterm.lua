@@ -29,7 +29,13 @@ return {
   },
 
   window_decorations = "RESIZE",
-  hide_tab_bar_if_only_one_tab = false,
+  hide_tab_bar_if_only_one_tab = true,
+
+  font = wezterm.font({
+    family = "Iosevka Term",
+    weight = "Regular",
+    harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
+  }),
 
   window_frame = {
     -- The font used in the tab bar.
