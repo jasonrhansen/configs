@@ -1,6 +1,6 @@
 return {
   Error = " ",
-  Warning = " ",
-  Hint = " ",
-  Information = " ",
+  Warning = "󰀪 ",
+  Hint = "󰌶",
+  Information = "󰋽 ",
 }

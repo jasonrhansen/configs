@@ -51,6 +51,11 @@ function M.config()
     default_source = "filesystem",
     source_selector = {
       winbar = true,
+      sources = {
+        { source = "filesystem", display_name = " 󰉓  Files " },
+        { source = "buffers", display_name = " 󰈙  Buffers " },
+        { source = "git_status", display_name = " 󰊢  Git " },
+      }
     },
     close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
     popup_border_style = "rounded",
