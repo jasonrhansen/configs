@@ -8,10 +8,6 @@ if [[ $platform == 'Darwin' ]]; then
 
     brew bundle
     brew linkapps
-
-    sudo pip2 install pynvim
-    sudo pip3 install pynvim
-    sudo gem install neovim
 fi
 
 stow shell
@@ -71,10 +67,6 @@ TERM="xterm-256color"
 infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > $TERM.ti
 tic $TERM.ti
 rm $TERM.ti
-
-echo "Installing packer.nvim and neovim plugins"
-git clone https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-nvim +PackerSync
 
 echo "Installing tmux plugin manager"
 tmux_plugins_dir=~/.tmux/plugins
