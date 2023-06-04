@@ -1,5 +1,9 @@
 local M = {
   "s1n7ax/nvim-window-picker",
+  -- Stay on version 1 until the following issue is resolved:
+  -- https://github.com/s1n7ax/nvim-window-picker/issues/36
+  version = "1.*",
+  event = "VeryLazy",
 }
 
 function M.config()
