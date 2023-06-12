@@ -2,6 +2,7 @@ return {
   -- Progress indicator
   {
     "j-hui/fidget.nvim",
+    tag = "legacy",
     config = function()
       require("fidget").setup({
         text = {
