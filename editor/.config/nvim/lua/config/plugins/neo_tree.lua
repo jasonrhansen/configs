@@ -124,6 +124,9 @@ function M.config()
         ["c"] = "copy", -- takes text input for destination
         ["m"] = "move", -- takes text input for destination
         ["q"] = "close_window",
+        ['e'] = function() vim.api.nvim_exec('Neotree focus filesystem left', true) end,
+        ['b'] = function() vim.api.nvim_exec('Neotree focus buffers left', true) end,
+        ['g'] = function() vim.api.nvim_exec('Neotree focus git_status left', true) end,
       },
     },
     nesting_rules = {},
