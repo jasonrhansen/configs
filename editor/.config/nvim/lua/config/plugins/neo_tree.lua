@@ -81,7 +81,7 @@ function M.config()
         folder_closed = "",
         folder_open = "",
         folder_empty = "",
-        default = "*",
+        default = "🗎",
       },
       name = {
         trailing_slash = false,
