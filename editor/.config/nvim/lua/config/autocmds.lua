@@ -21,7 +21,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   group = "jason-config",
   pattern = { "gitcommit" },
   callback = function()
-    vim.wo.colorcolumn = 80
+    vim.wo.colorcolumn = "80"
     vim.cmd.startinsert()
   end,
 })
