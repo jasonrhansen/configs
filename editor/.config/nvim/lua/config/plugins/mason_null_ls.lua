@@ -9,7 +9,13 @@ return {
     local null_ls = require("null-ls")
 
     require("mason-null-ls").setup({
-      ensure_installed = { "prettierd", "stylua", "sql_formatter" },
+      ensure_installed = {
+        "prettierd",
+        "stylua",
+        "sql_formatter",
+        -- python formatter
+        "black",
+      },
       automatic_installation = false,
       automatic_setup = true,
       handlers = {
