@@ -57,12 +57,19 @@ return {
     end, { desc = "[copilot] toggle auto trigger" })
 
     local cmp = require("cmp")
-    cmp.event:on("menu_opened", function()
-      vim.b.copilot_suggestion_hidden = true
+    cmp.event:on("confirm_done", function()
+      require("copilot.suggestion").dismiss()
     end)
 
-    cmp.event:on("menu_closed", function()
-      vim.b.copilot_suggestion_hidden = false
-    end)
+    -- Uncomment this if you want to hide cmp menu when copilot menu is opened.
+    --
+    -- local cmp = require("cmp")
+    -- cmp.event:on("menu_opened", function()
+    --   vim.b.copilot_suggestion_hidden = true
+    -- end)
+    --
+    -- cmp.event:on("menu_closed", function()
+    --   vim.b.copilot_suggestion_hidden = false
+    -- end)
   end,
 }
