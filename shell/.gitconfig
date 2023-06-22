@@ -8,3 +8,5 @@
 [core]
 	pager = less -F -X
 	autocrlf = input
+[rerere]
+	enabled = true
