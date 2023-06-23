@@ -23,7 +23,7 @@ function M.config()
   end
 
   local disable_indent = function(lang, bufnr)
-    return lang == "ruby" or lang == "rust" or disable(lang, bufnr)
+    return lang == "ruby" or disable(lang, bufnr)
   end
 
   treesitter.setup({
