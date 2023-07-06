@@ -110,6 +110,17 @@ function M.config()
     },
   })
 
+  local files_theme = themes.get_dropdown({
+    winblend = 10,
+    border = true,
+    previewer = false,
+    shorten_path = false,
+    layout_config = {
+      anchor = "N",
+      height = 0.5,
+    },
+  })
+
   -- Use native zf for better performance.
   -- This will override the default file and generic sorters.
   telescope.load_extension("zf-native")
@@ -122,16 +133,17 @@ function M.config()
     require("telescope.builtin").buffers()
   end
 
-  local function find_files()
-    local opts = {
+  local function find_files(opts)
+    opts = vim.tbl_extend("force", {
       find_command = { "rg", "-i", "--hidden", "--files", "-g", "!.git" },
-    }
+      theme = files_theme,
+    }, files_theme, opts or {})
     require("telescope.builtin").find_files(opts)
   end
 
-  local function git_files()
-    local opts = {}
-    local ok = pcall(require("telescope.builtin").git_files, opts)
+  local function git_files(opts)
+    opts = vim.tbl_extend("force", files_theme, opts or {})
+    local ok = pcall(require("telescope.builtin").git_files, files_theme)
     -- Fallback to find_files() if it can't find .git directory
     if not ok then
       find_files()
@@ -254,7 +266,7 @@ function M.config()
       cwd = "~/configs",
       find_command = { "rg", "-i", "--hidden", "--files", "-g", "!.git" },
     }
-    require("telescope.builtin").find_files(opts)
+    find_files(opts)
   end
   local function buffer_diagnostics()
     local opts = {
