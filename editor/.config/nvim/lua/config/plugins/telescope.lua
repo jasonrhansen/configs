@@ -107,6 +107,9 @@ function M.config()
           },
         },
       },
+      recent_files = {
+        only_cwd = true,
+      },
     },
   })
 
@@ -117,7 +120,8 @@ function M.config()
     shorten_path = false,
     layout_config = {
       anchor = "N",
-      height = 0.5,
+      width = { 0.3, min = 100 },
+      height = { 0.6, min = 30 },
     },
   })
 
@@ -129,8 +133,9 @@ function M.config()
   telescope.load_extension("advanced_git_search")
   telescope.load_extension("frecency")
 
-  local function buffers()
-    require("telescope.builtin").buffers()
+  local function buffers(opts)
+    opts = vim.tbl_extend("force", files_theme, opts or {})
+    require("telescope.builtin").buffers(opts)
   end
 
   local function find_files(opts)
@@ -143,15 +148,24 @@ function M.config()
 
   local function git_files(opts)
     opts = vim.tbl_extend("force", files_theme, opts or {})
-    local ok = pcall(require("telescope.builtin").git_files, files_theme)
+    local ok = pcall(require("telescope.builtin").git_files, opts)
     -- Fallback to find_files() if it can't find .git directory
     if not ok then
       find_files()
     end
   end
 
-  local function live_grep()
-    local opts = {}
+  local function recent_files(opts)
+    opts = vim.tbl_extend("force", files_theme, opts or {})
+    telescope.extensions.recent_files.pick(opts)
+  end
+
+  local function frecency_files(opts)
+    opts = vim.tbl_extend("force", files_theme, opts or {})
+    telescope.extensions.frecency.frecency(opts)
+  end
+
+  local function live_grep(opts)
     require("telescope.builtin").live_grep(opts)
   end
 
@@ -159,24 +173,32 @@ function M.config()
     require("telescope").extensions.live_grep_args.live_grep_args()
   end
 
-  local function resume()
-    local opts = {}
+  local function resume(opts)
     require("telescope.builtin").resume(opts)
   end
 
-  local function quickfix()
-    local opts = {}
+  local function quickfix(opts)
     require("telescope.builtin").quickfix(opts)
   end
 
-  local function lsp_document_symbols()
-    local opts = {}
+  local function lsp_document_symbols(opts)
     require("telescope.builtin").lsp_document_symbols(opts)
   end
 
-  local function lsp_workspace_symbols()
-    local opts = {}
+  local function lsp_workspace_symbols(opts)
     require("telescope.builtin").lsp_workspace_symbols(opts)
+  end
+
+  local function treesitter_symbols(opts)
+    require("telescope.builtin").treesitter(opts)
+  end
+
+  local function document_symbols(opts)
+    local ok = pcall(lsp_document_symbols, opts)
+    -- If no LSP client is available, use treesitter symbols.
+    if not ok then
+      treesitter_symbols(opts)
+    end
   end
 
   local function lsp_references()
@@ -191,33 +213,23 @@ function M.config()
     require("telescope.builtin").lsp_references(opts)
   end
 
-  local function treesitter()
-    local opts = {}
-    require("telescope.builtin").treesitter(opts)
-  end
-
-  local function command_history()
-    local opts = {}
+  local function command_history(opts)
     require("telescope.builtin").command_history(opts)
   end
 
-  local function help_tags()
-    local opts = {}
+  local function help_tags(opts)
     require("telescope.builtin").help_tags(opts)
   end
 
-  local function jumplist()
-    local opts = {}
+  local function jumplist(opts)
     require("telescope.builtin").jumplist(opts)
   end
 
-  local function vim_options()
-    local opts = {}
+  local function vim_options(opts)
     require("telescope.builtin").vim_options(opts)
   end
 
-  local function keymaps()
-    local opts = {}
+  local function keymaps(opts)
     require("telescope.builtin").keymaps(opts)
   end
 
@@ -290,10 +302,10 @@ function M.config()
     a = { live_grep_args, "Search live grep with args" },
     r = { resume, "Resume search" },
     q = { quickfix, "Search quickfix" },
-    t = { lsp_document_symbols, "Search LSP document symbols" },
+    t = { recent_files, "Search recent files" },
     T = { lsp_workspace_symbols, "Search LSP workspace symbols" },
     R = { lsp_references, "Search LSP references" },
-    s = { treesitter, "Search treesitter" },
+    s = { document_symbols, "Search document symbols" },
     h = { command_history, "Search command history" },
     H = { help_tags, "Search help tags" },
     j = { jumplist, "Search jumplist" },
@@ -303,8 +315,7 @@ function M.config()
     C = { colorscheme, "Search colorschemes" },
     d = { buffer_diagnostics, "Search buffer diagnostics" },
     D = { workspace_diagnostics, "Search workspace diagnostics" },
-    f = { telescope.extensions.recent_files.pick, "Search recent files" },
-    F = { telescope.extensions.frecency.frecency, "Search 'frecently' edited files" },
+    f = { frecency_files, "Search 'frecently' edited files" },
     G = {
       name = "Git",
       c = { git_commits, "Search git commits" },
