@@ -185,14 +185,6 @@ return {
     end,
   },
 
-  -- Fix neovim CursorHold and CursorHoldI autocmd events (performance bug)
-  {
-    "antoinemadec/FixCursorHold.nvim",
-    config = function()
-      vim.g.cursorhold_updatetime = 100
-    end,
-  },
-
   {
     "max397574/better-escape.nvim",
     config = function()
