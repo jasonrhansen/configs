@@ -13,19 +13,6 @@ function M.config()
   local lsp_status = require("lsp-status")
   local wk = require("which-key")
 
-  local node_path = vim.fn.expand("$HOME/.nvm/versions/node/v16.14.0")
-  local node_lib_path = node_path .. "/lib"
-  local tsserver_cmd = { node_path .. "/bin/typescript-language-server", "--stdio" }
-  local angularls_path = node_lib_path .. "/node_modules/@angular/language-server"
-  local angularls_cmd = {
-    "ngserver",
-    "--stdio",
-    "--tsProbeLocations",
-    node_lib_path,
-    "--ngProbeLocations",
-    angularls_path,
-  }
-
   -- Which LSP clients should automatically format when saving.
   local format_on_save_names = {
     "rust_analyzer",
@@ -124,12 +111,7 @@ function M.config()
 
   -- Language server configs
   local configs = {
-    angularls = {
-      cmd = angularls_cmd,
-      on_new_config = function(new_config)
-        new_config.cmd = angularls_cmd
-      end,
-    },
+    angularls = {},
     bashls = {},
     cmake = {},
     cssls = {},
@@ -219,7 +201,6 @@ function M.config()
     },
     svelte = {},
     tsserver = {
-      cmd = tsserver_cmd,
       settings = {
         typescript = {
           inlayHints = {
