@@ -4,44 +4,18 @@ local M = {
   dependencies = {
     "hrsh7th/nvim-cmp",
     "hrsh7th/cmp-buffer",
-    "hrsh7th/cmp-calc",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-nvim-lsp-signature-help",
     "hrsh7th/cmp-nvim-lua",
-    "hrsh7th/cmp-path",
-    "petertriho/cmp-git",
     "hrsh7th/cmp-cmdline",
+    "FelipeLema/cmp-async-path",
+    "petertriho/cmp-git",
     "andersevenrud/cmp-tmux",
     -- Better sort for completion items that start with one or more underscores
     "lukas-reineke/cmp-under-comparator",
+    -- vscode-like pictograms for completion items
+    "onsails/lspkind-nvim",
   },
-}
-
-local kind_icons = {
-  Class = "",
-  Color = "",
-  Constant = "",
-  Constructor = "",
-  Enum = "",
-  EnumMember = "",
-  Event = "",
-  Field = "",
-  File = "",
-  Folder = "",
-  Function = "",
-  Interface = "ﰮ",
-  Keyword = "",
-  Method = "ƒ",
-  Module = "",
-  Operator = "",
-  Property = "",
-  Reference = "",
-  Snippet = "﬌",
-  Struct = "",
-  Text = "",
-  Unit = "",
-  Value = "",
-  Variable = "",
 }
 
 -- Ordered with highest priority first.
@@ -49,12 +23,12 @@ local sources = {
   { name = "nvim_lua", menu = "Lua" }, -- Complete neovim's Lua runtime API such as vim.lsp.*
   { name = "nvim_lsp", menu = "LSP" },
   { name = "luasnip", menu = "LuaSnip" },
-  { name = "path", menu = "Path" },
-  { name = "calc", menu = "Calc" },
+  { name = "async_path", menu = "Path" },
   { name = "buffer", menu = "Buffer" },
   { name = "tmux", menu = "Tmux" },
   { name = "crates", menu = "Crates" },
 }
+
 
 local source_names = vim.tbl_map(function(source)
   return { name = source.name }
@@ -62,7 +36,7 @@ end, sources)
 
 local source_menus = {}
 for _, source in ipairs(sources) do
-  source_menus[source.name] = source.menu
+  source_menus[source.name] = "   " .. source.menu
 end
 
 function M.config()
@@ -73,6 +47,7 @@ function M.config()
   local luasnip = require("luasnip")
 
   cmp.setup({
+
     enabled = function()
       local disabled = false
       disabled = disabled or (vim.api.nvim_buf_get_option(0, "buftype") == "prompt")
@@ -142,14 +117,14 @@ function M.config()
     -- Order sources by priority
     sources = source_names,
     sorting = {
-      priority_weight = 2.,
       comparators = {
         cmp.config.compare.offset,
         cmp.config.compare.exact,
         cmp.config.compare.score,
+        cmp.config.recently_used,
         require("cmp-under-comparator").under,
+        cmp.locality,
         cmp.config.compare.kind,
-        cmp.config.compare.sort_text,
         cmp.config.compare.length,
         cmp.config.compare.order,
       },
@@ -157,12 +132,16 @@ function M.config()
     formatting = {
       fields = { "kind", "abbr", "menu" },
       format = function(entry, vim_item)
-        vim_item.kind = (kind_icons[vim_item.kind] or "?") .. " "
+        local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+        local strings = vim.split(kind.kind, "%s", { trimempty = true })
+        kind.kind = " " .. (strings[1] or "") .. " "
         vim_item.menu = source_menus[entry.source.name] or entry.source.name
-        return vim_item
+
+        return kind
       end,
     },
   })
+
 
   -- Set configuration for specific filetype.
   cmp.setup.filetype("gitcommit", {
@@ -190,6 +169,7 @@ function M.config()
       { name = "cmdline" },
     }),
   })
+
 end
 
 return M
