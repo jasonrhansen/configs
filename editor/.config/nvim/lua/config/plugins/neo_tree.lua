@@ -1,7 +1,7 @@
 -- File manager
 local M = {
   "nvim-neo-tree/neo-tree.nvim",
-  branch = "v2.x",
+  branch = "v3.x",
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons",
@@ -147,7 +147,9 @@ function M.config()
       },
       -- This will find and focus the file in the active buffer every
       -- time the current file is changed while the tree is open.
-      follow_current_file = false,
+      follow_current_file = {
+        enable = true,
+      },
       -- netrw disabled, opening a directory opens neo-tree
       -- in whatever position is specified in window.position
       -- "open_current",  -- netrw disabled, opening a directory opens within the
