@@ -154,3 +154,36 @@ wk.register(
   { ["<C-r>"] = { '"hy:%s/<C-r>h//gc<left><left><left>', "Substitute with selection" } },
   { mode = "v", silent = false }
 )
+
+local function is_window_rightmost(winnr)
+  winnr = winnr or vim.fn.winnr()
+  return vim.o.columns == vim.fn.win_screenpos(winnr)[2] + vim.fn.winwidth(winnr) - 1
+end
+
+local function adjust_window_width(cols)
+  if is_window_rightmost() then
+    cols = -cols
+  end
+
+  if cols > 0 then
+    vim.cmd("vertical resize +" .. cols)
+  else
+    vim.cmd("vertical resize -" .. -cols)
+  end
+end
+
+-- Quickly adjust window width.
+wk.register({
+  ["<M-l>"] = {
+    function()
+      adjust_window_width(5)
+    end,
+    "Adjust window width right",
+  },
+  ["<M-h>"] = {
+    function()
+      adjust_window_width(-5)
+    end,
+    "Adjust window width left",
+  },
+})
