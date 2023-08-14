@@ -11,6 +11,8 @@ local M = {
     "FelipeLema/cmp-async-path",
     "petertriho/cmp-git",
     "andersevenrud/cmp-tmux",
+    "mattn/emmet-vim",
+    "dcampos/cmp-emmet-vim",
     -- Better sort for completion items that start with one or more underscores
     "lukas-reineke/cmp-under-comparator",
     -- vscode-like pictograms for completion items
@@ -22,6 +24,7 @@ local M = {
 local sources = {
   { name = "nvim_lua", menu = "Lua" }, -- Complete neovim's Lua runtime API such as vim.lsp.*
   { name = "nvim_lsp", menu = "LSP" },
+  { name = "emmet_vim", menu = "Emmet" },
   { name = "luasnip", menu = "LuaSnip" },
   { name = "async_path", menu = "Path" },
   { name = "buffer", menu = "Buffer" },
