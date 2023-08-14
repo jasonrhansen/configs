@@ -202,4 +202,18 @@ return {
 
   -- Make certain mappings dot-repeatable.
   "tpope/vim-repeat",
+
+  -- Substitutions (preserving case and handling plurals): :%Subvert/facilit{y,ies}/building{,s}/g
+  "tpope/vim-abolish",
+
+  -- Easily change word casing with motions, text objects or visual mode.
+  -- * gsm: MixedCase or PascalCase
+  -- * gsc: camelCase
+  -- * gs_: snake_case
+  -- * gsu or gsU: UPPER_CASE
+  -- * gs<space>: space case
+  -- * gs- or gsk: dash-case or kebab-case
+  -- * gsK: Title-Dash-Case or Title-Kebab-Case
+  -- * gs.: dot.case
+  "arthurxavierx/vim-caser",
 }
