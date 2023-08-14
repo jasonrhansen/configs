@@ -182,8 +182,7 @@ function M.config()
             },
           },
           workspace = {
-            -- Uncomment the line below to make the server aware of Neovim runtime files (but this significantly increases time to load and uses up the system file watches.)
-            -- library = vim.api.nvim_get_runtime_file("", true),
+            library = { vim.env.VIMRUNTIME },
             preloadFileSize = 200,
           },
           -- Do not send telemetry data containing a randomized but unique identifier
