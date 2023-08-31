@@ -306,10 +306,10 @@ $env.config = {
     always_trash: false # always act as if -t was given. Can be overridden with -p
   }
   cd: {
-    abbreviations: false # allows `cd s/o/f` to expand to `cd some/other/folder`
+    abbreviations: true # allows `cd s/o/f` to expand to `cd some/other/folder`
   }
   table: {
-    mode: rounded # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
+    mode: light # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
     index_mode: always # "always" show indexes, "never" show indexes, "auto" = show indexes when a table has "index" column
     trim: {
       methodology: wrapping # wrapping or truncating
@@ -709,6 +709,9 @@ def-env sd [directory?: string] {
 
   cd $selection
 }
+
+def ll [] { ls -l | select name mode user group size modified }
+def la [] { ls -la | select name mode user group size modified }
 
 # Fuzzy search for a directory under my home and cd into it.
 alias sdh = sd ~
