@@ -651,19 +651,64 @@ $env.config = {
   ]
 }
 
-$env.STARSHIP_SHELL = "nu"
+alias clear = clear; tmux clear-history err> /dev/null
+alias fixmouse = ^echo -e "\e[?1000h\e[?1000l"
 
-def create_left_prompt [] {
-    starship prompt --cmd-duration $env.CMD_DURATION_MS $'--status=($env.LAST_EXIT_CODE)'
+# Fuzzy find project directory and create or open a tmux session.
+def tms [directory?: string] {
+  let selected = if $directory == null {
+    ($"("~/configs" | path expand)\n(^find ~/dev ~/dev/others -mindepth 1 -maxdepth 1 -type d; )" | fzf)
+  } else {
+    ($directory | path expand -n)
+  }
+
+  if $selected == null {
+    return
+  }
+
+  let selected_name = (basename $selected | tr . _)
+  let tmux_running = (pgrep tmux | complete | get exit_code) == 0
+
+  if (not ('TMUX' in $env)) and (not $tmux_running) {
+    tmux new-session -s $selected_name -c $selected
+    return
+  }
+
+  if (tmux has-session -t $selected_name err> /dev/null | complete | get exit_code) != 0 {
+    tmux new-session -ds $selected_name -c $selected
+  }
+
+  if not ('TMUX' in $env) {
+    tmux attach -t $selected_name
+  } else {
+    tmux switch-client -t $selected_name
+  }
 }
 
-# Use nushell functions to define your right and left prompt
-$env.PROMPT_COMMAND = { create_left_prompt }
-$env.PROMPT_COMMAND_RIGHT = ""
+def tma [name?: string] {
+  if ($name == null) {
+      tmux attach
+  } else {
+      tmux attach -t $name
+  }
+}
 
-# The prompt indicators are environmental variables that represent
-# the state of the prompt
-$env.PROMPT_INDICATOR = ""
-$env.PROMPT_INDICATOR_VI_INSERT = ": "
-$env.PROMPT_INDICATOR_VI_NORMAL = "〉"
-$env.PROMPT_MULTILINE_INDICATOR = "::: "
+alias tmd = tms $"(pwd)"
+alias tmls = tmux list-sessions
+alias tmks = tmux kill-session -t
+alias tmksv = tmux kill-server
+alias tmn = tmux new -s
+
+# Fuzzy search for a directory and cd into it.
+def-env sd [directory?: string] {
+  let $selection = if $directory == null {
+    $"(fdfind -t d | fzf)"
+  } else {
+    $"(fdfind -t d '' ($directory | path expand) | fzf)"
+  }
+
+  cd $selection
+}
+
+# Fuzzy search for a directory under my home and cd into it.
+alias sdh = sd ~

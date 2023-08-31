@@ -1,33 +1,24 @@
 # Nushell Environment Config File
 
+$env.VISUAL = "nvim"
+$env.EDITOR = "nvim"
+
+$env.STARSHIP_SHELL = "nu"
+
 def create_left_prompt [] {
-    let path_segment = if (is-admin) {
-        $"(ansi red_bold)($env.PWD)"
-    } else {
-        $"(ansi green_bold)($env.PWD)"
-    }
-
-    $path_segment
-}
-
-def create_right_prompt [] {
-    let time_segment = ([
-        (date now | date format '%m/%d/%Y %r')
-    ] | str join)
-
-    $time_segment
+    starship prompt --cmd-duration $env.CMD_DURATION_MS $'--status=($env.LAST_EXIT_CODE)'
 }
 
 # Use nushell functions to define your right and left prompt
 $env.PROMPT_COMMAND = { create_left_prompt }
-$env.PROMPT_COMMAND_RIGHT = { create_right_prompt }
+$env.PROMPT_COMMAND_RIGHT = ""
 
 # The prompt indicators are environmental variables that represent
 # the state of the prompt
-$env.PROMPT_INDICATOR = { "〉" }
-$env.PROMPT_INDICATOR_VI_INSERT = { ": " }
-$env.PROMPT_INDICATOR_VI_NORMAL = { "〉" }
-$env.PROMPT_MULTILINE_INDICATOR = { "::: " }
+$env.PROMPT_INDICATOR = ""
+$env.PROMPT_INDICATOR_VI_INSERT = ": "
+$env.PROMPT_INDICATOR_VI_NORMAL = "〉"
+$env.PROMPT_MULTILINE_INDICATOR = "::: "
 
 # Specifies how environment variables are:
 # - converted from a string to a value on Nushell startup (from_string)
@@ -60,3 +51,29 @@ $env.NU_PLUGIN_DIRS = [
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
+
+$env.GOPATH = '~/goderp'
+
+let path_prepend = [
+    '~/bin',
+    '~/.yarn.bin',
+    '~/.config/yarn/global/node_modules/.bin',
+]
+
+let path_append = [
+    $env.GOPATH,
+    $"($env.GOPATH)/bin",
+    '~/.cargo/bin',
+    '~/.rvm/bin',
+    '~/.local/bin',
+]
+
+$env.PATH = (
+    $env.PATH |
+    split row (char esep) |
+    prepend $path_prepend |
+    append $path_append |
+    each { |p| ($p | path expand -n) }
+)
+
+$env.RUST_SRC_PATH = $"(rustc --print sysroot)/lib/rustlib/src/rust/library"
