@@ -143,6 +143,11 @@ function M.config()
         return kind
       end,
     },
+    performance = {
+      debounce = 300,
+      throttle = 60,
+      fetching_timeout = 200,
+    },
   })
 
 
