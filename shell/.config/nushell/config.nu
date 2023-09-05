@@ -1,4 +1,5 @@
 # Nushell Config File
+source config_local.nu
 
 module completions {
   # Custom completions for external commands (those outside of Nushell)

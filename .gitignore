@@ -4,3 +4,4 @@ packer_compiled.*
 .git
 .DS_Store
 history.txt
+shell/.config/nushell/scripts/config_local.nu
