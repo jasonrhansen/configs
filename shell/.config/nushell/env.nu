@@ -77,3 +77,6 @@ $env.PATH = (
 )
 
 $env.RUST_SRC_PATH = $"(rustc --print sysroot)/lib/rustlib/src/rust/library"
+
+# Workaround for prompt moving to bottom after typing when opening new terminal window.
+sleep 100ms
