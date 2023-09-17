@@ -24,7 +24,12 @@ return {
 
   -- Show function signature when you type
   {
-    "ray-x/lsp_signature.nvim",
+    -- Use my own fork with a workaround for issue https://github.com/hrsh7th/nvim-cmp/issues/1613,
+    -- which causes input lag.
+    "jasonrhansen/lsp_signature.nvim",
+    branch = "input-lag-workaround",
+
+    -- "ray-x/lsp_signature.nvim",
     event = "VeryLazy",
     config = function()
       require("lsp_signature").setup()
