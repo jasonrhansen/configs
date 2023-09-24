@@ -112,7 +112,6 @@ function M.config()
         ["S"] = "open_split",
         ["s"] = "open_vsplit",
         ["w"] = "open_with_window_picker",
-        ["C"] = "close_node",
         ["R"] = "refresh",
         ["a"] = "add",
         ["A"] = "add_directory",
@@ -172,6 +171,7 @@ function M.config()
           ["<c-x>"] = "clear_filter",
           ["[g"] = "prev_git_modified",
           ["]g"] = "next_git_modified",
+          ["C"] = "copy_path",
         },
       },
       commands = {
@@ -184,6 +184,12 @@ function M.config()
           local node = state.tree:get_node()
           local path = node:get_id()
           require("telescope.builtin").live_grep(get_telescope_opts(state, path))
+        end,
+        copy_path = function(state)
+          local node = state.tree:get_node()
+          local path = node:get_id()
+          vim.fn.setreg("+", path)
+          print("copied path to clipboard")
         end,
       },
     },
