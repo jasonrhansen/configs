@@ -1,3 +1,5 @@
+Plug 'machakann/vim-highlightedyank'
+
 let mapleader=" "
 
 set ignorecase
@@ -23,24 +25,30 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
-nnoremap <c-m> :action MoveEditorToOppositeTabGroup<cr>
+nmap <c-w>L <Action>(MoveEditorToOppositeTabGroup)
+nmap <c-w>H <Action>(MoveEditorToOppositeTabGroup)
+nmap <c-w>J <Action>(MoveEditorToOppositeTabGroup)
+nmap <c-w>K <Action>(MoveEditorToOppositeTabGroup)
 
 " Quickly reload .ideavimrc
 nnoremap <leader>sv :source ~/.ideavimrc<cr>
 
-nmap <leader>tp :action GotoFile<cr>
-nmap <leader>tP :action GotoFile<cr>
-nmap <leader>tt :action FileStructurePopup<cr>
+nmap <leader>tp <Action>(GotoFile)
+nmap <leader>tP <Action>(GotoFile)
+nmap <leader>ts <Action>(FileStructurePopup)
+
+nmap <leader>. <action>(SelectInProjectView)
+nmap <leader><leader> <action>(Switcher)
 
 nmap <c-b> gT
 nmap <c-n> gt
 
-nmap <leader>e :action ActivateProjectToolWindow<cr>
-nmap <leader>ot :action ActivateTerminalToolWindow<cr>
-nmap <leader>od :action ActivateDebugToolWindow<cr>
-nmap <leader>tc :action HideAllWindows<cr>
-nmap <leader>td :action ToggleDistractionFreeMode<cr>
-nmap <leader>d :action ShowErrorDescription<cr>
+nmap <leader>e <Action>(ActivateProjectToolWindow)
+nmap <leader>ot <Action>(ActivateTerminalToolWindow)
+nmap <leader>od <Action>(ActivateDebugToolWindow)
+nmap <leader>tc <Action>(HideAllWindows)
+nmap <leader>td <Action>(ToggleDistractionFreeMode)
+nmap <leader>d <Action>(ShowErrorDescription)
 
 " Add a 'stamp' command to replace word or selection with yanked text.
 nnoremap S diw"0P
