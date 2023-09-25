@@ -31,7 +31,7 @@ end
 function M.is_large_file(buf)
     buf = buf or 0
     local large_filesize = 100 * 1024
-    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+    local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
     return ok and stats and stats.size > large_filesize
 end
 

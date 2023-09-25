@@ -30,7 +30,7 @@ function M.config()
   local previewer_maker = function(filepath, bufnr, opts)
     opts = opts or {}
 
-    filepath = vim.fn.expand(filepath)
+    filepath = tostring(vim.fn.expand(filepath))
 
     -- Don't preview binary files
     require("plenary.job")
@@ -41,7 +41,7 @@ function M.config()
           local mime_type = vim.split(j:result()[1], "/")[1]
           if mime_type == "text" then
             -- Don't preview large files
-            vim.loop.fs_stat(filepath, function(_, stat)
+            vim.uv.fs_stat(filepath, function(_, stat)
               if not stat or stat.size > MAX_PREVIEW_FILE_SIZE then
                 vim.schedule(function()
                   vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "FILE TOO LARGE FOR PREVIEW" })

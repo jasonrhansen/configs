@@ -143,7 +143,7 @@ function M.config()
           },
           check = {
             command = "clippy",
-          }
+          },
         },
       },
     },
@@ -182,7 +182,10 @@ function M.config()
             },
           },
           workspace = {
-            library = { vim.env.VIMRUNTIME },
+            library = {
+              vim.env.VIMRUNTIME,
+              "${3rd}/luv/library",
+            },
             preloadFileSize = 200,
           },
           -- Do not send telemetry data containing a randomized but unique identifier
