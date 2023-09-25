@@ -6,7 +6,7 @@ local M = {
 
 function M.config()
   -- Only use OSC52 for SSH sessions. No need to use locally.
-  if os.getenv("SSH_CLIENT") == nil then
+  if not require("util").is_ssh_session() then
     return
   end
 

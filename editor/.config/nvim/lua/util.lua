@@ -35,4 +35,15 @@ function M.is_large_file(buf)
     return ok and stats and stats.size > large_filesize
 end
 
+function M.is_ssh_session()
+  return vim.env.SSH_CLIENT ~= nil or vim.env.SSH_TTY ~= nil
+end
+
+function M.copy_to_clipboard(text)
+  vim.fn.setreg("+", text)
+  if M.is_ssh_session() then
+    require("osc52").copy(text)
+  end
+end
+
 return M
