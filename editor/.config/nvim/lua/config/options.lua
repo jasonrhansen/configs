@@ -4,6 +4,7 @@ opt.backup = false
 opt.breakindent = true
 opt.breakindentopt = "sbr"
 opt.cursorline = false
+opt.diffopt:append({ "vertical" }) -- Diff mode should be vertical
 opt.errorbells = false
 opt.foldenable = false
 opt.foldmethod = "marker"
