@@ -228,8 +228,7 @@ function M.config()
   local wk = require("which-key")
   wk.register({
     ["<leader>"] = {
-      e = { "<cmd>Neotree<cr>", "Open file tree" },
-      E = { "<cmd>Neotree close<cr>", "Close file tree" },
+      e = { "<cmd>Neotree toggle<cr>", "Toggle file tree" },
       ["."] = { "<cmd>Neotree reveal<cr>", "Find file in tree" },
     },
   })
