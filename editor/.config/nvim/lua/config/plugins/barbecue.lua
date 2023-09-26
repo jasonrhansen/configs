@@ -20,7 +20,7 @@ return {
       group = vim.api.nvim_create_augroup("barbecue.navic_attacher", {}),
       callback = function(a)
         local client = vim.lsp.get_client_by_id(a.data.client_id)
-        if client.server_capabilities["documentSymbolProvider"] then
+        if client ~= nil and client.server_capabilities["documentSymbolProvider"] then
           require("nvim-navic").attach(client, a.buf)
         end
       end,

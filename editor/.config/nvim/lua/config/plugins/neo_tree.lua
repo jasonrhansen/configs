@@ -14,7 +14,7 @@ function M.config()
   vim.g.neo_tree_remove_legacy_commands = 1
 
   -- If you want icons for diagnostic errors, you'll need to define them somewhere:
-  local signs = require('config.signs')
+  local signs = require("config.signs")
   vim.fn.sign_define("DiagnosticSignError", { text = signs.Error, texthl = "DiagnosticSignError" })
   vim.fn.sign_define("DiagnosticSignWarn", { text = signs.Warning, texthl = "DiagnosticSignWarn" })
   vim.fn.sign_define("DiagnosticSignInfo", { text = signs.Information, texthl = "DiagnosticSignInfo" })
@@ -55,7 +55,7 @@ function M.config()
         { source = "filesystem", display_name = " 󰉓  Files " },
         { source = "buffers", display_name = " 󰈙  Buffers " },
         { source = "git_status", display_name = " 󰊢  Git " },
-      }
+      },
     },
     close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
     popup_border_style = "rounded",
@@ -123,9 +123,15 @@ function M.config()
         ["c"] = "copy", -- takes text input for destination
         ["m"] = "move", -- takes text input for destination
         ["q"] = "close_window",
-        ['e'] = function() vim.api.nvim_exec('Neotree focus filesystem left', true) end,
-        ['b'] = function() vim.api.nvim_exec('Neotree focus buffers left', true) end,
-        ['g'] = function() vim.api.nvim_exec('Neotree focus git_status left', true) end,
+        ["e"] = function()
+          vim.api.nvim_exec2("Neotree focus filesystem left", { output = true })
+        end,
+        ["b"] = function()
+          vim.api.nvim_exec2("Neotree focus buffers left", { output = true })
+        end,
+        ["g"] = function()
+          vim.api.nvim_exec2("Neotree focus git_status left", { output = true })
+        end,
       },
     },
     nesting_rules = {},
