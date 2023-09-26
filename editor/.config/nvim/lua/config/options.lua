@@ -89,8 +89,8 @@ vim.g.python3_host_prog = vim.fn.trim(vim.fn.system("which python3"))
 
 -- Make those folders automatically if they don't already exist.
 if not vim.fn.isdirectory(vim.fn.expand(vim.o.undodir)) then
-  vim.fn.mkdir(vim.fn.expand(vim.o.undodir), "p")
+  vim.fn.mkdir(tostring(vim.fn.expand(vim.o.undodir)), "p")
 end
 if not vim.fn.isdirectory(vim.fn.expand(vim.o.directory)) then
-  vim.fn.mkdir(vim.fn.expand(vim.o.directory), "p")
+  vim.fn.mkdir(tostring(vim.fn.expand(vim.o.directory)), "p")
 end
