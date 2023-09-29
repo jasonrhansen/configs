@@ -36,7 +36,7 @@ wk.register({
     ve = { "<cmd>vsplit $MYVIMRC<cr>", "Edit init.vim" },
     vs = { "<cmd>source $MYVIMRC<cr>", "Reload init.vim" },
     w = { "w!<cr>", "Save (force)" },
-    i = { "<cmd>IndentBlanklineToggle<cr>", "Toggle indent guides" },
+    i = { "<cmd>IBLToggle<cr>", "Toggle indent guides" },
     q = { "<cmd>Bdelete<cr>", "Delete buffer" },
     b = { toggle_bright_comments, "Toggle bright comments" },
     g = { toggle_global_statusline, "Toggle global statusline" },
