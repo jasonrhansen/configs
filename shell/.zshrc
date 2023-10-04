@@ -1,6 +1,12 @@
 # Allow configuration that's specific to a machine to be put in ~/.zsh_local.sh
 [ -f ~/.zsh_local.sh ] && source ~/.zsh_local.sh
 
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+if [ -d /usr/share/doc/fzf/examples ]; then
+  source /usr/share/doc/fzf/examples/key-bindings.zsh
+  source /usr/share/doc/fzf/examples/completion.zsh
+fi
+
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
