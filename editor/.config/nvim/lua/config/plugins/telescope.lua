@@ -10,8 +10,6 @@ local M = {
     "aaronhallaert/ts-advanced-git-search.nvim",
     "nvim-telescope/telescope-symbols.nvim",
     "barrett-ruth/telescope-http.nvim",
-    "nvim-telescope/telescope-frecency.nvim",
-    "kkharji/sqlite.lua", -- Needed for telescope-frecency
   },
 }
 
@@ -131,7 +129,6 @@ function M.config()
 
   telescope.load_extension("recent_files")
   telescope.load_extension("advanced_git_search")
-  telescope.load_extension("frecency")
 
   local function buffers(opts)
     opts = vim.tbl_extend("force", files_theme, opts or {})
@@ -158,11 +155,6 @@ function M.config()
   local function recent_files(opts)
     opts = vim.tbl_extend("force", files_theme, opts or {})
     telescope.extensions.recent_files.pick(opts)
-  end
-
-  local function frecency_files(opts)
-    opts = vim.tbl_extend("force", files_theme, opts or {})
-    telescope.extensions.frecency.frecency(opts)
   end
 
   local function live_grep(opts)
@@ -315,7 +307,6 @@ function M.config()
     C = { colorscheme, "Search colorschemes" },
     d = { buffer_diagnostics, "Search buffer diagnostics" },
     D = { workspace_diagnostics, "Search workspace diagnostics" },
-    f = { frecency_files, "Search 'frecently' edited files" },
     G = {
       name = "Git",
       c = { git_commits, "Search git commits" },
