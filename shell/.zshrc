@@ -105,8 +105,16 @@ tms() {
 tmd() {
   tms "$(pwd)"
 }
-# Fuzzy find and attach to a tmux session.
 tma() {
+  if [ -n $1 ]
+  then
+    tmux attach -t "$1"
+  else
+    tmux attach
+  fi
+}
+# Fuzzy find and attach to a tmux session.
+tmas() {
   if [ -z $1 ]; then
     selected=$(tmux list-sessions | fzf)
   else
@@ -114,10 +122,12 @@ tma() {
   fi
 
   if [[ -z $selected ]]; then
-    return
+    tmux attach
   fi
 
-  tmux attach -t "$selected_name"
+  selected=$(echo $selected | cut -d: -f1)
+
+  tmux attach -t "$selected"
 }
 
 # Fuzzy search for a directory and cd into it.
