@@ -93,4 +93,6 @@ return {
       username = "hansen",
     },
   },
+
+  window_close_confirmation = "NeverPrompt",
 }
