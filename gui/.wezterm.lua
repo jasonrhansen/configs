@@ -32,7 +32,7 @@ return {
   hide_tab_bar_if_only_one_tab = true,
 
   font = wezterm.font({
-    family = "Iosevka Term",
+    family = "IosevkaTerm Nerd Font",
     weight = "Regular",
     harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
   }),
