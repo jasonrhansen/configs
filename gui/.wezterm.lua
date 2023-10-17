@@ -1,6 +1,8 @@
 local wezterm = require("wezterm")
 
 return {
+  front_end = "WebGpu",
+
   use_dead_keys = false,
 
   force_reverse_video_cursor = true,
@@ -28,6 +30,9 @@ return {
     },
   },
 
+  window_background_opacity = 1.0,
+  text_background_opacity = 1.0,
+
   window_decorations = "RESIZE",
   hide_tab_bar_if_only_one_tab = true,
 
@@ -36,6 +41,8 @@ return {
     weight = "Regular",
     harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
   }),
+
+  use_cap_height_to_scale_fallback_fonts = true,
 
   window_frame = {
     -- The font used in the tab bar.
@@ -73,9 +80,9 @@ return {
   cursor_blink_rate = 800,
 
   window_padding = {
-    left = 5,
-    right = 5,
-    top = 5,
+    left = 2,
+    right = 2,
+    top = 0,
     bottom = 0,
   },
 
