@@ -1,7 +1,10 @@
 local wezterm = require("wezterm")
 
+
 return {
-  front_end = "WebGpu",
+  -- For some reason startup time is slow for WebGpu, so I'm using OpenGL for now.
+  front_end = "OpenGL",
+  -- front_end = "WebGpu",
 
   use_dead_keys = false,
 
