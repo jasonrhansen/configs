@@ -44,6 +44,7 @@ opt.wildchar = string.byte("\t")
 opt.wildignorecase = true
 opt.wildmode = { "longest", "list", "full" }
 opt.writebackup = false
+opt.termguicolors = true
 
 -- Indentation
 opt.expandtab = true -- Indent with spaces
