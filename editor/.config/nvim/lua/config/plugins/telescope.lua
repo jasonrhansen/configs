@@ -58,6 +58,22 @@ function M.config()
       :sync()
   end
 
+  local pick_window_and_open = function(prompt_bufnr)
+    -- Use nvim-window-picker to choose the window by dynamically attaching a function
+    local action_set = require("telescope.actions.set")
+    local action_state = require("telescope.actions.state")
+
+    local current_picker = action_state.get_current_picker(prompt_bufnr)
+    current_picker.get_selection_window = function(picker)
+      local picked_window_id = require("window-picker").pick_window() or vim.api.nvim_get_current_win()
+      -- Unbind after using so next instance of the picker acts normally
+      picker.get_selection_window = nil
+      return picked_window_id
+    end
+
+    return action_set.edit(prompt_bufnr, "edit")
+  end
+
   telescope.setup({
     defaults = {
       winblend = 10,
@@ -83,10 +99,12 @@ function M.config()
           ["<c-f>"] = actions.cycle_history_next,
           ["<c-t>"] = trouble.open_with_trouble,
           ["<M-p>"] = action_layout.toggle_preview,
+          ["<c-w>"] = pick_window_and_open,
         },
         n = {
           ["<M-p>"] = action_layout.toggle_preview,
           ["<c-t>"] = trouble.open_with_trouble,
+          ["<c-w>"] = pick_window_and_open,
         },
       },
       color_devicons = true,
