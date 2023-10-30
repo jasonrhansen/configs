@@ -166,8 +166,8 @@ function M.config()
       use_libuv_file_watcher = true,
       window = {
         mappings = {
-          ["tf"] = "telescope_find",
-          ["tg"] = "telescope_grep",
+          ["Tf"] = "telescope_find",
+          ["Tg"] = "telescope_grep",
           ["<bs>"] = "navigate_up",
           ["."] = "set_root",
           ["H"] = "toggle_hidden",
