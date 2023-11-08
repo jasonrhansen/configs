@@ -22,13 +22,13 @@ function M.config()
   -- Which LSP clients should get inlay type hints.
   local inlay_typehint_names = {
     "rust_analyzer",
-    -- "tsserver",
+    "typescript-tools",
   }
 
   -- Which LSP clients to disable formatting for so null-ls can be used instead
   -- without it asking each time which formatter to use.
   local disable_formatting_names = {
-    -- "tsserver",
+    "typescript-tools",
     "solargraph",
     "lua_ls",
   }
@@ -196,63 +196,6 @@ function M.config()
       cmd = { "sql-language-server", "up", "--method", "stdio" },
     },
     svelte = {},
-    -- tsserver = {
-    --   settings = {
-    --     typescript = {
-    --       inlayHints = {
-    --         includeInlayParameterNameHints = "all",
-    --         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-    --         includeInlayFunctionParameterTypeHints = true,
-    --         includeInlayVariableTypeHints = true,
-    --         includeInlayPropertyDeclarationTypeHints = true,
-    --         includeInlayFunctionLikeReturnTypeHints = true,
-    --         includeInlayEnumMemberValueHints = true,
-    --       },
-    --     },
-    --     javascript = {
-    --       inlayHints = {
-    --         includeInlayParameterNameHints = "all",
-    --         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-    --         includeInlayFunctionParameterTypeHints = true,
-    --         includeInlayVariableTypeHints = true,
-    --         includeInlayPropertyDeclarationTypeHints = true,
-    --         includeInlayFunctionLikeReturnTypeHints = true,
-    --         includeInlayEnumMemberValueHints = true,
-    --       },
-    --     },
-    --   },
-    --
-    --   on_attach = function(client, bufnr)
-    --     attach(client, bufnr)
-    --
-    --     local ts_utils = require("nvim-lsp-ts-utils")
-    --
-    --     ts_utils.setup({
-    --       debug = false,
-    --       disable_commands = false,
-    --       enable_import_on_completion = true,
-    --       -- import all
-    --       import_all_timeout = 5000, -- ms
-    --       import_all_priorities = {
-    --         buffers = 4, -- loaded buffer names
-    --         buffer_content = 3, -- loaded buffer content
-    --         local_files = 2, -- git files or files with relative path markers
-    --         same_file = 1, -- add to existing import statement
-    --       },
-    --       import_all_scan_buffers = 100,
-    --       import_all_select_source = false,
-    --     })
-    --
-    --     -- required to fix code action ranges and filter diagnostics
-    --     ts_utils.setup_client(client)
-    --
-    --     -- no default maps, so you may want to define some here
-    --     local opts = { silent = true }
-    --     vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", ":TSLspOrganize<CR>", opts)
-    --     vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rf", ":TSLspRenameFile<CR>", opts)
-    --     vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>I", ":TSLspImportAll<CR>", opts)
-    --   end,
-    -- },
     vimls = {},
     vuels = {},
     zls = {},
@@ -332,7 +275,14 @@ function M.config()
       tsserver_max_memory = "auto",
       -- described below
       tsserver_format_options = {},
-      tsserver_file_preferences = {},
+      tsserver_file_preferences = {
+        includeInlayParameterNameHints = "all",
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+      },
       -- locale of all tsserver messages, supported locales you can find here:
       -- https://github.com/microsoft/TypeScript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiesPublic.ts#L620
       tsserver_locale = "en",
