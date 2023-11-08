@@ -47,15 +47,9 @@ return {
     end,
   },
 
-  -- Utilities to improve the TypeScript development experience for Neovim's built-in LSP client
-  {
-    "jose-elias-alvarez/nvim-lsp-ts-utils",
-    dependencies = { "neovim/nvim-lspconfig", "nvim-lua/plenary.nvim", "jose-elias-alvarez/null-ls.nvim" },
-  },
-
   -- Inject LSP diagnostics, code actions, and more via Lua
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim", -- Community fork of jose-elias-alvarez/null-ls.nvim
     dependencies = "nvim-lua/plenary.nvim",
   },
 

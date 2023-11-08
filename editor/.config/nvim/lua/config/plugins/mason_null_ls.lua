@@ -3,7 +3,7 @@ return {
   "jay-babu/mason-null-ls.nvim",
   dependencies = {
     "williamboman/mason.nvim",
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim", -- Community fork of jose-elias-alvarez/null-ls.nvim
   },
   config = function()
     local null_ls = require("null-ls")
