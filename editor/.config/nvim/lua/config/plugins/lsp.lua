@@ -249,7 +249,7 @@ function M.config()
         u = { "<cmd>TSToolsRemoveUnusedImports<cr>", "Remove unused imports" },
         i = { "<cmd>TSToolsAddMissingImports<cr>", "Add missing imports" },
         f = { "<cmd>TSToolsFixAll<cr>", "Fix all fixable errors" },
-        d = { "<cmd>TSToolsGotToSourceDefinition<cr>", "Go to source definition" },
+        d = { "<cmd>TSToolsGoToSourceDefinition<cr>", "Go to source definition" },
         r = { "<cmd>TSToolsRenameFile<cr>", "Rename current file and update connected files" },
       })
     end,
