@@ -104,7 +104,7 @@ function M.config()
       },
     },
     window = {
-      position = "left",
+      position = "right",
       width = 40,
       mappings = {
         ["<2-LeftMouse>"] = "open",
