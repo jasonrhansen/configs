@@ -215,4 +215,7 @@ return {
   -- * gsK: Title-Dash-Case or Title-Kebab-Case
   -- * gs.: dot.case
   "arthurxavierx/vim-caser",
+
+  -- Syntax and indent files for KDL
+  "imsnif/kdl.vim",
 }
