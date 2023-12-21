@@ -3,6 +3,7 @@ return {
   lazy = true,
   config = function()
     require("kanagawa").setup({
+      transparent = true,
       colors = {
         theme = {
           all = {
@@ -19,6 +20,8 @@ return {
           PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
           PmenuSbar = { bg = theme.ui.bg_m1 },
           PmenuThumb = { bg = theme.ui.bg_p2 },
+          TelescopeNormal = { bg = theme.ui.bg_m1 },
+          TelescopeBorder = { bg = theme.ui.bg_m1 },
         }
       end,
     })
