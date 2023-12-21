@@ -15,7 +15,7 @@ function M.config()
   end
 
   vim.cmd.colorscheme("kanagawa")
-  local lualine_kanagawa = require('lualine.themes.kanagawa')
+  local lualine_kanagawa = require("lualine.themes.kanagawa")
   lualine_kanagawa.normal.b.bg = "#3B4261"
   lualine_kanagawa.normal.c.bg = "#1F2335"
 
@@ -23,14 +23,24 @@ function M.config()
     options = {
       icons_enabled = true,
       theme = lualine_kanagawa,
-      component_separators = "│",
-      section_separators = { right = '', left = ''},
+      component_separators = "",
+      section_separators = { right = "", left = "" },
     },
     sections = {
       lualine_a = { "mode" },
       lualine_b = { "branch", git_status },
       lualine_c = { lsp_status },
-      lualine_x = { "SleuthIndicator", "encoding", "fileformat", "filetype" },
+      lualine_x = {
+        { "SleuthIndicator", fmt = string.upper },
+        {
+          "encoding",
+          fmt = function(str)
+            return str:gsub("utf", "UTF")
+          end,
+        },
+        "fileformat",
+        "filetype",
+      },
       lualine_y = { "progress" },
       lualine_z = { "location" },
     },
