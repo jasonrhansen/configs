@@ -1,27 +1,4 @@
 return {
-  -- Progress indicator
-  {
-    "j-hui/fidget.nvim",
-    tag = "legacy",
-    config = function()
-      require("fidget").setup({
-        text = {
-          spinner = "circle_halves",
-        },
-        window = {
-          relative = "editor",
-        },
-        sources = {
-          -- Because of integration with ts-node-action, every time the cursor position
-          -- changes a null-ls notification is shown, which can be quite annoying, so ignore them.
-          ["null-ls"] = {
-            ignore = true,
-          },
-        },
-      })
-    end,
-  },
-
   -- Show function signature when you type
   {
     -- Use my own fork with a workaround for issue https://github.com/hrsh7th/nvim-cmp/issues/1613,
