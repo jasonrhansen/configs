@@ -58,14 +58,7 @@ return {
     "stevearc/dressing.nvim",
     event = "VeryLazy",
     config = function()
-      require("dressing").setup({
-        input = {
-          override = function(conf)
-            -- TODO: Remove this workaround when https://github.com/neovim/neovim/issues/19464 is fixed.
-            conf.height = 2
-          end,
-        },
-      })
+      require("dressing").setup({})
     end,
   },
 
