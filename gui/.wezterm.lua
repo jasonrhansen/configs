@@ -1,5 +1,36 @@
 local wezterm = require("wezterm")
 
+local function increment_opacity(window, amount)
+  local overrides = window:get_config_overrides() or {}
+  local opacity = overrides.window_background_opacity or 1.0
+  opacity = opacity + amount
+  if opacity > 1.0 then
+    opacity = 1.0
+  elseif opacity < 0.0 then
+    opacity = 0.0
+  end
+  overrides.window_background_opacity = opacity
+  window:set_config_overrides(overrides)
+end
+
+wezterm.on("decrease-opacity", function(window)
+  increment_opacity(window, -0.05)
+end)
+
+wezterm.on("increase-opacity", function(window)
+  increment_opacity(window, 0.05)
+end)
+
+wezterm.on('toggle-ligature', function(window)
+  local overrides = window:get_config_overrides() or {}
+  if not overrides.harfbuzz_features then
+    -- Ligatures are disabled by default, so we enable them here.
+    overrides.harfbuzz_features = { 'calt', 'clig', 'liga' }
+  else
+    overrides.harfbuzz_features = nil
+  end
+  window:set_config_overrides(overrides)
+end)
 
 return {
   -- For some reason startup time is slow for WebGpu, so I'm using OpenGL for now.
@@ -39,10 +70,12 @@ return {
   window_decorations = "RESIZE",
   hide_tab_bar_if_only_one_tab = true,
 
+  -- Turn off ligatures by default.
+  harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
+
   font = wezterm.font({
     family = "IosevkaTerm Nerd Font",
     weight = "Regular",
-    harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
   }),
 
   use_cap_height_to_scale_fallback_fonts = true,
@@ -107,4 +140,22 @@ return {
   window_close_confirmation = "NeverPrompt",
 
   audible_bell = "Disabled",
+
+  keys = {
+    {
+      key = "-",
+      mods = "CTRL|ALT",
+      action = wezterm.action.EmitEvent "decrease-opacity",
+    },
+    {
+      key = "=",
+      mods = "CTRL|ALT",
+      action = wezterm.action.EmitEvent "increase-opacity",
+    },
+    {
+      key = "l",
+      mods = "CTRL|ALT",
+      action = wezterm.action.EmitEvent "toggle-ligature",
+    },
+  },
 }
