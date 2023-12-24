@@ -8,7 +8,6 @@ function M.config()
   require("crates").setup({
     smart_insert = true,
     insert_closing_quote = true,
-    avoid_prerelease = true,
     autoload = true,
     autoupdate = true,
     loading_indicator = true,
