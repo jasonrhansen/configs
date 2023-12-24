@@ -49,12 +49,6 @@ function M.config()
       enable = true,
       disable = disable_indent,
     },
-    context_commentstring = {
-      enable = true,
-      disable = disable,
-      -- Configure nvim-comment to call this with hook.
-      enable_autocmd = false,
-    },
     endwise = {
       enable = true,
       disable = disable,
