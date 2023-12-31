@@ -72,7 +72,6 @@ function M.config()
       ["<leader>gD"] = { pick_window(vim.lsp.buf.declaration), "Pick window and jump to declaration" },
       ["<leader>gy"] = { pick_window(vim.lsp.buf.type_definition), "Pick window and jump to type definition" },
       ["<leader>gI"] = { pick_window(vim.lsp.buf.implementation), "Pick window and jump to implementation" },
-      K = { vim.lsp.buf.hover, "Hover" },
       ["<leader>k"] = { vim.lsp.buf.signature_help, "Signature help" },
       ["<leader>rn"] = { vim.lsp.buf.rename, "Rename" },
       ["<F2>"] = { vim.lsp.buf.rename, "Rename" },
