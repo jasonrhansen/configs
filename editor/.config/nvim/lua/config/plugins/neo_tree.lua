@@ -1,7 +1,7 @@
 -- File manager
 local M = {
   "nvim-neo-tree/neo-tree.nvim",
-  branch = "v3.x",
+  branch = "main",
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons",
