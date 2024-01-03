@@ -205,3 +205,9 @@ end
 wk.register({
   ["<leader>K"] = { show_documentation, "Show documentation", { silent = true } },
 })
+
+wk.register({
+  ["<leader>yf"] = { '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:t"))<cr>', "Copy file name" },
+  ["<leader>yp"] = { '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:p"))<cr>', "Copy file path" },
+  ["<leader>yd"] = { '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:p:h"))<cr>', "Copy directory path" },
+})
