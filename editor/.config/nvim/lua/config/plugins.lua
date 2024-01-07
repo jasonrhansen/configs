@@ -84,7 +84,7 @@ return {
         -- Configure nvim-comment to call this with hook.
         enable_autocmd = false,
       })
-    end
+    end,
   },
 
   -- Automatically adjust shiftwidth and expandtab based on the current file
@@ -182,7 +182,13 @@ return {
   "tpope/vim-repeat",
 
   -- Substitutions (preserving case and handling plurals): :%Subvert/facilit{y,ies}/building{,s}/g
-  "tpope/vim-abolish",
+  {
+    "tpope/vim-abolish",
+    init = function()
+      -- Disable coercion mappings. I use vim-caser for that instead.
+      vim.g.abolish_no_mappings = true
+    end,
+  },
 
   -- Easily change word casing with motions, text objects or visual mode.
   -- * gsm: MixedCase or PascalCase
