@@ -111,7 +111,7 @@ function M.config()
   -- Language server configs
   local configs = {
     angularls = {
-      filetypes = { "typescript", "html.angular" },
+      filetypes = { "typescript", "html.angular", "html" },
     },
     bashls = {},
     cmake = {},
