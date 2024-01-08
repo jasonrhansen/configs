@@ -35,7 +35,7 @@ function M.config()
           expr = true,
         },
 
-        ["<leader>h"] = {
+        ["<leader>s"] = {
           name = "Gitsigns",
           ["s"] = { gitsigns.stage_hunk, "Stage hunk" },
           ["u"] = { gitsigns.undo_stage_hunk, "Unstage hunk" },

@@ -71,22 +71,6 @@ function M.config()
           ["ic"] = "@class.inner",
         },
       },
-      swap = {
-        enable = true,
-        disable = disable,
-        swap_next = {
-          ["<leader>sa"] = "@parameter.inner",
-          ["<leader>sp"] = "@parameter.inner",
-          ["<leader>sf"] = "@function.outer",
-          ["<leader>sm"] = "@function.outer",
-        },
-        swap_previous = {
-          ["<leader>sA"] = "@parameter.inner",
-          ["<leader>sP"] = "@parameter.inner",
-          ["<leader>sF"] = "@function.outer",
-          ["<leader>sM"] = "@function.outer",
-        },
-      },
       move = {
         enable = true,
         disable = disable,
