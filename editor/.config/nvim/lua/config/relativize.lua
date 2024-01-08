@@ -4,8 +4,10 @@
 local enabled = vim.o.relativenumber
 local with_number = vim.o.number
 
+local disabled_filetypes = { "harpoon" }
+
 local function set_numbers(relative)
-  if enabled and (vim.o.number or vim.o.relativenumber) then
+  if enabled and not vim.tbl_contains(disabled_filetypes, vim.o.filetype) and (vim.o.number or vim.o.relativenumber) then
     vim.o.number = not relative or with_number
     vim.o.relativenumber = relative
   end
