@@ -71,7 +71,7 @@ return {
       },
       h = {
         function()
-          harpoon.ui:toggle_quick_menu(harpoon:list())
+          harpoon.ui:toggle_quick_menu(harpoon:list(), { border = "rounded", title_pos = "center" })
         end,
         "Toggle quick menu",
       },
