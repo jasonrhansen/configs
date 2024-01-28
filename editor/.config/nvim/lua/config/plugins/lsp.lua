@@ -56,6 +56,15 @@ function M.config()
     })
   end
 
+  local add_missing_import = function()
+    vim.lsp.buf.code_action({
+      filter = function(action)
+        return action.kind == "quickfix" and string.find(action.title, "Import") == 1
+      end,
+      apply = true,
+    })
+  end
+
   -- Normal mode keymaps that get added to a buffer when attaching an LSP client.
   local keymaps = {
     -- normal mode
@@ -82,6 +91,7 @@ function M.config()
       ["<leader>Q"] = { vim.diagnostic.set_loclist, "Open diagnostics in loclist" },
       ["<leader>f"] = { format_buffer, "Format buffer" },
       ["<leader>V"] = { toggle_diagnostic_virtual_text, "Toggle diagnostic virtual text" },
+      ["<leader>yi"] = { add_missing_import, "Add missing import" }
     },
     -- visual mode
     v = {
