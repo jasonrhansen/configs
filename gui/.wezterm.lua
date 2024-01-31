@@ -14,18 +14,18 @@ local function increment_opacity(window, amount)
 end
 
 wezterm.on("decrease-opacity", function(window)
-  increment_opacity(window, -0.05)
+  increment_opacity(window, -0.02)
 end)
 
 wezterm.on("increase-opacity", function(window)
-  increment_opacity(window, 0.05)
+  increment_opacity(window, 0.02)
 end)
 
-wezterm.on('toggle-ligature', function(window)
+wezterm.on("toggle-ligature", function(window)
   local overrides = window:get_config_overrides() or {}
   if not overrides.harfbuzz_features then
     -- Ligatures are disabled by default, so we enable them here.
-    overrides.harfbuzz_features = { 'calt', 'clig', 'liga' }
+    overrides.harfbuzz_features = { "calt", "clig", "liga" }
   else
     overrides.harfbuzz_features = nil
   end
@@ -35,7 +35,6 @@ end)
 return {
   -- For some reason startup time is slow for WebGpu, so I'm using OpenGL for now.
   front_end = "OpenGL",
-  -- front_end = "WebGpu",
 
   use_dead_keys = false,
 
@@ -71,7 +70,7 @@ return {
   hide_tab_bar_if_only_one_tab = true,
 
   -- Turn off ligatures by default.
-  harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
+  harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
 
   font = wezterm.font({
     family = "IosevkaTerm Nerd Font",
@@ -145,17 +144,17 @@ return {
     {
       key = "-",
       mods = "CTRL|ALT",
-      action = wezterm.action.EmitEvent "decrease-opacity",
+      action = wezterm.action.EmitEvent("decrease-opacity"),
     },
     {
       key = "=",
       mods = "CTRL|ALT",
-      action = wezterm.action.EmitEvent "increase-opacity",
+      action = wezterm.action.EmitEvent("increase-opacity"),
     },
     {
       key = "l",
       mods = "CTRL|ALT",
-      action = wezterm.action.EmitEvent "toggle-ligature",
+      action = wezterm.action.EmitEvent("toggle-ligature"),
     },
   },
 }
