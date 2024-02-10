@@ -32,7 +32,7 @@ wezterm.on("toggle-ligature", function(window)
   window:set_config_overrides(overrides)
 end)
 
-return {
+local config = {
   -- For some reason startup time is slow for WebGpu, so I'm using OpenGL for now.
   front_end = "OpenGL",
 
@@ -76,6 +76,8 @@ return {
     family = "IosevkaTerm Nerd Font",
     weight = "Regular",
   }),
+
+  adjust_window_size_when_changing_font_size = false,
 
   use_cap_height_to_scale_fallback_fonts = true,
 
@@ -158,3 +160,13 @@ return {
     },
   },
 }
+
+for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
+  if gpu.backend == 'Vulkan' and gpu.device_type == "IntegratedGpu" then
+    config.webgpu_preferred_adapter = gpu
+    config.front_end = "WebGpu"
+    break
+  end
+end
+
+return config
