@@ -73,9 +73,11 @@ local config = {
   harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
 
   font = wezterm.font({
-    family = "IosevkaTerm Nerd Font",
+    family = "JetBrains Mono",
     weight = "Regular",
   }),
+
+  font_size = 12.0,
 
   adjust_window_size_when_changing_font_size = false,
 
@@ -158,11 +160,38 @@ local config = {
       mods = "CTRL|ALT",
       action = wezterm.action.EmitEvent("toggle-ligature"),
     },
+    {
+      key = "f",
+      mods = "CTRL|ALT",
+      action = wezterm.action.InputSelector({
+        action = wezterm.action_callback(function(window, pane, id, label)
+          local overrides = window:get_config_overrides() or {}
+          overrides.font = wezterm.font({
+            family = label,
+            weight = "Regular",
+          })
+          overrides.font.family = label
+          window:set_config_overrides(overrides)
+        end),
+        title = "Switch Font",
+        choices = {
+          {
+            label = "JetBrains Mono",
+          },
+          {
+            label = "IosevkaTerm Nerd Font",
+          },
+          {
+            label = "Fira Code",
+          },
+        },
+      }),
+    },
   },
 }
 
 for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
-  if gpu.backend == 'Vulkan' and gpu.device_type == "IntegratedGpu" then
+  if gpu.backend == "Vulkan" and gpu.device_type == "IntegratedGpu" then
     config.webgpu_preferred_adapter = gpu
     config.front_end = "WebGpu"
     break
