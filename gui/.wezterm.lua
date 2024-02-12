@@ -73,7 +73,7 @@ local config = {
   harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
 
   font = wezterm.font({
-    family = "JetBrains Mono",
+    family = "Meslo LG M",
     weight = "Regular",
   }),
 
@@ -167,7 +167,7 @@ local config = {
         action = wezterm.action_callback(function(window, pane, id, label)
           local overrides = window:get_config_overrides() or {}
           overrides.font = wezterm.font({
-            family = label,
+            family = id,
             weight = "Regular",
           })
           overrides.font.family = label
@@ -176,13 +176,20 @@ local config = {
         title = "Switch Font",
         choices = {
           {
-            label = "JetBrains Mono",
+            label = "Meslo",
+            id = "Meslo LG M",
           },
           {
-            label = "IosevkaTerm Nerd Font",
+            label = "IosevkaTerm",
+            id = "IosevkaTerm Nerd Font",
+          },
+          {
+            label = "JetBrains Mono",
+            id = "JetBrains Mono",
           },
           {
             label = "Fira Code",
+            id = "Fira Code",
           },
         },
       }),
