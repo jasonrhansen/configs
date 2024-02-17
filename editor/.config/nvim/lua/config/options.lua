@@ -95,3 +95,6 @@ end
 if not vim.fn.isdirectory(vim.fn.expand(vim.o.directory)) then
   vim.fn.mkdir(tostring(vim.fn.expand(vim.o.directory)), "p")
 end
+
+-- Add Cfilter command to filter the quickfix list.
+vim.cmd.packadd("cfilter")

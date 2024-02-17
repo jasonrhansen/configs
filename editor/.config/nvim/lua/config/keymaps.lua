@@ -64,7 +64,6 @@ wk.register({
 })
 
 -- Add a 'stamp' command to replace word or selection with yanked text.
-
 vim.keymap.set("n", "<Plug>StampYankedText", '"_diwP:call repeat#set("\\<Plug>StampYankedText")<CR>', { silent = true })
 wk.register({ ["<leader>p"] = { "<Plug>StampYankedText", '"Stamp" yanked text' } }, { mode = "n" })
 wk.register({ ["<leader>p"] = { '"_dP', '"Stamp" yanked text' } }, { mode = "v" })
