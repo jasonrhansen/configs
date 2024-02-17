@@ -4,7 +4,7 @@ local M = {
 
 function M.config()
   local trouble = require("trouble")
-  local signs = require('config.signs')
+  local signs = require("config.signs")
 
   trouble.setup({
     position = "bottom", -- position of the list can be: bottom, top, left, right

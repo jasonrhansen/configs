@@ -32,7 +32,6 @@ local sources = {
   { name = "crates", menu = "Crates" },
 }
 
-
 local source_names = vim.tbl_map(function(source)
   return { name = source.name }
 end, sources)
@@ -150,7 +149,6 @@ function M.config()
     },
   })
 
-
   -- Set configuration for specific filetype.
   cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources({
@@ -177,7 +175,6 @@ function M.config()
       { name = "cmdline" },
     }),
   })
-
 end
 
 return M

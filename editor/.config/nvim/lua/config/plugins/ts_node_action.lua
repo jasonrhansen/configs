@@ -6,7 +6,7 @@
 --    * Toggle hash style (Ruby)
 
 local function multiline_method_chain(node)
-  local helpers = require('ts-node-action.helpers')
+  local helpers = require("ts-node-action.helpers")
   local replacement = {}
 
   for child in node:iter_children() do
@@ -16,7 +16,7 @@ local function multiline_method_chain(node)
       end
     else
       local node_text = helpers.node_text(child)
-      if node_text == "."  or next(replacement) == nil then
+      if node_text == "." or next(replacement) == nil then
         table.insert(replacement, node_text)
       else
         if node_text:sub(1, 1) == "{" then
@@ -39,7 +39,7 @@ return {
     local ts_node_action = require("ts-node-action")
     ts_node_action.setup({
       ruby = {
-        ['call'] = {
+        ["call"] = {
           { multiline_method_chain, "Multi-line method chain" },
         },
       },

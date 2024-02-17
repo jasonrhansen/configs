@@ -91,7 +91,7 @@ function M.config()
       ["<leader>Q"] = { vim.diagnostic.set_loclist, "Open diagnostics in loclist" },
       ["<leader>F"] = { format_buffer, "Format buffer" },
       ["<leader>tV"] = { toggle_diagnostic_virtual_text, "Toggle diagnostic virtual text" },
-      ["<leader>yi"] = { add_missing_import, "Add missing import" }
+      ["<leader>yi"] = { add_missing_import, "Add missing import" },
     },
     -- visual mode
     v = {

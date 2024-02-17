@@ -24,7 +24,8 @@ function M.config()
   luasnip.add_snippets("rust", {
     s(
       "modtest",
-      fmt([[
+      fmt(
+        [[
         #[cfg(test)]
         mod test {{
             use super::*;
@@ -37,7 +38,8 @@ function M.config()
 
     s(
       "tokiotest",
-      fmt([[
+      fmt(
+        [[
         #[tokio::test]
         async fn {}() {{
             {}

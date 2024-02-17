@@ -40,8 +40,8 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   group = "jason-config",
   pattern = { "*.pdf.erb" },
   callback = function()
-    vim.b.eruby_subtype = 'html'
-    vim.cmd('do Syntax')
+    vim.b.eruby_subtype = "html"
+    vim.cmd("do Syntax")
   end,
 })
 
@@ -56,7 +56,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
       vim.cmd("IBLDisable")
       vim.cmd("TSContextDisable")
       vim.diagnostic.disable(ev.buf)
-      require('cmp').setup.buffer({ enabled = false })
+      require("cmp").setup.buffer({ enabled = false })
     end
   end,
 })

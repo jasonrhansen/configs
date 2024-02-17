@@ -19,5 +19,5 @@ require("lazy").setup("config.plugins", {
   },
   change_detection = {
     enabled = false,
-  }
+  },
 })

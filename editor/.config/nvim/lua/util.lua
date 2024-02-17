@@ -29,10 +29,10 @@ function M.require(module_name)
 end
 
 function M.is_large_file(buf)
-    buf = buf or 0
-    local large_filesize = 100 * 1024
-    local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-    return ok and stats and stats.size > large_filesize
+  buf = buf or 0
+  local large_filesize = 100 * 1024
+  local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+  return ok and stats and stats.size > large_filesize
 end
 
 function M.is_ssh_session()
