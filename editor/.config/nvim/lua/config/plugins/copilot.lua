@@ -57,6 +57,7 @@ return {
     end, { desc = "[copilot] toggle auto trigger" })
 
     local cmp = require("cmp")
+    ---@diagnostic disable-next-line: undefined-field
     cmp.event:on("confirm_done", function()
       require("copilot.suggestion").dismiss()
     end)

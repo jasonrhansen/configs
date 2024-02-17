@@ -164,6 +164,7 @@ local config = {
       key = "f",
       mods = "CTRL|ALT",
       action = wezterm.action.InputSelector({
+        ---@diagnostic disable-next-line: unused-local
         action = wezterm.action_callback(function(window, pane, id, label)
           local overrides = window:get_config_overrides() or {}
           overrides.font = wezterm.font({

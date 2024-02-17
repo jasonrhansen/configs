@@ -318,6 +318,7 @@ function M.config()
 
   vim.diagnostic.config({
     underline = true,
+    ---@diagnostic disable-next-line: assign-type-mismatch
     virtual_text = function(_, bufnr)
       local ok, show = pcall(vim.api.nvim_buf_get_var, bufnr, "diagnostic_show_virtual_text")
 
