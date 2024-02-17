@@ -303,8 +303,8 @@ function M.config()
   end
 
   wk.register({
-    name = "Telescope",
-    prefix = "<leader>t",
+    name = "Find with Telescope",
+    prefix = "<leader>f",
     b = { buffers, "Search buffers" },
     P = { find_files, "Search files" },
     p = { git_files, "Search git files" },
@@ -312,7 +312,7 @@ function M.config()
     a = { live_grep_args, "Search live grep with args" },
     r = { resume, "Resume search" },
     q = { quickfix, "Search quickfix" },
-    t = { recent_files, "Search recent files" },
+    f = { recent_files, "Search recent files" },
     T = { lsp_workspace_symbols, "Search LSP workspace symbols" },
     R = { lsp_references, "Search LSP references" },
     s = { document_symbols, "Search document symbols" },

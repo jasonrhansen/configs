@@ -121,7 +121,7 @@ return {
         render = "background",
       })
       local wk = require("which-key")
-      wk.register({ ["<leader>C"] = { "<cmd>HighlightColorsToggle<cr>", "Toggle highlight colors" } })
+      wk.register({ ["<leader>tC"] = { "<cmd>HighlightColorsToggle<cr>", "Toggle highlight colors" } })
     end,
   },
 

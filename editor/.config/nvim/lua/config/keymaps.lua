@@ -25,6 +25,17 @@ local function toggle_winbar()
   end
 end
 
+local function toggle_quickfix()
+  local windows = vim.fn.getwininfo()
+  for _, win in pairs(windows) do
+    if win["quickfix"] == 1 then
+      vim.cmd.cclose()
+      return
+    end
+  end
+  vim.cmd.copen()
+end
+
 local wk = require("which-key")
 local pick_window = require("util").pick_window
 
@@ -36,11 +47,15 @@ wk.register({
     ve = { "<cmd>vsplit $MYVIMRC<cr>", "Edit init.vim" },
     vs = { "<cmd>source $MYVIMRC<cr>", "Reload init.vim" },
     w = { "w!<cr>", "Save (force)" },
-    i = { "<cmd>IBLToggle<cr>", "Toggle indent guides" },
     q = { "<cmd>Bdelete<cr>", "Delete buffer" },
-    b = { toggle_bright_comments, "Toggle bright comments" },
-    g = { toggle_global_statusline, "Toggle global statusline" },
-    W = { toggle_winbar, "Toggle winbar" },
+    t = {
+      name = "Toggle",
+      b = { toggle_bright_comments, "Toggle bright comments" },
+      g = { toggle_global_statusline, "Toggle global statusline" },
+      W = { toggle_winbar, "Toggle winbar" },
+      i = { "<cmd>IBLToggle<cr>", "Toggle indent guides" },
+      q = { toggle_quickfix, "Toggle indent guides" },
+    },
     n = {
       name = "NG Switcher",
       t = { "<cmd>NgSwitchTS<cr>", "Switch to TS" },

@@ -116,7 +116,7 @@ function M.config()
   })
 
   local wk = require("which-key")
-  wk.register({ ["<leader>T"] = { "<cmd>TSBufToggle highlight<CR>", "Toggle treesitter highlights" } })
+  wk.register({ ["<leader>tT"] = { "<cmd>TSBufToggle highlight<CR>", "Toggle treesitter highlights" } })
 
   require("treesitter-context").setup({
     enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
@@ -157,7 +157,7 @@ function M.config()
     separator = nil, -- Separator between context and content. Should be a single character string, like '-'.
   })
 
-  wk.register({ ["<leader>C"] = { "<cmd>TSContextToggle<CR>", "Toggle treesitter context" } })
+  wk.register({ ["<leader>tC"] = { "<cmd>TSContextToggle<CR>", "Toggle treesitter context" } })
 end
 
 return M

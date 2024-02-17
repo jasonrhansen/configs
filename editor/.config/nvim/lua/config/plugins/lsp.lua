@@ -89,8 +89,8 @@ function M.config()
       ["[d"] = { vim.diagnostic.goto_prev, "Jump to previous line diagnostic" },
       ["]d"] = { vim.diagnostic.goto_next, "Jump to next line diagnostic" },
       ["<leader>Q"] = { vim.diagnostic.set_loclist, "Open diagnostics in loclist" },
-      ["<leader>f"] = { format_buffer, "Format buffer" },
-      ["<leader>V"] = { toggle_diagnostic_virtual_text, "Toggle diagnostic virtual text" },
+      ["<leader>F"] = { format_buffer, "Format buffer" },
+      ["<leader>tV"] = { toggle_diagnostic_virtual_text, "Toggle diagnostic virtual text" },
       ["<leader>yi"] = { add_missing_import, "Add missing import" }
     },
     -- visual mode

@@ -49,13 +49,13 @@ vim.api.nvim_create_user_command("ToggleLineNumbers", toggle_line_numbers, {})
 
 vim.api.nvim_set_keymap(
   "n",
-  "<leader>L",
+  "<leader>tL",
   ":RelativizeToggle<CR>",
   { desc = "Toggle Relativize", noremap = true, silent = true }
 )
 vim.api.nvim_set_keymap(
   "n",
-  "<leader>l",
+  "<leader>tl",
   ":ToggleLineNumbers<CR>",
   { desc = "Toggle line numbers", noremap = true, silent = true }
 )
