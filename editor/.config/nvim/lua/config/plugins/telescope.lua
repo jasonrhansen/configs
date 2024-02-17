@@ -168,7 +168,9 @@ function M.config()
   end
 
   local function git_files(opts)
-    opts = vim.tbl_extend("force", files_theme, opts or {})
+    opts = vim.tbl_extend("force", {
+      show_untracked = true,
+    }, files_theme, opts or {})
     local ok = pcall(require("telescope.builtin").git_files, opts)
     -- Fallback to find_files() if it can't find .git directory
     if not ok then
