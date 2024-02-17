@@ -100,6 +100,12 @@ function M.config()
           ["<c-t>"] = trouble.open_with_trouble,
           ["<M-p>"] = action_layout.toggle_preview,
           ["<c-w>"] = pick_window_and_open,
+          ["<c-space>"] = function(prompt_bufnr)
+            require("telescope.actions.generate").refine(prompt_bufnr, {
+              prompt_to_prefix = true,
+              sorter = false,
+            })
+          end,
         },
         n = {
           ["<M-p>"] = action_layout.toggle_preview,
