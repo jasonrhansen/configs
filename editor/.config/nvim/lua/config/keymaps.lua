@@ -225,3 +225,23 @@ wk.register({
   ["<leader>yp"] = { '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:p"))<cr>', "Copy file path" },
   ["<leader>yd"] = { '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:p:h"))<cr>', "Copy directory path" },
 })
+
+local function remove_quickfix_item()
+  local qf = vim.fn.getqflist()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local line = cursor[1]
+  table.remove(qf, line)
+  vim.fn.setqflist(qf)
+  local last_line = vim.fn.line("$")
+  vim.api.nvim_win_set_cursor(0, { math.min(cursor[1], last_line), cursor[2]})
+end
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  group = "jason-config",
+  pattern = { "qf" },
+  callback = function()
+    wk.register({
+      ["dd"] = { remove_quickfix_item, "Remove item from quickfix list", { silent = true } },
+    })
+  end,
+})
