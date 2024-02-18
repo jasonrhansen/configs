@@ -1,7 +1,7 @@
 -- File manager
 local M = {
   "nvim-neo-tree/neo-tree.nvim",
-  branch = "main",
+  branch = "v3.x",
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons",
@@ -166,8 +166,8 @@ function M.config()
       use_libuv_file_watcher = true,
       window = {
         mappings = {
-          ["Tf"] = "telescope_find",
-          ["Tg"] = "telescope_grep",
+          ["<leader>fp"] = "telescope_find",
+          ["<leader>fg"] = "telescope_grep",
           ["<bs>"] = "navigate_up",
           ["."] = "set_root",
           ["H"] = "toggle_hidden",
@@ -178,6 +178,8 @@ function M.config()
           ["[g"] = "prev_git_modified",
           ["]g"] = "next_git_modified",
           ["C"] = "copy_path",
+          ["<C-n>"] = "move_cursor_down",
+          ["<C-p>"] = "move_cursor_up",
         },
       },
       commands = {
@@ -228,9 +230,21 @@ function M.config()
   local wk = require("which-key")
   wk.register({
     ["<leader>"] = {
-      e = { "<cmd>Neotree toggle<cr>", "Toggle file tree" },
-      ["."] = { "<cmd>Neotree reveal<cr>", "Find file in tree" },
+      e = { "<cmd>Neotree right toggle<cr>", "Toggle file tree" },
+      ["."] = { "<cmd>Neotree right reveal_force_cwd<cr>", "Find file in tree" },
+      ["'"] = { "<cmd>Neotree float reveal_force_cwd<cr>", "Find file in tree" },
     },
+  })
+
+  vim.api.nvim_create_autocmd({ "FileType" }, {
+    group = "jason-config",
+    pattern = { "neo-tree" },
+    callback = function()
+      wk.register({
+        ["<c-n>"] = { "j", "Move cursor down", { silent = true } },
+        ["<c-p>"] = { "k", "Move cursor up", { silent = true } },
+      })
+    end,
   })
 end
 

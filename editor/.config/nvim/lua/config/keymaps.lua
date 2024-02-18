@@ -233,7 +233,7 @@ local function remove_quickfix_item()
   table.remove(qf, line)
   vim.fn.setqflist(qf)
   local last_line = vim.fn.line("$")
-  vim.api.nvim_win_set_cursor(0, { math.min(cursor[1], last_line), cursor[2]})
+  vim.api.nvim_win_set_cursor(0, { math.min(cursor[1], last_line), cursor[2] })
 end
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
