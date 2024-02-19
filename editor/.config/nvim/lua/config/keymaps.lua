@@ -226,23 +226,36 @@ wk.register({
   ["<leader>yd"] = { '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:p:h"))<cr>', "Copy directory path" },
 })
 
-local function remove_quickfix_item()
+local function remove_quickfix_items(start, finish)
+  if finish == nil then
+    finish = start
+  end
+  start, finish = unpack({ math.min(start, finish), math.max(start, finish) })
   local qf = vim.fn.getqflist()
-  local cursor = vim.api.nvim_win_get_cursor(0)
-  local line = cursor[1]
-  table.remove(qf, line)
+  for i = finish, start, -1 do
+    table.remove(qf, i)
+  end
   vim.fn.setqflist(qf)
   local last_line = vim.fn.line("$")
-  vim.api.nvim_win_set_cursor(0, { math.min(cursor[1], last_line), cursor[2] })
+  vim.api.nvim_win_set_cursor(0, { math.min(start, last_line), vim.api.nvim_win_get_cursor(0)[2] })
 end
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
   group = "jason-config",
   pattern = { "qf" },
   callback = function()
-    vim.keymap.set("n", "dd", remove_quickfix_item, {
+    vim.keymap.set("n", "dd", function()
+      remove_quickfix_items(vim.api.nvim_win_get_cursor(0)[1])
+    end, {
       buffer = true,
       desc = "Remove item from quickfix list",
+    })
+    vim.keymap.set("v", "d", function()
+      remove_quickfix_items(vim.fn.line("."), vim.fn.line("v"))
+      vim.api.nvim_feedkeys("<esc>", "n", true)
+    end, {
+      buffer = true,
+      desc = "Remove selected items from quickfix list",
     })
   end,
 })
