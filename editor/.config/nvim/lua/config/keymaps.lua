@@ -240,10 +240,8 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   group = "jason-config",
   pattern = { "qf" },
   callback = function()
-    vim.api.nvim_buf_set_keymap(0, "n", "dd", "", {
-      callback = remove_quickfix_item,
-      noremap = true,
-      silent = true,
+    vim.keymap.set("n", "dd", remove_quickfix_item, {
+      buffer = true,
       desc = "Remove item from quickfix list",
     })
   end,
