@@ -178,8 +178,6 @@ function M.config()
           ["[g"] = "prev_git_modified",
           ["]g"] = "next_git_modified",
           ["C"] = "copy_path",
-          ["<C-n>"] = "move_cursor_down",
-          ["<C-p>"] = "move_cursor_up",
         },
       },
       commands = {
