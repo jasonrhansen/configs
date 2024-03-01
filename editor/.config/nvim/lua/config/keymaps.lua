@@ -55,6 +55,7 @@ wk.register({
       W = { toggle_winbar, "Toggle winbar" },
       i = { "<cmd>IBLToggle<cr>", "Toggle indent guides" },
       q = { toggle_quickfix, "Toggle indent guides" },
+      c = { "<cmd>TSContextToggle<cr>", "Toggle treesitter context" },
     },
     n = {
       name = "NG Switcher",
