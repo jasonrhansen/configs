@@ -125,12 +125,32 @@ function M.config()
     },
     bashls = {},
     cmake = {},
-    cssls = {},
+    cssls = {
+      capabilities = {
+        textDocument = {
+          completion = {
+            completionItem = {
+              snippetSupport = true,
+            },
+          },
+        },
+      },
+    },
     dockerls = {},
     elmls = {},
     gopls = {},
     graphql = {},
-    html = {},
+    html = {
+      capabilities = {
+        textDocument = {
+          completion = {
+            completionItem = {
+              snippetSupport = true,
+            },
+          },
+        },
+      },
+    },
     -- PHP
     intelephense = {},
     -- Java
