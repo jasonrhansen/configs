@@ -135,7 +135,17 @@ function M.config()
     intelephense = {},
     -- Java
     -- jdtls = {},
-    jsonls = {},
+    jsonls = {
+      capabilities = {
+        textDocument = {
+          completion = {
+            completionItem = {
+              snippetSupport = true,
+            },
+          },
+        },
+      },
+    },
     -- XML
     lemminx = {},
     -- C#, VB
@@ -221,7 +231,10 @@ function M.config()
 
   -- Initialize all language servers
   for name, config in pairs(configs) do
-    local capabilities = config.capabilities or {}
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+    -- Add server-specific capabilities
+    capabilities = vim.tbl_extend("keep", capabilities, config.capabilities or {})
 
     -- Add lsp_status capabilities
     capabilities = vim.tbl_extend("keep", capabilities, lsp_status.capabilities)
