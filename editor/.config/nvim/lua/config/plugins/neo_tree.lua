@@ -109,6 +109,9 @@ function M.config()
       mappings = {
         ["<2-LeftMouse>"] = "open",
         ["<cr>"] = "open",
+        ["<esc>"] = "cancel", -- close preview or floating neo-tree window
+        ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
+        ["l"] = "focus_preview",
         ["S"] = "open_split",
         ["s"] = "open_vsplit",
         ["w"] = "open_with_window_picker",
@@ -123,15 +126,10 @@ function M.config()
         ["c"] = "copy", -- takes text input for destination
         ["m"] = "move", -- takes text input for destination
         ["q"] = "close_window",
-        ["e"] = function()
-          vim.api.nvim_exec2("Neotree focus filesystem left", { output = true })
-        end,
-        ["b"] = function()
-          vim.api.nvim_exec2("Neotree focus buffers left", { output = true })
-        end,
-        ["g"] = function()
-          vim.api.nvim_exec2("Neotree focus git_status left", { output = true })
-        end,
+        ["?"] = "show_help",
+        ["<"] = "prev_source",
+        [">"] = "next_source",
+        ["i"] = "show_file_details",
       },
     },
     nesting_rules = {},
