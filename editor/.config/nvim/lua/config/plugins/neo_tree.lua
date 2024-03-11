@@ -225,12 +225,38 @@ function M.config()
     },
   })
 
+  -- Neo tree throws an error if trying to open in a floating window when a non-floating neo tree window is open
+  -- and vice versa. This function will close the neo tree window based on the floating boolean argument.
+  local close_neo_tree_if_floating_is = function(floating)
+    local windows = vim.api.nvim_list_wins()
+    for _, window in ipairs(windows) do
+      local filetype = vim.api.nvim_get_option_value('filetype', { buf = vim.api.nvim_win_get_buf(window) })
+      local is_floating = vim.api.nvim_win_get_config(window).relative
+      if filetype == 'neo-tree' then
+        if floating == is_floating then
+          vim.cmd("Neotree close")
+        end
+        return
+      end
+    end
+  end
+
+  local reveal_file_right = function()
+    close_neo_tree_if_floating_is(true)
+    vim.cmd("Neotree right reveal_force_cwd")
+  end
+
+  local reveal_file_floating = function()
+    close_neo_tree_if_floating_is(false)
+    vim.cmd("Neotree float reveal_force_cwd")
+  end
+
   local wk = require("which-key")
   wk.register({
     ["<leader>"] = {
       e = { "<cmd>Neotree right toggle<cr>", "Toggle file tree" },
-      ["."] = { "<cmd>Neotree right reveal_force_cwd<cr>", "Find file in tree" },
-      ["'"] = { "<cmd>Neotree float reveal_force_cwd<cr>", "Find file in tree" },
+      ["."] = { reveal_file_right, "Find file in tree" },
+      ["'"] = { reveal_file_floating, "Find file in tree" },
     },
   })
 
