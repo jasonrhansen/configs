@@ -231,7 +231,7 @@ function M.config()
     local windows = vim.api.nvim_list_wins()
     for _, window in ipairs(windows) do
       local filetype = vim.api.nvim_get_option_value('filetype', { buf = vim.api.nvim_win_get_buf(window) })
-      local is_floating = vim.api.nvim_win_get_config(window).relative
+      local is_floating = vim.api.nvim_win_get_config(window).relative ~= ""
       if filetype == 'neo-tree' then
         if floating == is_floating then
           vim.cmd("Neotree close")
