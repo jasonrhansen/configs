@@ -179,6 +179,11 @@ function M.config()
           check = {
             command = "clippy",
           },
+          completion = {
+            postfix = {
+              enable = false,
+            },
+          },
         },
       },
     },
