@@ -129,7 +129,6 @@ function M.config()
         ["?"] = "show_help",
         ["<"] = "prev_source",
         [">"] = "next_source",
-        ["i"] = "show_file_details",
       },
     },
     nesting_rules = {},
