@@ -91,7 +91,6 @@ function M.config()
       ["<leader>Q"] = { vim.diagnostic.set_loclist, "Open diagnostics in loclist" },
       ["<leader>F"] = { format_buffer, "Format buffer" },
       ["<leader>tV"] = { toggle_diagnostic_virtual_text, "Toggle diagnostic virtual text" },
-      ["<leader>yi"] = { add_missing_import, "Add missing import" },
     },
     -- visual mode
     v = {
@@ -111,6 +110,11 @@ function M.config()
     -- Register keymaps with which-key
     for mode, mappings in pairs(keymaps) do
       wk.register(mappings, { buffer = 0, mode = mode })
+    end
+
+    -- typescript-tools provides its own "add missing imports"
+    if not vim.tbl_contains({ "typescript", "javascript" }, vim.opt.filetype) then
+      wk.register({ ["<leader>yi"] = { add_missing_import, "Add missing import" } }, { buffer = 0 })
     end
 
     if vim.tbl_contains(format_on_save_names, client.name) then
@@ -300,7 +304,7 @@ function M.config()
         f = { "<cmd>TSToolsFixAll<cr>", "Fix all fixable errors" },
         d = { "<cmd>TSToolsGoToSourceDefinition<cr>", "Go to source definition" },
         r = { "<cmd>TSToolsRenameFile<cr>", "Rename current file and update connected files" },
-      })
+      }, { buffer = 0 })
     end,
 
     settings = {

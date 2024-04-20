@@ -222,9 +222,9 @@ wk.register({
 })
 
 wk.register({
-  ["<leader>yf"] = { '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:t"))<cr>', "Copy file name" },
-  ["<leader>yp"] = { '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:p"))<cr>', "Copy file path" },
-  ["<leader>yd"] = { '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:p:h"))<cr>', "Copy directory path" },
+  ["<leader>cf"] = { '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:t"))<cr>', "Copy file name" },
+  ["<leader>cp"] = { '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:p"))<cr>', "Copy file path" },
+  ["<leader>cd"] = { '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:p:h"))<cr>', "Copy directory path" },
 })
 
 local function remove_quickfix_items(start, finish)
