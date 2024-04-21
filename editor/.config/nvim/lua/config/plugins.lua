@@ -57,7 +57,6 @@ return {
   -- Git
   { "tpope/vim-git", cmd = "Git" },
   "tpope/vim-fugitive",
-  { "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
 
   -- Expand abbreviations for HTML like 'div>p#foo$*3>a' with '<c-y>,'
   "mattn/emmet-vim",
