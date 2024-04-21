@@ -32,6 +32,25 @@ wezterm.on("toggle-ligature", function(window)
   window:set_config_overrides(overrides)
 end)
 
+local font_choices = {
+  {
+    label = "IosevkaTerm",
+    id = "IosevkaTerm Nerd Font",
+  },
+  {
+    label = "Meslo",
+    id = "Meslo LG M",
+  },
+  {
+    label = "JetBrains Mono",
+    id = "JetBrains Mono",
+  },
+  {
+    label = "Fira Code",
+    id = "Fira Code",
+  },
+}
+
 local config = {
   -- For some reason startup time is slow for WebGpu, so I'm using OpenGL for now.
   front_end = "OpenGL",
@@ -66,18 +85,22 @@ local config = {
   window_background_opacity = 1.0,
   text_background_opacity = 1.0,
 
-  window_decorations = "RESIZE",
+  window_decorations = "INTEGRATED_BUTTONS|RESIZE",
+  use_fancy_tab_bar = true,
+  show_new_tab_button_in_tab_bar = true,
+  tab_bar_at_bottom = false,
   hide_tab_bar_if_only_one_tab = true,
+  switch_to_last_active_tab_when_closing_tab = true,
 
   -- Turn off ligatures by default.
   harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
 
   font = wezterm.font({
-    family = "Meslo LG M",
+    family = font_choices[1].id,
     weight = "Regular",
   }),
 
-  font_size = 12.0,
+  font_size = 14.0,
 
   adjust_window_size_when_changing_font_size = false,
 
@@ -113,8 +136,6 @@ local config = {
     button_hover_fg = "#ffffff",
     button_hover_bg = "#3b3052",
   },
-
-  tab_bar_at_bottom = true,
 
   cursor_blink_rate = 800,
 
@@ -175,35 +196,19 @@ local config = {
           window:set_config_overrides(overrides)
         end),
         title = "Switch Font",
-        choices = {
-          {
-            label = "Meslo",
-            id = "Meslo LG M",
-          },
-          {
-            label = "IosevkaTerm",
-            id = "IosevkaTerm Nerd Font",
-          },
-          {
-            label = "JetBrains Mono",
-            id = "JetBrains Mono",
-          },
-          {
-            label = "Fira Code",
-            id = "Fira Code",
-          },
-        },
+        choices = font_choices
       }),
     },
   },
 }
 
-for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
-  if gpu.backend == "Vulkan" and gpu.device_type == "IntegratedGpu" then
-    config.webgpu_preferred_adapter = gpu
-    config.front_end = "WebGpu"
-    break
-  end
-end
+-- For some reason startup time is slow for WebGpu, so I'm using OpenGL for now.
+-- for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
+--   if gpu.backend == "Vulkan" and gpu.device_type == "IntegratedGpu" then
+--     config.webgpu_preferred_adapter = gpu
+--     config.front_end = "WebGpu"
+--     break
+--   end
+-- end
 
 return config
