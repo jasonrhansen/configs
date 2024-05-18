@@ -33,18 +33,6 @@ function M.config()
     "lua_ls",
   }
 
-  local show_virtual_text = true
-
-  -- Allow virtual text to be toggled for a buffer.
-  local toggle_diagnostic_virtual_text = function()
-    if vim.b.diagnostic_show_virtual_text == nil then
-      -- Hasn't been set yet, so set to default.
-      vim.b.diagnostic_show_virtual_text = show_virtual_text
-    end
-    vim.b.diagnostic_show_virtual_text = not vim.b.diagnostic_show_virtual_text
-    print("Turned diagnostic virtual text", vim.b.diagnostic_show_virtual_text and "ON" or "OFF")
-  end
-
   local pick_window = require("util").pick_window
 
   local format_buffer = function()
@@ -88,7 +76,6 @@ function M.config()
       ["<leader>d"] = { vim.diagnostic.open_float, "Line diagnostics" },
       ["<leader>Q"] = { vim.diagnostic.set_loclist, "Open diagnostics in loclist" },
       ["<leader>F"] = { format_buffer, "Format buffer" },
-      ["<leader>tV"] = { toggle_diagnostic_virtual_text, "Toggle diagnostic virtual text" },
     },
     -- visual mode
     v = {
@@ -350,29 +337,12 @@ function M.config()
     },
   })
 
-  -- Diagnostics config
-  local virtual_text_config = {
-    spacing = 2,
-    prefix = "■ ",
-  }
-
   vim.diagnostic.config({
     underline = true,
-    ---@diagnostic disable-next-line: assign-type-mismatch
-    virtual_text = function(_, bufnr)
-      local ok, show = pcall(vim.api.nvim_buf_get_var, bufnr, "diagnostic_show_virtual_text")
-
-      -- Buffer variable not set, so use default.
-      if not ok then
-        show = show_virtual_text
-      end
-
-      if show then
-        return virtual_text_config
-      end
-
-      return false
-    end,
+    virtual_text = {
+      spacing = 2,
+      prefix = "■ ",
+    },
     signs = true,
     update_in_insert = false,
     severity_sort = true,
