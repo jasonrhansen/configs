@@ -86,8 +86,6 @@ function M.config()
       ["<F2>"] = { vim.lsp.buf.rename, "Rename" },
       ["<leader>a"] = { vim.lsp.buf.code_action, "Code action" },
       ["<leader>d"] = { vim.diagnostic.open_float, "Line diagnostics" },
-      ["[d"] = { vim.diagnostic.goto_prev, "Jump to previous line diagnostic" },
-      ["]d"] = { vim.diagnostic.goto_next, "Jump to next line diagnostic" },
       ["<leader>Q"] = { vim.diagnostic.set_loclist, "Open diagnostics in loclist" },
       ["<leader>F"] = { format_buffer, "Format buffer" },
       ["<leader>tV"] = { toggle_diagnostic_virtual_text, "Toggle diagnostic virtual text" },
