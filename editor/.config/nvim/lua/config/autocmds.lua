@@ -55,7 +55,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
       vim.opt_local.foldmethod = "manual"
       vim.cmd("IBLDisable")
       vim.cmd("TSContextDisable")
-      vim.diagnostic.disable(ev.buf)
+      vim.diagnostic.enable(false, { bufnr = ev.buf })
       require("cmp").setup.buffer({ enabled = false })
     end
   end,
