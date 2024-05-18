@@ -42,7 +42,7 @@ end
 function M.copy_to_clipboard(text)
   vim.fn.setreg("+", text)
   if M.is_ssh_session() then
-    require("osc52").copy(text)
+    require('vim.ui.clipboard.osc52').copy('+')
   end
 end
 

@@ -56,19 +56,23 @@ opt.tabstop = 2 -- Number of spaces a <tab> counts for
 opt.sessionoptions = { "buffers", "folds", "tabpages", "curdir", "globals" }
 opt.viewoptions = { "cursor", "folds" }
 
-if vim.fn.has("unnamedplus") then
-  -- By default, Vim will not use the system clipboard when yanking/pasting to
-  -- the default register. This option makes Vim use the system default
-  -- clipboard.
-  -- Note that on X11, there are _two_ system clipboards: the 'standard' one, and
-  -- the selection/mouse-middle-click one. Vim sees the standard one as register
-  -- '+' (and this option makes Vim use it by default) and the selection one as
-  -- '*'.
-  -- See :h 'clipboard' for details.
-  opt.clipboard = { "unnamedplus", "unnamed" }
-else
-  -- Vim now also uses the selection system clipboard for default yank/paste.
-  opt.clipboard:append({ "unnamed" })
+-- For SSH sessions we want to use OSC 52, but it will only get used
+-- if clipboard is not set to "unnamed" or "unnamedplus".
+if not require('util').is_ssh_session() then
+  if vim.fn.has("unnamedplus") then
+    -- By default, Vim will not use the system clipboard when yanking/pasting to
+    -- the default register. This option makes Vim use the system default
+    -- clipboard.
+    -- Note that on X11, there are _two_ system clipboards: the 'standard' one, and
+    -- the selection/mouse-middle-click one. Vim sees the standard one as register
+    -- '+' (and this option makes Vim use it by default) and the selection one as
+    -- '*'.
+    -- See :h 'clipboard' for details.
+    opt.clipboard = { "unnamedplus", "unnamed" }
+  else
+    -- Vim now also uses the selection system clipboard for default yank/paste.
+    opt.clipboard:append({ "unnamed" })
+  end
 end
 
 -- This feels more natural
@@ -77,9 +81,6 @@ opt.splitright = true
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = "-"
-
--- Detect binary file or large file automatically
-vim.g.vinarise_enable_auto_detect = 1
 
 vim.cmd.syntax("on")
 vim.cmd("syntax sync minlines=256") -- Increase scrolling performance
