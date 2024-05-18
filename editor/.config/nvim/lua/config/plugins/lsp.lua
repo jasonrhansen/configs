@@ -53,6 +53,10 @@ function M.config()
     })
   end
 
+  local toggle_inlay_hints = function()
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
+  end
+
   -- Normal mode keymaps that get added to a buffer when attaching an LSP client.
   local keymaps = {
     -- normal mode
@@ -76,6 +80,7 @@ function M.config()
       ["<leader>d"] = { vim.diagnostic.open_float, "Line diagnostics" },
       ["<leader>Q"] = { vim.diagnostic.set_loclist, "Open diagnostics in loclist" },
       ["<leader>F"] = { format_buffer, "Format buffer" },
+      ["<leader>tI"] = { toggle_inlay_hints, "Toggle inlay type hints" }
     },
     -- visual mode
     v = {
@@ -89,7 +94,7 @@ function M.config()
     lsp_status.on_attach(client)
 
     if vim.tbl_contains(inlay_typehint_names, client.name) then
-      require("lsp-inlayhints").on_attach(client, buffer)
+      vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
     end
 
     -- Register keymaps with which-key

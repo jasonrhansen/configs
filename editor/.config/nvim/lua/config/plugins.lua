@@ -13,17 +13,6 @@ return {
     end,
   },
 
-  -- Inlay type hints
-  {
-    "lvimuser/lsp-inlayhints.nvim",
-    event = "LspAttach",
-    config = function()
-      require("lsp-inlayhints").setup({
-        inlay_hints = { highlight = "Comment", only_current_line = true },
-      })
-    end,
-  },
-
   -- Inject LSP diagnostics, code actions, and more via Lua
   {
     "nvimtools/none-ls.nvim", -- Community fork of jose-elias-alvarez/null-ls.nvim
