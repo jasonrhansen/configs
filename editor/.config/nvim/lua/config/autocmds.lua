@@ -60,3 +60,17 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
     end
   end,
 })
+
+-- For SSH sessions, make yanks use OSC 52 by writing to the + register.
+if require("util").is_ssh_session() then
+  vim.api.nvim_create_autocmd({ "TextYankPost" }, {
+    group = "jason-config",
+    callback = function(_)
+      local operator = vim.v.event.operator
+      local regname = vim.v.event.regname
+      if operator == "y" and regname == "" then
+        vim.fn.setreg("+", vim.fn.getreg('"'))
+      end
+    end,
+  })
+end
