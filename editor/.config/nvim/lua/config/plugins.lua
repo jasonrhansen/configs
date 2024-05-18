@@ -1,15 +1,19 @@
 return {
   -- Show function signature when you type
   {
-    -- Use my own fork with a workaround for issue https://github.com/hrsh7th/nvim-cmp/issues/1613,
-    -- which causes input lag.
-    "jasonrhansen/lsp_signature.nvim",
-    branch = "input-lag-workaround",
-
-    -- "ray-x/lsp_signature.nvim",
+    "ray-x/lsp_signature.nvim",
     event = "VeryLazy",
     config = function()
-      require("lsp_signature").setup()
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(args)
+          local bufnr = args.buf
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if not client or vim.tbl_contains({ "null-ls" }, client.name) then
+            return
+          end
+          require("lsp_signature").on_attach({}, bufnr)
+        end,
+      })
     end,
   },
 
@@ -107,7 +111,7 @@ return {
     config = function()
       require("nvim-highlight-colors").setup({
         render = "virtual",
-        virtual_symbol = '■',
+        virtual_symbol = "■",
       })
       local wk = require("which-key")
       wk.register({ ["<leader>tC"] = { "<cmd>HighlightColorsToggle<cr>", "Toggle highlight colors" } })
