@@ -66,19 +66,6 @@ return {
     end,
   },
 
-  -- Sets the commentstring option based on the cursor location in the file via treesitter queries.
-  -- Useful when there are embedded languages in certain types of files.
-  {
-    "JoosepAlviste/nvim-ts-context-commentstring",
-    config = function()
-      vim.g.skip_ts_context_commentstring_module = true
-      require("ts_context_commentstring").setup({
-        -- Configure nvim-comment to call this with hook.
-        enable_autocmd = false,
-      })
-    end,
-  },
-
   -- Automatically adjust shiftwidth and expandtab based on the current file
   "tpope/vim-sleuth",
 
