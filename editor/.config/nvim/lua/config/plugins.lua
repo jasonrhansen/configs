@@ -131,6 +131,7 @@ return {
   "mustache/vim-mustache-handlebars",
   "tpope/vim-rails",
   "fladson/vim-kitty", -- kitty.conf
+  "imsnif/kdl.vim",
 
   -- Muliple cursors
   {
@@ -176,9 +177,4 @@ return {
   -- * gsK: Title-Dash-Case or Title-Kebab-Case
   -- * gs.: dot.case
   "arthurxavierx/vim-caser",
-
-  -- Syntax and indent files for KDL
-  "imsnif/kdl.vim",
-
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 }
