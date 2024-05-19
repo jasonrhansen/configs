@@ -84,10 +84,6 @@ return {
   -- Add emacs key bindings to vim in insert and command-line modes.
   "maxbrunsfeld/vim-emacs-bindings",
 
-  -- Vim sugar for the UNIX shell commands that need it the most (:Delete,
-  -- :Rename, :Mkdir, etc.)
-  "tpope/vim-eunuch",
-
   -- Quickly switch between Angular files
   "softoika/ngswitcher.vim",
 
