@@ -19,12 +19,6 @@ function M.config()
     "gopls",
   }
 
-  -- Which LSP clients should get inlay type hints.
-  local inlay_typehint_names = {
-    "rust_analyzer",
-    "typescript-tools",
-  }
-
   -- Which LSP clients to disable formatting for so null-ls can be used instead
   -- without it asking each time which formatter to use.
   local disable_formatting_names = {
@@ -92,10 +86,6 @@ function M.config()
   -- Shared attach function for all LSP clients.
   local attach = function(client, buffer)
     lsp_status.on_attach(client)
-
-    if vim.tbl_contains(inlay_typehint_names, client.name) then
-      vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
-    end
 
     -- Register keymaps with which-key
     for mode, mappings in pairs(keymaps) do
