@@ -147,6 +147,7 @@ alias luamake=~/dev/others/lua-language-server/3rd/luamake/luamake
 export GOPATH=~/go
 
 export PATH=~/bin:$PATH
+export PATH=~/.local/bin:$PATH
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:~/.cargo/bin
 export PATH=$PATH:~/.rvm/bin
