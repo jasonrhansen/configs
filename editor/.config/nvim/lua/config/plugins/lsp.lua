@@ -84,8 +84,8 @@ function M.config()
   }
 
   -- Shared attach function for all LSP clients.
-  local attach = function(client, buffer)
-    lsp_status.on_attach(client)
+  M.attach = function(client, buffer)
+    lsp_status.on_attach(client, buffer)
 
     -- Register keymaps with which-key
     for mode, mappings in pairs(keymaps) do
@@ -232,7 +232,7 @@ function M.config()
   }
 
   lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
-    on_attach = attach,
+    on_attach = M.attach,
     flags = {
       debounce_text_changes = 150,
     },
@@ -260,7 +260,7 @@ function M.config()
     should_attach = function(bufnr)
       return not require("util").is_large_file(bufnr)
     end,
-    on_attach = attach,
+    on_attach = M.attach,
     sources = {
       null_ls.builtins.formatting.rubocop,
     },
@@ -272,7 +272,7 @@ function M.config()
     end,
 
     on_attach = function(client, bufnr)
-      attach(client, bufnr)
+      M.attach(client, bufnr)
 
       wk.register({
         name = "TypeScript Tools",
