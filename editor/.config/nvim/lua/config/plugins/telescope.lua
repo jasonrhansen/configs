@@ -20,7 +20,7 @@ function M.config()
   local actions = require("telescope.actions")
   local action_layout = require("telescope.actions.layout")
   local previewers = require("telescope.previewers")
-  local trouble = require("trouble.providers.telescope")
+  local trouble = require("trouble.sources.telescope")
   local wk = require("which-key")
 
   local MAX_PREVIEW_FILE_SIZE = 100000
@@ -97,7 +97,7 @@ function M.config()
           ["<esc>"] = actions.close,
           ["<c-b>"] = actions.cycle_history_prev,
           ["<c-f>"] = actions.cycle_history_next,
-          ["<c-t>"] = trouble.open_with_trouble,
+          ["<c-t>"] = trouble.open,
           ["<M-p>"] = action_layout.toggle_preview,
           ["<c-w>"] = pick_window_and_open,
           ["<c-space>"] = function(prompt_bufnr)
@@ -109,7 +109,7 @@ function M.config()
         },
         n = {
           ["<M-p>"] = action_layout.toggle_preview,
-          ["<c-t>"] = trouble.open_with_trouble,
+          ["<c-t>"] = trouble.open,
           ["<c-w>"] = pick_window_and_open,
         },
       },
