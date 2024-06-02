@@ -74,7 +74,7 @@ function M.config()
       ["<leader>d"] = { vim.diagnostic.open_float, "Line diagnostics" },
       ["<leader>Q"] = { vim.diagnostic.set_loclist, "Open diagnostics in loclist" },
       ["<leader>F"] = { format_buffer, "Format buffer" },
-      ["<leader>tI"] = { toggle_inlay_hints, "Toggle inlay type hints" }
+      ["<leader>tI"] = { toggle_inlay_hints, "Toggle inlay type hints" },
     },
     -- visual mode
     v = {
