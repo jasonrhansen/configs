@@ -17,12 +17,6 @@ return {
     end,
   },
 
-  -- Inject LSP diagnostics, code actions, and more via Lua
-  {
-    "nvimtools/none-ls.nvim", -- Community fork of jose-elias-alvarez/null-ls.nvim
-    dependencies = "nvim-lua/plenary.nvim",
-  },
-
   -- Enhanced vim.ui.select and vim.ui.input
   {
     "stevearc/dressing.nvim",
