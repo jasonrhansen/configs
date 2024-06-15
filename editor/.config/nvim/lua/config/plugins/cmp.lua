@@ -17,6 +17,8 @@ local M = {
     "lukas-reineke/cmp-under-comparator",
     -- vscode-like pictograms for completion items
     "onsails/lspkind-nvim",
+    -- Better completions for Rust
+    "ryo33/nvim-cmp-rust",
   },
 }
 
@@ -47,6 +49,18 @@ function M.config()
   vim.o.completeopt = "menu,menuone,noselect"
 
   local luasnip = require("luasnip")
+
+  local comparators = {
+    cmp.config.compare.offset,
+    cmp.config.compare.exact,
+    cmp.config.compare.score,
+    cmp.config.recently_used,
+    require("cmp-under-comparator").under,
+    cmp.locality,
+    cmp.config.compare.kind,
+    cmp.config.compare.length,
+    cmp.config.compare.order,
+  }
 
   cmp.setup({
 
@@ -119,17 +133,7 @@ function M.config()
     -- Order sources by priority
     sources = source_names,
     sorting = {
-      comparators = {
-        cmp.config.compare.offset,
-        cmp.config.compare.exact,
-        cmp.config.compare.score,
-        cmp.config.recently_used,
-        require("cmp-under-comparator").under,
-        cmp.locality,
-        cmp.config.compare.kind,
-        cmp.config.compare.length,
-        cmp.config.compare.order,
-      },
+      comparators = comparators,
     },
     formatting = {
       fields = { "kind", "abbr", "menu" },
@@ -149,13 +153,29 @@ function M.config()
     },
   })
 
-  -- Set configuration for specific filetype.
   cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources({
       { name = "cmp_git" },
     }, {
       { name = "buffer" },
     }),
+  })
+
+  cmp.setup.filetype({ "rust" }, {
+    sorting = {
+      priority_weight = 2,
+      comparators = {
+        -- deprioritize `.box`, `.mut`, etc.
+        require("cmp-rust").deprioritize_postfix,
+        -- deprioritize `Borrow::borrow` and `BorrowMut::borrow_mut`
+        require("cmp-rust").deprioritize_borrow,
+        -- deprioritize `Deref::deref` and `DerefMut::deref_mut`
+        require("cmp-rust").deprioritize_deref,
+        -- deprioritize `Into::into`, `Clone::clone`, etc.
+        require("cmp-rust").deprioritize_common_traits,
+        table.unpack(comparators),
+      },
+    },
   })
 
   -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
