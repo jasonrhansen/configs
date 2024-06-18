@@ -9,7 +9,6 @@ local M = {
     "nvim-telescope/telescope-live-grep-args.nvim",
     "aaronhallaert/ts-advanced-git-search.nvim",
     "nvim-telescope/telescope-symbols.nvim",
-    "barrett-ruth/telescope-http.nvim",
   },
 }
 
