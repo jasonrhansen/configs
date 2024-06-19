@@ -8,11 +8,11 @@ function M.config()
 
   gitsigns.setup({
     signs = {
-      add = { hl = "GitSignsAdd", text = "▋" },
-      change = { hl = "GitSignsChange", text = "▋" },
-      delete = { hl = "GitSignsDelete", text = "▁" },
-      topdelete = { hl = "GitSignsDelete", text = "▔" },
-      changedelete = { hl = "GitSignsDelete", text = "~" },
+      add = { text = "▋" },
+      change = { text = "▋" },
+      delete = { text = "▁" },
+      topdelete = { text = "▔" },
+      changedelete = { text = "~" },
     },
     numhl = false,
     linehl = false,
