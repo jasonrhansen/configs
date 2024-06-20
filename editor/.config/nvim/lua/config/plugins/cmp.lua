@@ -1,3 +1,6 @@
+# https://github.com/hrsh7th/nvim-cmp/issues/1017
+table.unpack = table.unpack or unpack
+
 local M = {
   "hrsh7th/nvim-cmp",
   event = "InsertEnter",
