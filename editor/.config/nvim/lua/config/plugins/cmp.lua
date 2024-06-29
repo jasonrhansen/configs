@@ -29,6 +29,7 @@ local M = {
 local sources = {
   { name = "nvim_lua", menu = "Lua" }, -- Complete neovim's Lua runtime API such as vim.lsp.*
   { name = "nvim_lsp", menu = "LSP" },
+  { name = "neorg", menu = "Neorg" },
   { name = "emmet_vim", menu = "Emmet" },
   { name = "luasnip", menu = "LuaSnip" },
   { name = "async_path", menu = "Path" },
