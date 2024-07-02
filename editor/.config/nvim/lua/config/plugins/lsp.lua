@@ -5,10 +5,37 @@ local M = {
   dependencies = {
     "nvim-lua/lsp-status.nvim",
     "hrsh7th/cmp-nvim-lsp",
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim"
   },
 }
 
 function M.config()
+  -- In order for mason-lspconfig to work correctly the plugins need to setup in the following order
+  -- 1. mason
+  -- 2. mason-lspconfig
+  -- 3. nvim-lspconfig
+  require("mason").setup()
+  require("mason-lspconfig").setup({
+    ensure_installed = {
+      "angularls",
+      "bashls",
+      "cssls",
+      "dockerls",
+      "graphql",
+      "html",
+      "intelephense",
+      "jsonls",
+      "lemminx",
+      "pyright",
+      "lua_ls",
+      "sqlls",
+      "tsserver",
+      "vimls",
+      "yamlls",
+    },
+  })
+
   local lspconfig = require("lspconfig")
   local lsp_status = require("lsp-status")
   local wk = require("which-key")
