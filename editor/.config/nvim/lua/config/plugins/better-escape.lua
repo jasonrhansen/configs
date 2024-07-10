@@ -15,28 +15,9 @@ return {
 
     require("better_escape").setup({
       timeout = vim.o.timeoutlen,
+      default_mappings = false,
       mappings = {
         i = {
-          j = {
-            k = escape,
-          },
-        },
-        c = {
-          j = {
-            k = escape,
-          },
-        },
-        t = {
-          j = {
-            k = escape,
-          },
-        },
-        v = {
-          j = {
-            k = escape,
-          },
-        },
-        s = {
           j = {
             k = escape,
           },
