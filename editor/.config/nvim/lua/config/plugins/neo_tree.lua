@@ -227,9 +227,9 @@ function M.config()
   local close_neo_tree_if_floating_is = function(floating)
     local windows = vim.api.nvim_list_wins()
     for _, window in ipairs(windows) do
-      local filetype = vim.api.nvim_get_option_value('filetype', { buf = vim.api.nvim_win_get_buf(window) })
+      local filetype = vim.api.nvim_get_option_value("filetype", { buf = vim.api.nvim_win_get_buf(window) })
       local is_floating = vim.api.nvim_win_get_config(window).relative ~= ""
-      if filetype == 'neo-tree' then
+      if filetype == "neo-tree" then
         if floating == is_floating then
           vim.cmd("Neotree close")
         end
@@ -249,21 +249,19 @@ function M.config()
   end
 
   local wk = require("which-key")
-  wk.register({
-    ["<leader>"] = {
-      e = { "<cmd>Neotree right toggle<cr>", "Toggle file tree" },
-      ["."] = { reveal_file_right, "Find file in tree" },
-      ["'"] = { reveal_file_floating, "Find file in tree" },
-    },
+  wk.add({
+    { "<leader>e", "<cmd>Neotree right toggle<cr>", desc = "Toggle file tree" },
+    { "<leader>.", reveal_file_right, desc = "Find file in tree" },
+    { "<leader>'", reveal_file_floating, desc = "Find file in tree" },
   })
 
   vim.api.nvim_create_autocmd({ "FileType" }, {
     group = "jason-config",
     pattern = { "neo-tree" },
     callback = function()
-      wk.register({
-        ["<c-n>"] = { "j", "Move cursor down", { silent = true } },
-        ["<c-p>"] = { "k", "Move cursor up", { silent = true } },
+      wk.add({
+        { "<c-n>", "j", desc = "Move cursor down", silent = true },
+        { "<c-p>", "k", desc = "Move cursor up", silent = true },
       })
     end,
   })

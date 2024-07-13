@@ -50,16 +50,14 @@ function M.config()
   })
 
   local wk = require("which-key")
-  wk.register({
-    ["<leader>x"] = {
-      name = "Trouble",
-      x = { "<cmd>Trouble<cr>", "Trouble" },
-      l = { "<cmd>Trouble loclist<cr>", "Trouble loclist" },
-      q = { "<cmd>Trouble quickfix<cr>", "Trouble quickfix" },
-      w = { "<cmd>Trouble lsp_workspace_diagnostics<cr>", "Trouble lsp workspace diagnostics" },
-      d = { "<cmd>Trouble lsp_document_diagnostics<cr>", "Trouble lsp document diagnostics" },
-      r = { "<cmd>Trouble lsp_references<cr>", "Trouble lsp references" },
-    },
+  wk.add({
+    { "<leader>x", group = "Trouble" },
+    { "<leader>xx", "<cmd>Trouble<cr>", desc = "Trouble" },
+    { "<leader>xl", "<cmd>Trouble loclist<cr>", desc = "Trouble loclist" },
+    { "<leader>xq", "<cmd>Trouble quickfix<cr>", desc = "Trouble quickfix" },
+    { "<leader>xw", "<cmd>Trouble lsp_workspace_diagnostics<cr>", desc = "Trouble lsp workspace diagnostics" },
+    { "<leader>xd", "<cmd>Trouble lsp_document_diagnostics<cr>", desc = "Trouble lsp document diagnostics" },
+    { "<leader>xr", "<cmd>Trouble lsp_references<cr>", desc = "Trouble lsp references" },
   })
 end
 

@@ -3,9 +3,9 @@ local M = {
 }
 
 function M.config()
-  local wk = require("which-key")
-
-  wk.register({ ["<leader>G"] = { "<cmd>GitMessenger<cr>", "Git Messenger" } })
+  require("which-key").add({
+    { "<leader>G", "<cmd>GitMessenger<cr>", desc = "Git Messenger" },
+  })
 
   vim.g.git_messenger_always_into_popup = true
 
@@ -13,9 +13,13 @@ function M.config()
     group = "jason-config",
     pattern = "gitmessengerpopup",
     callback = function()
-      wk.register({ ["<esc>"] = { "q", "Close popup" } }, { noremap = false, buffer = 0 })
-      wk.register({ ["<C-o>"] = { "o", "Back in git history" } }, { noremap = false, buffer = 0 })
-      wk.register({ ["<C-i>"] = { "O", "Forward in git history" } }, { noremap = false, buffer = 0 })
+      require("which-key").add({
+        buffer = true,
+        noremap = false,
+        { "<esc>", "q", desc = "Close popup" },
+        { "<C-o>", "o", desc = "Back in git history" },
+        { "<C-i>", "O", desc = "Forward in git history" },
+      })
     end,
   })
 end

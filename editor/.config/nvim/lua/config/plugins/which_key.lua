@@ -1,6 +1,7 @@
 -- Displays a popup with possible key bindings of the command you started typing
 local M = {
   "folke/which-key.nvim",
+  event = "VeryLazy",
 }
 
 function M.config()

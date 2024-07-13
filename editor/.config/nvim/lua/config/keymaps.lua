@@ -1,4 +1,5 @@
--- Misc. key maps defined with which-key
+local wk = require("which-key")
+local pick_window = require("util").pick_window
 
 local comment_colors = { vim.fn.synIDattr(vim.fn.hlID("Comment"), "fg#"), "#a2a199" }
 local comment_color_index = 0
@@ -36,140 +37,6 @@ local function toggle_quickfix()
   vim.cmd.copen()
 end
 
-local wk = require("which-key")
-local pick_window = require("util").pick_window
-
--- Normal mode leader mappings
-wk.register({
-  ["<leader>"] = {
-    name = "Leader",
-    ["<leader>"] = { "<c-^>", "Toggle between buffers" },
-    ve = { "<cmd>vsplit $MYVIMRC<cr>", "Edit init.vim" },
-    vs = { "<cmd>source $MYVIMRC<cr>", "Reload init.vim" },
-    w = { "w!<cr>", "Save (force)" },
-    q = { "<cmd>Bdelete<cr>", "Delete buffer" },
-    t = {
-      name = "Toggle",
-      b = { toggle_bright_comments, "Toggle bright comments" },
-      g = { toggle_global_statusline, "Toggle global statusline" },
-      W = { toggle_winbar, "Toggle winbar" },
-      i = { "<cmd>IBLToggle<cr>", "Toggle indent guides" },
-      q = { toggle_quickfix, "Toggle indent guides" },
-      c = { "<cmd>TSContextToggle<cr>", "Toggle treesitter context" },
-    },
-    n = {
-      name = "NG Switcher",
-      t = { "<cmd>NgSwitchTS<cr>", "Switch to TS" },
-      c = { "<cmd>NgSwitchCSS<cr>", "Switch to CSS/SCSS" },
-      h = { "<cmd>NgSwitchHTML<cr>", "Switch to HTML" },
-      S = { "<cmd>NgSwitchSpec<cr>", "Switch to Spec" },
-      n = {
-        name = "NG Switcher (pick window)",
-        t = { pick_window("NgSwitchTS"), "Switch to TS (pick window)" },
-        c = { pick_window("NgSwitchCSS"), "Switch to CSS/SCSS (pick window)" },
-        h = { pick_window("NgSwitchHTML"), "Switch to HTML (pick window)" },
-        s = { pick_window("NgSwitchSpec"), "Switch to Spec (pick window)" },
-      },
-    },
-  },
-})
-
--- Turn off search highlights by pressing return unless in quickfix window.
-wk.register({
-  ["<cr>"] = { '&buftype ==# "quickfix" ? "<CR>" : ":noh<cr>"', "Turn off search highlights", expr = true },
-})
-
--- Add a 'stamp' command to replace word or selection with yanked text.
-vim.keymap.set("n", "<Plug>StampYankedText", '"_diwP:call repeat#set("\\<Plug>StampYankedText")<CR>', { silent = true })
-wk.register({ ["<leader>p"] = { "<Plug>StampYankedText", '"Stamp" yanked text' } }, { mode = "n" })
-wk.register({ ["<leader>p"] = { '"_dP', '"Stamp" yanked text' } }, { mode = "v" })
-
--- Make 'Y' work from the cursor to end of line instead of like 'yy'.
-wk.register({ Y = { "y$", "Yank to end of line" } })
-
--- Reselect visual selection after indent.
-wk.register({
-  ["<"] = { "<gv", "Indent left and reselect" },
-  [">"] = { ">gv", "Indent right and reselect" },
-}, { mode = "x" })
-
--- Create newlines like o and O but stay in normal mode.
-wk.register({
-  ["zj"] = { "o<Esc>k", "Newline below" },
-  ["zk"] = { "O<Esc>j", "Newline above" },
-})
-
--- Center the screen when jumping through the changelist.
-wk.register({
-  ["g;"] = { "g;zz", "Next in changelist, and center" },
-  ["g,"] = { "g,z", "Previous in changelist, and center" },
-})
-
--- This makes j and k work on "screen lines" instead of on "file lines"; now, when
--- we have a long line that wraps to multiple screen lines, j and k behave as we
--- expect them to.
-wk.register({
-  ["j"] = { "gj", "Cursor down" },
-  ["k"] = { "gk", "Cursor up" },
-})
-
--- Swap implementations of ` and ' jump to markers.
--- By default, ' jumps to the marked line, ` jumps to the marked line and
--- column, so swap them
-wk.register({
-  ["'"] = { "`", "Jump to mark" },
-  ["`"] = { "'", "Jump to marked line" },
-})
-
--- Don't move cursor when joining lines. Also add a version that removes spaces between joined lines that's dot-repeatable.
-wk.register({ J = { "mzJ`z", "Join lines" } })
-vim.keymap.set(
-  "n",
-  "<Plug>JoinLinesWithoutSpaces",
-  'mzJx`z:call repeat#set("\\<Plug>JoinLinesWithoutSpaces")<CR>',
-  { silent = true }
-)
-wk.register({ ["<leader>J"] = { "<Plug>JoinLinesWithoutSpaces", "Join lines without space" } })
-
--- Add undo break points for punctuation.
-wk.register({
-  [","] = { ",<C-g>u", ", with undo breakpoint" },
-  ["."] = { ".<C-g>u", ". with undo breakpoint" },
-  ["!"] = { "!<C-g>u", "! with undo breakpoint" },
-  ["?"] = { "?<C-g>u", "? with undo breakpoint" },
-}, { mode = "i" })
-
--- Move lines up and down, and re-indent.
-wk.register({
-  ["<m-k>"] = { ":m .-2<cr>==", "Move line up" },
-  ["<m-j>"] = { ":m .+1<cr>==", "Move line down" },
-}, { mode = "n" })
-wk.register({
-  ["<m-k>"] = { "<esc>:m .-2<cr>==", "Move line up" },
-  ["<m-j>"] = { "<esc>:m .+1<cr>==", "Move line down" },
-}, { mode = "i" })
-wk.register({
-  ["<m-k>"] = { ":m '<-2<cr>gv=gv", "Move lines up" },
-  ["<m-j>"] = { ":m '>+1<cr>gv=gv", "Move lines down" },
-}, { mode = "v" })
-
--- Exit insert mode and save just by hitting CTRL-s.
-wk.register({ ["<C-s>"] = { "<esc>:w<cr>", "Exit insert mode and save" } }, { mode = "n", noremap = false })
-wk.register({ ["<C-s>"] = { "<esc>:w<cr>", "Exit insert mode and save" } }, { mode = "i", noremap = false })
-
--- I never use the command line window on purpose, but I do open it sometimes
--- on accident when trying to get to the command line, so make q: open the command line.
-wk.register({ ["q:"] = { ":", "Open command line" } }, { silent = false })
-
--- With this map, we can select some text in visual mode and by invoking the map,
--- have the selection automatically filled in as the search text and the cursor
--- placed in the position for typing the replacement text. Also, this will ask
--- for confirmation before it replaces any instance of the search text in the file.
-wk.register(
-  { ["<C-r>"] = { '"hy:%s/<C-r>h//gc<left><left><left>', "Substitute with selection" } },
-  { mode = "v", silent = false }
-)
-
 local function is_window_rightmost(winnr)
   winnr = winnr or vim.fn.winnr()
   return vim.o.columns == vim.fn.win_screenpos(winnr)[2] + vim.fn.winwidth(winnr) - 1
@@ -187,22 +54,6 @@ local function adjust_window_width(cols)
   end
 end
 
--- Quickly adjust window width.
-wk.register({
-  ["<M-l>"] = {
-    function()
-      adjust_window_width(5)
-    end,
-    "Adjust window width right",
-  },
-  ["<M-h>"] = {
-    function()
-      adjust_window_width(-5)
-    end,
-    "Adjust window width left",
-  },
-})
-
 local function show_documentation()
   local filetype = vim.bo.filetype
   if vim.tbl_contains({ "vim", "help" }, filetype) then
@@ -217,16 +68,6 @@ local function show_documentation()
   end
 end
 
-wk.register({
-  ["<leader>K"] = { show_documentation, "Show documentation", { silent = true } },
-})
-
-wk.register({
-  ["<leader>cf"] = { '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:t"))<cr>', "Copy file name" },
-  ["<leader>cp"] = { '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:p"))<cr>', "Copy file path" },
-  ["<leader>cd"] = { '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:p:h"))<cr>', "Copy directory path" },
-})
-
 local function remove_quickfix_items(start, finish)
   if finish == nil then
     finish = start
@@ -240,6 +81,149 @@ local function remove_quickfix_items(start, finish)
   local last_line = vim.fn.line("$")
   vim.api.nvim_win_set_cursor(0, { math.min(start, last_line), vim.api.nvim_win_get_cursor(0)[2] })
 end
+
+wk.add({
+  { "<leader>", group = "Leader" },
+  { "<leader><leader>", "<c-^>", desc = "Toggle between buffers" },
+  { "<leader>ve", "<cmd>vsplit $MYVIMRC<cr>", desc = "Edit init.vim" },
+  { "<leader>vs", "<cmd>source $MYVIMRC<cr>", desc = "Reload init.vim" },
+  { "<leader>w", "w!<cr>", desc = "Save (force)" },
+  { "<leader>q", "<cmd>Bdelete<cr>", desc = "Delete buffer" },
+  { "<leader>t", group = "Toggle" },
+  { "<leader>tb", toggle_bright_comments, desc = "Toggle bright comments" },
+  { "<leader>tg", toggle_global_statusline, desc = "Toggle global statusline" },
+  { "<leader>tW", toggle_winbar, desc = "Toggle winbar" },
+  { "<leader>ti", "<cmd>IBLToggle<cr>", desc = "Toggle indent guides" },
+  { "<leader>tq", toggle_quickfix, desc = "Toggle indent guides" },
+  { "<leader>tc", "<cmd>TSContextToggle<cr>", desc = "Toggle treesitter context" },
+  { "<leader>n", group = "NG Switcher" },
+  { "<leader>nt", "<cmd>NgSwitchTS<cr>", desc = "Switch to TS" },
+  { "<leader>nc", "<cmd>NgSwitchCSS<cr>", desc = "Switch to CSS/SCSS" },
+  { "<leader>nh", "<cmd>NgSwitchHTML<cr>", desc = "Switch to HTML" },
+  { "<leader>nS", "<cmd>NgSwitchSpec<cr>", desc = "Switch to Spec" },
+  { "<leader>nn", group = "NG Switcher (pick window)" },
+  { "<leader>nnt", pick_window("NgSwitchTS"), desc = "Switch to TS (pick window)" },
+  { "<leader>nnc", pick_window("NgSwitchCSS"), desc = "Switch to CSS/SCSS (pick window)" },
+  { "<leader>nnh", pick_window("NgSwitchHTML"), desc = "Switch to HTML (pick window)" },
+  { "<leader>nns", pick_window("NgSwitchSpec"), desc = "Switch to Spec (pick window)" },
+
+  -- Turn off search highlights by pressing return unless in quickfix window.
+  { "<cr>", '&buftype ==# "quickfix" ? "<CR>" : ":noh<cr>"', desc = "Turn off search highlights", expr = true },
+
+  -- Make 'Y' work from the cursor to end of line instead of like 'yy'.
+  { "Y", "y$", desc = "Yank to end of line" },
+
+  -- Create newlines like o and O but stay in normal mode.
+  { "zj", "o<Esc>k", desc = "Newline below" },
+  { "zk", "O<Esc>j", desc = "Newline above" },
+
+  -- Center the screen when jumping through the changelist.
+  { "g;", "g;zz", desc = "Next in changelist, and center" },
+  { "g,", "g,z", desc = "Previous in changelist, and center" },
+
+  -- This makes j and k work on "screen lines" instead of on "file lines"; now, when
+  -- we have a long line that wraps to multiple screen lines, j and k behave as we
+  -- expect them to.
+  { "j", "gj", desc = "Cursor down", hidden = true },
+  { "k", "gk", desc = "Cursor up", hidden = true },
+
+  -- Swap implementations of ` and ' jump to markers.
+  -- By default, ' jumps to the marked line, ` jumps to the marked line and
+  -- column, so swap them
+  { "'", "`", desc = "Jump to mark", hidden = true },
+  { "`", "'", desc = "Jump to marked line", hidden = true },
+
+  -- Reselect visual selection after indent.
+  {
+    mode = "x",
+    { "<", "<gv", desc = "Indent left and reselect", hidden = true },
+    { ">", ">gv", desc = "Indent right and reselect", hidden = true },
+  },
+
+  -- Add undo break points for punctuation.
+  {
+    mode = "i",
+    { ",", ",<C-g>u", desc = ", with undo breakpoint", hidden = true },
+    { ".", ".<C-g>u", desc = ". with undo breakpoint", hidden = true },
+    { "!", "!<C-g>u", desc = "! with undo breakpoint", hidden = true },
+    { "?", "?<C-g>u", desc = "? with undo breakpoint", hidden = true },
+  },
+
+  -- Move lines up and down, and re-indent.
+  {
+    mode = "n",
+    { "<m-k>", ":m .-2<cr>==", desc = "Move line up" },
+    { "<m-j>", ":m .+1<cr>==", desc = "Move line down" },
+  },
+  {
+    mode = "i",
+    { "<m-k>", "<esc>:m .-2<cr>==", desc = "Move line up" },
+    { "<m-j>", "<esc>:m .+1<cr>==", desc = "Move line down" },
+  },
+  {
+    mode = "v",
+    { "<m-k>", ":m '<-2<cr>gv=gv", desc = "Move lines up" },
+    { "<m-j>", ":m '>+1<cr>gv=gv", desc = "Move lines down" },
+  },
+
+  -- Exit insert mode and save just by hitting CTRL-s.
+  { "<C-s>", "<esc>:w<cr>", desc = "Exit insert mode and save", mode = "n", noremap = false },
+  { "<C-s>", "<esc>:w<cr>", desc = "Exit insert mode and save", mode = "i", noremap = false },
+
+  -- I never use the command line window on purpose, but I do open it sometimes
+  -- on accident when trying to get to the command line, so make q: open the command line.
+  { "q:", ":", desc = "Open command line", silent = false },
+
+  -- With this map, we can select some text in visual mode and by invoking the map,
+  -- have the selection automatically filled in as the search text and the cursor
+  -- placed in the position for typing the replacement text. Also, this will ask
+  -- for confirmation before it replaces any instance of the search text in the file.
+  { "<C-r>", '"hy:%s/<C-r>h//gc<left><left><left>', desc = "Substitute with selection", mode = "v", silent = false },
+
+  -- Quickly adjust window width.
+  {
+    "<M-l>",
+    function()
+      adjust_window_width(5)
+    end,
+    desc = "Adjust window width right",
+  },
+  {
+    "<M-h>",
+    function()
+      adjust_window_width(-5)
+    end,
+    desc = "Adjust window width left",
+  },
+
+  { "<leader>K", show_documentation, desc = "Show documentation", silent = true },
+
+  -- Copy file and directory names to clipboard
+  { "<leader>cf", '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:t"))<cr>', desc = "Copy file name" },
+  { "<leader>cp", '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:p"))<cr>', desc = "Copy file path" },
+  {
+    "<leader>cd",
+    '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:p:h"))<cr>',
+    desc = "Copy directory path",
+  },
+
+  -- Add a 'stamp' command to replace word or selection with yanked text.
+  { "<Plug>StampYankedText", '"_diwP:call repeat#set("\\<Plug>StampYankedText")<CR>', hidden = true, silent = true },
+  { "<leader>p", "<Plug>StampYankedText", desc = '"Stamp" yanked text' },
+  { "<leader>p", '"_dP', desc = '"Stamp" yanked text', mode = "v" },
+
+  -- Don't move cursor when joining lines. Also add a version that removes spaces between joined lines that's dot-repeatable.
+  { "J", "mzJ`z", desc = "Join lines" },
+
+  -- Join lines without spaces
+  {
+    "<Plug>JoinLinesWithoutSpaces",
+    'mzJx`z:call repeat#set("\\<Plug>JoinLinesWithoutSpaces")<CR>',
+    hidden = true,
+    silent = true,
+  },
+  { "<leader>J", "<Plug>JoinLinesWithoutSpaces", desc = "Join lines without space" },
+})
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
   group = "jason-config",

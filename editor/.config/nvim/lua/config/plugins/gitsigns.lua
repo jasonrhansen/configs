@@ -27,31 +27,31 @@ function M.config()
       internal = true,
     },
     on_attach = function(bufnr)
-      local normal_keymaps = {
-        ["]c"] = { [[&diff ? "]c" : "<cmd>lua require('gitsigns').next_hunk()<CR>"]], "Jump to next hunk", expr = true },
-        ["[c"] = {
-          [[&diff ? "[c" : "<cmd>lua require('gitsigns').prev_hunk()<CR>"]],
-          "Jump to previous hunk",
+      require("which-key").add({
+        buffer = bufnr,
+        {
+          "]c",
+          [[&diff ? "]c" : "<cmd>lua require('gitsigns').next_hunk()<CR>"]],
+          desc = "Jump to next hunk",
           expr = true,
         },
-
-        ["<leader>s"] = {
-          name = "Gitsigns",
-          ["s"] = { gitsigns.stage_hunk, "Stage hunk" },
-          ["u"] = { gitsigns.undo_stage_hunk, "Unstage hunk" },
-          ["r"] = { gitsigns.reset_hunk, "Reset hunk" },
-          ["R"] = { gitsigns.reset_buffer, "Reset buffer" },
-          ["p"] = { gitsigns.preview_hunk, "Preview hunk" },
-          ["b"] = { gitsigns.blame_line, "Blame line" },
+        {
+          "[c",
+          [[&diff ? "[c" : "<cmd>lua require('gitsigns').prev_hunk()<CR>"]],
+          desc = "Jump to previous hunk",
+          expr = true,
         },
-      }
+        { "<leader>s", group = "Gitsigns" },
+        { "<leader>ss", gitsigns.stage_hunk, desc = "Stage hunk" },
+        { "<leader>su", gitsigns.undo_stage_hunk, desc = "Unstage hunk" },
+        { "<leader>sr", gitsigns.reset_hunk, desc = "Reset hunk" },
+        { "<leader>sR", gitsigns.reset_buffer, desc = "Reset buffer" },
+        { "<leader>sp", gitsigns.preview_hunk, desc = "Preview hunk" },
+        { "<leader>sb", gitsigns.blame_line, desc = "Blame line" },
 
-      local wk = require("which-key")
-      wk.register(normal_keymaps, { buffer = bufnr })
-
-      -- Text objects
-      wk.register({ ["ih"] = { gitsigns.select_hunk, "Select hunk" } }, { mode = "o", buffer = bufnr })
-      wk.register({ ["ih"] = { gitsigns.select_hunk, "Select hunk" } }, { mode = "x", buffer = bufnr })
+        -- Text objects
+        { "ih", gitsigns.select_hunk, desc = "Select hunk", mode = { "o", "x" } },
+      })
     end,
   })
 end

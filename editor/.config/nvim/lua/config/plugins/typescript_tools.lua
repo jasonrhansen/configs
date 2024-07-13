@@ -13,17 +13,17 @@ function M.config()
     on_attach = function(client, bufnr)
       require('config.plugins.lsp').attach(client, bufnr)
 
-      require("which-key").register({
-        name = "TypeScript Tools",
-        prefix = "<leader>y",
-        o = { "<cmd>TSToolsOrganizeImports<cr>", "Organize imports" },
-        s = { "<cmd>TSToolsSortImports<cr>", "Sort imports" },
-        u = { "<cmd>TSToolsRemoveUnusedImports<cr>", "Remove unused imports" },
-        i = { "<cmd>TSToolsAddMissingImports<cr>", "Add missing imports" },
-        f = { "<cmd>TSToolsFixAll<cr>", "Fix all fixable errors" },
-        d = { "<cmd>TSToolsGoToSourceDefinition<cr>", "Go to source definition" },
-        r = { "<cmd>TSToolsRenameFile<cr>", "Rename current file and update connected files" },
-      }, { buffer = 0 })
+      require("which-key").add({
+        buffer = bufnr,
+        {"<leader>y", group = "TypeScript Tools"},
+        { "<leader>yo", "<cmd>TSToolsOrganizeImports<cr>", desc = "Organize imports" },
+        { "<leader>ys", "<cmd>TSToolsSortImports<cr>", desc = "Sort imports" },
+        { "<leader>yu", "<cmd>TSToolsRemoveUnusedImports<cr>", desc = "Remove unused imports" },
+        { "<leader>yi", "<cmd>TSToolsAddMissingImports<cr>", desc = "Add missing imports" },
+        { "<leader>yf", "<cmd>TSToolsFixAll<cr>", desc = "Fix all fixable errors" },
+        { "<leader>yd", "<cmd>TSToolsGoToSourceDefinition<cr>", desc = "Go to source definition" },
+        { "<leader>yr", "<cmd>TSToolsRenameFile<cr>", desc = "Rename current file and update connected files" },
+      })
     end,
 
     settings = {

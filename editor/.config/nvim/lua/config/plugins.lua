@@ -90,16 +90,15 @@ return {
         render = "virtual",
         virtual_symbol = "■",
       })
-      local wk = require("which-key")
-      wk.register({ ["<leader>tC"] = { "<cmd>HighlightColorsToggle<cr>", "Toggle highlight colors" } })
+
+      vim.keymap.set("n", "<leader>tc", "<cmd>HighlightColorsToggle<cr>", {
+        desc = "Toggle highlight colors",
+      })
     end,
   },
 
   -- Icons to use in the status bar
   "ryanoasis/vim-devicons",
-
-  -- Adds more text objects to operate on like (), {}, [], <>, and t for tags.
-  "wellle/targets.vim",
 
   -- Close buffers without closing windows and messing up the layout.
   "moll/vim-bbye",

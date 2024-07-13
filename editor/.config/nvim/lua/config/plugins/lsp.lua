@@ -6,7 +6,7 @@ local M = {
     "nvim-lua/lsp-status.nvim",
     "hrsh7th/cmp-nvim-lsp",
     "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim"
+    "williamboman/mason-lspconfig.nvim",
   },
 }
 
@@ -38,7 +38,6 @@ function M.config()
 
   local lspconfig = require("lspconfig")
   local lsp_status = require("lsp-status")
-  local wk = require("which-key")
 
   -- Which LSP clients should automatically format when saving.
   local format_on_save_names = {
@@ -78,52 +77,54 @@ function M.config()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
   end
 
-  -- Normal mode keymaps that get added to a buffer when attaching an LSP client.
-  local keymaps = {
-    -- normal mode
-    n = {
-      -- Go to things
-      gd = { vim.lsp.buf.definition, "Jump to definition" },
-      gD = { vim.lsp.buf.declaration, "Jump to declaration" },
-      gy = { vim.lsp.buf.type_definition, "Jump to type definition" },
-      gI = { vim.lsp.buf.implementation, "Jump to implementation" },
-      gr = { vim.lsp.buf.references, "Get references" },
-      g0 = { vim.lsp.buf.document_symbol, "List document symbols" },
-      gW = { vim.lsp.buf.workspace_symbol, "List workspace symbols" },
-      ["<leader>gd"] = { pick_window(vim.lsp.buf.definition), "Pick window and jump to definition" },
-      ["<leader>gD"] = { pick_window(vim.lsp.buf.declaration), "Pick window and jump to declaration" },
-      ["<leader>gy"] = { pick_window(vim.lsp.buf.type_definition), "Pick window and jump to type definition" },
-      ["<leader>gI"] = { pick_window(vim.lsp.buf.implementation), "Pick window and jump to implementation" },
-      ["<leader>k"] = { vim.lsp.buf.signature_help, "Signature help" },
-      ["<leader>rn"] = { vim.lsp.buf.rename, "Rename" },
-      ["<F2>"] = { vim.lsp.buf.rename, "Rename" },
-      ["<leader>a"] = { vim.lsp.buf.code_action, "Code action" },
-      ["<leader>d"] = { vim.diagnostic.open_float, "Line diagnostics" },
-      ["<leader>Q"] = { vim.diagnostic.set_loclist, "Open diagnostics in loclist" },
-      ["<leader>F"] = { format_buffer, "Format buffer" },
-      ["<leader>tI"] = { toggle_inlay_hints, "Toggle inlay type hints" },
-    },
-    -- visual mode
-    v = {
-      ["<leader>f"] = { format_buffer, "Format range" },
-      ["<leader>a"] = { vim.lsp.buf.range_code_action, "Code action for range" },
-    },
-  }
+  -- Keymaps that get added to a buffer when attaching an LSP client.
+  local register_keymaps = function(buffer)
+    require("which-key").add({
+      buffer = buffer,
+      { "gd", vim.lsp.buf.definition, desc = "Jump to definition" },
+      { "gD", vim.lsp.buf.declaration, desc = "Jump to declaration" },
+      { "gy", vim.lsp.buf.type_definition, desc = "Jump to type definition" },
+      { "gI", vim.lsp.buf.implementation, desc = "Jump to implementation" },
+      { "gr", vim.lsp.buf.references, desc = "Get references" },
+      { "g0", vim.lsp.buf.document_symbol, desc = "List document symbols" },
+      { "gW", vim.lsp.buf.workspace_symbol, desc = "List workspace symbols" },
+      { "<leader>gd", pick_window(vim.lsp.buf.definition), desc = "Pick window and jump to definition" },
+      { "<leader>gD", pick_window(vim.lsp.buf.declaration), desc = "Pick window and jump to declaration" },
+      { "<leader>gy", pick_window(vim.lsp.buf.type_definition), desc = "Pick window and jump to type definition" },
+      { "<leader>gI", pick_window(vim.lsp.buf.implementation), desc = "Pick window and jump to implementation" },
+      { "<leader>k", vim.lsp.buf.signature_help, desc = "Signature help" },
+      { "<leader>rn", vim.lsp.buf.rename, desc = "Rename" },
+      { "<F2>", vim.lsp.buf.rename, desc = "Rename" },
+      { "<leader>a", vim.lsp.buf.code_action, desc = "Code action" },
+      { "<leader>d", vim.diagnostic.open_float, desc = "Line diagnostics" },
+      { "<leader>Q", vim.diagnostic.set_loclist, desc = "Open diagnostics in loclist" },
+      { "<leader>F", format_buffer, desc = "Format buffer" },
+      { "<leader>tI", toggle_inlay_hints, desc = "Toggle inlay type hints" },
+      {
+        "<leader>yi",
+        add_missing_import,
+        desc = "Add missing import",
+        cond = function()
+          -- typescript-tools provides its own "add missing imports"
+          return not vim.tbl_contains({ "typescript", "javascript" }, vim.opt.filetype)
+        end,
+      },
+      {
+        mode = "v",
+        { "<leader>f", format_buffer, desc = "Format range" },
+        { "<leader>a", vim.lsp.buf.range_code_action, desc = "Code action for range" },
+      },
+    })
+  end
 
   -- Shared attach function for all LSP clients.
   M.attach = function(client, buffer)
     lsp_status.on_attach(client, buffer)
 
-    -- Register keymaps with which-key
-    for mode, mappings in pairs(keymaps) do
-      wk.register(mappings, { buffer = 0, mode = mode })
-    end
+    -- Register keymaps with which-key for the attached buffer
+    register_keymaps(buffer)
 
-    -- typescript-tools provides its own "add missing imports"
-    if not vim.tbl_contains({ "typescript", "javascript" }, vim.opt.filetype) then
-      wk.register({ ["<leader>yi"] = { add_missing_import, "Add missing import" } }, { buffer = 0 })
-    end
-
+    -- For some languages, format on save.
     if vim.tbl_contains(format_on_save_names, client.name) then
       vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format()")
     end

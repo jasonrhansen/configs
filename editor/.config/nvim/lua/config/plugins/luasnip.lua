@@ -56,54 +56,43 @@ function M.config()
 
   -- Keymaps
   local wk = require("which-key")
-  wk.register({
-    ["<C-j>"] = {
+  wk.add({
+    {
+      "<C-j>",
       function()
         if luasnip.expand_or_jumpable() then
           luasnip.jump(1)
         end
       end,
-      "Snippet - expand or jump next",
+      desc = "Snippet - expand or jump next",
+      mode = "i",
+      noremap = false,
     },
-  }, { mode = "i", noremap = false })
-  wk.register({
-    ["<C-j>"] = {
+    {
+      "<C-j>",
       function()
         luasnip.jump(1)
       end,
-      "Snippet - jump next",
+      desc = "Snippet - jump next",
+      mode = "s",
     },
-  }, { mode = "s" })
-  wk.register({
-    ["<C-k>"] = {
+    {
+      "<C-k>",
       function()
         luasnip.jump(-1)
       end,
-      "Snippet - jump previous",
+      desc = "Snippet - jump previous",
+      mode = { "i", "s" },
     },
-  }, { mode = "i" })
-  wk.register({
-    ["<C-k>"] = {
-      function()
-        luasnip.jump(-1)
-      end,
-      "Snippet - jump previous",
-    },
-  }, { mode = "s" })
-  wk.register({
-    ["<C-e>"] = {
+    {
+      "<C-e>",
       "luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'",
-      "Snippet - next choice",
+      desc = "Snippet - next choice",
+      mode = { "i", "s" },
       expr = true,
+      noremap = false,
     },
-  }, { mode = "i", noremap = false })
-  wk.register({
-    ["<C-e>"] = {
-      "luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'",
-      "Snippet - next choice",
-      expr = true,
-    },
-  }, { mode = "s", noremap = false })
+  })
 end
 
 return M

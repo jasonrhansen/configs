@@ -29,7 +29,6 @@ return {
       end
     end
 
-    local wk = require("which-key")
-    wk.register({ ["<leader>D"] = { toggle_diffview, "Toggle diffview" } })
+    require("which-key").add({ "<leader>D", toggle_diffview, desc = "Toggle diffview" })
   end,
 }
