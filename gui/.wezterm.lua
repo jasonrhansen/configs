@@ -102,6 +102,8 @@ local config = {
 
   font_size = 14.0,
 
+  warn_about_missing_glyphs = false,
+
   adjust_window_size_when_changing_font_size = false,
 
   use_cap_height_to_scale_fallback_fonts = true,
