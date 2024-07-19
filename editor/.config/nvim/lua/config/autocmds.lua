@@ -51,6 +51,22 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
   end,
 })
 
+-- PHP files get slow at a smaller size than other file types for me.
+vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
+  group = "jason-config",
+  pattern = { "*.php" },
+  callback = function(ev)
+    if require("util").is_large_file(ev.buf, 250 * 1024) then
+      print("Large PHP file, disabling some options to increase performance...")
+      vim.opt_local.foldmethod = "manual"
+      vim.cmd("IBLDisable")
+      vim.cmd("TSContextDisable")
+      vim.diagnostic.enable(false, { bufnr = ev.buf })
+      require("cmp").setup.buffer({ enabled = false })
+    end
+  end,
+})
+
 -- For SSH sessions, make yanks use OSC 52 by writing to the + register.
 if require("util").is_ssh_session() then
   vim.api.nvim_create_autocmd({ "TextYankPost" }, {

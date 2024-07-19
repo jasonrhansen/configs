@@ -29,7 +29,9 @@ function M.config()
   local disabled_filetypes = { "html" }
 
   local disable = function(lang, buf)
-    return vim.tbl_contains(disabled_filetypes, lang) or require("util").is_large_file(buf)
+    return vim.tbl_contains(disabled_filetypes, lang)
+      or require("util").is_large_file(buf)
+      or (lang == "php" and require("util").is_large_file(buf, 250 * 1024))
   end
 
   local disable_indent = function(lang, bufnr)
