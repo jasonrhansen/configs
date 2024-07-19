@@ -16,16 +16,6 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
   end,
 })
 
--- Options for gitcommit window
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = "jason-config",
-  pattern = { "gitcommit" },
-  callback = function()
-    vim.wo.colorcolumn = "80"
-    vim.cmd.startinsert()
-  end,
-})
-
 -- Automatically delete hidden fugitive buffers
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   group = "jason-config",
