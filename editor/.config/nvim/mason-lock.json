@@ -13,7 +13,7 @@
   "lua-language-server": "3.9.3",
   "markdownlint": "0.41.0",
   "prettierd": "0.25.3",
-  "pyright": "1.1.371",
+  "pyright": "1.1.372",
   "rubocop": "1.65.0",
   "sql-formatter": "15.3.2",
   "sqlls": "1.7.0",
