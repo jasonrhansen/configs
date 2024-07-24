@@ -7,6 +7,8 @@ local M = {
     "hrsh7th/cmp-nvim-lsp",
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
+    "nvimtools/none-ls.nvim", -- Community fork of jose-elias-alvarez/null-ls.nvim
+    "nvim-lua/plenary.nvim", -- Needed by none-ls
   },
 }
 
@@ -118,7 +120,7 @@ function M.config()
   end
 
   -- Shared attach function for all LSP clients.
-  M.attach = function(client, buffer)
+  local attach = function(client, buffer)
     lsp_status.on_attach(client, buffer)
 
     -- Register keymaps with which-key for the attached buffer
@@ -260,7 +262,7 @@ function M.config()
   }
 
   lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
-    on_attach = M.attach,
+    on_attach = attach,
     flags = {
       debounce_text_changes = 150,
     },
@@ -309,6 +311,19 @@ function M.config()
     indicator_hint = signs.Hint,
     indicator_ok = "✓",
     current_function = false,
+  })
+
+  local null_ls = require("null-ls")
+  null_ls.setup({
+    should_attach = function(bufnr)
+      return not require("util").is_large_file(bufnr)
+    end,
+    on_attach = function(client, buffer)
+      attach(client, buffer)
+    end,
+    sources = {
+      null_ls.builtins.formatting.rubocop,
+    },
   })
 end
 
