@@ -73,11 +73,14 @@ alias tmksv='tmux kill-server'
 alias tmn='tmux new -s'
 # Fuzzy find project directory and create or open a tmux session.
 tms() {
-  if [ -z $1 ]; then
-    selected=$({ echo ~/configs && find ~/dev ~/dev/others -mindepth 1 -maxdepth 1 -type d; } | fzf)
+  if [ -z $1 ]
+  then
+    fzf_cmd="fzf"
   else
-    selected=$1
+    fzf_cmd="fzf -q \"$1\""
   fi
+
+  selected=$({ echo ~/configs && find ~/dev ~/dev/others -mindepth 1 -maxdepth 1 -type d; } | eval " $fzf_cmd" )
 
   if [[ -z $selected ]]; then
     return
