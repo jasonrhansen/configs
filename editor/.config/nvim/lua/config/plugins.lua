@@ -156,4 +156,13 @@ return {
   -- * gsK: Title-Dash-Case or Title-Kebab-Case
   -- * gs.: dot.case
   "arthurxavierx/vim-caser",
+
+  -- Rust Analyzer LSP extensions. Adds commands prefixed with 'Ferris'
+  -- like FerrisExpandMacro.
+  {
+    'vxpm/ferris.nvim',
+    opts = {
+      create_commands = true,
+    }
+  },
 }
