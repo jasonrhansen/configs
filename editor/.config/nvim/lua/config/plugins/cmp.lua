@@ -67,7 +67,6 @@ function M.config()
   }
 
   cmp.setup({
-
     enabled = function()
       local disabled = false
       disabled = disabled or (vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt")
@@ -184,20 +183,32 @@ function M.config()
 
   -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline({ "/", "?" }, {
+    view = {
+      entries = "wildmenu",
+    },
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
       { name = "buffer" },
+    },
+    formatting = {
+      fields = { "abbr" },
     },
   })
 
   -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline(":", {
+    view = {
+      entries = "wildmenu",
+    },
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
       { name = "path" },
     }, {
       { name = "cmdline" },
     }),
+    formatting = {
+      fields = { "abbr" },
+    },
   })
 end
 
