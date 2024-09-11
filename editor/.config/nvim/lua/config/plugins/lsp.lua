@@ -116,7 +116,6 @@ function M.config()
       "pyright",
       "lua_ls",
       "sqlls",
-      "tsserver",
       "vimls",
       "yamlls",
     },
