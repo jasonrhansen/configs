@@ -8,9 +8,6 @@ function M.config()
   require("crates").setup({
     lsp = {
       enabled = true,
-      on_attach = function(client, buffer)
-        require('config.plugins.lsp').attach(client, buffer)
-      end,
       actions = true,
       completion = true,
       hover = true,
