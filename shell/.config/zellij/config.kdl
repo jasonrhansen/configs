@@ -1,5 +1,8 @@
 keybinds clear-default=true {
     normal { }
+    shared_except "tmux" {
+        bind "Ctrl a" { SwitchToMode "Tmux"; }
+    }
     tmux {
         bind "[" { SwitchToMode "Scroll"; }
         bind "Ctrl a" { Write 2; SwitchToMode "Normal"; }
@@ -22,9 +25,56 @@ keybinds clear-default=true {
         bind "d" { Detach; }
         bind "Space" { NextSwapLayout; }
         bind "x" { CloseFocus; SwitchToMode "Normal"; }
+        bind "1" { GoToTab 1; SwitchToMode "Normal"; }
+        bind "2" { GoToTab 2; SwitchToMode "Normal"; }
+        bind "3" { GoToTab 3; SwitchToMode "Normal"; }
+        bind "4" { GoToTab 4; SwitchToMode "Normal"; }
+        bind "5" { GoToTab 5; SwitchToMode "Normal"; }
+        bind "6" { GoToTab 6; SwitchToMode "Normal"; }
+        bind "7" { GoToTab 7; SwitchToMode "Normal"; }
+        bind "8" { GoToTab 8; SwitchToMode "Normal"; }
+        bind "9" { GoToTab 9; SwitchToMode "Normal"; }
+        bind "a" { WriteChars 9; SwitchToMode "Normal"; }
+        bind "t" { ToggleTab; SwitchToMode "Normal"; }
     }
-    shared_except "tmux" "locked" {
-        bind "Ctrl a" { SwitchToMode "Tmux"; }
+    shared {
+        bind "Alt Shift z" {
+            // Enable the autolock plugin.
+            MessagePlugin "autolock" {payload "enable";};
+        }
+        //...
+    }
+    locked {
+        bind "Alt z" {
+            // Disable the autolock plugin.
+            MessagePlugin "autolock" {payload "disable";};
+            // Unlock Zellij.
+            SwitchToMode "Normal";
+        }
+        //...
+    }
+    shared_except "locked" {
+        // Put keybindings here if they conflict with Vim or others.
+
+        bind "Alt z" {
+            // Disable the autolock plugin.
+            MessagePlugin "autolock" { payload "disable"; };
+            // Lock Zellij.
+            SwitchToMode "Locked";
+        }
+
+        bind "Ctrl h" {
+            MoveFocusOrTab "Left";
+        }
+        bind "Ctrl l" {
+            MoveFocusOrTab "Right";
+        }
+        bind "Ctrl j" {
+            MoveFocus "Down";
+        }
+        bind "Ctrl k" {
+            MoveFocus "Up";
+        }
     }
 }
 
@@ -34,6 +84,20 @@ plugins {
     strider { path "strider"; }
     compact-bar { path "compact-bar"; }
     session-manager { path "session-manager"; }
+    autolock location="file:~/.config/zellij/plugins/zellij-autolock.wasm" {
+        is_enabled true
+        triggers "nvim|vim|git|fzf|zoxide|atuin"
+        // Reaction to input occurs after this many seconds. (default=0.3)
+        // (An existing scheduled reaction prevents additional reactions.)
+        reaction_seconds "0.3"
+        // Print to Zellij log?
+        print_to_log false
+    }
+}
+
+// Load "headless" plugin on start.
+load_plugins {
+  autolock
 }
 
 pane_frames false
