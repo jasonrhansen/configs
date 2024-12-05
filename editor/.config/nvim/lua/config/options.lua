@@ -53,7 +53,7 @@ opt.softtabstop = 2 -- Number of spaces a <tab> counts for when inserting
 opt.tabstop = 2 -- Number of spaces a <tab> counts for
 
 -- Session and view options to save
-opt.sessionoptions = { "buffers", "folds", "tabpages", "curdir", "globals" }
+opt.sessionoptions = { "buffers", "folds", "tabpages", "curdir", "globals", "localoptions" }
 opt.viewoptions = { "cursor", "folds" }
 
 -- For SSH sessions we want to use OSC 52, but it will only get used
