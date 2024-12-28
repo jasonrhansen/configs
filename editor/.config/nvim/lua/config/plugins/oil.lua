@@ -20,6 +20,10 @@ return {
         },
         ["<esc>"] = { "actions.close", mode = "n" },
       },
+      float = {
+        max_width = 100,
+        max_height = 30,
+      }
     })
     vim.keymap.set("n", "-", "<cmd>Oil --float<cr>", { desc = "Open directory in oil" })
     vim.api.nvim_create_autocmd({ "FileType" }, {
