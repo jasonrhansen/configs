@@ -1,9 +1,9 @@
-font-family = "IosevkaTerm" 
+font-family = "IosevkaTerm"
 font-size = 14
 
 cursor-style = block
 shell-integration-features = no-cursor
-gtk-titlebar = true
+gtk-titlebar = false
 
 foreground = #dcd7ba
 background = #1f1f28
