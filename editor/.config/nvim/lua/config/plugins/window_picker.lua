@@ -102,24 +102,24 @@ function M.config()
       statusline = {
         focused = {
           fg = "#ededed",
-          bg = "#e35e4f",
+          bg = "#43242b",
           bold = true,
         },
         unfocused = {
           fg = "#ededed",
-          bg = "#54546d",
+          bg = "#223249",
           bold = true,
         },
       },
       winbar = {
         focused = {
           fg = "#ededed",
-          bg = "#e35e4f",
+          bg = "#43242b",
           bold = true,
         },
         unfocused = {
           fg = "#ededed",
-          bg = "#54546d",
+          bg = "#223249",
           bold = true,
         },
       },
