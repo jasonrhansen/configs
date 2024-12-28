@@ -77,7 +77,7 @@ tms() {
   then
     fzf_cmd="fzf"
   else
-    fzf_cmd="fzf -q \"$1\""
+    fzf_cmd="fzf -q \"$1\" -1"
   fi
 
   selected=$({ echo ~/configs && find ~/dev ~/dev/others -mindepth 1 -maxdepth 1 -type d; } | eval " $fzf_cmd" )
