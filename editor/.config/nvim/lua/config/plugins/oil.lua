@@ -1,15 +1,31 @@
+local detail = false
+
 return {
   "stevearc/oil.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
     local oil = require("oil")
-    oil.setup({})
-    vim.keymap.set("n", "<leader>o", "<cmd>Oil --float<cr>", { desc = "Open directory in oil" })
+    oil.setup({
+      keymaps = {
+        ["gd"] = {
+          desc = "Toggle file detail view",
+          callback = function()
+            detail = not detail
+            if detail then
+              require("oil").set_columns({ "icon", "permissions", "size", "mtime" })
+            else
+              require("oil").set_columns({ "icon" })
+            end
+          end,
+        },
+        ["<esc>"] = { "actions.close", mode = "n" },
+      },
+    })
+    vim.keymap.set("n", "-", "<cmd>Oil --float<cr>", { desc = "Open directory in oil" })
     vim.api.nvim_create_autocmd({ "FileType" }, {
       group = "jason-config",
       pattern = { "oil" },
       callback = function()
-        vim.keymap.set("n", "<esc>", "<cmd>q!<cr>", { desc = "Close oil window", buffer = true })
         vim.keymap.set("n", "<C-w>", function()
           local entry = oil.get_cursor_entry()
           if entry.type ~= "file" then
