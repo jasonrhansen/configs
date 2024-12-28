@@ -26,28 +26,22 @@ return {
       group = "jason-config",
       pattern = { "oil" },
       callback = function()
-        vim.keymap.set("n", "<C-w>", function()
+        vim.keymap.set("n", "<leader>w", function()
           local entry = oil.get_cursor_entry()
           if entry.type ~= "file" then
             return
           end
+          local dir = oil.get_current_dir()
+          oil.close({ exit_if_last_buf = false })
           local win = require("window-picker").pick_window({
             autoselect_one = true,
             include_current_win = true,
           })
 
           if win then
-            local bufnr = vim.api.nvim_get_current_buf()
-            local lnum = vim.api.nvim_win_get_cursor(0)[1]
-            local winnr = vim.api.nvim_win_get_number(win)
-            vim.cmd(winnr .. "windo buffer " .. bufnr)
-            vim.api.nvim_win_call(win, function()
-              vim.api.nvim_win_set_cursor(win, { lnum, 1 })
-              oil.select({
-                close = false,
-              }, function() end)
-            end)
-            return
+            vim.api.nvim_set_current_win(win)
+            local path = vim.fs.joinpath(dir, entry.name)
+            vim.cmd.edit(path)
           end
         end, {
           desc = "Open with window picker",
