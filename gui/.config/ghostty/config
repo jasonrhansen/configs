@@ -3,6 +3,8 @@ font-size = 14
 
 cursor-style = block
 shell-integration-features = no-cursor
+window-decoration = true
+gtk-adwaita = false
 gtk-titlebar = false
 
 foreground = #dcd7ba

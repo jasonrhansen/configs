@@ -198,7 +198,7 @@ local config = {
           window:set_config_overrides(overrides)
         end),
         title = "Switch Font",
-        choices = font_choices
+        choices = font_choices,
       }),
     },
   },
