@@ -4,12 +4,12 @@ local M = {
   event = "BufReadPre",
   dependencies = {
     "nvim-lua/lsp-status.nvim",
-    "hrsh7th/cmp-nvim-lsp",
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "pmizio/typescript-tools.nvim",
     "nvimtools/none-ls.nvim", -- Community fork of jose-elias-alvarez/null-ls.nvim
     "nvim-lua/plenary.nvim", -- Needed by none-ls, and typescript-tools
+    "saghen/blink.cmp",
   },
 }
 
@@ -361,8 +361,8 @@ function M.config()
     -- Add lsp_status capabilities
     capabilities = vim.tbl_extend("keep", capabilities, lsp_status.capabilities)
 
-    -- Add nvim_cmp capabilities
-    capabilities = vim.tbl_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+    -- Add blink.cmp capabilities
+    capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
     config.capabilities = capabilities
     lspconfig[name].setup(config)
