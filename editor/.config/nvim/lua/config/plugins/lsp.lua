@@ -182,7 +182,6 @@ function M.config()
       { "<F2>", vim.lsp.buf.rename, desc = "Rename" },
       { "<leader>a", vim.lsp.buf.code_action, desc = "Code action" },
       { "<leader>d", vim.diagnostic.open_float, desc = "Line diagnostics" },
-      { "<leader>Q", vim.diagnostic.set_loclist, desc = "Open diagnostics in loclist" },
       { "<leader>F", format_buffer, desc = "Format buffer" },
       { "<leader>tI", toggle_inlay_hints, desc = "Toggle inlay type hints" },
       {
