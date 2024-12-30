@@ -309,7 +309,7 @@ function M.config()
   end
   local function find_plugin_files()
     local opts = {
-      cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
+      cwd = vim.fs.joinpath(tostring(vim.fn.stdpath("data")), "lazy"),
     }
     find_files(opts)
   end
