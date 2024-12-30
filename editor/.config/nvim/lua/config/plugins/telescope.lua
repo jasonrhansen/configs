@@ -303,10 +303,15 @@ function M.config()
     }
     require("telescope.builtin").diagnostics(opts)
   end
-
   local function workspace_diagnostics()
     local opts = {}
     require("telescope.builtin").diagnostics(opts)
+  end
+  local function find_plugin_files()
+    local opts = {
+      cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
+    }
+    find_files(opts)
   end
 
   wk.add({
@@ -328,6 +333,7 @@ function M.config()
     { "<leader>fo", vim_options, desc = "Search vim options" },
     { "<leader>fk", keymaps, desc = "Search keymaps" },
     { "<leader>fc", find_config_files, desc = "Search config files" },
+    { "<leader>fn", find_plugin_files, desc = "Search neovim plugins files" },
     { "<leader>fC", colorscheme, desc = "Search colorschemes" },
     { "<leader>fd", buffer_diagnostics, desc = "Search buffer diagnostics" },
     { "<leader>fD", workspace_diagnostics, desc = "Search workspace diagnostics" },
