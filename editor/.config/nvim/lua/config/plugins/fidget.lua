@@ -1,7 +1,7 @@
 -- Progress indicator
 return {
   "j-hui/fidget.nvim",
-  tag = "v1.0.0",
+  tag = "v1.5.0",
   opts = {
     progress = {
       display = {
