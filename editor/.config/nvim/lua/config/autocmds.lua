@@ -42,10 +42,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
   callback = function(ev)
     if require("util").is_large_file(ev.buf) then
       print("Large file, disabling some options to increase performance...")
-      vim.opt_local.foldmethod = "manual"
-      vim.cmd("IBLDisable")
-      vim.cmd("TSContextDisable")
-      vim.diagnostic.enable(false, { bufnr = ev.buf })
+      require("util").configure_buffer_for_large_file(ev.buf)
     end
   end,
 })
@@ -57,11 +54,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
   callback = function(ev)
     if require("util").is_large_file(ev.buf, 250 * 1024) then
       print("Large PHP file, disabling some options to increase performance...")
-      vim.opt_local.foldmethod = "manual"
-      vim.cmd("IBLDisable")
-      vim.cmd("TSContextDisable")
-
-      vim.diagnostic.enable(false, { bufnr = ev.buf })
+      require("util").configure_buffer_for_large_file(ev.buf)
     end
   end,
 })

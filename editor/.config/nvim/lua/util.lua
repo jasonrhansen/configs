@@ -35,7 +35,7 @@ function M.file_size(buf)
 end
 
 function M.is_large_file(buf, large_file_size)
-  local file_size = M.file_size(buf);
+  local file_size = M.file_size(buf)
   large_file_size = large_file_size or (1000 * 1024)
   return file_size and file_size > large_file_size
 end
@@ -46,6 +46,16 @@ end
 
 function M.copy_to_clipboard(text)
   vim.fn.setreg("+", text)
+end
+
+function M.configure_buffer_for_large_file(bufnr)
+  vim.opt_local.foldmethod = "manual"
+  vim.opt_local.statuscolumn = ""
+  vim.opt_local.conceallevel = 0
+  vim.cmd("NoMatchParen")
+  vim.cmd("IBLDisable")
+  vim.cmd("TSContextDisable")
+  vim.diagnostic.enable(false, { bufnr = bufnr })
 end
 
 return M
