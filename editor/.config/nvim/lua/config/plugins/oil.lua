@@ -19,6 +19,7 @@ return {
           end,
         },
         ["<esc>"] = { "actions.close", mode = "n" },
+        ["gq"] = { "actions.close", mode = "n" },
       },
       float = {
         max_width = 100,
