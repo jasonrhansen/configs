@@ -1,22 +1,4 @@
 return {
-  -- Show function signature when you type
-  {
-    "ray-x/lsp_signature.nvim",
-    event = "VeryLazy",
-    config = function()
-      vim.api.nvim_create_autocmd("LspAttach", {
-        callback = function(args)
-          local bufnr = args.buf
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if not client or vim.tbl_contains({ "null-ls" }, client.name) then
-            return
-          end
-          require("lsp_signature").on_attach({}, bufnr)
-        end,
-      })
-    end,
-  },
-
   -- Enhanced vim.ui.select and vim.ui.input
   {
     "stevearc/dressing.nvim",
@@ -26,12 +8,15 @@ return {
     end,
   },
 
+  -- Autoclose and autorename HTML tags.
   {
     "windwp/nvim-ts-autotag",
     config = function()
       require("nvim-ts-autotag").setup({})
     end,
   },
+
+  -- Wisely add "end" in ruby, lua, vimscript, etc.
   {
     "RRethy/nvim-treesitter-endwise",
     dependencies = "nvim-treesitter/nvim-treesitter",
