@@ -2,8 +2,7 @@ return {
   "max397574/better-escape.nvim",
   config = function()
     local escape = function()
-      local keys = vim.api.nvim_win_get_cursor(0)[2] > 1 and "<esc>l" or "<esc"
-      vim.api.nvim_input(keys)
+      vim.api.nvim_input("<esc>l")
       -- Clear empty lines
       local current_line = vim.api.nvim_get_current_line()
       if current_line:match("^%s+j$") then
