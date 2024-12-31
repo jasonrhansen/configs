@@ -4,10 +4,13 @@ return {
   opts = {
     completion = {
       menu = {
-        -- Don't show by default for command line and search.
+        -- Don't show by default for search.
         auto_show = function(ctx)
-          return ctx.mode ~= "cmdline" and not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
+          return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
         end,
+      },
+      ghost_text = {
+        enabled = false,
       },
     },
 
