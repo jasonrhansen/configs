@@ -24,6 +24,7 @@ local function setup_none_ls(attach)
     end,
     sources = {
       null_ls.builtins.formatting.rubocop,
+      null_ls.builtins.formatting.erb_format,
     },
   })
 end

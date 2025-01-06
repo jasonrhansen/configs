@@ -13,6 +13,7 @@ return {
         "prettierd",
         "stylua",
         "sql_formatter",
+        "erb_format",
         -- python formatter
         "black",
       },
