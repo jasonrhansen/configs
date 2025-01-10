@@ -6,6 +6,7 @@ local M = {
     "nvim-lua/lsp-status.nvim",
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
+    "zapling/mason-lock.nvim",
     "pmizio/typescript-tools.nvim",
     "nvimtools/none-ls.nvim", -- Community fork of jose-elias-alvarez/null-ls.nvim
     "nvim-lua/plenary.nvim", -- Needed by none-ls, and typescript-tools
@@ -103,6 +104,7 @@ function M.config()
   -- 2. mason-lspconfig
   -- 3. nvim-lspconfig
   require("mason").setup()
+  require("mason-lock").setup()
   require("mason-lspconfig").setup({
     ensure_installed = {
       "angularls",
