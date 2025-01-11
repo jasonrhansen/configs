@@ -1,4 +1,4 @@
--- Using barbeque.nvim so disabling my custom winbar config for now.
+-- Using dropbar.nvim so disabling my custom winbar config for now.
 
 -- vim.wo.winbar = " "
 --
