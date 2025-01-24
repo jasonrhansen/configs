@@ -183,6 +183,17 @@ function M.config()
   end
 
   local function live_grep(opts)
+    opts = opts or {}
+    local filetype = vim.bo.filetype
+    if filetype == "oil" then
+      local oil = require("oil")
+      local dir = oil.get_current_dir()
+      opts.cwd = dir
+      opts.search_dirs = { dir }
+      opts.prompt_title = 'Live Grep in directory'
+      oil.close({ exit_if_last_buf = false })
+    end
+
     require("telescope.builtin").live_grep(opts)
   end
 
