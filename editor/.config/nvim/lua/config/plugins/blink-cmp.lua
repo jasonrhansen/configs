@@ -3,12 +3,6 @@ return {
   version = "*",
   opts = {
     completion = {
-      menu = {
-        -- Don't show by default for search.
-        auto_show = function(ctx)
-          return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype())
-        end,
-      },
       ghost_text = {
         enabled = false,
       },
@@ -37,6 +31,8 @@ return {
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
       default = { "lsp", "path", "snippets", "buffer" },
+      -- Disable cmdline completions
+      cmdline = {},
     },
   },
   opts_extend = { "sources.default" },
