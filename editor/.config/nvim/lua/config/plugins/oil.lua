@@ -31,7 +31,7 @@ return {
       group = "jason-config",
       pattern = { "oil" },
       callback = function()
-        vim.keymap.set("n", "<leader>w", function()
+        vim.keymap.set("n", "<c-w>", function()
           local entry = oil.get_cursor_entry()
           if entry.type ~= "file" then
             return
@@ -53,6 +53,7 @@ return {
         end, {
           desc = "Open with window picker",
           buffer = true,
+          nowait = true,
         })
       end,
     })
