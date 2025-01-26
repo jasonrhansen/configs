@@ -24,7 +24,7 @@ return {
       float = {
         max_width = 100,
         max_height = 30,
-      }
+      },
     })
     vim.keymap.set("n", "-", "<cmd>Oil --float<cr>", { desc = "Open directory in oil" })
     vim.api.nvim_create_autocmd({ "FileType" }, {
@@ -39,8 +39,10 @@ return {
           local dir = oil.get_current_dir()
           oil.close({ exit_if_last_buf = false })
           local win = require("window-picker").pick_window({
-            autoselect_one = true,
-            include_current_win = true,
+            filter_rules = {
+              autoselect_one = true,
+              include_current_win = true,
+            },
           })
 
           if win then

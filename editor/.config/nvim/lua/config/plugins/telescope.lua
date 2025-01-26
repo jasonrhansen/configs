@@ -64,7 +64,11 @@ function M.config()
 
     local current_picker = action_state.get_current_picker(prompt_bufnr)
     current_picker.get_selection_window = function(picker)
-      local picked_window_id = require("window-picker").pick_window() or vim.api.nvim_get_current_win()
+      local picked_window_id = require("window-picker").pick_window({
+        filter_rules = {
+          include_current_win = true,
+        },
+      }) or vim.api.nvim_get_current_win()
       -- Unbind after using so next instance of the picker acts normally
       picker.get_selection_window = nil
       return picked_window_id
@@ -188,10 +192,10 @@ function M.config()
     if filetype == "oil" then
       local oil = require("oil")
       local dir = oil.get_current_dir()
-      local dirname = vim.fn.fnamemodify(vim.fs.normalize(dir), ':t')
+      local dirname = vim.fn.fnamemodify(vim.fs.normalize(dir), ":t")
       opts.cwd = dir
       opts.search_dirs = { dir }
-      opts.prompt_title = 'Live Grep in ' .. dirname .. '/'
+      opts.prompt_title = "Live Grep in " .. dirname .. "/"
       oil.close({ exit_if_last_buf = false })
     end
 
