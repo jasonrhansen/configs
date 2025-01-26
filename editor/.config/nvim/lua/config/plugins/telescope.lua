@@ -188,9 +188,10 @@ function M.config()
     if filetype == "oil" then
       local oil = require("oil")
       local dir = oil.get_current_dir()
+      local dirname = vim.fn.fnamemodify(vim.fs.normalize(dir), ':t')
       opts.cwd = dir
       opts.search_dirs = { dir }
-      opts.prompt_title = 'Live Grep in directory'
+      opts.prompt_title = 'Live Grep in ' .. dirname .. '/'
       oil.close({ exit_if_last_buf = false })
     end
 
