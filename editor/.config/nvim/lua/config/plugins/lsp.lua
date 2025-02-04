@@ -122,6 +122,7 @@ function M.config()
       "vimls",
       "yamlls",
     },
+    automatic_installation = false,
   })
 
   local lspconfig = require("lspconfig")
@@ -206,7 +207,7 @@ function M.config()
 
   -- Shared attach function for all LSP clients.
   local attach = function(client, buffer)
-    lsp_status.on_attach(client, buffer)
+    lsp_status.on_attach(client)
 
     -- Register keymaps with which-key for the attached buffer
     register_keymaps(buffer)
@@ -306,26 +307,7 @@ function M.config()
           },
           diagnostics = {
             enable = true,
-            globals = {
-              "vim",
-              "Color",
-              "c",
-              "Group",
-              "g",
-              "s",
-              "describe",
-              "it",
-              "before_each",
-              "after_each",
-              "use",
-            },
-          },
-          workspace = {
-            library = {
-              vim.env.VIMRUNTIME,
-              "${3rd}/luv/library",
-            },
-            preloadFileSize = 200,
+            disable = { "undefined-field" },
           },
           -- Do not send telemetry data containing a randomized but unique identifier
           telemetry = {
