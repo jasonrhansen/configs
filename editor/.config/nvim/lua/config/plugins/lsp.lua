@@ -170,11 +170,12 @@ function M.config()
   local register_keymaps = function(buffer)
     require("which-key").add({
       buffer = buffer,
-      { "gd", vim.lsp.buf.definition, desc = "Jump to definition" },
-      { "gD", vim.lsp.buf.declaration, desc = "Jump to declaration" },
-      { "gy", vim.lsp.buf.type_definition, desc = "Jump to type definition" },
-      { "gI", vim.lsp.buf.implementation, desc = "Jump to implementation" },
-      { "gr", vim.lsp.buf.references, desc = "Get references" },
+      -- Using snacks.nvim for these that are commented out.
+      -- { "gd", vim.lsp.buf.definition, desc = "Jump to definition" },
+      -- { "gD", vim.lsp.buf.declaration, desc = "Jump to declaration" },
+      -- { "gr", vim.lsp.buf.references, desc = "Get references" },
+      -- { "gy", vim.lsp.buf.type_definition, desc = "Jump to type definition" },
+      -- { "gI", vim.lsp.buf.implementation, desc = "Jump to implementation" },
       { "g0", vim.lsp.buf.document_symbol, desc = "List document symbols" },
       { "gW", vim.lsp.buf.workspace_symbol, desc = "List workspace symbols" },
       { "<leader>gd", pick_window(vim.lsp.buf.definition), desc = "Pick window and jump to definition" },

@@ -1,3 +1,5 @@
+local pick_window = require("util").pick_window
+
 return {
   "folke/snacks.nvim",
   priority = 1000,
@@ -81,14 +83,6 @@ return {
       end,
       desc = "File Explorer",
     },
-    -- find
-    {
-      "<leader>fb",
-      function()
-        Snacks.picker.buffers()
-      end,
-      desc = "Buffers",
-    },
     {
       "<leader>fc",
       function()
@@ -97,7 +91,7 @@ return {
       desc = "Find Config File",
     },
     {
-      "<leader>ff",
+      "<leader>fp",
       function()
         Snacks.picker.files()
       end,
@@ -109,13 +103,6 @@ return {
         Snacks.picker.git_files()
       end,
       desc = "Find Git Files",
-    },
-    {
-      "<leader>fp",
-      function()
-        Snacks.picker.projects()
-      end,
-      desc = "Projects",
     },
     {
       "<leader>fr",
@@ -160,9 +147,8 @@ return {
       end,
       desc = "Git Log File",
     },
-    -- Grep
     {
-      "<leader>sb",
+      "<leader>fb",
       function()
         Snacks.picker.lines()
       end,
@@ -176,7 +162,7 @@ return {
       desc = "Grep Open Buffers",
     },
     {
-      "<leader>sg",
+      "<leader>fg",
       function()
         Snacks.picker.grep()
       end,
@@ -190,114 +176,113 @@ return {
       desc = "Visual selection or word",
       mode = { "n", "x" },
     },
-    -- search
     {
-      '<leader>s"',
+      '<leader>f"',
       function()
         Snacks.picker.registers()
       end,
       desc = "Registers",
     },
     {
-      "<leader>s/",
+      "<leader>f/",
       function()
         Snacks.picker.search_history()
       end,
       desc = "Search History",
     },
     {
-      "<leader>sa",
+      "<leader>fa",
       function()
         Snacks.picker.autocmds()
       end,
       desc = "Autocmds",
     },
     {
-      "<leader>sb",
+      "<leader>fB",
       function()
         Snacks.picker.lines()
       end,
       desc = "Buffer Lines",
     },
     {
-      "<leader>sc",
+      "<leader>fc",
       function()
         Snacks.picker.command_history()
       end,
       desc = "Command History",
     },
     {
-      "<leader>sC",
+      "<leader>fC",
       function()
         Snacks.picker.commands()
       end,
       desc = "Commands",
     },
     {
-      "<leader>sd",
+      "<leader>fD",
       function()
         Snacks.picker.diagnostics()
       end,
       desc = "Diagnostics",
     },
     {
-      "<leader>sd",
+      "<leader>fd",
       function()
         Snacks.picker.diagnostics_buffer()
       end,
       desc = "Buffer Diagnostics",
     },
     {
-      "<leader>sh",
+      "<leader>fh",
       function()
         Snacks.picker.help()
       end,
       desc = "Help Pages",
     },
     {
-      "<leader>sH",
+      "<leader>fH",
       function()
         Snacks.picker.highlights()
       end,
       desc = "Highlights",
     },
     {
-      "<leader>si",
+      "<leader>fi",
       function()
         Snacks.picker.icons()
       end,
       desc = "Icons",
     },
     {
-      "<leader>sj",
+      "<leader>fj",
       function()
         Snacks.picker.jumps()
       end,
       desc = "Jumps",
     },
     {
-      "<leader>sk",
+      "<leader>fk",
       function()
         Snacks.picker.keymaps()
       end,
       desc = "Keymaps",
     },
     {
-      "<leader>sl",
+      "<leader>fl",
       function()
         Snacks.picker.loclist()
       end,
       desc = "Location List",
     },
     {
-      "<leader>sm",
+      "<leader>fm",
       function()
         Snacks.picker.marks()
       end,
       desc = "Marks",
     },
     {
-      "<leader>sM",
+      "<leader>fM",
       function()
         Snacks.picker.man()
       end,
@@ -311,28 +296,28 @@ return {
       desc = "Search for Plugin Spec",
     },
     {
-      "<leader>sq",
+      "<leader>fq",
       function()
         Snacks.picker.qflist()
       end,
       desc = "Quickfix List",
     },
     {
-      "<leader>sr",
+      "<leader>ff",
       function()
         Snacks.picker.resume()
       end,
       desc = "Resume",
     },
     {
-      "<leader>su",
+      "<leader>fu",
       function()
         Snacks.picker.undo()
       end,
       desc = "Undo History",
     },
     {
-      "<leader>uC",
+      "<leader>fC",
       function()
         Snacks.picker.colorschemes()
       end,
@@ -376,28 +361,28 @@ return {
       desc = "Goto T[y]pe Definition",
     },
     {
-      "<leader>ss",
+      "<leader>fs",
       function()
         Snacks.picker.lsp_symbols()
       end,
       desc = "LSP Symbols",
     },
     {
-      "<leader>sS",
+      "<leader>fS",
       function()
         Snacks.picker.lsp_workspace_symbols()
       end,
       desc = "LSP Workspace Symbols",
     },
     {
-      "<leader>st",
+      "<leader>ft",
       function()
         Snacks.picker.todo_comments()
       end,
       desc = "Todo",
     },
     {
-      "<leader>sT",
+      "<leader>fT",
       function()
         Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
       end,
