@@ -1,13 +1,4 @@
 return {
-  -- Enhanced vim.ui.select and vim.ui.input
-  {
-    "stevearc/dressing.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("dressing").setup({})
-    end,
-  },
-
   -- Autoclose and autorename HTML tags.
   {
     "windwp/nvim-ts-autotag",

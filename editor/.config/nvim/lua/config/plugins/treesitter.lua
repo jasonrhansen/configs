@@ -28,10 +28,8 @@ function M.config()
 
   local disabled_filetypes = { "html" }
 
-  local disable = function(lang, buf)
+  local disable = function(lang)
     return vim.tbl_contains(disabled_filetypes, lang)
-      or require("util").is_large_file(buf)
-      or (lang == "php" and require("util").is_large_file(buf, 250 * 1024))
   end
 
   local disable_indent = function(lang, bufnr)
@@ -64,12 +62,13 @@ function M.config()
 
         keymaps = {
           -- You can use the capture groups defined in textobjects.scm
-          ["af"] = "@function.outer",
-          ["if"] = "@function.inner",
-          ["am"] = "@function.outer",
-          ["im"] = "@function.inner",
-          ["ac"] = "@class.outer",
-          ["ic"] = "@class.inner",
+          ["af"] = { query = "@function.outer", desc = "Select outer part of function" },
+          ["if"] = { query = "@function.inner", desc = "Select inner part of function" },
+          ["am"] = { query = "@function.outer", desc = "Select outer part of method" },
+          ["im"] = { query = "@function.inner", desc = "Select inner part of method" },
+          ["ac"] = { query = "@class.outer", desc = "Select outer part of class" },
+          ["ic"] = { query = "@class.inner", desc = "Select inner part of class" },
+          ["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
         },
       },
       move = {

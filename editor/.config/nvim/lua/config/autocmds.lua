@@ -35,30 +35,6 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   end,
 })
 
--- Make working with large files a lot more responsive.
-vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
-  group = "jason-config",
-  pattern = { "*" },
-  callback = function(ev)
-    if require("util").is_large_file(ev.buf) then
-      print("Large file, disabling some options to increase performance...")
-      require("util").configure_buffer_for_large_file(ev.buf)
-    end
-  end,
-})
-
--- PHP files get slow at a smaller size than other file types for me.
-vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
-  group = "jason-config",
-  pattern = { "*.php" },
-  callback = function(ev)
-    if require("util").is_large_file(ev.buf, 250 * 1024) then
-      print("Large PHP file, disabling some options to increase performance...")
-      require("util").configure_buffer_for_large_file(ev.buf)
-    end
-  end,
-})
-
 -- For SSH sessions, make yanks use OSC 52 by writing to the + register.
 if require("util").is_ssh_session() then
   vim.api.nvim_create_autocmd({ "TextYankPost" }, {
