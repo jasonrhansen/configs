@@ -14,8 +14,6 @@ return {
         "stylua",
         "sql_formatter",
         "erb_format",
-        -- python formatter
-        "black",
       },
       automatic_installation = false,
       automatic_setup = true,
