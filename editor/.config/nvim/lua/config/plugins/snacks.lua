@@ -1,5 +1,3 @@
-local pick_window = require("util").pick_window
-
 return {
   "folke/snacks.nvim",
   priority = 1000,
