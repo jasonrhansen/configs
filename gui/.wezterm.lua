@@ -35,7 +35,7 @@ end)
 local font_choices = {
   {
     label = "IosevkaTerm",
-    id = "IosevkaTerm Nerd Font",
+    id = "IosevkaTerm NFM",
   },
   {
     label = "Meslo",
