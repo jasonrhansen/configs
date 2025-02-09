@@ -1,3 +1,35 @@
+local pick_window = require("util").pick_window
+
+local function lsp_definitions()
+  Snacks.picker.lsp_definitions({
+    jump = { reuse_win = false },
+  })
+end
+
+local function lsp_declarations()
+  Snacks.picker.lsp_declarations({
+    jump = { reuse_win = false },
+  })
+end
+
+local function lsp_references()
+  Snacks.picker.lsp_references({
+    jump = { reuse_win = false },
+  })
+end
+
+local function lsp_implementations()
+  Snacks.picker.lsp_implementations({
+    jump = { reuse_win = false },
+  })
+end
+
+local function lsp_type_definitions()
+  Snacks.picker.lsp_type_definitions({
+    jump = { reuse_win = false },
+  })
+end
+
 return {
   "folke/snacks.nvim",
   priority = 1000,
@@ -6,6 +38,7 @@ return {
     bigfile = { enabled = true },
     input = { enabled = true },
     quickfile = { enabled = true },
+    scroll = { enabled = true },
     picker = {
       -- your picker configuration comes here
       -- or leave it empty to use the default settings
@@ -34,7 +67,7 @@ return {
           else
             Snacks.picker.resume()
           end
-        end
+        end,
       },
     },
   },
@@ -82,6 +115,13 @@ return {
       desc = "File Explorer",
     },
     {
+      "<leader>.",
+      function()
+        Snacks.explorer.reveal({ file = vim.fn.expand("%:p") })
+      end,
+      desc = "File Explorer reveal",
+    },
+    {
       "<leader>fc",
       function()
         Snacks.picker.files({ cwd = tostring(vim.fn.stdpath("config")) })
@@ -103,43 +143,51 @@ return {
       desc = "Find Git Files",
     },
     {
+      "<leader>f.",
+      function()
+        Snacks.picker.files({
+          dirs = { vim.fn.expand("%:p:h") },
+        })
+      end,
+      desc = "Find Files in current directory",
+    },
+    {
       "<leader>fr",
       function()
         Snacks.picker.recent()
       end,
       desc = "Recent",
     },
-    -- git
     {
-      "<leader>gl",
+      "<leader>Gl",
       function()
         Snacks.picker.git_log()
       end,
       desc = "Git Log",
     },
     {
-      "<leader>gL",
+      "<leader>GL",
       function()
         Snacks.picker.git_log_line()
       end,
       desc = "Git Log Line",
     },
     {
-      "<leader>gs",
+      "<leader>Gs",
       function()
         Snacks.picker.git_status()
       end,
       desc = "Git Status",
     },
     {
-      "<leader>gd",
+      "<leader>Gd",
       function()
         Snacks.picker.git_diff()
       end,
       desc = "Git Diff (Hunks)",
     },
     {
-      "<leader>gf",
+      "<leader>Gf",
       function()
         Snacks.picker.git_log_file()
       end,
@@ -321,42 +369,51 @@ return {
       end,
       desc = "Colorschemes",
     },
-    -- LSP
     {
       "gd",
-      function()
-        Snacks.picker.lsp_definitions()
-      end,
+      lsp_definitions,
       desc = "Goto Definition",
     },
     {
       "gD",
-      function()
-        Snacks.picker.lsp_declarations()
-      end,
+      lsp_declarations,
       desc = "Goto Declaration",
     },
     {
       "gr",
-      function()
-        Snacks.picker.lsp_references()
-      end,
+      lsp_references,
       nowait = true,
       desc = "References",
     },
     {
       "gI",
-      function()
-        Snacks.picker.lsp_implementations()
-      end,
+      lsp_implementations,
       desc = "Goto Implementation",
     },
     {
       "gy",
-      function()
-        Snacks.picker.lsp_type_definitions()
-      end,
+      lsp_type_definitions,
       desc = "Goto T[y]pe Definition",
+    },
+    {
+      "<leader>gd",
+      pick_window(lsp_definitions),
+      desc = "Pick window and goto Definition",
+    },
+    {
+      "<leader>gD",
+      pick_window(lsp_declarations),
+      desc = "Pick window and goto Declaration",
+    },
+    {
+      "<leader>gI",
+      pick_window(lsp_implementations),
+      desc = "Pick window and goto Implementation",
+    },
+    {
+      "<leader>gy",
+      pick_window(lsp_type_definitions),
+      desc = "Pick window and goto T[y]pe Definition",
     },
     {
       "<leader>fs",
@@ -393,13 +450,6 @@ return {
       end,
       desc = "Delete buffer",
     },
-    {
-      "<leader>ti",
-      function()
-        Snacks.toggle.indent()
-      end,
-      desc = "Delete buffer",
-    },
   },
   init = function()
     vim.api.nvim_create_autocmd("User", {
@@ -421,6 +471,7 @@ return {
         Snacks.toggle.treesitter():map("<leader>tT")
         Snacks.toggle.inlay_hints():map("<leader>th")
         Snacks.toggle.indent():map("<leader>ti")
+        Snacks.toggle.scroll():map("<leader>tS")
       end,
     })
   end,
