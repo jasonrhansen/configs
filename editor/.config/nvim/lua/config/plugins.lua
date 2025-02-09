@@ -9,8 +9,7 @@ return {
 
   -- Wisely add "end" in ruby, lua, vimscript, etc.
   {
-    -- "RRethy/nvim-treesitter-endwise",
-    "metiulekm/nvim-treesitter-endwise",  -- Using fork until https://github.com/RRethy/nvim-treesitter-endwise/pull/42 gets merged.
+    "RRethy/nvim-treesitter-endwise",
     dependencies = "nvim-treesitter/nvim-treesitter",
   },
 
