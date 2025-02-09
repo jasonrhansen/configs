@@ -1,6 +1,10 @@
 return {
-  Error = " ",
-  Warning = "󰀪 ",
-  Hint = "󰌶",
-  Information = "󰋽 ",
+  diagnostic = {
+		ok = " ",
+		error = " ",
+		warning = " ",
+		warn = " ",
+		info = " ",
+		hint = " ",
+	},
 }

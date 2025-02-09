@@ -5,14 +5,7 @@ local M = {
 
 function M.config()
   local lualine = require("lualine")
-
-  local function lsp_status()
-    return require("lsp-status").status()
-  end
-
-  local function git_status()
-    return vim.b.gitsigns_status or ""
-  end
+  local signs = require("config.signs")
 
   vim.cmd.colorscheme("kanagawa")
   local lualine_kanagawa = require("lualine.themes.kanagawa")
@@ -28,8 +21,15 @@ function M.config()
     },
     sections = {
       lualine_a = { "mode" },
-      lualine_b = { "branch", git_status },
-      lualine_c = { lsp_status },
+      lualine_b = { "branch", "diff" },
+      lualine_c = {
+        {
+          "diagnostics",
+          symbols = signs.diagnostic,
+          colored = true,
+          padding = { left = 1, right = 1 },
+        },
+      },
       lualine_x = {
         { "SleuthIndicator", fmt = string.upper },
         {

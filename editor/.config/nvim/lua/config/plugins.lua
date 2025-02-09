@@ -3,7 +3,7 @@ return {
   {
     "windwp/nvim-ts-autotag",
     config = function()
-      require("nvim-ts-autotag").setup({})
+      require("nvim-ts-autotag").setup()
     end,
   },
 
@@ -136,9 +136,9 @@ return {
   -- Rust Analyzer LSP extensions. Adds commands prefixed with 'Ferris'
   -- like FerrisExpandMacro.
   {
-    'vxpm/ferris.nvim',
+    "vxpm/ferris.nvim",
     opts = {
       create_commands = true,
-    }
+    },
   },
 }

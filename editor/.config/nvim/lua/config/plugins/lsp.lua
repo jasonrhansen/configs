@@ -3,7 +3,6 @@ local M = {
   name = "lsp",
   event = "BufReadPre",
   dependencies = {
-    "nvim-lua/lsp-status.nvim",
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "zapling/mason-lock.nvim",
@@ -126,7 +125,6 @@ function M.config()
   })
 
   local lspconfig = require("lspconfig")
-  local lsp_status = require("lsp-status")
 
   -- Which LSP clients should automatically format when saving.
   local format_on_save_names = {
@@ -208,8 +206,6 @@ function M.config()
 
   -- Shared attach function for all LSP clients.
   local attach = function(client, buffer)
-    lsp_status.on_attach(client)
-
     -- Register keymaps with which-key for the attached buffer
     register_keymaps(buffer)
 
@@ -343,9 +339,6 @@ function M.config()
     -- Add server-specific capabilities
     capabilities = vim.tbl_extend("keep", capabilities, config.capabilities or {})
 
-    -- Add lsp_status capabilities
-    capabilities = vim.tbl_extend("keep", capabilities, lsp_status.capabilities)
-
     -- Add blink.cmp capabilities
     capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
@@ -353,32 +346,35 @@ function M.config()
     lspconfig[name].setup(config)
   end
 
+  local signs = require("config.signs")
   vim.diagnostic.config({
     underline = true,
     virtual_text = {
       spacing = 2,
       prefix = "■ ",
     },
-    signs = true,
     update_in_insert = false,
     severity_sort = true,
-  })
+    document_highlight = {
+      enabled = true,
+    },
+    capabilities = {
+      workspace = {
+        fileOperations = {
+          didRename = true,
+          willRename = true,
+        },
+      },
+    },
 
-  local signs = require("config.signs")
-  for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-  end
-
-  -- Status config
-  lsp_status.config({
-    status_symbol = "  LSP:",
-    indicator_errors = signs.Error,
-    indicator_warnings = signs.Warning,
-    indicator_info = signs.Information,
-    indicator_hint = signs.Hint,
-    indicator_ok = "✓",
-    current_function = false,
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = signs.diagnostic.error,
+        [vim.diagnostic.severity.WARN] = signs.diagnostic.warn,
+        [vim.diagnostic.severity.INFO] = signs.diagnostic.info,
+        [vim.diagnostic.severity.HINT] = signs.diagnostic.hint,
+      },
+    },
   })
 
   setup_none_ls(attach)
