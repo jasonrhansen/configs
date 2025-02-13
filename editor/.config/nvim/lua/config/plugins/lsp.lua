@@ -235,6 +235,8 @@ function M.config()
     },
     dockerls = {},
     elmls = {},
+    -- Linting for JavaScript / Typescript.
+    eslint = {},
     gopls = {},
     graphql = {},
     html = {
@@ -296,6 +298,7 @@ function M.config()
         },
       },
     },
+    stylelint_lsp = {},
     lua_ls = {
       settings = {
         Lua = {
