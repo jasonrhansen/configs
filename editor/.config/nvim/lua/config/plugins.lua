@@ -101,6 +101,7 @@ return {
   "tpope/vim-rails",
   "fladson/vim-kitty", -- kitty.conf
   "imsnif/kdl.vim",
+  "ron-rs/ron.vim",
 
   -- Muliple cursors
   {

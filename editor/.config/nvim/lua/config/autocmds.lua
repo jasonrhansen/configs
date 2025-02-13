@@ -35,6 +35,16 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   end,
 })
 
+
+-- Cosmic config uses ron files without extensions so they don't get automatically detected.
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  group = "jason-config",
+  pattern = { "*/.config/cosmic/**/*" },
+  callback = function()
+    vim.opt.filetype = 'ron'
+  end,
+})
+
 -- For SSH sessions, make yanks use OSC 52 by writing to the + register.
 if require("util").is_ssh_session() then
   vim.api.nvim_create_autocmd({ "TextYankPost" }, {
