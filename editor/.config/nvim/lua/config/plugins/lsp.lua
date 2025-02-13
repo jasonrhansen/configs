@@ -140,8 +140,6 @@ function M.config()
     "lua_ls",
   }
 
-  local pick_window = require("util").pick_window
-
   local format_buffer = function()
     vim.lsp.buf.format({
       filter = function(client)
@@ -154,9 +152,19 @@ function M.config()
   local add_missing_import = function()
     vim.lsp.buf.code_action({
       filter = function(action)
-        return action.kind == "quickfix" and string.find(action.title, "Import") == 1
+        return action.kind == "quickfix" and string.find(string.lower(action.title), "import") ~= nil
       end,
       apply = true,
+    })
+  end
+
+  local quick_fix_code_action = function()
+    vim.lsp.buf.code_action({
+      filter = function(action)
+        P(action)
+        return action.kind == "quickfix"
+      end,
+      apply = false,
     })
   end
 
@@ -191,10 +199,11 @@ function M.config()
         "<leader>yi",
         add_missing_import,
         desc = "Add missing import",
-        cond = function()
-          -- typescript-tools provides its own "add missing imports"
-          return not vim.tbl_contains({ "typescript", "javascript" }, vim.opt.filetype)
-        end,
+      },
+      {
+        "<leader>Q",
+        quick_fix_code_action,
+        desc = "Quick fix code action",
       },
       {
         mode = "v",
