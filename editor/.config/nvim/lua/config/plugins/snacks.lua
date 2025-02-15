@@ -196,9 +196,9 @@ return {
     {
       "<leader>fb",
       function()
-        Snacks.picker.lines()
+        Snacks.picker.buffers()
       end,
-      desc = "Buffer Lines",
+      desc = "Buffers",
     },
     {
       "<leader>sB",
