@@ -2,7 +2,9 @@ return {
   "windwp/nvim-autopairs",
   config = function()
     local autopairs = require("nvim-autopairs")
-    autopairs.setup({})
+    autopairs.setup({
+      disable_filetype = { "snacks_picker_input" },
+    })
 
     local Rule = require("nvim-autopairs.rule")
 
