@@ -19,6 +19,10 @@ return {
       },
     },
 
+    cmdline = {
+      enabled = false,
+    },
+
     signature = {
       enabled = true,
     },
@@ -37,8 +41,6 @@ return {
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
       default = { "lazydev", "lsp", "path", "snippets", "buffer" },
-      -- Disable cmdline completions
-      cmdline = {},
       providers = {
         lazydev = {
           name = "LazyDev",
