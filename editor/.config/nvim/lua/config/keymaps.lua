@@ -106,7 +106,19 @@ wk.add({
   { "<leader>nns", pick_window("NgSwitchSpec"), desc = "Switch to Spec (pick window)" },
 
   -- Turn off search highlights by pressing return unless in quickfix window.
-  { "<cr>", '&buftype ==# "quickfix" ? "<CR>" : ":noh<cr>"', desc = "Turn off search highlights", expr = true },
+  {
+    "<cr>",
+    function()
+      if vim.o.buftype ~= "quickfix" then
+        vim.cmd.noh()
+        print(" ") -- Clear cmdline
+      else
+        local key = vim.api.nvim_replace_termcodes("<cr>", true, false, true)
+        vim.api.nvim_feedkeys(key, 'n', false)
+      end
+    end,
+    desc = "Turn off search highlights",
+  },
 
   -- Make 'Y' work from the cursor to end of line instead of like 'yy'.
   { "Y", "y$", desc = "Yank to end of line" },

@@ -8,14 +8,10 @@ function M.config()
   local signs = require("config.signs")
 
   vim.cmd.colorscheme("kanagawa")
-  local lualine_kanagawa = require("lualine.themes.kanagawa")
-  lualine_kanagawa.normal.b.bg = "#3B4261"
-  lualine_kanagawa.normal.c.bg = "#1F2335"
-
   lualine.setup({
     options = {
       icons_enabled = true,
-      theme = lualine_kanagawa,
+      theme = "auto",
       component_separators = "",
       section_separators = { right = "", left = "" },
     },
