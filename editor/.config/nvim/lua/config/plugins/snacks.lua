@@ -38,7 +38,7 @@ return {
     bigfile = { enabled = true },
     input = { enabled = true },
     quickfile = { enabled = true },
-    scroll = { enabled = true },
+    scroll = { enabled = false },
     picker = {
       -- your picker configuration comes here
       -- or leave it empty to use the default settings
