@@ -12,20 +12,29 @@ set -x FZF_DEFAULT_OPTS '--height 40% --layout=reverse --border'
 set -x VISUAL nvim
 set -x EDITOR nvim
 
-alias ls='exa'
-alias ll='exa -l'
-alias la='exa -a'
-alias lla='exa -la'
-alias lst='exa --tree'
+if command -v eza > /dev/null
+  abbr -a ls 'eza'
+  abbr -a ll 'eza -l'
+  abbr -a la 'eza -a'
+  abbr -a lla 'eza -la'
+  abbr -a lst 'eza --tree'
+else
+  abbr -a ls 'ls'
+  abbr -a ll 'ls -l'
+  abbr -a la 'ls -a'
+  abbr -a lla 'ls -la'
+end
 
-alias clear='command clear; tmux clear-history 2> /dev/null'
-alias fixmouse='echo -e "\e[?1000h\e[?1000l"'
+abbr -a tmls 'tmux list-sessions'
+abbr -a tmks 'tmux kill-session -t'
+abbr -a tmksv 'tmux kill-server'
+abbr -a tmn 'tmux new -s'
 
-# tmux aliases
-alias tmls='tmux list-sessions'
-alias tmks='tmux kill-session -t'
-alias tmksv='tmux kill-server'
-alias tmn='tmux new -s'
+# Fuzzy search for a directory under my home and cd into it.
+abbr -a sdh "sd ~"
+
+alias clear 'command clear; tmux clear-history 2> /dev/null'
+alias fixmouse 'echo -e "\e[?1000h\e[?1000l"'
 
 # Fuzzy find project directory and create or open a tmux session.
 function tms
@@ -99,8 +108,19 @@ function sd
   end
 end
 
-# Fuzzy search for a directory under my home and cd into it.
-alias sdh="sd ~"
+# Switch to parent directory of a repository.
+function d
+	while test $PWD != "/"
+		if test -d .git
+			break
+		end
+		cd ..
+	end
+end
+
+function fish_user_key_bindings
+    bind \cc cancel-commandline
+end
 
 set -x GOPATH ~/go
 
