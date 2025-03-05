@@ -36,42 +36,48 @@ abbr -a sdh "sd ~"
 alias clear 'command clear; tmux clear-history 2> /dev/null'
 alias fixmouse 'echo -e "\e[?1000h\e[?1000l"'
 
+# Create or open a tmux session for the given directory.
+# The session name will be based off of the directory name.
+function tmux_for_dir -a dir
+  set session_name $(basename "$dir" | tr . _)
+  set tmux_running $(pgrep tmux)
+
+  if test -z $TMUX; and test -z $tmux_running
+    tmux new-session -s $session_name -c $dir
+    return
+  end
+
+  if ! tmux has-session -t=$session_name 2> /dev/null
+    tmux new-session -ds $session_name -c $dir
+  end
+
+  if test -z $TMUX
+    tmux attach -t $session_name
+  else
+    tmux switch-client -t $session_name
+  end
+end
+
 # Fuzzy find project directory and create or open a tmux session.
-function tms
-  if [ -z $1 ]
+function tms -a search
+  if test -z $search
     set fzf_cmd "fzf"
   else
-    set fzf_cmd "fzf -q \"$1\" -1"
+    set fzf_cmd "fzf -q \"$search\" -1"
   end
 
   set selected $(begin; echo ~/configs && find ~/dev ~/dev/others -mindepth 1 -maxdepth 1 -type d; end | eval " $fzf_cmd" )
 
-  if [ -z $selected ]
+  if test -z $selected
     return
   end
 
-  set selected_name $(basename "$selected" | tr . _)
-  set tmux_running $(pgrep tmux)
-
-  if [ -z $TMUX ] && [ -z $tmux_running ]
-      tmux new-session -s $selected_name -c $selected
-      return
-  end
-
-  if ! tmux has-session -t=$selected_name 2> /dev/null
-      tmux new-session -ds $selected_name -c $selected
-  end
-
-  if [ -z $TMUX ]
-    tmux attach -t $selected_name
-  else
-    tmux switch-client -t $selected_name
-  end
+  tmux_for_dir "$selected"
 end
 
 # Create or open a tmux session with the name set to the dir name.
 function tmd
-  tms "$(pwd)"
+  tmux_for_dir "$(pwd)"
 end
 
 function tma
@@ -84,13 +90,13 @@ end
 
 # Fuzzy find and attach to a tmux session.
 function tmas
-  if [ -z $1 ]
+  if set -q $argv[1]
     set selected $(tmux list-sessions | fzf)
   else
-    set selected $1
+    set selected $argv[1]
   end
 
-  if [ -z $selected ]
+  if set -q $selected
     tmux attach
   end
 
@@ -110,16 +116,16 @@ end
 
 # Switch to parent directory of a repository.
 function d
-	while test $PWD != "/"
-		if test -d .git
-			break
-		end
-		cd ..
-	end
+  while test $PWD != "/"
+    if test -d .git
+      break
+    end
+    cd ..
+  end
 end
 
 function fish_user_key_bindings
-    bind \cc cancel-commandline
+  bind \cc cancel-commandline
 end
 
 set -x GOPATH ~/go
