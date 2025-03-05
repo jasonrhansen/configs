@@ -1,6 +1,8 @@
 # Allow configuration that's specific to a machine to be put in ~/.local.fish
 [ -f ~/.local.fish ] && source ~/.local.fish
 
+set fish_greeting ""
+
 if status is-interactive
   starship init fish | source
 end
