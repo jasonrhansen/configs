@@ -3,10 +3,6 @@
 
 set fish_greeting ""
 
-if status is-interactive
-  starship init fish | source
-end
-
 set -x FZF_DEFAULT_OPTS '--height 40% --layout=reverse --border'
 
 set -x VISUAL nvim
@@ -138,3 +134,7 @@ set -x PATH $PATH ~/.rvm/bin set -x PATH "$HOME/.yarn/bin:$HOME/.config/yarn/glo
 set -x PATH "$PATH ~/.local/bin"
 
 set -x RUST_SRC_PATH "$(rustc --print sysroot)/lib/rustlib/src/rust/library"
+
+if status is-interactive
+  starship init fish | source
+end
