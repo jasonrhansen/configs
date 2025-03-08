@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 return {
   "rebelot/kanagawa.nvim",
   lazy = true,

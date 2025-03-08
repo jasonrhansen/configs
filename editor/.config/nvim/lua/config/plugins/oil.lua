@@ -33,7 +33,7 @@ return {
       callback = function()
         vim.keymap.set("n", "<c-w>", function()
           local entry = oil.get_cursor_entry()
-          if entry.type ~= "file" then
+          if not entry or entry.type ~= "file" then
             return
           end
           local dir = oil.get_current_dir()

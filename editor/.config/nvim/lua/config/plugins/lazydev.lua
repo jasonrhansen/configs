@@ -13,7 +13,7 @@ return {
         -- Needs `justinsgithub/wezterm-types` to be installed
         { path = "wezterm-types", mods = { "wezterm" } },
       },
-      enabled = function(root_dir)
+      enabled = function()
         return vim.g.lazydev_enabled == nil and true or vim.g.lazydev_enabled
       end,
     },

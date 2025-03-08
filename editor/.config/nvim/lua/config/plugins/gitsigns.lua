@@ -81,7 +81,6 @@ function M.config()
         },
         { "<leader>s", group = "Gitsigns" },
         { "<leader>ss", gitsigns.stage_hunk, desc = "Stage hunk" },
-        { "<leader>su", gitsigns.undo_stage_hunk, desc = "Unstage hunk" },
         { "<leader>sr", gitsigns.reset_hunk, desc = "Reset hunk" },
         { "<leader>sR", gitsigns.reset_buffer, desc = "Reset buffer" },
         { "<leader>sp", gitsigns.preview_hunk, desc = "Preview hunk" },
