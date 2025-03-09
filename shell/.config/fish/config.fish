@@ -126,13 +126,12 @@ end
 
 set -x GOPATH ~/go
 
-set -x PATH ~/bin $PATH
-set -x PATH ~/.local/bin $PATH
-set -x PATH $PATH $GOPATH/bin
-set -x PATH $PATH ~/.cargo/bin
-set -x PATH $PATH ~/.rvm/bin
-set -x PATH "$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin $PATH"
-set -x PATH "$PATH ~/.local/bin"
+fish_add_path ~/bin
+fish_add_path ~/.local/bin
+fish_add_path "$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin $PATH"
+fish_add_path --append ~/.cargo/bin
+fish_add_path --append ~/.rvm/bin
+fish_add_path --append $GOPATH/bin
 
 set -x RUST_SRC_PATH "$(rustc --print sysroot)/lib/rustlib/src/rust/library"
 
