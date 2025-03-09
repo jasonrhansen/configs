@@ -130,7 +130,8 @@ set -x PATH ~/bin $PATH
 set -x PATH ~/.local/bin $PATH
 set -x PATH $PATH $GOPATH/bin
 set -x PATH $PATH ~/.cargo/bin
-set -x PATH $PATH ~/.rvm/bin set -x PATH "$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin $PATH"
+set -x PATH $PATH ~/.rvm/bin
+set -x PATH "$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin $PATH"
 set -x PATH "$PATH ~/.local/bin"
 
 set -x RUST_SRC_PATH "$(rustc --print sysroot)/lib/rustlib/src/rust/library"
