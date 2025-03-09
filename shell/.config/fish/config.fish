@@ -138,4 +138,5 @@ set -x RUST_SRC_PATH "$(rustc --print sysroot)/lib/rustlib/src/rust/library"
 
 if status is-interactive
   starship init fish | source
+  fish_config theme choose kanagawa
 end
