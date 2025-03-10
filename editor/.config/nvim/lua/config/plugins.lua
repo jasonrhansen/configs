@@ -102,6 +102,7 @@ return {
   "fladson/vim-kitty", -- kitty.conf
   "imsnif/kdl.vim",
   "ron-rs/ron.vim",
+  "nickeb96/fish.vim",
 
   -- Muliple cursors
   {
