@@ -100,7 +100,7 @@ local config = {
     weight = "Regular",
   }),
 
-  font_size = 14.0,
+  font_size = 15.0,
 
   warn_about_missing_glyphs = false,
 
