@@ -246,6 +246,7 @@ function M.config()
     elmls = {},
     -- Linting for JavaScript / Typescript.
     eslint = {},
+    fish_lsp = {},
     gopls = {},
     graphql = {},
     html = {
