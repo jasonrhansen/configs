@@ -63,6 +63,11 @@ nmap <leader>tc <Action>(HideAllWindows)
 nmap <leader>td <Action>(ToggleDistractionFreeMode)
 nmap <leader>d <Action>(ShowErrorDescription)
 
+nmap ]d <Action>(GotoNextError)
+nmap [d <Action>(GotoPreviousError)
+nmap ]c <Action>(VcsShowNextChangeMarker)
+nmap [c <Action>(VcsShowPrevChangeMarker)
+
 " Add a 'stamp' command to replace word or selection with yanked text.
 nnoremap <leader>p diw"0P
 vnoremap <leader>p "_d"0P
