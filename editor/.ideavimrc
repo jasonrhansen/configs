@@ -1,10 +1,24 @@
+" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
+
+" Highlight copied text
 Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+" Must have FunctionTextObj plugin installed.
+set functiontextobj
+
+" Do incremental searching.
+set incsearch
+
+" Format
+map <leader>F gq
 
 let mapleader=" "
 
 set ignorecase
 set smartcase
-set scrolloff=3         " 3 lines above/below cursor when scrolling
+" 3 lines above/below cursor when scrolling
+set scrolloff=3
 
 " Integrate with system clipboard
 set clipboard=unnamedplus,unnamed
@@ -30,15 +44,12 @@ nmap <c-w>H <Action>(MoveEditorToOppositeTabGroup)
 nmap <c-w>J <Action>(MoveEditorToOppositeTabGroup)
 nmap <c-w>K <Action>(MoveEditorToOppositeTabGroup)
 
-" Quickly reload .ideavimrc
-nnoremap <leader>sv :source ~/.ideavimrc<cr>
-
-nmap <leader>tp <Action>(GotoFile)
-nmap <leader>tP <Action>(GotoFile)
-nmap <leader>ts <Action>(FileStructurePopup)
+nmap <leader>fp <Action>(GotoFile)
+nmap <leader>fP <Action>(GotoFile)
+nmap <leader>fs <Action>(FileStructurePopup)
 
 nmap <leader>. <action>(SelectInProjectView)
-nmap <leader><leader> <action>(Switcher)
+nnoremap <leader><leader> <c-^>
 
 nmap <c-b> gT
 nmap <c-n> gt
@@ -51,8 +62,8 @@ nmap <leader>td <Action>(ToggleDistractionFreeMode)
 nmap <leader>d <Action>(ShowErrorDescription)
 
 " Add a 'stamp' command to replace word or selection with yanked text.
-nnoremap S diw"0P
-vnoremap S "_d"0P
+nnoremap <leader>p diw"0P
+vnoremap <leader>p "_d"0P
 
 " Center the screen when jumping through the changelist
 nnoremap g; g;zz
