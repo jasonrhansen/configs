@@ -19,6 +19,8 @@ set ignorecase
 set smartcase
 " 3 lines above/below cursor when scrolling
 set scrolloff=3
+" Disable error bell sound
+set visualbell
 
 " Integrate with system clipboard
 set clipboard=unnamedplus,unnamed
