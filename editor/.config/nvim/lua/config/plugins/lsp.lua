@@ -110,6 +110,7 @@ function M.config()
       "bashls",
       "cssls",
       "dockerls",
+      "emmet_language_server",
       "graphql",
       "html",
       "intelephense",
@@ -243,6 +244,7 @@ function M.config()
       },
     },
     dockerls = {},
+    emmet_language_server = {},
     elmls = {},
     -- Linting for JavaScript / Typescript.
     eslint = {},
