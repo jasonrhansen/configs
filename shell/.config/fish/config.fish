@@ -128,6 +128,7 @@ end
 
 function fish_user_key_bindings
     bind \cc cancel-commandline
+    bind \cy accept-autosuggestion
 end
 
 set -x GOPATH ~/go
