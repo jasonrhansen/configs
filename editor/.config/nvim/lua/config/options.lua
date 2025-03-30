@@ -44,6 +44,7 @@ opt.wildchar = string.byte("\t")
 opt.wildignorecase = true
 opt.wildmode = { "longest", "list", "full" }
 opt.writebackup = false
+opt.winborder = "rounded"
 
 -- Indentation
 opt.expandtab = true -- Indent with spaces
@@ -58,7 +59,7 @@ opt.viewoptions = { "cursor", "folds" }
 
 -- For SSH sessions we want to use OSC 52, but it will only get used
 -- if clipboard is not set to "unnamed" or "unnamedplus".
-if not require('util').is_ssh_session() then
+if not require("util").is_ssh_session() then
   if vim.fn.has("unnamedplus") then
     -- By default, Vim will not use the system clipboard when yanking/pasting to
     -- the default register. This option makes Vim use the system default
