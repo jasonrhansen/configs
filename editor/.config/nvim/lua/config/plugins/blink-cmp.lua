@@ -32,7 +32,6 @@ return {
 
     keymap = {
       preset = "default",
-      ["<c-j>"] = { "select_and_accept", "fallback" },
       ["<A-}>"] = {
         function(cmp)
           cmp.hide()

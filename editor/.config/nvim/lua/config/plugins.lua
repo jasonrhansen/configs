@@ -21,9 +21,6 @@ return {
   { "tpope/vim-git", cmd = "Git" },
   "tpope/vim-fugitive",
 
-  -- Expand abbreviations for HTML like 'div>p#foo$*3>a' with '<c-y>,'
-  "mattn/emmet-vim",
-
   -- Changes the working directory to the project root when you open a file.
   "airblade/vim-rooter",
 
