@@ -123,14 +123,6 @@ wk.add({
   -- Make 'Y' work from the cursor to end of line instead of like 'yy'.
   { "Y", "y$", desc = "Yank to end of line" },
 
-  -- Create newlines like o and O but stay in normal mode.
-  { "zj", "o<Esc>k", desc = "Newline below" },
-  { "zk", "O<Esc>j", desc = "Newline above" },
-
-  -- Center the screen when jumping through the changelist.
-  { "g;", "g;zz", desc = "Next in changelist, and center" },
-  { "g,", "g,z", desc = "Previous in changelist, and center" },
-
   -- This makes j and k work on "screen lines" instead of on "file lines"; now, when
   -- we have a long line that wraps to multiple screen lines, j and k behave as we
   -- expect them to.
