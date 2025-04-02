@@ -140,6 +140,10 @@ fish_add_path --append ~/.cargo/bin
 fish_add_path --append ~/.rvm/bin
 fish_add_path --append $GOPATH/bin
 
+if command -q -v rbenv
+    source (rbenv init - | psub)
+end
+
 set -x RUST_SRC_PATH "$(rustc --print sysroot)/lib/rustlib/src/rust/library"
 
 if status is-interactive
