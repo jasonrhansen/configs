@@ -105,6 +105,22 @@ wk.add({
   { "<leader>nnh", pick_window("NgSwitchHTML"), desc = "Switch to HTML (pick window)" },
   { "<leader>nns", pick_window("NgSwitchSpec"), desc = "Switch to Spec (pick window)" },
 
+  -- Jump to diagnostics and open diagnostic float.
+  {
+    "]d",
+    function()
+      vim.diagnostic.jump({ float = true, count = 1 })
+    end,
+    desc = "Jump to next diagnostic in current buffer",
+  },
+  {
+    "[d",
+    function()
+      vim.diagnostic.jump({ float = true, count = -1 })
+    end,
+    desc = "Jump to next diagnostic in current buffer",
+  },
+
   -- Turn off search highlights by pressing return unless in quickfix window.
   {
     "<cr>",
@@ -114,7 +130,7 @@ wk.add({
         print(" ") -- Clear cmdline
       else
         local key = vim.api.nvim_replace_termcodes("<cr>", true, false, true)
-        vim.api.nvim_feedkeys(key, 'n', false)
+        vim.api.nvim_feedkeys(key, "n", false)
       end
     end,
     desc = "Turn off search highlights",
