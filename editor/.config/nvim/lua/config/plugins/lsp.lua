@@ -368,9 +368,6 @@ function M.config()
       spacing = 2,
       prefix = "■ ",
     },
-    virtual_lines = {
-      current_line = true,
-    },
     update_in_insert = false,
     severity_sort = true,
     document_highlight = {
