@@ -358,7 +358,9 @@ function M.config()
     capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
     config.capabilities = capabilities
-    lspconfig[name].setup(config)
+
+    vim.lsp.config(name, config)
+    vim.lsp.enable(name)
   end
 
   local signs = require("config.signs")
