@@ -177,18 +177,6 @@ function M.config()
   local register_keymaps = function(buffer)
     require("which-key").add({
       buffer = buffer,
-      -- Using snacks.nvim for these that are commented out.
-      -- { "gd", vim.lsp.buf.definition, desc = "Jump to definition" },
-      -- { "gD", vim.lsp.buf.declaration, desc = "Jump to declaration" },
-      -- { "gr", vim.lsp.buf.references, desc = "Get references" },
-      -- { "gy", vim.lsp.buf.type_definition, desc = "Jump to type definition" },
-      -- { "gI", vim.lsp.buf.implementation, desc = "Jump to implementation" },
-      -- { "<leader>gd", pick_window(vim.lsp.buf.definition), desc = "Pick window and jump to definition" },
-      -- { "<leader>gD", pick_window(vim.lsp.buf.declaration), desc = "Pick window and jump to declaration" },
-      -- { "<leader>gy", pick_window(vim.lsp.buf.type_definition), desc = "Pick window and jump to type definition" },
-      -- { "<leader>gI", pick_window(vim.lsp.buf.implementation), desc = "Pick window and jump to implementation" },
-      -- { "g0", vim.lsp.buf.document_symbol, desc = "List document symbols" },
-      -- { "gW", vim.lsp.buf.workspace_symbol, desc = "List workspace symbols" },
       { "<leader>k", vim.lsp.buf.signature_help, desc = "Signature help" },
       { "<leader>rn", vim.lsp.buf.rename, desc = "Rename" },
       { "<F2>", vim.lsp.buf.rename, desc = "Rename" },
@@ -221,9 +209,23 @@ function M.config()
 
     -- For some languages, format on save.
     if vim.tbl_contains(format_on_save_names, client.name) then
-      vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.format()")
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = buffer,
+        callback = function()
+          vim.lsp.buf.format()
+        end,
+      })
     end
   end
+
+  vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+      local buffer = args.buf
+      local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+
+      attach(client, buffer)
+    end,
+  })
 
   -- Language server configs
   local configs = {
@@ -339,13 +341,6 @@ function M.config()
     vuels = {},
     zls = {},
   }
-
-  lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
-    on_attach = attach,
-    flags = {
-      debounce_text_changes = 150,
-    },
-  })
 
   -- Initialize all language servers
   for name, config in pairs(configs) do
