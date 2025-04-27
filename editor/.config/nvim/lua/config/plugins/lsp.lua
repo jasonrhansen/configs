@@ -162,7 +162,6 @@ function M.config()
   local quick_fix_code_action = function()
     vim.lsp.buf.code_action({
       filter = function(action)
-        P(action)
         return action.kind == "quickfix"
       end,
       apply = false,
