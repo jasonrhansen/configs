@@ -104,6 +104,7 @@ function M.config()
   -- 3. nvim-lspconfig
   require("mason").setup()
   require("mason-lock").setup()
+---@diagnostic disable-next-line: missing-fields
   require("mason-lspconfig").setup({
     ensure_installed = {
       "angularls",
@@ -124,8 +125,6 @@ function M.config()
     },
     automatic_installation = false,
   })
-
-  local lspconfig = require("lspconfig")
 
   -- Which LSP clients should automatically format when saving.
   local format_on_save_names = {
