@@ -3,8 +3,8 @@ local M = {
   name = "lsp",
   event = "BufReadPre",
   dependencies = {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason.nvim",
+    "mason-org/mason-lspconfig.nvim",
     "zapling/mason-lock.nvim",
     "pmizio/typescript-tools.nvim",
     "nvimtools/none-ls.nvim", -- Community fork of jose-elias-alvarez/null-ls.nvim
@@ -228,9 +228,7 @@ function M.config()
 
   -- Language server configs
   local configs = {
-    angularls = {
-      filetypes = { "typescript", "html.angular", "html" },
-    },
+    angularls = {},
     bashls = {},
     cmake = {},
     cssls = {
@@ -246,11 +244,9 @@ function M.config()
     },
     dockerls = {},
     emmet_language_server = {},
-    elmls = {},
     -- Linting for JavaScript / Typescript.
     eslint = {},
     fish_lsp = {},
-    gopls = {},
     graphql = {},
     html = {
       capabilities = {
@@ -265,8 +261,6 @@ function M.config()
     },
     -- PHP
     intelephense = {},
-    -- Java
-    -- jdtls = {},
     jsonls = {
       capabilities = {
         textDocument = {
@@ -280,8 +274,6 @@ function M.config()
     },
     -- XML
     lemminx = {},
-    -- C#, VB
-    -- omnisharp = {},
     -- Python
     pyright = {},
     -- Rust
@@ -335,10 +327,7 @@ function M.config()
     sqlls = {
       cmd = { "sql-language-server", "up", "--method", "stdio" },
     },
-    svelte = {},
     vimls = {},
-    vuels = {},
-    zls = {},
   }
 
   -- Initialize all language servers
