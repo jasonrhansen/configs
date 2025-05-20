@@ -26,15 +26,17 @@ input {
     touchpad {
         // off
         tap
-        // dwt
+        dwt
         // dwtp
         // drag false
-        // drag-lock
+        drag-lock
         natural-scroll
         // accel-speed 0.2
         // accel-profile "flat"
         // scroll-method "two-finger"
         // disabled-on-external-mouse
+        click-method "clickfinger"
+        tap-button-map "left-right-middle"
     }
 
     mouse {
@@ -56,7 +58,7 @@ input {
     }
 
     // Uncomment this to make the mouse warp to the center of newly focused windows.
-    // warp-mouse-to-focus
+    warp-mouse-to-focus
 
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
@@ -287,16 +289,6 @@ animations {
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
 
-// Work around WezTerm's initial configure bug
-// by setting an empty default-column-width.
-window-rule {
-    // This regular expression is intentionally made as specific as possible,
-    // since this is the default config, and we want no false positives.
-    // You can get away with just app-id="wezterm" if you want.
-    match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    default-column-width {}
-}
-
 // Open the Firefox picture-in-picture player as floating by default.
 window-rule {
     // This app-id regular expression will work for both:
@@ -341,7 +333,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
+    Mod+T hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
