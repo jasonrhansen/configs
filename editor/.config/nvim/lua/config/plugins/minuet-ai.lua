@@ -5,7 +5,7 @@ return {
       provider = "gemini",
       provider_options = {
         gemini = {
-          model = "gemini-1.5-flash-latest",
+          model = "gemini-2.0-flash",
           stream = true,
           api_key = "ANTHROPIC_API_KEY",
           optional = {
