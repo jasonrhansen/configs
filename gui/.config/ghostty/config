@@ -3,7 +3,7 @@ font-size = 14
 
 cursor-style = block
 shell-integration-features = no-cursor
-window-decoration = true
+window-decoration = auto
 gtk-adwaita = false
 gtk-titlebar = false
 
@@ -32,3 +32,5 @@ palette = 17=#ff5d62
 keybind = alt+enter=toggle_fullscreen
 keybind = ctrl+shift+d=toggle_window_decorations
 keybind = ctrl+c=copy_to_clipboard
+
+window-padding-balance=true
