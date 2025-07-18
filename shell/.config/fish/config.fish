@@ -135,9 +135,7 @@ set -x GOPATH ~/go
 
 fish_add_path ~/bin
 fish_add_path ~/.local/bin
-fish_add_path "$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin $PATH"
 fish_add_path --append ~/.cargo/bin
-fish_add_path --append ~/.rvm/bin
 fish_add_path --append $GOPATH/bin
 
 if command -q -v rbenv
