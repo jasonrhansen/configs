@@ -6,3 +6,5 @@ packer_compiled.*
 history.txt
 shell/.config/nushell/scripts/config_local.nu
 gui/.config/fontconfig/conf.d/
+
+**/wakatime.lua
