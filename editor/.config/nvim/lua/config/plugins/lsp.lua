@@ -292,6 +292,7 @@ function M.config()
     },
     -- Ruby
     solargraph = {
+      cmd = { os.getenv( "HOME" ) .. "/.rbenv/shims/solargraph", 'stdio' },
       init_options = {
         formatting = false,
       },
