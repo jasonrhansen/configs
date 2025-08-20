@@ -99,6 +99,20 @@ return {
       desc = "Grep",
     },
     {
+      "<leader>fG",
+      function()
+        Snacks.picker.git_grep()
+      end,
+      desc = "Git Grep",
+    },
+    {
+      "<leader>?",
+      function()
+        Snacks.picker.git_grep()
+      end,
+      desc = "Git Grep",
+    },
+    {
       "<leader>:",
       function()
         Snacks.picker.command_history()
@@ -211,13 +225,6 @@ return {
         Snacks.picker.grep_buffers()
       end,
       desc = "Grep Open Buffers",
-    },
-    {
-      "<leader>fg",
-      function()
-        Snacks.picker.grep()
-      end,
-      desc = "Grep",
     },
     {
       "<leader>sw",
