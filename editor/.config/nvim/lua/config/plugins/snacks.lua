@@ -44,6 +44,12 @@ return {
       enabled = false, -- NOTE: Disable snacks.image
       formats = {}, -- HACK: Disable image preview for other modules like picker
     },
+    indent = {
+      enabled = false,
+      animate = {
+        enabled = false,
+      },
+    },
     picker = {
       -- your picker configuration comes here
       -- or leave it empty to use the default settings
