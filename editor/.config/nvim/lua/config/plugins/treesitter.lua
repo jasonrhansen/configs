@@ -22,10 +22,6 @@ function M.config()
     return vim.tbl_contains(disabled_filetypes, lang)
   end
 
-  local disable_indent = function(lang)
-    return lang == "ruby" or lang == "rust" or disable(lang)
-  end
-
   treesitter.setup({
     ensure_installed = "all",
     ignore_install = { "ipkg" },
@@ -36,8 +32,8 @@ function M.config()
       disable = disable,
     },
     indent = {
-      enable = true,
-      disable = disable_indent,
+      enable = false,
+      disable = { 'ruby', 'rust'},
     },
     endwise = {
       enable = true,
