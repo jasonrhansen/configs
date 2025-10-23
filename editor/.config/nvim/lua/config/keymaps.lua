@@ -215,13 +215,36 @@ wk.add({
   },
 
   { "<leader>K", show_documentation, desc = "Show documentation", silent = true },
-
   -- Copy file and directory names to clipboard
   { "<leader>cf", '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:t"))<cr>', desc = "Copy file name" },
   { "<leader>cp", '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:p"))<cr>', desc = "Copy file path" },
   {
     "<leader>cd",
     '<cmd>lua require("util").copy_to_clipboard(vim.fn.expand("%:p:h"))<cr>',
+    desc = "Copy directory path",
+  },
+  {
+    "<leader>cf",
+    function()
+      require("util").copy_to_clipboard(vim.fn.expand("%:t"))
+      print("Copied file name to system clipboard")
+    end,
+    desc = "Copy file name",
+  },
+  {
+    "<leader>cp",
+    function()
+      require("util").copy_to_clipboard(vim.fn.expand("%:p"))
+      print("Copied file path to system clipboard")
+    end,
+    desc = "Copy file path",
+  },
+  {
+    "<leader>cd",
+    function()
+      require("util").copy_to_clipboard(vim.fn.expand("%:p:h"))
+      print("Copied directory to system clipboard")
+    end,
     desc = "Copy directory path",
   },
 

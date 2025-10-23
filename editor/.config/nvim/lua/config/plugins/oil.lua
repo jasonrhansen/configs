@@ -20,13 +20,47 @@ return {
         },
         ["<esc>"] = { "actions.close", mode = "n" },
         ["gq"] = { "actions.close", mode = "n" },
-        ["<leader>y"] = { "actions.yank_entry", mode = "n" },
-        ["<leader>Y"] = {
-          desc = "Yank the path of the current oil directory to a register",
+        ["<leader>cf"] = {
+          desc = "Copy file name",
+          mode = "n",
+          callback = function()
+            local entry = oil.get_cursor_entry()
+            if not entry then
+              return
+            end
+            local name = entry.name
+            if entry.type == "directory" then
+              name = name .. "/"
+            end
+            vim.fn.setreg("+", name)
+            print("Copied file name to system clipboard")
+          end,
+        },
+        ["<leader>cp"] = {
+          desc = "Copy file path",
+          mode = "n",
+          callback = function()
+            local entry = oil.get_cursor_entry()
+            local dir = oil.get_current_dir()
+            if not entry or not dir then
+              return
+            end
+            local name = entry.name
+            if entry.type == "directory" then
+              name = name .. "/"
+            end
+            local path = dir .. name
+            vim.fn.setreg("+", path)
+            print("Copied file path to system clipboard")
+          end,
+        },
+        ["<leader>cd"] = {
+          desc = "Copy oil directory",
           mode = "n",
           callback = function()
             local dir = oil.get_current_dir()
-            vim.fn.setreg(vim.v.register, dir)
+            vim.fn.setreg("+", dir)
+            print("Copied directory to system clipboard")
           end,
         },
         ["<c-w>"] = {
