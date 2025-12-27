@@ -1,5 +1,7 @@
 font-family = "IosevkaTerm Nerd Font Mono"
 font-size = 14
+# Disable ligatures
+font-feature = -calt, -liga, -dlig
 
 cursor-style = block
 shell-integration-features = no-cursor
