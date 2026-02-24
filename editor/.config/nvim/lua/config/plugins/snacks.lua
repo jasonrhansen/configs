@@ -40,6 +40,7 @@ return {
     quickfile = { enabled = true },
     scope = { enabled = false },
     scroll = { enabled = false },
+    statuscolumn = { enabled = true },
     image = {
       enabled = false, -- NOTE: Disable snacks.image
       formats = {}, -- HACK: Disable image preview for other modules like picker
