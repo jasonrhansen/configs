@@ -38,6 +38,12 @@ local function setup_typescript_tools(attach)
     on_attach = function(client, bufnr)
       attach(client, bufnr)
 
+      -- If angularls is attached we don't want duplicate references or conflicting rename implementations.
+      if #vim.lsp.get_clients({ bufnr = 0, name = "angularls" }) ~= 0 then
+        client.server_capabilities.referencesProvider = false
+        client.server_capabilities.renameProvider = false
+      end
+
       require("which-key").add({
         buffer = bufnr,
         { "<leader>y", group = "TypeScript Tools" },
@@ -335,7 +341,7 @@ function M.config()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
 
     -- Add server-specific capabilities
-    capabilities = vim.tbl_extend("keep", capabilities, config.capabilities or {})
+    capabilities = vim.tbl_deep_extend("force", capabilities, config.capabilities or {})
 
     -- Add blink.cmp capabilities
     capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
