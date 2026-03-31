@@ -91,7 +91,6 @@ return {
   },
 
   -- Language plugins
-  "jparise/vim-graphql",
   "cespare/vim-toml",
   "kchmck/vim-coffee-script",
   "mustache/vim-mustache-handlebars",

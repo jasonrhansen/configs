@@ -32,8 +32,8 @@ function M.config()
       disable = disable,
     },
     indent = {
-      enable = false,
-      disable = { 'ruby', 'rust'},
+      enable = true,
+      disable = { 'ruby', 'rust' },
     },
     endwise = {
       enable = true,
