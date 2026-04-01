@@ -5,9 +5,9 @@ return {
       provider = "gemini",
       provider_options = {
         gemini = {
-          model = "gemini-2.0-flash",
+          model = "gemini-2.5-flash",
           stream = true,
-          api_key = "ANTHROPIC_API_KEY",
+          api_key = "GEMINI_API_KEY",
           optional = {
             generationConfig = {
               maxOutputTokens = 256,
