@@ -1,4 +1,3 @@
----@diagnostic disable: missing-fields
 local M = {
   "nvim-treesitter/nvim-treesitter-context",
 }
