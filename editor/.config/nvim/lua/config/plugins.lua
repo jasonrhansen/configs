@@ -139,4 +139,10 @@ return {
       create_commands = true,
     },
   },
+
+  -- Render markdown
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown", "codecompanion" },
+  },
 }

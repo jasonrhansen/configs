@@ -21,7 +21,16 @@ return {
           },
         },
       },
+      prompt_library = {
+        markdown = {
+          dirs = {
+            vim.fn.stdpath("config") .. "/codecompanion_prompts",
+          }
+        }
+      }
     })
-    vim.keymap.set("n", "<Leader>C", function() vim.cmd("CodeCompanionChat toggle") end, { desc = "Code Companion Chat" })
+    vim.keymap.set({ "n", "v" }, "<leader>A", "<cmd>CodeCompanionActions<cr>", { desc = "Code Companion Actions", noremap = true, silent = true })
+    vim.keymap.set({ "n", "v" }, "<Leader>C", "<cmd>CodeCompanionChat toggle<cr>", { desc = "Code Companion Chat", noremap = true, silent = true })
+    vim.cmd([[cab cc CodeCompanion]])
   end,
 }
