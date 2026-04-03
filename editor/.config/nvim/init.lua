@@ -13,3 +13,8 @@ require("config.commands")
 require("config.theme")
 require("config.relativize")
 require("config.keymaps")
+
+-- Add Cfilter command to filter the quickfix list.
+vim.cmd.packadd("cfilter")
+
+vim.cmd.packadd("nvim.undotree")

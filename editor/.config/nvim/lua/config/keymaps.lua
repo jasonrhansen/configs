@@ -285,3 +285,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     })
   end,
 })
+
+vim.keymap.set("n", "<leader>u", function()
+  require("undotree").open({ command = "50vnew" })
+end)
