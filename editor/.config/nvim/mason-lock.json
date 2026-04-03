@@ -9,7 +9,7 @@
   "intelephense": "1.16.5",
   "json-lsp": "4.10.0",
   "lemminx": "0.29.0",
-  "lua-language-server": "3.17.1",
+  "lua-language-server": "3.18.0",
   "prettierd": "0.27.0",
   "pyright": "1.1.408",
   "sql-formatter": "15.7.3",
