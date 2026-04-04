@@ -58,12 +58,12 @@ if require("util").is_ssh_session() then
   })
 end
 
-local ws_group = vim.api.nvim_create_augroup("TrailingWhitespace", { clear = true })
-
 
 --------------------------------------------------------------------------------
 -- Highlight Trailing Whitespace
 --------------------------------------------------------------------------------
+
+local ws_group = vim.api.nvim_create_augroup("TrailingWhitespace", { clear = true })
 
 -- Ensure the highlight group exists even after colorscheme changes
 local function set_whitespace_hl()
@@ -77,10 +77,18 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   callback = set_whitespace_hl,
 })
 
--- 2. Apply the visual match to the window
+-- Apply the visual match to the window
 vim.api.nvim_create_autocmd({ "BufWinEnter", "InsertLeave" }, {
   group = ws_group,
   callback = function()
+    local buftype = vim.bo.buftype
+    local filetype = vim.bo.filetype
+    local excluded_fts = { "mason", "lazy", "oil", "gitmessengerpopup", "qf" }
+
+    if buftype ~= "" or vim.tbl_contains(excluded_fts, filetype) then
+      return
+    end
+
     -- Only add the match if it doesn't already exist in this window
     local exists = false
     for _, m in ipairs(vim.fn.getmatches()) do
