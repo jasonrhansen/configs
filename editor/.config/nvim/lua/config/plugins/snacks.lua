@@ -41,6 +41,9 @@ return {
     scope = { enabled = false },
     scroll = { enabled = false },
     statuscolumn = { enabled = false },
+    lazygit = {
+      configure = true,
+    },
     image = {
       enabled = false, -- NOTE: Disable snacks.image
       formats = {}, -- HACK: Disable image preview for other modules like picker
@@ -471,6 +474,27 @@ return {
         Snacks.bufdelete()
       end,
       desc = "Delete buffer",
+    },
+    {
+      "<leader>gg",
+      function()
+        Snacks.lazygit()
+      end,
+      desc = "Lazygit",
+    },
+    {
+      "<leader>gf",
+      function()
+        Snacks.lazygit.log_file()
+      end,
+      desc = "Lazygit Current File History",
+    },
+    {
+      "<leader>gl",
+      function()
+        Snacks.lazygit.log()
+      end,
+      desc = "Lazygit Log (Root)",
     },
   },
   init = function()
