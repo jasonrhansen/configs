@@ -51,6 +51,7 @@ return {
         enabled = false,
       },
     },
+    uti = { enabled = true },
     picker = {
       -- your picker configuration comes here
       -- or leave it empty to use the default settings
@@ -66,16 +67,18 @@ return {
       },
       actions = {
         pick_window = function(picker)
-          picker:close()
-          local win = require("window-picker").pick_window({
-            filter_rules = {
-              include_current_win = true,
-            },
-          })
+          local item = picker:current()
+          if not item or not item._path then
+            return
+          end
 
-          if win then
+          picker:close()
+
+          local win = Snacks.picker.util.pick_win()
+
+          if win and vim.api.nvim_win_is_valid(win) then
             vim.api.nvim_set_current_win(win)
-            vim.cmd.edit(picker:current()._path)
+            vim.cmd.edit(item._path)
           else
             Snacks.picker.resume()
           end

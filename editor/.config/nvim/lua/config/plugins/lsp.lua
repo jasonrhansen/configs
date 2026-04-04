@@ -7,27 +7,10 @@ local M = {
     "mason-org/mason-lspconfig.nvim",
     "zapling/mason-lock.nvim",
     "pmizio/typescript-tools.nvim",
-    "nvimtools/none-ls.nvim", -- Community fork of jose-elias-alvarez/null-ls.nvim
-    "nvim-lua/plenary.nvim", -- Needed by none-ls, and typescript-tools
+    "nvim-lua/plenary.nvim", -- typescript-tools
     "saghen/blink.cmp",
   },
 }
-
-local function setup_none_ls(attach)
-  local null_ls = require("null-ls")
-  null_ls.setup({
-    should_attach = function(bufnr)
-      return not require("util").is_large_file(bufnr)
-    end,
-    on_attach = function(client, buffer)
-      attach(client, buffer)
-    end,
-    sources = {
-      null_ls.builtins.formatting.rubocop,
-      null_ls.builtins.formatting.erb_format,
-    },
-  })
-end
 
 local function setup_typescript_tools(attach)
   require("typescript-tools").setup({
@@ -110,7 +93,6 @@ function M.config()
   -- 3. nvim-lspconfig
   require("mason").setup()
   require("mason-lock").setup()
----@diagnostic disable-next-line: missing-fields
   require("mason-lspconfig").setup({
     ensure_installed = {
       "angularls",
@@ -131,29 +113,6 @@ function M.config()
     },
     automatic_installation = false,
   })
-
-  -- Which LSP clients should automatically format when saving.
-  local format_on_save_names = {
-    "rust_analyzer",
-    "gopls",
-  }
-
-  -- Which LSP clients to disable formatting for so null-ls can be used instead
-  -- without it asking each time which formatter to use.
-  local disable_formatting_names = {
-    "typescript-tools",
-    "solargraph",
-    "lua_ls",
-  }
-
-  local format_buffer = function()
-    vim.lsp.buf.format({
-      filter = function(client)
-        return not vim.tbl_contains(disable_formatting_names, client.name)
-      end,
-      async = true,
-    })
-  end
 
   local add_missing_import = function()
     vim.lsp.buf.code_action({
@@ -186,7 +145,6 @@ function M.config()
       { "<F2>", vim.lsp.buf.rename, desc = "Rename" },
       { "<leader>a", vim.lsp.buf.code_action, desc = "Code action" },
       { "<leader>d", vim.diagnostic.open_float, desc = "Line diagnostics" },
-      { "<leader>F", format_buffer, desc = "Format buffer" },
       { "<leader>tI", toggle_inlay_hints, desc = "Toggle inlay type hints" },
       {
         "<leader>yi",
@@ -200,26 +158,15 @@ function M.config()
       },
       {
         mode = "v",
-        { "<leader>f", format_buffer, desc = "Format range" },
         { "<leader>a", vim.lsp.buf.range_code_action, desc = "Code action for range" },
       },
     })
   end
 
   -- Shared attach function for all LSP clients.
-  local attach = function(client, buffer)
+  local attach = function(_client, buffer)
     -- Register keymaps with which-key for the attached buffer
     register_keymaps(buffer)
-
-    -- For some languages, format on save.
-    if vim.tbl_contains(format_on_save_names, client.name) then
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        buffer = buffer,
-        callback = function()
-          vim.lsp.buf.format()
-        end,
-      })
-    end
   end
 
   vim.api.nvim_create_autocmd("LspAttach", {
@@ -298,7 +245,7 @@ function M.config()
     },
     -- Ruby
     solargraph = {
-      cmd = { os.getenv( "HOME" ) .. "/.rbenv/shims/solargraph", 'stdio' },
+      cmd = { os.getenv("HOME") .. "/.rbenv/shims/solargraph", "stdio" },
       init_options = {
         formatting = false,
       },
@@ -319,6 +266,7 @@ function M.config()
           diagnostics = {
             enable = true,
             disable = { "undefined-field" },
+            unusedLocalExclude = { "_*" },
           },
           -- Do not send telemetry data containing a randomized but unique identifier
           telemetry = {
@@ -383,7 +331,6 @@ function M.config()
     },
   })
 
-  setup_none_ls(attach)
   setup_typescript_tools(attach)
 end
 

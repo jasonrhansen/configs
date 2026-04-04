@@ -1,4 +1,5 @@
 local pick_window = require("util").pick_window
+local util = require("util")
 
 local comment_colors = { vim.fn.synIDattr(vim.fn.hlID("Comment"), "fg#"), "#a2a199" }
 local comment_color_index = 0
@@ -124,6 +125,9 @@ vim.keymap.set("n", "<CR>", function()
   return "<CR>"
 end, { expr = true, desc = "Clear search highlights" })
 
+-- Exit insert mode without reaching.
+vim.keymap.set("i", "jk", "<Esc>", { desc = "Exit insert mode" })
+
 -- Visual Mode Indenting
 -- Keeps the selection active so you can tap > or < multiple times
 vim.keymap.set("x", "<", "<gv")
@@ -177,11 +181,12 @@ end, { desc = "Adjust window width left" })
 -- LSP Documentation
 vim.keymap.set("n", "<leader>K", show_documentation, { desc = "LSP: Show documentation", silent = true })
 
+-- Set CWD to project root
+vim.keymap.set("n", "<leader>cr", util.set_project_root, { desc = "Set CWD to project root" })
+
 --------------------------------------------------------------------------------
 -- Clipboard Utilities
 --------------------------------------------------------------------------------
-local util = require("util")
-
 vim.keymap.set("n", "<leader>cf", function()
   local val = vim.fn.expand("%:t")
   util.copy_to_clipboard(val)
@@ -203,6 +208,7 @@ end, { desc = "Copy: Directory path" })
 --------------------------------------------------------------------------------
 -- "Stamp" Logic (Replace with Register)
 --------------------------------------------------------------------------------
+
 -- Normal mode: uses <Plug> for dot-repeatability via vim-repeat
 vim.keymap.set("n", "<Plug>StampYankedText", '"_diwP', { silent = true })
 vim.keymap.set("n", "<leader>p", "<Plug>StampYankedText", {

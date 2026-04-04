@@ -21,9 +21,6 @@ return {
   { "tpope/vim-git", cmd = "Git" },
   "tpope/vim-fugitive",
 
-  -- Changes the working directory to the project root when you open a file.
-  "airblade/vim-rooter",
-
   -- Highlight and search for todo comments like TODO, HACK, BUG
   {
     "folke/todo-comments.nvim",
@@ -73,13 +70,6 @@ return {
   -- Icons to use in the status bar
   "ryanoasis/vim-devicons",
 
-  -- Close buffers without closing windows and messing up the layout.
-  "moll/vim-bbye",
-
-  -- Internal modeline support allows all sorts of annoying and potentially insecure options to be set.
-  -- This plugin implements a more heavily restricted version.
-  "ciaranm/securemodelines",
-
   -- Sessions
   {
     "rmagatti/auto-session",
@@ -91,13 +81,10 @@ return {
   },
 
   -- Language plugins
-  "cespare/vim-toml",
   "kchmck/vim-coffee-script",
   "mustache/vim-mustache-handlebars",
   "tpope/vim-rails",
   "fladson/vim-kitty", -- kitty.conf
-  "imsnif/kdl.vim",
-  "ron-rs/ron.vim",
   "nickeb96/fish.vim",
 
   -- Muliple cursors

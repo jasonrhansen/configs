@@ -1,8 +1,5 @@
 local M = {
   "kosayoda/nvim-lightbulb",
-  dependencies = {
-    "antoinemadec/FixCursorHold.nvim",
-  },
 }
 
 function M.config()

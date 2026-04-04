@@ -2,18 +2,23 @@ local M = {}
 
 M.pick_window = function(func_or_cmd)
   return function()
-    local buf = vim.api.nvim_get_current_buf()
+    local current_buf = vim.api.nvim_get_current_buf()
     local cursor = vim.api.nvim_win_get_cursor(0)
-    local picked_win = require("window-picker").pick_window()
+
+    -- Snacks.picker.util.pick_win() provides the UI for selecting a window
+    local picked_win = Snacks.picker.util.pick_win()
 
     if picked_win and picked_win ~= vim.api.nvim_get_current_win() then
+      -- Move the buffer and cursor to the selected window
       vim.api.nvim_set_current_win(picked_win)
-      vim.api.nvim_set_current_buf(buf)
+      vim.api.nvim_win_set_buf(picked_win, current_buf)
       vim.api.nvim_win_set_cursor(picked_win, cursor)
     else
+      -- Fallback: If no window picked or same window, create a new vertical split
       vim.cmd.vsplit()
     end
 
+    -- Execute the actual 'Switch' logic (e.g., NgSwitchTS)
     if type(func_or_cmd) == "function" then
       func_or_cmd()
     elseif type(func_or_cmd) == "string" then
@@ -57,6 +62,21 @@ function M.configure_buffer_for_large_file(bufnr)
   vim.cmd("IBLDisable")
   vim.cmd("TSContextDisable")
   vim.diagnostic.enable(false, { bufnr = bufnr })
+end
+
+M.get_project_root = function()
+  local root = vim.fs.root(0, { ".git", "lua", "Cargo.toml", "package.json" })
+  return root or vim.uv.cwd()
+end
+
+M.set_project_root = function()
+  local root = M.get_project_root()
+  if root then
+    vim.api.nvim_set_current_dir(root)
+    print("CWD set to: " .. root)
+  else
+    print("Couldn't get project root dir.")
+  end
 end
 
 return M

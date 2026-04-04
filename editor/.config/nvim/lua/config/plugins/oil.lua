@@ -40,7 +40,7 @@ return {
           desc = "Copy file path",
           mode = "n",
           callback = function()
-            local entry = oil.get_cursor_entry()
+            local entry = oil.get_cursor_entry()  
             local dir = oil.get_current_dir()
             if not entry or not dir then
               return
@@ -63,28 +63,22 @@ return {
             print("Copied directory to system clipboard")
           end,
         },
-        ["<c-w>"] = {
+        ["<C-w>"] = {
           desc = "Open with window picker",
-          buffer = true,
-          nowait = true,
+          mode = "n",
           callback = function()
             local entry = oil.get_cursor_entry()
             if not entry or entry.type ~= "file" then
               return
             end
             local dir = oil.get_current_dir()
+            local full_path = vim.fs.joinpath(dir, entry.name)
             oil.close({ exit_if_last_buf = false })
-            local win = require("window-picker").pick_window({
-              filter_rules = {
-                autoselect_one = true,
-                include_current_win = true,
-              },
-            })
+            local win = Snacks.picker.util.pick_win({ })
 
-            if win then
+            if win and vim.api.nvim_win_is_valid(win) then
               vim.api.nvim_set_current_win(win)
-              local path = vim.fs.joinpath(dir, entry.name)
-              vim.cmd.edit(path)
+              vim.cmd.edit(full_path)
             end
           end,
         },

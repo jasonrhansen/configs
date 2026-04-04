@@ -35,13 +35,12 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   end,
 })
 
-
 -- Cosmic config uses ron files without extensions so they don't get automatically detected.
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   group = "jason-config",
   pattern = { "*/.config/cosmic/**/*" },
   callback = function()
-    vim.opt.filetype = 'ron'
+    vim.opt.filetype = "ron"
   end,
 })
 
@@ -58,3 +57,52 @@ if require("util").is_ssh_session() then
     end,
   })
 end
+
+local ws_group = vim.api.nvim_create_augroup("TrailingWhitespace", { clear = true })
+
+
+--------------------------------------------------------------------------------
+-- Highlight Trailing Whitespace
+--------------------------------------------------------------------------------
+
+-- Ensure the highlight group exists even after colorscheme changes
+local function set_whitespace_hl()
+  vim.api.nvim_set_hl(0, "TrailingWhitespace", { link = "Search", default = true })
+end
+
+-- Run it now, and also every time the colorscheme changes
+set_whitespace_hl()
+vim.api.nvim_create_autocmd("ColorScheme", {
+  group = ws_group,
+  callback = set_whitespace_hl,
+})
+
+-- 2. Apply the visual match to the window
+vim.api.nvim_create_autocmd({ "BufWinEnter", "InsertLeave" }, {
+  group = ws_group,
+  callback = function()
+    -- Only add the match if it doesn't already exist in this window
+    local exists = false
+    for _, m in ipairs(vim.fn.getmatches()) do
+      if m.group == "TrailingWhitespace" then
+        exists = true
+      end
+    end
+
+    if not exists then
+      vim.fn.matchadd("TrailingWhitespace", [[\s\+$]])
+    end
+  end,
+})
+
+-- Remove highlights while typing to avoid distraction
+vim.api.nvim_create_autocmd("InsertEnter", {
+  group = ws_group,
+  callback = function()
+    for _, m in ipairs(vim.fn.getmatches()) do
+      if m.group == "TrailingWhitespace" then
+        vim.fn.matchdelete(m.id)
+      end
+    end
+  end,
+})
