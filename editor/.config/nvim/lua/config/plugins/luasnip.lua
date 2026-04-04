@@ -53,45 +53,29 @@ function M.config()
     s("pd", fmt([[println!("{}: {{:?}}", {});]], { same(1), i(1) })),
   })
 
-  -- Keymaps
-  local wk = require("which-key")
-  wk.add({
-    {
-      "<C-j>",
-      function()
-        if luasnip.expand_or_jumpable() then
-          luasnip.jump(1)
-        end
-      end,
-      desc = "Snippet - expand or jump next",
-      mode = "i",
-      noremap = false,
-    },
-    {
-      "<C-j>",
-      function()
-        luasnip.jump(1)
-      end,
-      desc = "Snippet - jump next",
-      mode = "s",
-    },
-    {
-      "<C-k>",
-      function()
-        luasnip.jump(-1)
-      end,
-      desc = "Snippet - jump previous",
-      mode = { "i", "s" },
-    },
-    {
-      "<C-e>",
-      "luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'",
-      desc = "Snippet - next choice",
-      mode = { "i", "s" },
-      expr = true,
-      noremap = false,
-    },
-  })
+  vim.keymap.set("i", "<C-j>", function()
+    if luasnip.expand_or_jumpable() then
+      luasnip.expand_or_jump()
+    end
+  end, { desc = "Snippet: Expand/Jump Next" })
+
+  vim.keymap.set("s", "<C-j>", function()
+    if luasnip.jumpable(1) then
+      luasnip.jump(1)
+    end
+  end, { desc = "Snippet: Jump Next" })
+
+  vim.keymap.set({ "i", "s" }, "<C-k>", function()
+    if luasnip.jumpable(-1) then
+      luasnip.jump(-1)
+    end
+  end, { desc = "Snippet: Jump Previous" })
+
+  vim.keymap.set({ "i", "s" }, "<C-e>", function()
+    if luasnip.choice_active() then
+      luasnip.change_choice(1)
+    end
+  end, { desc = "Snippet: Next Choice" })
 end
 
 return M
