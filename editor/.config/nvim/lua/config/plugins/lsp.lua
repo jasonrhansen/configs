@@ -13,6 +13,16 @@ local M = {
 }
 
 local function setup_typescript_tools(attach)
+  local ts_keymaps = {
+    ["<leader>yo"] = { "<cmd>TSToolsOrganizeImports<cr>", "Organize imports" },
+    ["<leader>ys"] = { "<cmd>TSToolsSortImports<cr>", "Sort imports" },
+    ["<leader>yu"] = { "<cmd>TSToolsRemoveUnusedImports<cr>", "Remove unused imports" },
+    ["<leader>yi"] = { "<cmd>TSToolsAddMissingImports<cr>", "Add missing imports" },
+    ["<leader>yf"] = { "<cmd>TSToolsFixAll<cr>", "Fix all fixable errors" },
+    ["<leader>yd"] = { "<cmd>TSToolsGoToSourceDefinition<cr>", "Go to source definition" },
+    ["<leader>yr"] = { "<cmd>TSToolsRenameFile<cr>", "Rename and update imports" },
+  }
+
   require("typescript-tools").setup({
     should_attach = function(bufnr)
       return not require("util").is_large_file(bufnr)
@@ -27,17 +37,14 @@ local function setup_typescript_tools(attach)
         client.server_capabilities.renameProvider = false
       end
 
-      require("which-key").add({
-        buffer = bufnr,
-        { "<leader>y", group = "TypeScript Tools" },
-        { "<leader>yo", "<cmd>TSToolsOrganizeImports<cr>", desc = "Organize imports" },
-        { "<leader>ys", "<cmd>TSToolsSortImports<cr>", desc = "Sort imports" },
-        { "<leader>yu", "<cmd>TSToolsRemoveUnusedImports<cr>", desc = "Remove unused imports" },
-        { "<leader>yi", "<cmd>TSToolsAddMissingImports<cr>", desc = "Add missing imports" },
-        { "<leader>yf", "<cmd>TSToolsFixAll<cr>", desc = "Fix all fixable errors" },
-        { "<leader>yd", "<cmd>TSToolsGoToSourceDefinition<cr>", desc = "Go to source definition" },
-        { "<leader>yr", "<cmd>TSToolsRenameFile<cr>", desc = "Rename current file and update connected files" },
-      })
+      for key, map in pairs(ts_keymaps) do
+        vim.keymap.set("n", key, map[1], {
+          buffer = bufnr,
+          desc = map[2],
+        })
+      end
+
+      require("which-key").add({ buffer = bufnr, { "<leader>y", group = "TypeScript Tools" } })
     end,
 
     settings = {
@@ -138,29 +145,15 @@ function M.config()
 
   -- Keymaps that get added to a buffer when attaching an LSP client.
   local register_keymaps = function(buffer)
-    require("which-key").add({
-      buffer = buffer,
-      { "<leader>k", vim.lsp.buf.signature_help, desc = "Signature help" },
-      { "<leader>rn", vim.lsp.buf.rename, desc = "Rename" },
-      { "<F2>", vim.lsp.buf.rename, desc = "Rename" },
-      { "<leader>a", vim.lsp.buf.code_action, desc = "Code action" },
-      { "<leader>d", vim.diagnostic.open_float, desc = "Line diagnostics" },
-      { "<leader>tI", toggle_inlay_hints, desc = "Toggle inlay type hints" },
-      {
-        "<leader>yi",
-        add_missing_import,
-        desc = "Add missing import",
-      },
-      {
-        "<leader>Q",
-        quick_fix_code_action,
-        desc = "Quick fix code action",
-      },
-      {
-        mode = "v",
-        { "<leader>a", vim.lsp.buf.range_code_action, desc = "Code action for range" },
-      },
-    })
+    vim.keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, { buffer = buffer, desc = "Signature help" })
+    vim.keymap.set({ "n", "i" }, "<F2>", vim.lsp.buf.rename, { buffer = buffer, desc = "Rename" })
+    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = buffer, desc = "Rename" })
+    vim.keymap.set({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, { buffer = buffer, desc = "Code action" })
+    vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { buffer = buffer, desc = "Line diagnostics" })
+
+    vim.keymap.set("n", "<leader>tI", toggle_inlay_hints, { buffer = buffer, desc = "Toggle inlay hints" })
+    vim.keymap.set("n", "<leader>yi", add_missing_import, { buffer = buffer, desc = "Add missing import" })
+    vim.keymap.set("n", "<leader>Q", quick_fix_code_action, { buffer = buffer, desc = "Quick fix" })
   end
 
   -- Shared attach function for all LSP clients.

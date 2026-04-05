@@ -55,40 +55,33 @@ function M.config()
       col = 1,
     },
     on_attach = function(bufnr)
-      require("which-key").add({
-        buffer = bufnr,
-        {
-          "]c",
-          function()
-            if vim.wo.diff then
-              vim.cmd.normal({ "]c", bang = true })
-            else
-              gitsigns.nav_hunk("next")
-            end
-          end,
-          desc = "Jump to next hunk",
-        },
-        {
-          "[c",
-          function()
-            if vim.wo.diff then
-              vim.cmd.normal({ "[c", bang = true })
-            else
-              gitsigns.nav_hunk("prev")
-            end
-          end,
-          desc = "Jump to previous hunk",
-        },
-        { "<leader>s", group = "Gitsigns" },
-        { "<leader>ss", gitsigns.stage_hunk, desc = "Stage hunk" },
-        { "<leader>sr", gitsigns.reset_hunk, desc = "Reset hunk" },
-        { "<leader>sR", gitsigns.reset_buffer, desc = "Reset buffer" },
-        { "<leader>sp", gitsigns.preview_hunk, desc = "Preview hunk" },
-        { "<leader>sb", gitsigns.blame_line, desc = "Blame line" },
+      -- Navigation: Smart hunk jumping (diff-aware)
+      vim.keymap.set("n", "]c", function()
+        if vim.wo.diff then
+          vim.cmd.normal({ "]c", bang = true })
+        else
+          gitsigns.nav_hunk("next")
+        end
+      end, { buffer = bufnr, desc = "Git: Next hunk" })
 
-        -- Text objects
-        { "ih", gitsigns.select_hunk, desc = "Select hunk", mode = { "o", "x" } },
-      })
+      vim.keymap.set("n", "[c", function()
+        if vim.wo.diff then
+          vim.cmd.normal({ "[c", bang = true })
+        else
+          gitsigns.nav_hunk("prev")
+        end
+      end, { buffer = bufnr, desc = "Git: Prev hunk" })
+
+      -- Actions
+      vim.keymap.set("n", "<leader>ss", gitsigns.stage_hunk, { buffer = bufnr, desc = "Git: Stage hunk" })
+      vim.keymap.set("n", "<leader>sr", gitsigns.reset_hunk, { buffer = bufnr, desc = "Git: Reset hunk" })
+      vim.keymap.set("n", "<leader>sR", gitsigns.reset_buffer, { buffer = bufnr, desc = "Git: Reset buffer" })
+      vim.keymap.set("n", "<leader>sp", gitsigns.preview_hunk, { buffer = bufnr, desc = "Git: Preview hunk" })
+      vim.keymap.set("n", "<leader>sb", gitsigns.blame_line, { buffer = bufnr, desc = "Git: Blame line" })
+
+      -- Text objects (Inner Hunk)
+      -- This allows for 'dih' (delete in hunk) or 'yih' (yank in hunk)
+      vim.keymap.set({ "o", "x" }, "ih", gitsigns.select_hunk, { buffer = bufnr, desc = "Git: Select hunk" })
     end,
   })
 end

@@ -29,6 +29,6 @@ return {
       end
     end
 
-    require("which-key").add({ "<leader>D", toggle_diffview, desc = "Toggle diffview" })
+    vim.keymap.set("n", "<leader>D", toggle_diffview, { desc = "Toggle diffview" })
   end,
 }
