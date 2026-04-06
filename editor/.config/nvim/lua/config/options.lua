@@ -36,7 +36,8 @@ opt.softtabstop = 2
 opt.shiftround = true
 
 -- Scrolling & Splits
-opt.scrolloff = 4
+opt.scrolloff = 8
+opt.smoothscroll = true
 opt.sidescrolloff = 5
 opt.splitbelow = true
 opt.splitright = true
