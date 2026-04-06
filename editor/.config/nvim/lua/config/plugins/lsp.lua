@@ -268,6 +268,9 @@ function M.config()
           hint = {
             enable = true,
           },
+          completion = {
+            callSnippet = "Replace",
+          },
         },
       },
     },

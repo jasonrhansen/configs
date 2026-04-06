@@ -91,6 +91,11 @@ opt.visualbell = true
 
 vim.cmd.syntax("on")
 
+if vim.fn.has("nvim-0.12") == 1 then
+  require('vim._core.ui2').enable({})
+  opt.cmdheight = 0
+end
+
 vim.g.python3_host_prog = vim.fn.trim(vim.fn.system("which python3"))
 
 -- Make sure these directories are created if they don't already exist.
