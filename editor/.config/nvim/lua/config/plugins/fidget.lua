@@ -1,6 +1,6 @@
 return {
   "j-hui/fidget.nvim",
-  tag = "v1.6.2",
+  tag = "v1.6.1",
   opts = {
     progress = {
       display = {
