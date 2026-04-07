@@ -3,11 +3,18 @@ local M = {
 }
 
 function M.config()
-  -- Update lightbulb on cursor hold.
-  vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-    group = "jason-config",
+  local lightbulb = require("nvim-lightbulb")
+
+  lightbulb.setup({
+    autocmd = { enabled = false },
+    sign = { enabled = true, priority = 10 },
+    float = { enabled = false },
+  })
+
+  vim.api.nvim_create_autocmd({ "LspTokenUpdate", "CursorMoved", "CursorMovedI" }, {
+    group = vim.api.nvim_create_augroup("jason-lightbulb", { clear = true }),
     callback = function()
-      require("nvim-lightbulb").update_lightbulb()
+      lightbulb.update_lightbulb()
     end,
   })
 end

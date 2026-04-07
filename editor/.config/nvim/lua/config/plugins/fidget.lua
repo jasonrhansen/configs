@@ -1,7 +1,6 @@
--- Progress indicator
 return {
   "j-hui/fidget.nvim",
-  tag = "v1.5.0",
+  tag = "v1.6.2",
   opts = {
     progress = {
       display = {
@@ -9,17 +8,19 @@ return {
           pattern = "circle_halves",
           period = 1,
         },
-      },
-      ignore = {
-        -- Because of integration with ts-node-action, every time the cursor position
-        -- changes a null-ls notification is shown, which can be quite annoying, so ignore them.
-        "null-ls",
+        group_style = "Title",
       },
     },
     notification = {
       window = {
         winblend = 0,
+        border = "none",
+        relative = "editor",
       },
+    },
+    integration = {
+      ["nvim-tree"] = { enable = true },
+      ["xcodebuild-nvim"] = { enable = true },
     },
   },
 }

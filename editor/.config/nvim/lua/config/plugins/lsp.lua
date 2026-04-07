@@ -233,6 +233,12 @@ function M.config()
               enable = false,
             },
           },
+          diagnostics = {
+            enable = true,
+            experimental = {
+              pullModels = true,
+            },
+          },
         },
       },
     },

@@ -76,6 +76,17 @@ function M.config()
       luasnip.change_choice(1)
     end
   end, { desc = "Snippet: Next Choice" })
+
+  vim.api.nvim_create_autocmd("ModeChanged", {
+  group = "jason-config",
+  pattern = { "s:n", "i:n" }, -- From Select/Insert to Normal
+  callback = function()
+    if luasnip.session.current_nodes[vim.api.nvim_get_current_buf()]
+       and not luasnip.session.jump_active then
+      luasnip.unlink_current()
+    end
+  end,
+})
 end
 
 return M
