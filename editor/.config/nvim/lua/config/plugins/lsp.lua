@@ -256,8 +256,8 @@ function M.config()
       },
       initialization_options = {
         diagnostics = true,
-        reporters = { 'rubocop' },
-      }
+        reporters = { "rubocop" },
+      },
     },
     stylelint_lsp = {},
     lua_ls = {

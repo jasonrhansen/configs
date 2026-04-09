@@ -51,7 +51,7 @@ return {
     signature = { enabled = true, window = { border = "rounded" } },
 
     sources = {
-      default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+      default = { "lazydev", "lsp", "path", "snippets", "buffer", "rubocop_rules" },
       per_filetype = {
         codecompanion = { "codecompanion", "snippets", "buffer" },
       },
@@ -59,6 +59,22 @@ return {
         lazydev = {
           name = "LazyDev",
           module = "lazydev.integrations.blink",
+          score_offset = 100,
+        },
+        rubocop_rules = {
+          name = "Rubocop",
+          module = "blink_rubocop",
+          enabled = function()
+            return vim.bo.filetype == "ruby"
+          end,
+
+          should_show_items = function()
+            local line = vim.api.nvim_get_current_line()
+            local col = vim.api.nvim_win_get_cursor(0)[2]
+            local before_cursor = line:sub(1, col)
+
+            return before_cursor:match("#%s*rubocop:dis") ~= nil
+          end,
           score_offset = 100,
         },
       },
