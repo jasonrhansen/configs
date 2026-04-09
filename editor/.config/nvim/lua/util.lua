@@ -1,29 +1,46 @@
 local M = {}
 
-M.pick_window = function(func_or_cmd)
+function M.normal_windows_in_current_tab()
+  local tab_wins = vim.api.nvim_tabpage_list_wins(0)
+  local normal_wins = {}
+  for _, win in ipairs(tab_wins) do
+    local config = vim.api.nvim_win_get_config(win)
+    if config.relative == "" and config.focusable then
+      table.insert(normal_wins, win)
+    end
+  end
+
+  return normal_wins
+end
+
+function M.pick_window(func_or_cmd)
   return function()
-    local current_buf = vim.api.nvim_get_current_buf()
-    local cursor = vim.api.nvim_win_get_cursor(0)
+    local normal_wins = M.normal_windows_in_current_tab()
 
-    -- Snacks.picker.util.pick_win() provides the UI for selecting a window
-    local picked_win = Snacks.picker.util.pick_win()
-
-    if picked_win and picked_win ~= vim.api.nvim_get_current_win() then
-      -- Move the buffer and cursor to the selected window
-      vim.api.nvim_set_current_win(picked_win)
-      vim.api.nvim_win_set_buf(picked_win, current_buf)
-      vim.api.nvim_win_set_cursor(picked_win, cursor)
-    else
-      -- Fallback: If no window picked or same window, create a new vertical split
+    if #normal_wins == 1 then
       vim.cmd.vsplit()
+    else
+      local current_buf = vim.api.nvim_get_current_buf()
+      local current_win = vim.api.nvim_get_current_win()
+      local cursor = vim.api.nvim_win_get_cursor(0)
+      local picked_win = Snacks.picker.util.pick_win()
+
+      if picked_win and picked_win ~= current_win then
+        -- Move the buffer and cursor to the selected window
+        vim.api.nvim_set_current_win(picked_win)
+        vim.api.nvim_win_set_buf(picked_win, current_buf)
+        vim.api.nvim_win_set_cursor(picked_win, cursor)
+      end
     end
 
     -- Execute the actual 'Switch' logic (e.g., NgSwitchTS)
-    if type(func_or_cmd) == "function" then
-      func_or_cmd()
-    elseif type(func_or_cmd) == "string" then
-      vim.cmd(func_or_cmd)
-    end
+    vim.schedule(function()
+      if type(func_or_cmd) == "function" then
+        func_or_cmd()
+      elseif type(func_or_cmd) == "string" then
+        vim.cmd(func_or_cmd)
+      end
+    end)
   end
 end
 
