@@ -254,6 +254,10 @@ function M.config()
           diagnostics = true,
         },
       },
+      initialization_options = {
+        diagnostics = true,
+        reporters = { 'rubocop' },
+      }
     },
     stylelint_lsp = {},
     lua_ls = {
