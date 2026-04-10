@@ -16,24 +16,31 @@ end
 function M.pick_window(func_or_cmd)
   return function()
     local normal_wins = M.normal_windows_in_current_tab()
+    local current_win = vim.api.nvim_get_current_win()
+    local current_buf = vim.api.nvim_get_current_buf()
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local picked_win
 
     if #normal_wins == 1 then
       vim.cmd.vsplit()
-    else
-      local current_buf = vim.api.nvim_get_current_buf()
-      local current_win = vim.api.nvim_get_current_win()
-      local cursor = vim.api.nvim_win_get_cursor(0)
-      local picked_win = Snacks.picker.util.pick_win()
-
-      if picked_win and picked_win ~= current_win then
-        -- Move the buffer and cursor to the selected window
-        vim.api.nvim_set_current_win(picked_win)
-        vim.api.nvim_win_set_buf(picked_win, current_buf)
-        vim.api.nvim_win_set_cursor(picked_win, cursor)
+    elseif #normal_wins == 2 then
+      for _, win in ipairs(normal_wins) do
+        if win ~= current_win then
+          picked_win = win
+          break
+        end
       end
+    else
+      picked_win = Snacks.picker.util.pick_win()
     end
 
-    -- Execute the actual 'Switch' logic (e.g., NgSwitchTS)
+    if picked_win and picked_win ~= current_win then
+      -- Move the buffer and cursor to the selected window
+      vim.api.nvim_set_current_win(picked_win)
+      vim.api.nvim_win_set_buf(picked_win, current_buf)
+      vim.api.nvim_win_set_cursor(picked_win, cursor)
+    end
+
     vim.schedule(function()
       if type(func_or_cmd) == "function" then
         func_or_cmd()
