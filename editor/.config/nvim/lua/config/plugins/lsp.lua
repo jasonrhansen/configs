@@ -158,7 +158,7 @@ function M.config()
 
   -- Shared attach function for all LSP clients.
   local attach = function(_client, buffer)
-    -- Register keymaps with which-key for the attached buffer
+    -- Register keymaps for the attached buffer
     register_keymaps(buffer)
   end
 
