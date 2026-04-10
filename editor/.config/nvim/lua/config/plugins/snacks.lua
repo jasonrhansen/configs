@@ -1,8 +1,45 @@
 local pick_window = require("util").pick_window
 
 local function lsp_definitions()
-  Snacks.picker.lsp_definitions({
-    jump = { reuse_win = false },
+  vim.lsp.buf.definition({
+    on_list = function(options)
+      if #options.items == 0 then
+        return
+      end
+
+      -- When defining a function in lua like this:
+      --
+      --   local foo = function()
+      --       ...
+      --   end
+      --
+      -- If I want to jump to its definition, I don't want to get multiple choices
+      -- to select from in the picker (one for the binding and one for the function definition).
+      -- So if all definitions are on the same line of the same file just jump to the first one.
+      local first = options.items[1]
+      local same_line = true
+      for i = 2, #options.items do
+        if options.items[i].lnum ~= first.lnum or options.items[i].filename ~= first.filename then
+          same_line = false
+          break
+        end
+      end
+
+      if same_line then
+        local location = {
+          uri = vim.uri_from_fname(first.filename),
+          range = {
+            start = { line = first.lnum - 1, character = first.col - 1 },
+            ["end"] = { line = first.lnum - 1, character = first.col - 1 },
+          },
+        }
+        vim.lsp.util.show_document(location, "utf-8", { reuse_win = false })
+      else
+        Snacks.picker.lsp_definitions({
+          jump = { reuse_win = false },
+        })
+      end
+    end,
   })
 end
 
