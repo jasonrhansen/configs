@@ -48,9 +48,6 @@ return {
   -- Add emacs key bindings to vim in insert and command-line modes.
   "maxbrunsfeld/vim-emacs-bindings",
 
-  -- Quickly switch between Angular files
-  "softoika/ngswitcher.vim",
-
   -- Highlight hex and RGB colors in code
   {
     "brenoprata10/nvim-highlight-colors",

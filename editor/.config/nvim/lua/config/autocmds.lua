@@ -113,3 +113,71 @@ vim.api.nvim_create_autocmd("InsertEnter", {
     end
   end,
 })
+
+--------------------------------------------------------------------------------
+-- Angular: Jump Between Files
+--------------------------------------------------------------------------------
+
+local function jump_to_angular_file(suffix)
+  local base_path = vim.fn.expand("%:p:r"):gsub("%.spec$", "")
+  local target_file = base_path .. suffix
+
+  if vim.fn.filereadable(target_file) == 1 then
+    vim.cmd("edit " .. target_file)
+  else
+    if suffix == ".scss" then
+      local css_fallback = base_path .. ".css"
+      if vim.fn.filereadable(css_fallback) == 1 then
+        vim.cmd("edit " .. css_fallback)
+        return
+      end
+    end
+    vim.notify("Angular file not found: " .. target_file, vim.log.levels.WARN)
+  end
+end
+
+local function setup_angular_keymaps()
+  -- Check if we are in an Angular
+  local root = vim.fs.root(0, { "angular.json", "nx.json" })
+  if not root then
+    return
+  end
+
+  local jump_to_ts = function()
+    return jump_to_angular_file(".ts")
+  end
+
+  local jump_to_html = function()
+    return jump_to_angular_file(".html")
+  end
+
+  local jump_to_scss = function()
+    return jump_to_angular_file(".scss")
+  end
+
+  local jump_to_spec = function()
+    return jump_to_angular_file(".spec.ts")
+  end
+
+  local pick_window = require("util").pick_window
+  local mappings = {
+    ["<leader>nt"] = { jump_to_ts, "Angular: Jump to TS" },
+    ["<leader>nh"] = { jump_to_html, "Angular: Jump to HTML" },
+    ["<leader>nc"] = { jump_to_scss, "Angular: Jump to SCSS/CSS" },
+    ["<leader>ns"] = { jump_to_spec, "Angular: Jump to Spec" },
+    ["<leader>nnt"] = { pick_window(jump_to_ts), "Angular: Pick & Jump to TS" },
+    ["<leader>nnh"] = { pick_window(jump_to_html), "Angular: Pick & Jump to HTML" },
+    ["<leader>nnc"] = { pick_window(jump_to_scss), "Angular: Pick & Jump to SCSS/CSS" },
+    ["<leader>nns"] = { pick_window(jump_to_spec), "Angular: Pick & Jump to Spec" },
+  }
+
+  for key, map in pairs(mappings) do
+    vim.keymap.set("n", key, map[1], { buffer = true, silent = true, desc = map[2] })
+  end
+end
+
+-- Only trigger the check for relevant filetypes
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "typescript", "html", "css", "scss" },
+  callback = setup_angular_keymaps,
+})

@@ -97,16 +97,6 @@ vim.keymap.set("n", "<leader>tW", toggle_winbar, { desc = "Toggle: Winbar" })
 vim.keymap.set("n", "<leader>tq", toggle_quickfix, { desc = "Toggle: Quickfix/Indent guides" })
 vim.keymap.set("n", "<leader>tc", "<cmd>TSContextToggle<cr>", { desc = "Toggle: Treesitter context" })
 
--- NG Switcher (Standard)
-vim.keymap.set("n", "<leader>nt", "<cmd>NgSwitchTS<cr>", { desc = "NG: Switch to TS" })
-vim.keymap.set("n", "<leader>nc", "<cmd>NgSwitchCSS<cr>", { desc = "NG: Switch to CSS/SCSS" })
-vim.keymap.set("n", "<leader>nh", "<cmd>NgSwitchHTML<cr>", { desc = "NG: Switch to HTML" })
-vim.keymap.set("n", "<leader>nS", "<cmd>NgSwitchSpec<cr>", { desc = "NG: Switch to Spec" })
-vim.keymap.set("n", "<leader>nnt", pick_window("NgSwitchTS"), { desc = "NG: Pick & Switch to TS" })
-vim.keymap.set("n", "<leader>nnc", pick_window("NgSwitchCSS"), { desc = "NG: Pick & Switch to CSS" })
-vim.keymap.set("n", "<leader>nnh", pick_window("NgSwitchHTML"), { desc = "NG: Pick & Switch to HTML" })
-vim.keymap.set("n", "<leader>nns", pick_window("NgSwitchSpec"), { desc = "NG: Pick & Switch to Spec" })
-
 -- Diagnostic navigattion
 vim.keymap.set("n", "]d", function()
   vim.diagnostic.jump({ count = 1, float = true })
