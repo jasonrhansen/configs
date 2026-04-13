@@ -178,6 +178,6 @@ end
 
 -- Only trigger the check for relevant filetypes
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "typescript", "html", "css", "scss" },
+  pattern = { "typescript", "html", "htmlangular", "css", "scss" },
   callback = setup_angular_keymaps,
 })
