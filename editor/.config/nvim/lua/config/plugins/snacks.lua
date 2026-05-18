@@ -93,9 +93,13 @@ return {
     },
     uti = { enabled = true },
     picker = {
-      -- your picker configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
+      sources = {
+        grep = {
+          exclude = {
+            "**/flamegraph.pl", -- This is causing neovim to freeze because of issues with perl treesitter.
+          },
+        },
+      },
       win = {
         -- input window
         input = {
