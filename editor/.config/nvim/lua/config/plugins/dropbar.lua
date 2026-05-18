@@ -1,10 +1,6 @@
 return {
 	"Bekaboo/dropbar.nvim",
 	-- optional, but required for fuzzy finder support
-	dependencies = {
-		"nvim-telescope/telescope-fzf-native.nvim",
-		build = "make",
-	},
 	config = function()
 		local dropbar = require("dropbar")
 		local sources = require("dropbar.sources")
