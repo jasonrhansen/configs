@@ -129,4 +129,7 @@ return {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown", "codecompanion" },
   },
+
+  -- We need to use the master branch of plenary https://github.com/olimorris/codecompanion.nvim/issues/377
+  { "nvim-lua/plenary.nvim", branch = "master" },
 }

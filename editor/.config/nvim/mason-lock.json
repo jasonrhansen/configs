@@ -1,20 +1,20 @@
 {
-  "angular-language-server": "21.2.8",
+  "angular-language-server": "21.2.13",
   "bash-language-server": "5.6.0",
   "css-lsp": "4.10.0",
   "dockerfile-language-server": "0.15.0",
   "emmet-language-server": "2.8.0",
   "graphql-language-service-cli": "3.5.0",
   "html-lsp": "4.10.0",
-  "intelephense": "1.16.5",
+  "intelephense": "1.18.2",
   "json-lsp": "4.10.0",
-  "lemminx": "0.29.0",
-  "lua-language-server": "3.18.1",
+  "lemminx": "0.29.2",
+  "lua-language-server": "3.18.2",
   "prettierd": "0.27.0",
-  "pyright": "1.1.408",
-  "sql-formatter": "15.7.3",
+  "pyright": "1.1.409",
+  "sql-formatter": "15.7.4",
   "sqlls": "1.7.1",
-  "stylua": "v2.4.1",
+  "stylua": "v2.5.2",
   "vim-language-server": "2.3.1",
-  "yaml-language-server": "1.21.0"
+  "yaml-language-server": "1.23.0"
 }
