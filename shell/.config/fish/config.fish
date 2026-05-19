@@ -40,17 +40,25 @@ end
 
 # Create or open a tmux session for the given directory.
 # The session name will be based off of the directory name.
-function tmux_for_dir -a dir
+function tmux_for_dir -a dir attach
     set session_name $(basename "$dir" | tr . _)
     set tmux_running $(pgrep tmux)
 
     if test -z "$TMUX"; and test -z "$tmux_running"
-        tmux new-session -s $session_name -c $dir
+        if test "$attach" = false
+            tmux new-session -ds $session_name -c $dir
+        else
+            tmux new-session -s $session_name -c $dir
+        end
         return
     end
 
     if ! tmux has-session -t=$session_name 2>/dev/null
         tmux new-session -ds $session_name -c $dir
+    end
+
+    if test "$attach" = false
+        return
     end
 
     if test -z "$TMUX"
