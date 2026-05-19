@@ -1,17 +1,29 @@
 return {
   "olimorris/codecompanion.nvim",
+  version = "^19.0.0",
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
   },
   config = function()
     require("codecompanion").setup({
-      strategies = {
+      interactions = {
         chat = {
           adapter = "anthropic_sonnet",
         },
         inline = {
           adapter = "anthropic_haiku",
+        },
+        cli = {
+          agent = "claude_code",
+          agents = {
+            claude_code = {
+              cmd = "claude",
+              args = {},
+              description = "Claude Code CLI",
+              provider = "terminal",
+            },
+          },
         },
       },
       adapters = {
@@ -61,15 +73,21 @@ return {
 
     vim.keymap.set(
       { "n", "v" },
-      "<leader>A",
+      "<leader>ca",
       "<cmd>CodeCompanionActions<cr>",
       { desc = "Code Companion Actions", noremap = true, silent = true }
     )
     vim.keymap.set(
       { "n", "v" },
-      "<Leader>C",
+      "<Leader>ch",
       "<cmd>CodeCompanionChat toggle<cr>",
       { desc = "Code Companion Chat", noremap = true, silent = true }
+    )
+    vim.keymap.set(
+      { "n", "v" },
+      "<Leader>cl",
+      "<cmd>CodeCompanionCLI toggle<cr>",
+      { desc = "Code Companion CLI", noremap = true, silent = true }
     )
     vim.cmd([[cab cc CodeCompanion]])
   end,

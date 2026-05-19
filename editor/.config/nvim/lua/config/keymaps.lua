@@ -177,19 +177,19 @@ vim.keymap.set("n", "<leader>cr", util.set_project_root, { desc = "Set CWD to pr
 --------------------------------------------------------------------------------
 -- Clipboard Utilities
 --------------------------------------------------------------------------------
-vim.keymap.set("n", "<leader>cf", function()
+vim.keymap.set("n", "<leader>Cf", function()
   local val = vim.fn.expand("%:t")
   util.copy_to_clipboard(val)
   print("Copied file name: " .. val)
 end, { desc = "Copy: File name" })
 
-vim.keymap.set("n", "<leader>cp", function()
+vim.keymap.set("n", "<leader>Cp", function()
   local val = vim.fn.expand("%:p")
   util.copy_to_clipboard(val)
   print("Copied file path: " .. val)
 end, { desc = "Copy: Full path" })
 
-vim.keymap.set("n", "<leader>cd", function()
+vim.keymap.set("n", "<leader>Cd", function()
   local val = vim.fn.expand("%:p:h")
   util.copy_to_clipboard(val)
   print("Copied directory: " .. val)
