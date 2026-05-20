@@ -8,14 +8,13 @@ set -x FZF_DEFAULT_OPTS '--height 40% --layout=reverse --border'
 set -x VISUAL nvim
 set -x EDITOR nvim
 
-if command -q -v eza
+if command -q eza
     abbr -a ls eza
     abbr -a ll 'eza -l'
     abbr -a la 'eza -a'
     abbr -a lla 'eza -la'
     abbr -a lst 'eza --tree'
 else
-    abbr -a ls ls
     abbr -a ll 'ls -l'
     abbr -a la 'ls -a'
     abbr -a lla 'ls -la'
@@ -41,8 +40,8 @@ end
 # Create or open a tmux session for the given directory.
 # The session name will be based off of the directory name.
 function tmux_for_dir -a dir attach
-    set session_name $(basename "$dir" | tr . _)
-    set tmux_running $(pgrep tmux)
+    set session_name (basename "$dir" | tr . _)
+    set tmux_running (pgrep tmux)
 
     if test -z "$TMUX"; and test -z "$tmux_running"
         if test "$attach" = false
@@ -76,7 +75,7 @@ function tms -a search
         set fzf_cmd fzf
     end
 
-    set selected $(begin; echo ~/configs && find ~/dev ~/dev/others -mindepth 1 -maxdepth 1 -type d; end | eval " $fzf_cmd" )
+    set selected (begin; echo ~/configs && find ~/dev ~/dev/others -mindepth 1 -maxdepth 1 -type d; end | eval " $fzf_cmd")
 
     if test -z "$selected"
         return
@@ -87,30 +86,30 @@ end
 
 # Create or open a tmux session with the name set to the dir name.
 function tmd
-    tmux_for_dir "$(pwd)"
+    tmux_for_dir (pwd)
 end
 
 function tma -a session
     if set -q session
-        tmux attach
-    else
         tmux attach -t "$session"
+    else
+        tmux attach
     end
 end
 
 # Fuzzy find and attach to a tmux session.
 function tmas
     if set -q argv[1]
-        set selected $(tmux list-sessions | fzf)
-    else
         set selected $argv[1]
+    else
+        set selected (tmux list-sessions | fzf)
     end
 
-    if set -q selected
-        tmux attach
+    if test -z "$selected"
+        return
     end
 
-    set selected $(echo $selected | cut -d: -f1)
+    set selected (echo $selected | cut -d: -f1)
 
     tmux attach -t "$selected"
 end
@@ -118,9 +117,9 @@ end
 # Fuzzy search for a directory and cd into it.
 function sd -a directory
     if [ -z "$directory" ]
-        cd "$(fdfind -t d | fzf)"
+        cd (fdfind -t d | fzf)
     else
-        cd "$(fdfind -t d '' $search | fzf)"
+        cd (fdfind -t d '' $directory | fzf)
     end
 end
 
@@ -146,11 +145,13 @@ fish_add_path ~/.local/bin
 fish_add_path --append ~/.cargo/bin
 fish_add_path --append $GOPATH/bin
 
-if command -q -v rbenv
+if command -q rbenv
     source (rbenv init - | psub)
 end
 
-set -x RUST_SRC_PATH "$(rustc --print sysroot)/lib/rustlib/src/rust/library"
+if command -q rustc
+    set -x RUST_SRC_PATH (rustc --print sysroot)/lib/rustlib/src/rust/library
+end
 
 if status is-interactive
     starship init fish | source
