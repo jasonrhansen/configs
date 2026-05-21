@@ -128,6 +128,21 @@ return {
   {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown", "codecompanion" },
+    opts = {
+      anti_conceal = {
+        disabled_modes = { "n" },
+      },
+      win_options = {
+        concealcursor = {
+          rendered = "n",
+        },
+      },
+      completions = {
+        lsp = {
+          enabled = true,
+        },
+      },
+    },
   },
 
   -- We need to use the master branch of plenary https://github.com/olimorris/codecompanion.nvim/issues/377
