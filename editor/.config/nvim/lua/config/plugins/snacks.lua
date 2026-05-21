@@ -317,20 +317,6 @@ return {
       desc = "Buffer Lines",
     },
     {
-      "<leader>fc",
-      function()
-        Snacks.picker.command_history()
-      end,
-      desc = "Command History",
-    },
-    {
-      "<leader>fC",
-      function()
-        Snacks.picker.commands()
-      end,
-      desc = "Commands",
-    },
-    {
       "<leader>fD",
       function()
         Snacks.picker.diagnostics()

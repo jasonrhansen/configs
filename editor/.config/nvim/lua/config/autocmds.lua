@@ -4,7 +4,7 @@ vim.api.nvim_create_augroup("jason-config", { clear = true })
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   group = "jason-config",
   callback = function()
-    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 300 })
+    vim.hl.on_yank({ higroup = "IncSearch", timeout = 300 })
   end,
 })
 

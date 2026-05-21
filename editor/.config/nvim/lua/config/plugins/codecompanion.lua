@@ -7,7 +7,7 @@ return {
   },
   config = function()
     require("codecompanion").setup({
-      interactions = {
+      strategies = {
         chat = {
           adapter = "anthropic_sonnet",
         },

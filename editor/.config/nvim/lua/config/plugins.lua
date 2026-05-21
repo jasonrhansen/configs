@@ -18,7 +18,6 @@ return {
   { "tmux-plugins/vim-tmux", ft = "tmux" },
 
   -- Git
-  { "tpope/vim-git", cmd = "Git" },
   "tpope/vim-fugitive",
 
   -- Highlight and search for todo comments like TODO, HACK, BUG
@@ -58,14 +57,11 @@ return {
         virtual_symbol = "■",
       })
 
-      vim.keymap.set("n", "<leader>tc", "<cmd>HighlightColorsToggle<cr>", {
+      vim.keymap.set("n", "<leader>tH", "<cmd>HighlightColorsToggle<cr>", {
         desc = "Toggle highlight colors",
       })
     end,
   },
-
-  -- Icons to use in the status bar
-  "ryanoasis/vim-devicons",
 
   -- Sessions
   {
@@ -82,7 +78,6 @@ return {
   "mustache/vim-mustache-handlebars",
   "tpope/vim-rails",
   "fladson/vim-kitty", -- kitty.conf
-  "nickeb96/fish.vim",
 
   -- Muliple cursors
   {
