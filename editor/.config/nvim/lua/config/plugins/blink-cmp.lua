@@ -73,7 +73,7 @@ return {
             local col = vim.api.nvim_win_get_cursor(0)[2]
             local before_cursor = line:sub(1, col)
 
-            return before_cursor:match("#%s*rubocop:dis") ~= nil
+            return before_cursor:match("#%s*rubocop:dis") ~= nil or before_cursor:match("#%s*rubocop:todo") ~= nil
           end,
           score_offset = 100,
         },
