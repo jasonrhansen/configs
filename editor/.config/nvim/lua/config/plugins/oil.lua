@@ -45,6 +45,17 @@ return {
             vim.notify("Path copied to clipboard")
           end,
         },
+        ["<leader>/"] = {
+          desc = "Grep in oil directory",
+          callback = function()
+            local dir = oil.get_current_dir()
+            if not dir then
+              Snacks.picker.grep()
+              return
+            end
+            Snacks.picker.grep({ title = "Grep in oil dir", cwd = dir, dirs = { dir } })
+          end,
+        },
         ["<C-w>"] = {
           desc = "Open with window picker",
           callback = function()
