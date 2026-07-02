@@ -98,7 +98,9 @@ function M.config()
   -- 1. mason
   -- 2. mason-lspconfig
   -- 3. nvim-lspconfig
-  require("mason").setup()
+  require("mason").setup({
+    ui = { border = "none" },
+  })
   require("mason-lock").setup()
   require("mason-lspconfig").setup({
     ensure_installed = {
