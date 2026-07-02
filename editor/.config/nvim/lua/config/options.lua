@@ -26,6 +26,17 @@ opt.wildignorecase = true
 -- Mouse & Clipboard
 opt.mouse = "a"
 opt.mousemodel = "popup_setpos" -- Right-click on selection should bring up a menu
+vim.g.clipboard = {
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+  },
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+  },
+}
 opt.clipboard = "unnamedplus" -- Native OSC 52 handles SSH automatically if setup correctly
 
 -- Indentation
