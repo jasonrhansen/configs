@@ -243,21 +243,8 @@ function M.config()
       },
     },
     -- Ruby
-    solargraph = {
-      cmd = { os.getenv("HOME") .. "/.rbenv/shims/solargraph", "stdio" },
-      init_options = {
-        formatting = false,
-      },
-      settings = {
-        solargraph = {
-          useBundler = false,
-          diagnostics = true,
-        },
-      },
-      initialization_options = {
-        diagnostics = true,
-        reporters = { "rubocop" },
-      },
+    ruby_lsp = {
+      cmd = { "bundle", "exec", "ruby-lsp" },
     },
     stylelint_lsp = {},
     lua_ls = {
