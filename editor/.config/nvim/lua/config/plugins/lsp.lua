@@ -247,6 +247,18 @@ function M.config()
     -- Ruby
     ruby_lsp = {
       cmd = { "bundle", "exec", "ruby-lsp" },
+      capabilities = vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), {
+        workspace = {
+          didChangeWatchedFiles = {
+            dynamicRegistration = true,
+          },
+        },
+      }),
+      init_options = {
+        enabledFeatureFlags = {
+          tapiocaAddon = true,
+        },
+      },
     },
     stylelint_lsp = {},
     lua_ls = {
