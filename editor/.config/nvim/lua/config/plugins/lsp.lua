@@ -255,6 +255,12 @@ function M.config()
         },
       }),
       init_options = {
+        enabledFeatures = {
+          -- Disable features I don't care about that were using a lot of memory.
+          semanticHighlighting = false,
+          workspaceSymbol = false,
+          codeLens = false,
+        },
         enabledFeatureFlags = {
           tapiocaAddon = true,
         },
